@@ -44,12 +44,18 @@ public class Narrator {
         monolog("Скоро ты появишься в дивном мире, где ты сможешь достичь необычайных высот", "Неизвестный");
         monolog("Скажи мне своё имя, дитя:", "Неизвестный");
         monolog("Имя: ");
-        String name = input.nextLine();
-        if (name.equals("")){
-            monolog("Ну и ну, решил остаться безымянным? Пусть так тебя и будут звать!", "Неизвестный");
-            name = "Безымянный";
+
+        ChooseNameWindow chooseNameWindow = new ChooseNameWindow();
+        player.name = "";
+        while (!chooseNameWindow.getCheck()){
+            player.name = chooseNameWindow.getName();
         }
-        player.setName(name);
+        chooseNameWindow.close();
+
+        if (player.name.equals("Безымянный")){
+            monolog("Ну и ну, решил остаться безымянным? Пусть так тебя и будут звать!", "Неизвестный");
+        }
+
         if (skill_points_count > 0){
             monolog("Ладно, пожалуй нам стоит задать твой вектор развития, я дам тебе " + skill_points_count + " очков прокачки", "Неизвестный");
             monolog("Распредели их как следует:", "Неизвестный");
