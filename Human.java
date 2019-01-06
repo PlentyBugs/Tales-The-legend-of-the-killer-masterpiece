@@ -6,25 +6,7 @@ public class Human extends LiveCreature {
     protected String name = "JGame.Human";
     protected String location = "Пустота";
 
-    protected int strength = 5;
-    protected int speed = 5;
-    protected int agility = 5;
-    protected int intelligence = 5;
-    protected int luck = 5;
-    protected int eloquence = 5;
-    protected int blacksmith = 5;
-    protected int alchemy = 5;
-    protected int one_handed_weapon = 5;
-    protected int two_handed_weapon = 5;
-    protected int pole_weapon = 5;
-    protected int chopping_weapon = 5;
-    protected int long_range_weapon = 5;
-
-    protected int knowledge = 0;
-    protected int energy = 0;
-
-    protected int militarism = 0;
-    protected int pacifism = 0;
+    Stats stats = new Stats();
 
     protected int upPointCount = 0;
     public int hp = 100;
@@ -32,6 +14,27 @@ public class Human extends LiveCreature {
     protected String race = "Человек";
 
     public Human(int x, int y, String name){
+
+        stats.strength = 5;
+        stats.speed = 5;
+        stats.agility = 5;
+        stats.intelligence = 5;
+        stats.luck = 5;
+        stats.eloquence = 5;
+        stats.blacksmith = 5;
+        stats.alchemy = 5;
+        stats.one_handed_weapon = 5;
+        stats.two_handed_weapon = 5;
+        stats.pole_weapon = 5;
+        stats.chopping_weapon = 5;
+        stats.long_range_weapon = 5;
+
+        stats.knowledge = 0;
+        stats.energy = 0;
+
+        stats.militarism = 0;
+        stats.pacifism = 0;
+
         this.name = name;
         this.x = x;
         this.y = y;
@@ -52,21 +55,19 @@ public class Human extends LiveCreature {
 
     public void getStatusStats(){
         System.out.println("Статы:");
-        System.out.println("\tСила: " + strength);
-        System.out.println("\tЛовкость: " + agility);
-        System.out.println("\tСкорость: " + speed);
-        System.out.println("\tИнтеллект: " + intelligence);
-        System.out.println("\tУдача: " + luck);
-        System.out.println("\tКрасноречие: " + eloquence);
-        System.out.println("\tКузнечное дело: " + blacksmith);
-        System.out.println("\tАлхимия: " + alchemy);
-        System.out.println("\tОдноручное оружие: " + one_handed_weapon);
-        System.out.println("\tДвуручное оружие: " + two_handed_weapon);
-        System.out.println("\tДревковое оружие: " + pole_weapon);
-        System.out.println("\tРубящее оружие: " + chopping_weapon);
-        System.out.println("\tДальнобойное оружие: " + long_range_weapon);
-        System.out.println("\tМилитаризм: " + militarism);
-        System.out.println("\tПацифизм: " + pacifism);
+        System.out.println("\tСила: " + stats.strength);
+        System.out.println("\tЛовкость: " + stats.agility);
+        System.out.println("\tСкорость: " + stats.speed);
+        System.out.println("\tИнтеллект: " + stats.intelligence);
+        System.out.println("\tУдача: " + stats.luck);
+        System.out.println("\tКрасноречие: " + stats.eloquence);
+        System.out.println("\tКузнечное дело: " + stats.blacksmith);
+        System.out.println("\tАлхимия: " + stats.alchemy);
+        System.out.println("\tОдноручное оружие: " + stats.one_handed_weapon);
+        System.out.println("\tДвуручное оружие: " + stats.two_handed_weapon);
+        System.out.println("\tДревковое оружие: " + stats.pole_weapon);
+        System.out.println("\tРубящее оружие: " + stats.chopping_weapon);
+        System.out.println("\tДальнобойное оружие: " + stats.long_range_weapon);
     }
 
     public void addUpPoints(int count){
@@ -92,75 +93,8 @@ public class Human extends LiveCreature {
         String choice;
         while (upPointCount > 0){
             System.out.println("\nВыбор(Осталось очков прокачки: " + Integer.toString(upPointCount) + "):");
-            choice = in.nextLine();
-            if (choice.equals("1")){
-                strength += 1;
-                upPointCount --;
-                System.out.println("Сила увеличилась на 1");
-            }
-            if (choice.equals("2")){
-                speed += 1;
-                upPointCount --;
-                System.out.println("Скорость увеличилась на 1");
-            }
-            if (choice.equals("3")){
-                agility += 1;
-                upPointCount --;
-                System.out.println("Ловкость увеличилась на 1");
-            }
-            if (choice.equals("4")){
-                intelligence += 1;
-                upPointCount --;
-                System.out.println("Интеллект увеличился на 1");
-            }
-            if (choice.equals("5")){
-                luck += 1;
-                upPointCount --;
-                System.out.println("Удача увеличилась на 1");
-            }
-            if (choice.equals("6")){
-                eloquence += 1;
-                upPointCount --;
-                System.out.println("Красноречие увеличилось на 1");
-            }
-            if (choice.equals("7")){
-                blacksmith += 1;
-                upPointCount --;
-                System.out.println("Кузнечное дело увеличилось на 1");
-            }
-            if (choice.equals("8")){
-                alchemy += 1;
-                upPointCount --;
-                System.out.println("Алхимия увеличилась на 1");
-            }
-            if (choice.equals("9")){
-                one_handed_weapon += 1;
-                upPointCount --;
-                System.out.println("Одноручное оружие увеличилось на 1");
-            }
-            if (choice.equals("10")){
-                two_handed_weapon += 1;
-                upPointCount --;
-                System.out.println("Двуручное оружие увеличилось на 1");
-            }
-            if (choice.equals("11")){
-                pole_weapon += 1;
-                upPointCount --;
-                System.out.println("Древковое оружие увеличилось на 1");
-            }
-            if (choice.equals("12")){
-                chopping_weapon += 1;
-                upPointCount --;
-                System.out.println("Рубящее оружие увеличилось на 1");
-            }
-            if (choice.equals("13")){
-                long_range_weapon += 1;
-                upPointCount --;
-                System.out.println("Дальнобойное оружие увеличилось на 1");
-            }
-            if (choice.equals("0")){
-                break;
-            }
+            // Coming soon
+            stats.upStat(StatsEnum.STRENGTH);
         }
     }
     public void setName(String name){
