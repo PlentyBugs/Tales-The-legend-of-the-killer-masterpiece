@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class Narrator {
 
-    String difficulty = "";
+    Difficulty difficulty = Difficulty.STOPIT;
     Window window;
 
-    Narrator(String difficulty, Window window){
+    Narrator(Difficulty difficulty, Window window){
         this.difficulty = difficulty;
         this.window = window;
     }
@@ -19,18 +19,13 @@ public class Narrator {
 
     public void theBeginning(Player player) throws InterruptedException, IOException {
 
-        if(difficulty.equals("easy")){
-            skill_points_count = 20;
-        } else if(difficulty.equals("normal")){
-            skill_points_count = 15;
-        } else if(difficulty.equals("hard")){
-            skill_points_count = 10;
-        } else if(difficulty.equals("very hard")){
-            skill_points_count = 5;
-        } else if(difficulty.equals("nightmare")){
-            skill_points_count = 5;
-        } else if(difficulty.equals("stop it")){
-            skill_points_count = 0;
+        switch (difficulty){
+            case EASY: skill_points_count = 20; break;
+            case NORMAL: skill_points_count = 15; break;
+            case HARD: skill_points_count = 10; break;
+            case VERYHARD: skill_points_count = 5; break;
+            case NIGHTMARE: skill_points_count = 5; break;
+            case STOPIT: skill_points_count = 0; break;
         }
 
         for (int i = 1; i < 4; i++) {

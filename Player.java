@@ -5,7 +5,7 @@ public class Player extends Human {
     protected int money = 0;
     private int vision;
     protected String name;
-    private String difficulty;
+    private Difficulty difficulty;
 
     public Player(int x, int y, String name){
         super(x, y, name);
@@ -16,11 +16,11 @@ public class Player extends Human {
         return vision;
     }
 
-    public void setDifficulty(String difficulty){
+    public void setDifficulty(Difficulty difficulty){
         this.difficulty = difficulty;
     }
 
-    public String getDifficulty(){
+    public Difficulty getDifficulty(){
         return difficulty;
     }
 }

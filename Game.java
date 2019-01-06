@@ -10,13 +10,13 @@ public class Game {
         Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), map.getMap());
 
         ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
-        String difficulty = "";
+        Difficulty difficulty = Difficulty.STOPIT;
         while (!chooseDifficultyWindow.getCheck()){
             difficulty = chooseDifficultyWindow.getDifficulty();
             player.setDifficulty(difficulty);
         }
         chooseDifficultyWindow.close();
-        
+
         Narrator narrator = new Narrator(difficulty, window1);
 
         narrator.theBeginning(player);

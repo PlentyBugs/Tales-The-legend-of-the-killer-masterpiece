@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 public class ChooseDifficultyWindow extends JFrame {
 
     private boolean check;
-    private String difficulty;
+    private Difficulty difficulty;
 
     ChooseDifficultyWindow(){
         super("Выберите сложность");
@@ -65,17 +65,17 @@ public class ChooseDifficultyWindow extends JFrame {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (easy.isSelected()){
-                    difficulty = "easy";
+                    difficulty = Difficulty.EASY;
                 } else if (normal.isSelected()){
-                    difficulty = "normal";
+                    difficulty = Difficulty.NORMAL;
                 } else if (hard.isSelected()){
-                    difficulty = "hard";
+                    difficulty = Difficulty.HARD;
                 } else if (veryHard.isSelected()){
-                    difficulty = "very hard";
+                    difficulty = Difficulty.VERYHARD;
                 } else if (nightmare.isSelected()){
-                    difficulty = "nightmare";
+                    difficulty = Difficulty.NIGHTMARE;
                 } else if (stopIt.isSelected()){
-                    difficulty = "stop it";
+                    difficulty = Difficulty.STOPIT;
                 }
                 check = true;
             }
@@ -92,7 +92,7 @@ public class ChooseDifficultyWindow extends JFrame {
     public boolean getCheck(){
         return check;
     }
-    public String getDifficulty(){
+    public Difficulty getDifficulty(){
         return difficulty;
     }
     public void close(){
