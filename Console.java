@@ -1,6 +1,7 @@
 package JGame;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +22,9 @@ public class Console extends JPanel
         console.setWrapStyleWord(true);
 
         console.setEditable(false);
+
+        DefaultCaret caret = (DefaultCaret) console.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         vertical = new JScrollPane(console,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(vertical);
