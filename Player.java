@@ -9,6 +9,8 @@ public class Player extends Human {
     private String name;
     private Difficulty difficulty;
 
+    private boolean isUpStatsOpen;
+
     private Window window;
 
     public Player(int x, int y, String name){
@@ -37,6 +39,8 @@ public class Player extends Human {
         vision = 3;
 
         color = Color.ORANGE;
+
+        isPlayer = true;
     }
 
     public int getVision(){
@@ -83,5 +87,12 @@ public class Player extends Human {
         window.writeToConsole("\tДревковое оружие: " + stats.pole_weapon);
         window.writeToConsole("\tРубящее оружие: " + stats.chopping_weapon);
         window.writeToConsole("\tДальнобойное оружие: " + stats.long_range_weapon);
+    }
+
+    public void setUpStatsOpen(boolean isUpStatsOpen) {
+        this.isUpStatsOpen = isUpStatsOpen;
+    }
+    public boolean getIsUpStatsOpen() {
+        return isUpStatsOpen;
     }
 }

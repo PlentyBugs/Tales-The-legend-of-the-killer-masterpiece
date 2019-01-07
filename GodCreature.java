@@ -8,6 +8,7 @@ public class GodCreature {
     protected boolean isStep;
     protected int x;
     protected int y;
+    protected boolean isPlayer = false;
 
     public String getName(){
         return name;
@@ -39,5 +40,13 @@ public class GodCreature {
 
     public void setY(int y){
         this.y = y;
+    }
+
+    public void setIsPlayer(boolean isPlayer) {
+        this.isPlayer = isPlayer;
+    }
+
+    public boolean getIsPlayer(){
+        return isPlayer;
     }
 }

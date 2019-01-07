@@ -59,15 +59,26 @@ public class Window extends JFrame {
                 button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
 
-                button.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (isStep){
-                            player.x = X;
-                            player.y = Y;
-                            drawMap();
+                if (information[i][j].getIsPlayer()){
+                    button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            if(!player.getIsUpStatsOpen()){
+                                player.setUpStatsOpen(true);
+                                UpStatsWindow upStatsWindow = new UpStatsWindow(player);
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            if (isStep){
+                                player.x = X;
+                                player.y = Y;
+                                drawMap();
+                            }
+                        }
+                    });
+                }
 
                 panel.add(button, constraints);
             }

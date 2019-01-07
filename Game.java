@@ -3,7 +3,7 @@ package JGame;
 import java.io.IOException;
 public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Player player = new Player(0,0, "Никита");
+        Player player = new Player(0,0, "Вы");
 
         Map map = new Map(player, 30, 30);
 
