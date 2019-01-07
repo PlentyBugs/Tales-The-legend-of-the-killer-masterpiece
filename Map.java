@@ -19,11 +19,14 @@ public class Map {
         for(int i = 0; i < mapHeight; i++){
             for(int j = 0; j < mapWidth; j++){
                 Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
-                Thing randomThing = randomThingList[(int)(randomThingList.length*Math.random())];
-                randomThing.setX(j);
-                randomThing.setY(i);
+                Human[] randomHumanList = {new Bandit(), new Goblin()};
+                GodCreature[][] list = {randomHumanList, randomThingList};
+                GodCreature[] random = list[(int)(list.length*Math.random())];
+                GodCreature randomGodCreature = random[(int)(random.length*Math.random())];
+                randomGodCreature.setX(j);
+                randomGodCreature.setY(i);
 
-                map[i][j] = randomThing;
+                map[i][j] = randomGodCreature;
             }
         }
     }

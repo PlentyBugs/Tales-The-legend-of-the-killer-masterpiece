@@ -8,6 +8,7 @@ public class Player extends Human {
     private int vision;
     private String name;
     private Difficulty difficulty;
+    private UpStatsWindow upStatsWindow;
 
     private boolean isUpStatsOpen;
 
@@ -39,6 +40,9 @@ public class Player extends Human {
         vision = 3;
 
         color = Color.ORANGE;
+
+        upStatsWindow = new UpStatsWindow(this);
+        setUpStatsWindowIsVisible(false);
 
         isPlayer = true;
     }
@@ -94,5 +98,9 @@ public class Player extends Human {
     }
     public boolean getIsUpStatsOpen() {
         return isUpStatsOpen;
+    }
+
+    public void setUpStatsWindowIsVisible(boolean isVisible) {
+        upStatsWindow.setIsVisible(isVisible);
     }
 }

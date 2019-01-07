@@ -40,7 +40,7 @@ public class Human extends LiveCreature {
         this.name = name;
         this.x = x;
         this.y = y;
-        isStep = true;
+        isStep = false;
     }
 
     public void getStatusPosition(){

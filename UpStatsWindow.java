@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class UpStatsWindow extends JFrame{
@@ -291,5 +292,9 @@ public class UpStatsWindow extends JFrame{
     }
     public void close(){
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public void setIsVisible(boolean b) {
+        setVisible(b);
     }
 }

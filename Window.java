@@ -63,8 +63,11 @@ public class Window extends JFrame {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if(!player.getIsUpStatsOpen()){
+                                player.setUpStatsWindowIsVisible(true);
                                 player.setUpStatsOpen(true);
-                                UpStatsWindow upStatsWindow = new UpStatsWindow(player);
+                            } else {
+                                player.setUpStatsWindowIsVisible(false);
+                                player.setUpStatsOpen(false);
                             }
                         }
                     });
