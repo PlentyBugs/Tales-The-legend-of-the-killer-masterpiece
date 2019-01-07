@@ -40,4 +40,11 @@ public class Console extends JPanel
             TimeUnit.MILLISECONDS.sleep(100);
         }
     }
+    public JTextArea getConsole(String password){
+        if (password.equals("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as")){
+            return console;
+        } else {
+            return null;
+        }
+    }
 }

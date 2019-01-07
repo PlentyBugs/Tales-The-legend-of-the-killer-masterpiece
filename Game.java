@@ -9,6 +9,8 @@ public class Game {
 
         Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), map.getMap());
 
+        player.setWindow(window1);
+
         ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
         Difficulty difficulty = Difficulty.STOPIT;
         while (!chooseDifficultyWindow.getCheck()){

@@ -15,17 +15,23 @@ public class ChooseNameWindow extends JFrame {
     ChooseNameWindow(){
         super("Назовите себя");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(300,78));
+        setPreferredSize(new Dimension(300,100));
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(10, 0, 10, 0);
 
         jTextArea = new JTextArea();
         jTextArea.setSize(280,40);
-        jTextArea.setLocation(10,10);
-        jTextArea.setBackground(Color.LIGHT_GRAY);
-        getContentPane().add(jTextArea, BorderLayout.NORTH);
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        panel.add(jTextArea, constraints);
 
         JButton button = new JButton("Так меня зовут");
         button.setSize(280,80);
-        button.setLocation(10,80);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 name = jTextArea.getText();
@@ -35,8 +41,10 @@ public class ChooseNameWindow extends JFrame {
                 }
             }
         });
-        getContentPane().add(button, BorderLayout.SOUTH);
+        constraints.gridy = 1;
+        panel.add(button, constraints);
 
+        getContentPane().add(panel);
         pack();
         setVisible(true);
     }

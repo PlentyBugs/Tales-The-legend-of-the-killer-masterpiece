@@ -37,7 +37,7 @@ public class Narrator {
         monolog("Кто я и где я нахожусь?");
         monolog("Неизвестная личность начала передавать поток мыслей в вашу голову:");
         monolog("Скоро ты появишься в дивном мире, где ты сможешь достичь необычайных высот", "Неизвестный");
-        monolog("Скажи мне своё имя, дитя:", "Неизвестный");
+        monolog("Назови себя, дитя:", "Неизвестный");
         monolog("Имя: ");
 
         ChooseNameWindow chooseNameWindow = new ChooseNameWindow();
@@ -55,7 +55,11 @@ public class Narrator {
             monolog("Ладно, пожалуй нам стоит задать твой вектор развития, я дам тебе " + skill_points_count + " очков прокачки", "Неизвестный");
             monolog("Распредели их как следует:", "Неизвестный");
             player.upPointCount = skill_points_count;
-            player.StatUp(input);
+            UpStatsWindow upStatsWindow = new UpStatsWindow(player);
+            while (player.upPointCount > 0){
+                window.console.getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
+            }
+            upStatsWindow.close();
         } else {
             monolog("У тебя будет очень тяжелая судьба", "Неизвестный");
         }
