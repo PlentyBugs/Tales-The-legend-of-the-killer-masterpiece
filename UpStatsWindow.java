@@ -40,6 +40,20 @@ public class UpStatsWindow extends JFrame{
         JLabel longRangeWeaponLabel = new JLabel("Дальнобойное оружие");
         JLabel upPointsLeft = new JLabel(Integer.toString(player.upPointCount));
 
+        JLabel strengthLabelCount = new JLabel("   " + Integer.toString(player.stats.strength) + "   ");
+        JLabel speedLabelCount = new JLabel("   " + Integer.toString(player.stats.speed) + "   ");
+        JLabel agilityLabelCount = new JLabel("   " + Integer.toString(player.stats.agility) + "   ");
+        JLabel intelligenceLabelCount = new JLabel("   " + Integer.toString(player.stats.intelligence) + "   ");
+        JLabel luckLabelCount = new JLabel("   " + Integer.toString(player.stats.luck) + "   ");
+        JLabel eloquenceLabelCount = new JLabel("   " + Integer.toString(player.stats.eloquence) + "   ");
+        JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.stats.blacksmith) + "   ");
+        JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.stats.alchemy) + "   ");
+        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.stats.one_handed_weapon) + "   ");
+        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.stats.two_handed_weapon) + "   ");
+        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.stats.pole_weapon) + "   ");
+        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.stats.chopping_weapon) + "   ");
+        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.stats.long_range_weapon) + "   ");
+
         panel.add(upPointsLeftLabel, constraints);
         constraints.gridy = 1;
         panel.add(strengthLabel, constraints);
@@ -68,6 +82,34 @@ public class UpStatsWindow extends JFrame{
         constraints.gridy = 13;
         panel.add(longRangeWeaponLabel, constraints);
 
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        panel.add(strengthLabelCount, constraints);
+        constraints.gridy = 2;
+        panel.add(speedLabelCount, constraints);
+        constraints.gridy = 3;
+        panel.add(agilityLabelCount, constraints);
+        constraints.gridy = 4;
+        panel.add(intelligenceLabelCount, constraints);
+        constraints.gridy = 5;
+        panel.add(luckLabelCount, constraints);
+        constraints.gridy = 6;
+        panel.add(eloquenceLabelCount, constraints);
+        constraints.gridy = 7;
+        panel.add(blacksmithLabelCount, constraints);
+        constraints.gridy = 8;
+        panel.add(alchemyLabelCount, constraints);
+        constraints.gridy = 9;
+        panel.add(oneHandedWeaponLabelCount, constraints);
+        constraints.gridy = 10;
+        panel.add(twoHandedWeaponLabelCount, constraints);
+        constraints.gridy = 11;
+        panel.add(poleWeaponLabelCount, constraints);
+        constraints.gridy = 12;
+        panel.add(choppingWeaponLabelCount, constraints);
+        constraints.gridy = 13;
+        panel.add(longRangeWeaponLabelCount, constraints);
+
         JButton strengthButton = new JButton("+");
         JButton speedButton = new JButton("+");
         JButton agilityButton = new JButton("+");
@@ -88,6 +130,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.STRENGTH);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    strengthLabelCount.setText( "   " + Integer.toString(player.stats.strength) + "   ");
                 }
             }
         });
@@ -97,6 +140,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.SPEED);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    speedLabelCount.setText("   " + Integer.toString(player.stats.speed) + "   ");
                 }
             }
         });
@@ -106,6 +150,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.AGILITY);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    agilityLabelCount.setText("   " + Integer.toString(player.stats.agility) + "   ");
                 }
             }
         });
@@ -115,6 +160,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.INTELLIGENCE);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    intelligenceLabelCount.setText("   " + Integer.toString(player.stats.intelligence) + "   ");
                 }
             }
         });
@@ -124,6 +170,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.LUCK);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    luckLabelCount.setText("   " + Integer.toString(player.stats.luck) + "   ");
                 }
             }
         });
@@ -133,6 +180,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.ELOQUENCE);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    eloquenceLabelCount.setText("   " + Integer.toString(player.stats.eloquence) + "   ");
                 }
             }
         });
@@ -142,6 +190,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.BLACKSMITH);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    blacksmithLabelCount.setText("   " + Integer.toString(player.stats.blacksmith) + "   ");
                 }
             }
         });
@@ -151,6 +200,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.ALCHEMY);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    alchemyLabelCount.setText("   " + Integer.toString(player.stats.alchemy) + "   ");
                 }
             }
         });
@@ -160,6 +210,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.ONEHANDEDWEAPON);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.stats.one_handed_weapon) + "   ");
                 }
             }
         });
@@ -169,6 +220,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.TWOHANDEDWEAPON);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.stats.two_handed_weapon) + "   ");
                 }
             }
         });
@@ -178,6 +230,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.POLEWEAPON);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    poleWeaponLabelCount.setText("   " + Integer.toString(player.stats.pole_weapon) + "   ");
                 }
             }
         });
@@ -187,6 +240,7 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.CHOPPINGWEAPON);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    choppingWeaponLabelCount.setText("   " + Integer.toString(player.stats.chopping_weapon) + "   ");
                 }
             }
         });
@@ -196,11 +250,12 @@ public class UpStatsWindow extends JFrame{
                     player.stats.upStat(StatsEnum.LONGRANGEWEAPON);
                     player.upPointCount --;
                     upPointsLeft.setText(Integer.toString(player.upPointCount));
+                    longRangeWeaponLabelCount.setText("   " + Integer.toString(player.stats.long_range_weapon) + "   ");
                 }
             }
         });
 
-        constraints.gridx = 1;
+        constraints.gridx = 2;
         constraints.gridy = 0;
         panel.add(upPointsLeft, constraints);
         constraints.gridy = 1;
