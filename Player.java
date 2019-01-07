@@ -1,10 +1,12 @@
 package JGame;
 
+import java.awt.*;
+
 public class Player extends Human {
 
     protected int money = 0;
     private int vision;
-    protected String name;
+    private String name;
     private Difficulty difficulty;
 
     private Window window;
@@ -12,6 +14,7 @@ public class Player extends Human {
     public Player(int x, int y, String name){
         super(x, y, name);
 
+        this.name = name;
         stats.strength = 5;
         stats.speed = 5;
         stats.agility = 5;
@@ -32,10 +35,19 @@ public class Player extends Human {
         stats.militarism = 0;
         stats.pacifism = 0;
         vision = 3;
+
+        color = Color.ORANGE;
     }
 
     public int getVision(){
         return vision;
+    }
+
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
     }
 
     public void setDifficulty(Difficulty difficulty){

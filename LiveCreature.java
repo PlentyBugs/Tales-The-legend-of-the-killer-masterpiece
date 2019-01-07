@@ -1,6 +1,6 @@
 package JGame;
 
-public abstract class LiveCreature {
+public abstract class LiveCreature extends GodCreature {
     protected int x;
     protected int y;
     protected int hp;

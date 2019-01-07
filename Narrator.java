@@ -41,13 +41,13 @@ public class Narrator {
         monolog("Имя: ");
 
         ChooseNameWindow chooseNameWindow = new ChooseNameWindow();
-        player.name = "";
+        player.setName("");
         while (!chooseNameWindow.getCheck()){
-            player.name = chooseNameWindow.getName();
+            player.setName(chooseNameWindow.getName());
         }
         chooseNameWindow.close();
 
-        if (player.name.equals("Безымянный")){
+        if (player.getName().equals("Безымянный")){
             monolog("Ну и ну, решил остаться безымянным? Пусть так тебя и будут звать!", "Неизвестный");
         }
 

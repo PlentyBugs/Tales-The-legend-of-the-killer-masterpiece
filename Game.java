@@ -5,9 +5,9 @@ public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player(0,0, "Никита");
 
-        Map map = new Map(player.getVision());
+        Map map = new Map(player, 30, 30);
 
-        Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), map.getMap());
+        Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), player, map.getMap(player.x, player.y));
 
         player.setWindow(window1);
 
