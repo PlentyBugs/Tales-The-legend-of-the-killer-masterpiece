@@ -10,6 +10,9 @@ public class Window extends JFrame {
     private int counter = -1;
     private int vision;
     private Player player;
+    private JPanel panel = new JPanel(new GridBagLayout());
+    private GridBagConstraints constraints = new GridBagConstraints();
+    private Map currentMap;
 
     Console console = new Console();
 
@@ -24,27 +27,36 @@ public class Window extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setPreferredSize(new Dimension(x,y));
+        setPreferredSize(new Dimension(x,y));
 
-        drawField(vision, information);
+        drawField(information);
 
+        getContentPane().add(panel);
         getContentPane().add(console, BorderLayout.SOUTH);
         pack();
         setVisible(true);
     }
 
-    public void drawField(int vision, GodCreature[][] information){
+    public void drawField(GodCreature[][] information){
+
         int realVision = vision*2+1;
         int width = (int)(x*0.95)/realVision;
         int height = (int)(y*0.7)/realVision;
+
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(2, 2, 2, 2);
+
         for (int i = 0; i < realVision; i++){
             for (int j = 0; j < realVision; j++) {
+                constraints.gridx = j;
+                constraints.gridy = i;
                 boolean isStep = information[i][j].getIsStep();
                 int X = information[i][j].getX();
                 int Y = information[i][j].getY();
                 String info = information[i][j].getName();
                 JButton button = new JButton(info);
                 button.setBackground(information[i][j].getColor());
-                button.setSize(width, height);
+                button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
 
                 button.addActionListener(new ActionListener() {
@@ -52,11 +64,12 @@ public class Window extends JFrame {
                         if (isStep){
                             player.x = X;
                             player.y = Y;
+                            drawMap();
                         }
                     }
                 });
 
-                getContentPane().add(button, BorderLayout.SOUTH);
+                panel.add(button, constraints);
             }
         }
     }
@@ -65,4 +78,16 @@ public class Window extends JFrame {
         console.writeToConsole(text);
     }
 
+    public void drawMap(){
+        getContentPane().remove(panel);
+        panel = new JPanel(new GridBagLayout());
+        drawField(currentMap.getMap(player.x,player.y));
+        getContentPane().add(panel);
+        pack();
+        setVisible(true);
+    }
+
+    public void setCurrentMap(Map currentMap) {
+        this.currentMap = currentMap;
+    }
 }

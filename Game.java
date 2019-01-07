@@ -8,6 +8,7 @@ public class Game {
         Map map = new Map(player, 30, 30);
 
         Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), player, map.getMap(player.x, player.y));
+        window1.setCurrentMap(map);
 
         player.setWindow(window1);
 

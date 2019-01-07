@@ -16,12 +16,13 @@ public class Map {
 
         playerVision = player.getVision()*2+1;
         map = new GodCreature[mapHeight][mapWidth];
-        Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
         for(int i = 0; i < mapHeight; i++){
             for(int j = 0; j < mapWidth; j++){
+                Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
                 Thing randomThing = randomThingList[(int)(randomThingList.length*Math.random())];
                 randomThing.setX(j);
                 randomThing.setY(i);
+
                 map[i][j] = randomThing;
             }
         }
@@ -32,7 +33,7 @@ public class Map {
         int vision = (playerVision-1)/2;
         for (int i = 0; i < playerVision; i++){
             for (int j = 0; j < playerVision; j++){
-                if (i + y-vision >= 0 && j + x-vision >= 0) {
+                if (i + y-vision >= 0 && j + x-vision >= 0 && i + y-vision < mapHeight && j + x-vision < mapWidth) {
                     currentMap[i][j] = map[i + y-vision][j + x-vision];
                     if (i == j && i == player.getVision()){
                         currentMap[i][j] = player;
