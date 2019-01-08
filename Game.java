@@ -5,6 +5,12 @@ public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player(0,0, "Вы");
 
+        player.addItemToInventory(
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
+                new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
+                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.COMMON, 1)
+                );
+
         Map map = new Map(player, 30, 30);
 
         ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
@@ -14,7 +20,7 @@ public class Game {
             player.setDifficulty(difficulty);
         }
 
-        Window window1 = new Window("Окно 1", 1024, 720, player.getVision(), player, map.getMap(player.x, player.y));
+        Window window1 = new Window("Поле", 1024, 720, player.getVision(), player, map.getMap(player.x, player.y));
         window1.setCurrentMap(map);
 
         player.setWindow(window1);

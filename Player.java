@@ -1,6 +1,7 @@
 package JGame;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Player extends Human {
 
@@ -9,8 +10,14 @@ public class Player extends Human {
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
+    private InventoryWindow inventoryWindow;
+    private PlayerWindowManager managerWindow;
 
     private boolean isUpStatsOpen;
+    private boolean isInventoryOpen;
+    private boolean isManagerOpen;
+
+    private ArrayList<Item> inventory = new ArrayList<Item>();
 
     private Window window;
 
@@ -44,7 +51,19 @@ public class Player extends Human {
         upStatsWindow = new UpStatsWindow(this);
         setUpStatsWindowIsVisible(false);
 
+        inventoryWindow = new InventoryWindow(this);
+        setInventoryWindowIsVisible(false);
+
+        managerWindow = new PlayerWindowManager(this);
+        setManagerWindowIsVisible(false);
+
         isPlayer = true;
+    }
+
+    public void addItemToInventory(Item ... itemList){
+        for (Item item : itemList){
+            inventory.add(item);
+        }
     }
 
     public int getVision(){
@@ -76,6 +95,14 @@ public class Player extends Human {
         getStatusStats();
     }
 
+    public void getStatusPosition() throws InterruptedException {
+        window.writeToConsole("Позиция: x = "+x+", y = " + y);
+    }
+
+    public void getStatusLocation() throws InterruptedException {
+        window.writeToConsole("Локация: " + location);
+    }
+
     public void getStatusStats() throws InterruptedException {
         window.writeToConsole("Статы:");
         window.writeToConsole("\tСила: " + stats.strength);
@@ -96,11 +123,40 @@ public class Player extends Human {
     public void setUpStatsOpen(boolean isUpStatsOpen) {
         this.isUpStatsOpen = isUpStatsOpen;
     }
+
     public boolean getIsUpStatsOpen() {
         return isUpStatsOpen;
     }
 
     public void setUpStatsWindowIsVisible(boolean isVisible) {
         upStatsWindow.setIsVisible(isVisible);
+    }
+
+    public void setInventoryOpen(boolean isInventoryOpen) {
+        this.isInventoryOpen = isInventoryOpen;
+    }
+
+    public boolean getIsInventoryOpen() {
+        return isInventoryOpen;
+    }
+
+    public void setInventoryWindowIsVisible(boolean isVisible) {
+        inventoryWindow.setIsVisible(isVisible);
+    }
+
+    public void setManagerOpen(boolean isManagerOpen) {
+        this.isManagerOpen = isManagerOpen;
+    }
+
+    public boolean getIsManagerOpen() {
+        return isManagerOpen;
+    }
+
+    public void setManagerWindowIsVisible(boolean isVisible) {
+        managerWindow.setIsVisible(isVisible);
+    }
+
+    public ArrayList<Item> getInventory(){
+        return inventory;
     }
 }

@@ -3,7 +3,7 @@ package JGame;
 import java.util.Scanner;
 
 public class Human extends LiveCreature {
-    protected String name = "JGame.Human";
+    protected String name;
     protected String location = "Пустота";
 
     Stats stats = new Stats();
@@ -41,14 +41,6 @@ public class Human extends LiveCreature {
         this.x = x;
         this.y = y;
         isStep = false;
-    }
-
-    public void getStatusPosition(){
-        System.out.println("Позиция: x = "+x+", y = " + y);
-    }
-
-    public void getStatusLocation(){
-        System.out.println("Локация: " + location);
     }
 
     public void addUpPoints(int count){

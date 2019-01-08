@@ -62,12 +62,12 @@ public class Window extends JFrame {
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            if(!player.getIsUpStatsOpen()){
-                                player.setUpStatsWindowIsVisible(true);
-                                player.setUpStatsOpen(true);
+                            if(!player.getIsManagerOpen()){
+                                player.setManagerWindowIsVisible(true);
+                                player.setManagerOpen(true);
                             } else {
-                                player.setUpStatsWindowIsVisible(false);
-                                player.setUpStatsOpen(false);
+                                player.setManagerWindowIsVisible(false);
+                                player.setManagerOpen(false);
                             }
                         }
                     });
