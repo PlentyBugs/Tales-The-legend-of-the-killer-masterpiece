@@ -159,4 +159,8 @@ public class Player extends Human {
     public ArrayList<Item> getInventory(){
         return inventory;
     }
+
+    public UpStatsWindow getUpStatsWindow(){
+        return upStatsWindow;
+    }
 }

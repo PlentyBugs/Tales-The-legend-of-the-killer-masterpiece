@@ -55,11 +55,11 @@ public class Narrator {
             monolog("Ладно, пожалуй нам стоит задать твой вектор развития, я дам тебе " + skill_points_count + " очков прокачки", "Неизвестный");
             monolog("Распредели их как следует:", "Неизвестный");
             player.upPointCount = skill_points_count;
-            UpStatsWindow upStatsWindow = new UpStatsWindow(player);
+            player.setUpStatsWindowIsVisible(true);
             while (player.upPointCount > 0){
                 window.console.getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
             }
-            upStatsWindow.close();
+            player.setUpStatsWindowIsVisible(false);
         } else {
             monolog("У тебя будет очень тяжелая судьба", "Неизвестный");
         }

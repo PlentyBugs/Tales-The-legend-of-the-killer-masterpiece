@@ -30,7 +30,6 @@ public class InventoryWindow extends JFrame {
 
     private void drawInventory(){
 
-        System.out.print("1");
         getContentPane().remove(panel);
 
         panel = new JPanel(new GridBagLayout());

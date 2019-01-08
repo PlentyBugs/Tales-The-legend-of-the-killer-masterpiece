@@ -4,19 +4,38 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class UpStatsWindow extends JFrame{
 
+    private Player player;
+
+    private JPanel panel = new JPanel(new GridBagLayout());
+
     UpStatsWindow(Player player){
         super("Прокачка");
+        this.player = player;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(220,680));
 
         setLayout(new FlowLayout());
 
-        JPanel panel = new JPanel(new GridBagLayout());
+        drawInventory();
+    }
+    public void close(){
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public void setIsVisible(boolean b) {
+        drawInventory();
+        setVisible(b);
+    }
+
+    private void drawInventory(){
+
+        getContentPane().remove(panel);
+
+        panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
@@ -289,12 +308,5 @@ public class UpStatsWindow extends JFrame{
         getContentPane().add(panel);
         pack();
         setVisible(true);
-    }
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public void setIsVisible(boolean b) {
-        setVisible(b);
     }
 }
