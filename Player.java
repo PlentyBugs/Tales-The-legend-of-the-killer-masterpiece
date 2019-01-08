@@ -74,6 +74,9 @@ public class Player extends Human {
         return name;
     }
     public void setName(String name){
+        if (name.equals("")){
+            name = "Безымянный";
+        }
         this.name = name;
     }
 

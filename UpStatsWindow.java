@@ -17,6 +17,7 @@ public class UpStatsWindow extends JFrame{
         this.player = player;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(220,680));
+        getContentPane().add(panel);
 
         setLayout(new FlowLayout());
 
