@@ -7,15 +7,15 @@ import java.awt.event.WindowEvent;
 public class InventoryWindow extends JFrame {
 
     private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());;
+    private JPanel panel = new JPanel(new GridBagLayout());
+    JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
     private int width = 200;
-    private int height = 600;
+    private int height = 720;
 
     public InventoryWindow(Player player){
         super("Инвентарь");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(width, height));
 
         this.player = player;
         drawInventory();
@@ -32,17 +32,15 @@ public class InventoryWindow extends JFrame {
 
     private void drawInventory(){
 
-        getContentPane().remove(panel);
+        getContentPane().remove(scroll);
 
         panel = new JPanel(new GridBagLayout());
-        panel.setPreferredSize(new Dimension(width,height));
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
-        constraints.insets = new Insets(0, 0, 0, 0);
+        constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
-
         for (Item item : player.getInventory()){
 
             JPanel itemPanel = new JPanel();
@@ -96,7 +94,9 @@ public class InventoryWindow extends JFrame {
             constraints.gridy ++;
         }
 
-        getContentPane().add(panel);
+        scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setPreferredSize(new Dimension(width,height));
+        getContentPane().add(scroll);
         pack();
         setVisible(true);
     }
