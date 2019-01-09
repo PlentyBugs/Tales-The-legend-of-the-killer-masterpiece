@@ -10,7 +10,7 @@ public class Torso extends Armor {
         quality = 100;
 
         switch (material){
-            case LEATHER: name = "Кожанная " + name; break;
+            case LEATHER: name = "Кожаная " + name; break;
             case STUDDEDLEATHER: name = "Броня из шипованной кожи"; break;
             case CHAIN: name = "Кальчужная " + name; break;
             case COPPER: name = "Кожанная " + name; break;

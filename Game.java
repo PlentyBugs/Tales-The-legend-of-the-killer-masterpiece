@@ -7,8 +7,14 @@ public class Game {
 
         player.addItemToInventory(
                 new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
-                new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.COMMON, 1)
+                new Torso(Material.LEATHER, Rarity.UNCOMMON, Grade.MAGIC, 2),
+                new Helmet(Material.CHAIN, Rarity.RARE, Grade.CURSE, 1),
+                new Sword(Material.COPPER, Rarity.MYSTICAL, Grade.ARTIFACT, 3, WeaponType.ONEHANDED),
+                new Torso(Material.LEATHER, Rarity.LEGENDARY, Grade.HEROIC, 2),
+                new Helmet(Material.CHAIN, Rarity.DRAGON, Grade.ABOVETHEGODS, 1),
+                new Sword(Material.COPPER, Rarity.DIVINE, Grade.COMMON, 3, WeaponType.ONEHANDED),
+                new Torso(Material.LEATHER, Rarity.MYSTICAL, Grade.MAGIC, 2),
+                new Helmet(Material.CHAIN, Rarity.LEGENDARY, Grade.ARTIFACT, 1)
                 );
 
         Map map = new Map(player, 30, 30);

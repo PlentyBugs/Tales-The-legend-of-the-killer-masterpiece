@@ -10,7 +10,7 @@ public class Helmet extends Armor {
         quality = 100;
 
         switch (material){
-            case LEATHER: name = "Кожанный " + name; break;
+            case LEATHER: name = "Кожаный " + name; break;
             case STUDDEDLEATHER: name = "Шлем из шипованной кожи"; break;
             case CHAIN: name = "Кальчужный " + name; break;
             case COPPER: name = "Кожанный " + name; break;
