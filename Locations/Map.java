@@ -1,4 +1,4 @@
-package JGame;
+package JGame.Locations;
 
 import JGame.LiveCreatures.*;
 import JGame.Things.*;
@@ -11,7 +11,7 @@ public class Map {
     protected int mapHeight;
     private Player player;
 
-    Map(Player player, int mapWidth, int mapHeight){
+    public Map(Player player, int mapWidth, int mapHeight){
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
 
@@ -26,17 +26,11 @@ public class Map {
 
                 int chance = (int) Math.ceil(Math.random() * 100);
 
-                /*
-
-                Старый прототип генерации с большим количеством врагов
-
-                GodCreature[][] list = {randomHumanList, randomThingList};
-                GodCreature[] random = list[(int)(list.length*Math.random())];
-                GodCreature randomGodCreature = random[(int)(random.length*Math.random())];
-                */
                 GodCreature randomGodCreature = new GodCreature();
                 if (chance >= 1 && chance <= 5){
                     randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
+                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+10));
+                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+5)+1));
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
                 }

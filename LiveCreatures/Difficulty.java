@@ -1,4 +1,4 @@
-package JGame;
+package JGame.LiveCreatures;
 
 public enum Difficulty {
     EASY, NORMAL, HARD, VERYHARD, NIGHTMARE, STOPIT

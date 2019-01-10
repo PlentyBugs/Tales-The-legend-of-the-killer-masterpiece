@@ -11,9 +11,12 @@ public class Human extends LiveCreature {
 
     protected String race = "Человек";
 
-    public Human(int x, int y, String name){
+    public Human(int x, int y, String name, int lvl, int hp){
 
+        super(x, y, name, lvl, hp);
 
+        this.hp = hp;
+        this.lvl = lvl;
 
         stats.strength = 5;
         stats.speed = 5;

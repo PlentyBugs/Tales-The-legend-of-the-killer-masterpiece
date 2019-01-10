@@ -1,6 +1,5 @@
 package JGame.LiveCreatures;
 
-import JGame.*;
 import JGame.Ability.Ability;
 import JGame.Ability.Passive.TwoOneHandedWeapon;
 import JGame.Items.*;
@@ -8,7 +7,7 @@ import JGame.Windows.EquipmentWindow;
 import JGame.Windows.InventoryWindow;
 import JGame.Windows.PlayerWindowManager;
 import JGame.Windows.UpStatsWindow;
-import JGame.Windows.Window;
+import JGame.Windows.FieldWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,11 +34,13 @@ public class Player extends Human {
 
     private ArrayList<Ability> abilities = new ArrayList<Ability>();
 
-    private JGame.Windows.Window window;
+    private FieldWindow fieldWindow;
 
-    public Player(int x, int y, String name){
-        super(x, y, name);
+    public Player(int x, int y, String name, int lvl, int hp){
+        super(x, y, name, lvl, hp);
 
+        this.hp = hp;
+        this.lvl = lvl;
         this.name = name;
         stats.strength = 5;
         stats.speed = 5;
@@ -125,8 +126,8 @@ public class Player extends Human {
         return difficulty;
     }
 
-    public void setWindow(Window window){
-        this.window = window;
+    public void setFieldWindow(FieldWindow fieldWindow){
+        this.fieldWindow = fieldWindow;
     }
 
     public void Status() throws InterruptedException {
@@ -136,28 +137,28 @@ public class Player extends Human {
     }
 
     public void getStatusPosition() throws InterruptedException {
-        window.writeToConsole("Позиция: x = "+x+", y = " + y);
+        fieldWindow.writeToConsole("Позиция: x = "+x+", y = " + y);
     }
 
     public void getStatusLocation() throws InterruptedException {
-        window.writeToConsole("Локация: " + location);
+        fieldWindow.writeToConsole("Локация: " + location);
     }
 
     public void getStatusStats() throws InterruptedException {
-        window.writeToConsole("Статы:");
-        window.writeToConsole("\tСила: " + stats.strength);
-        window.writeToConsole("\tЛовкость: " + stats.agility);
-        window.writeToConsole("\tСкорость: " + stats.speed);
-        window.writeToConsole("\tИнтеллект: " + stats.intelligence);
-        window.writeToConsole("\tУдача: " + stats.luck);
-        window.writeToConsole("\tКрасноречие: " + stats.eloquence);
-        window.writeToConsole("\tКузнечное дело: " + stats.blacksmith);
-        window.writeToConsole("\tАлхимия: " + stats.alchemy);
-        window.writeToConsole("\tОдноручное оружие: " + stats.one_handed_weapon);
-        window.writeToConsole("\tДвуручное оружие: " + stats.two_handed_weapon);
-        window.writeToConsole("\tДревковое оружие: " + stats.pole_weapon);
-        window.writeToConsole("\tРубящее оружие: " + stats.chopping_weapon);
-        window.writeToConsole("\tДальнобойное оружие: " + stats.long_range_weapon);
+        fieldWindow.writeToConsole("Статы:");
+        fieldWindow.writeToConsole("\tСила: " + stats.strength);
+        fieldWindow.writeToConsole("\tЛовкость: " + stats.agility);
+        fieldWindow.writeToConsole("\tСкорость: " + stats.speed);
+        fieldWindow.writeToConsole("\tИнтеллект: " + stats.intelligence);
+        fieldWindow.writeToConsole("\tУдача: " + stats.luck);
+        fieldWindow.writeToConsole("\tКрасноречие: " + stats.eloquence);
+        fieldWindow.writeToConsole("\tКузнечное дело: " + stats.blacksmith);
+        fieldWindow.writeToConsole("\tАлхимия: " + stats.alchemy);
+        fieldWindow.writeToConsole("\tОдноручное оружие: " + stats.one_handed_weapon);
+        fieldWindow.writeToConsole("\tДвуручное оружие: " + stats.two_handed_weapon);
+        fieldWindow.writeToConsole("\tДревковое оружие: " + stats.pole_weapon);
+        fieldWindow.writeToConsole("\tРубящее оружие: " + stats.chopping_weapon);
+        fieldWindow.writeToConsole("\tДальнобойное оружие: " + stats.long_range_weapon);
     }
 
     public void setUpStatsOpen(boolean isUpStatsOpen) {

@@ -2,14 +2,16 @@ package JGame;
 
 import JGame.Ability.Passive.TwoOneHandedWeapon;
 import JGame.Items.*;
+import JGame.LiveCreatures.Difficulty;
 import JGame.LiveCreatures.Player;
+import JGame.Locations.Map;
 import JGame.Windows.ChooseDifficultyWindow;
-import JGame.Windows.Window;
+import JGame.Windows.FieldWindow;
 
 import java.io.IOException;
 public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
-        Player player = new Player(0,0, "Вы");
+        Player player = new Player(0,0, "Вы",1,150);
 
         player.addAbility(new TwoOneHandedWeapon());
 
@@ -29,14 +31,14 @@ public class Game {
             player.setDifficulty(difficulty);
         }
 
-        Window window1 = new Window("Поле", 1024, 720, player.getVision(), player, map.getMap(player.getX(), player.getY()));
-        window1.setCurrentMap(map);
+        FieldWindow fieldWindow1 = new FieldWindow("Поле", 1024, 720, player.getVision(), player, map.getMap(player.getX(), player.getY()));
+        fieldWindow1.setCurrentMap(map);
 
-        player.setWindow(window1);
+        player.setFieldWindow(fieldWindow1);
 
         chooseDifficultyWindow.close();
 
-        Narrator narrator = new Narrator(difficulty, window1);
+        Narrator narrator = new Narrator(difficulty, fieldWindow1);
 
         narrator.theBeginning(player);
 

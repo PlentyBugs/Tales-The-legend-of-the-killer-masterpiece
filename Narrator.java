@@ -1,8 +1,9 @@
 package JGame;
 
+import JGame.LiveCreatures.Difficulty;
 import JGame.LiveCreatures.Player;
 import JGame.Windows.ChooseNameWindow;
-import JGame.Windows.Window;
+import JGame.Windows.FieldWindow;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -10,11 +11,11 @@ import java.util.Scanner;
 public class Narrator {
 
     Difficulty difficulty = Difficulty.STOPIT;
-    Window window;
+    FieldWindow fieldWindow;
 
-    Narrator(Difficulty difficulty, Window window){
+    Narrator(Difficulty difficulty, FieldWindow fieldWindow){
         this.difficulty = difficulty;
-        this.window = window;
+        this.fieldWindow = fieldWindow;
     }
 
     Scanner input = new Scanner(System.in);
@@ -61,7 +62,7 @@ public class Narrator {
             player.setUpPointCount(skill_points_count);
             player.setUpStatsWindowIsVisible(true);
             while (player.getUpPointCount() > 0){
-                window.getConsole().getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
+                fieldWindow.getConsole().getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
             }
             player.setUpStatsWindowIsVisible(false);
         } else {
@@ -72,7 +73,7 @@ public class Narrator {
     }
 
     private void monolog(String text) throws InterruptedException{
-        window.writeToConsole(text);
+        fieldWindow.writeToConsole(text);
     }
     private void monolog(String text, String dialog_name) throws InterruptedException{
         monolog(dialog_name + ": " + text);

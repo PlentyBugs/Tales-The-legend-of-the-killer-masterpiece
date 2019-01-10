@@ -6,8 +6,11 @@ import java.awt.*;
 
 public class Goblin extends Human {
 
-    public Goblin(int x, int y, String name) {
-        super(x, y, name);
+    public Goblin(int x, int y, String name, int lvl, int hp) {
+        super(x, y, name, lvl, hp);
+
+        this.hp = hp;
+        this.lvl = lvl;
         this.name = name;
         stats.strength = 5;
         stats.speed = 5;
@@ -33,7 +36,7 @@ public class Goblin extends Human {
     }
 
     public Goblin(){
-        this(0,0, "Гоблин");
+        this(0,0, "Гоблин",1,50);
     }
     public String getName(){
         return name;

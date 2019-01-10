@@ -1,7 +1,8 @@
 package JGame.Windows;
 
 import JGame.LiveCreatures.GodCreature;
-import JGame.Map;
+import JGame.LiveCreatures.LiveCreature;
+import JGame.Locations.Map;
 import JGame.LiveCreatures.Player;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Window extends JFrame {
+public class FieldWindow extends JFrame {
     private int x, y;
     private int counter = -1;
     private int vision;
@@ -20,7 +21,7 @@ public class Window extends JFrame {
 
     Console console = new Console();
 
-    public Window(String name, int x, int y, int vision, Player player, GodCreature[][] information) {
+    public FieldWindow(String name, int x, int y, int vision, Player player, GodCreature[][] information) {
         super(name);
 
         this.player = player;
@@ -63,6 +64,10 @@ public class Window extends JFrame {
                 button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
 
+                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[1].equals("LiveCreatures");
+
+                GodCreature liveCreature = information[i][j];
+
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -82,6 +87,8 @@ public class Window extends JFrame {
                                 player.setX(X);
                                 player.setY(Y);
                                 drawMap();
+                            } else if (isLiveCreature){
+                                ChooseEnemyWindow chooseEnemyWindow = new ChooseEnemyWindow(player, (LiveCreature) liveCreature);
                             }
                         }
                     });

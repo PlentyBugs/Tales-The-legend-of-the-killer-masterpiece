@@ -6,8 +6,11 @@ import java.awt.*;
 
 public class Bandit extends Human {
 
-    public Bandit(int x, int y, String name) {
-        super(x, y, name);
+    public Bandit(int x, int y, String name, int lvl, int hp) {
+        super(x, y, name, lvl, hp);
+
+        this.hp = hp;
+        this.lvl = lvl;
 
         this.name = name;
         stats.strength = 5;
@@ -34,7 +37,7 @@ public class Bandit extends Human {
     }
 
     public Bandit(){
-        this(0,0,"Бандит");
+        this(0,0,"Бандит",1,70);
     }
     public String getName(){
         return name;

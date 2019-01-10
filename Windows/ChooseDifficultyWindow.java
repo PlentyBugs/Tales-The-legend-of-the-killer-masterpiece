@@ -1,6 +1,6 @@
 package JGame.Windows;
 
-import JGame.Difficulty;
+import JGame.LiveCreatures.Difficulty;
 
 import javax.swing.*;
 import java.awt.*;
