@@ -2,25 +2,23 @@ package JGame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class InventoryWindow extends JFrame {
+public class EquipmentWindow extends JFrame {
 
     private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());
-    JScrollPane scroll = new JScrollPane(panel);
+    private JPanel panel = new JPanel();
     private GridBagConstraints constraints;
-    private int width = 300;
-    private int height = 720;
+    private int width = 480;
+    private int height = 240;
 
-    public InventoryWindow(Player player){
-        super("Инвентарь");
+    public EquipmentWindow(Player player){
+        super("Экипировка");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(width, height));
 
         this.player = player;
-        drawInventory();
+        drawEquipment();
     }
 
     public void close(){
@@ -28,13 +26,13 @@ public class InventoryWindow extends JFrame {
     }
 
     public void setIsVisible(boolean b) {
-        drawInventory();
+        drawEquipment();
         setVisible(b);
     }
 
-    private void drawInventory(){
+    private void drawEquipment(){
 
-        getContentPane().remove(scroll);
+        getContentPane().remove(panel);
 
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -43,7 +41,12 @@ public class InventoryWindow extends JFrame {
         constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        for (Item item : player.getInventory()){
+
+        for(Item item : player.getEquipment().getListOfEquipment()){
+
+            if (item == null){
+                continue;
+            }
 
             JPanel itemPanel = new JPanel();
             itemPanel.setPreferredSize(new Dimension(width, 40));
@@ -74,9 +77,11 @@ public class InventoryWindow extends JFrame {
                 case DRAGON: colorBackground = new Color(255, 9, 0,100); break;
                 case DIVINE: colorBackground = new Color(255, 169, 0,100); break;
             }
+            JLabel equipmentItem = new JLabel(item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1] + ": ");
 
-            JLabel itemName = new JLabel(item.name);
             itemConstraints.gridx = 1;
+            JLabel itemName = new JLabel(item.name);
+            itemConstraints.gridx = 2;
             JLabel itemQuality = new JLabel(Integer.toString(item.quality));
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -85,19 +90,9 @@ public class InventoryWindow extends JFrame {
             itemName.setForeground(colorForeground);
             itemQuality.setForeground(colorForeground);
 
-            itemConstraints.gridx = 2;
-            JButton equip = new JButton("Экипировать");
-
-            equip.setSize(100,40);
-
-            equip.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    player.equip(item);
-                }
-            });
+            itemPanel.add(equipmentItem, itemConstraints);
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
-            itemPanel.add(equip, itemConstraints);
 
             itemPanel.setBackground(colorBackground);
 
@@ -105,10 +100,7 @@ public class InventoryWindow extends JFrame {
 
             constraints.gridy ++;
         }
-
-        scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(width,height));
-        getContentPane().add(scroll);
+        getContentPane().add(panel);
         pack();
         setVisible(true);
     }

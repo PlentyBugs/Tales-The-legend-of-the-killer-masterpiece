@@ -13,13 +13,14 @@ public class PlayerWindowManager extends JFrame {
     public PlayerWindowManager(Player player){
         super("Менеджер окон игрока");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(300,60));
+        setPreferredSize(new Dimension(400,60));
 
         this.player = player;
 
         JPanel panel = new JPanel(new GridBagLayout());
         JButton inventory = new JButton("Инвентарь");
         JButton uoStats = new JButton("Прокачка");
+        JButton equipment = new JButton("Экипировка");
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -45,8 +46,21 @@ public class PlayerWindowManager extends JFrame {
             }
         });
 
+        equipment.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(!player.getIsEquipmentOpen()){
+                    player.setEquipmentIsVisible(true);
+                    player.setEquipmentOpen(true);
+                } else {
+                    player.setEquipmentIsVisible(false);
+                    player.setEquipmentOpen(false);
+                }
+            }
+        });
+
         panel.add(inventory);
         panel.add(uoStats);
+        panel.add(equipment);
 
         getContentPane().add(panel);
         pack();

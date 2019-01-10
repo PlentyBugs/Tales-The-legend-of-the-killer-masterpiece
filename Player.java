@@ -1,5 +1,8 @@
 package JGame;
 
+import JGame.Ability.Ability;
+import JGame.Ability.Passive.TwoOneHandedWeapon;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,13 +14,19 @@ public class Player extends Human {
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
     private InventoryWindow inventoryWindow;
+    private EquipmentWindow equipmentWindow;
     private PlayerWindowManager managerWindow;
 
     private boolean isUpStatsOpen;
     private boolean isInventoryOpen;
+    private boolean isEquipmentOpen;
     private boolean isManagerOpen;
 
     private ArrayList<Item> inventory = new ArrayList<Item>();
+
+    private Equipment equipment = new Equipment();
+
+    private ArrayList<Ability> abilities = new ArrayList<Ability>();
 
     private Window window;
 
@@ -54,6 +63,9 @@ public class Player extends Human {
         inventoryWindow = new InventoryWindow(this);
         setInventoryWindowIsVisible(false);
 
+        equipmentWindow = new EquipmentWindow(this);
+        setEquipmentIsVisible(false);
+
         managerWindow = new PlayerWindowManager(this);
         setManagerWindowIsVisible(false);
 
@@ -64,6 +76,24 @@ public class Player extends Human {
         for (Item item : itemList){
             inventory.add(item);
         }
+    }
+
+    public void addAbility(Ability ... abilities){
+        for (Ability ability : abilities){
+            if (!this.abilities.contains(ability)){
+                this.abilities.add(ability);
+            }
+        }
+    }
+
+    public Ability getAbility(Ability ability){
+        String abilityName = ability.getClass().toString().split("\\.")[ability.getClass().toString().split("\\.").length-1];
+        for (Ability abil : abilities){
+            if (abilityName.equals(abil.getClass().toString().split("\\.")[abil.getClass().toString().split("\\.").length-1])){
+                return abil;
+            }
+        }
+        return null;
     }
 
     public int getVision(){
@@ -147,6 +177,18 @@ public class Player extends Human {
         inventoryWindow.setIsVisible(isVisible);
     }
 
+    public void setEquipmentOpen(boolean isEquipmentOpen) {
+        this.isEquipmentOpen = isEquipmentOpen;
+    }
+
+    public boolean getIsEquipmentOpen() {
+        return isEquipmentOpen;
+    }
+
+    public void setEquipmentIsVisible(boolean isVisible) {
+        equipmentWindow.setIsVisible(isVisible);
+    }
+
     public void setManagerOpen(boolean isManagerOpen) {
         this.isManagerOpen = isManagerOpen;
     }
@@ -165,5 +207,33 @@ public class Player extends Human {
 
     public UpStatsWindow getUpStatsWindow(){
         return upStatsWindow;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void equip(Item item){
+        if (inventory.contains(item)){
+            String itemClass = item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1];
+            if (itemClass.equals("Sword")){
+                if (((Weapon)item).getWeaponType() == WeaponType.ONEHANDED){
+                    if (getAbility(new TwoOneHandedWeapon()) != null){
+                        equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
+                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                    } else {
+                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setOneHandedWeaponRight(null);
+                    }
+                } else {
+                    equipment.setTwoHandedWeapon((Weapon)item);
+                    equipment.setOneHandedWeaponRight(null);
+                }
+            } else if (itemClass.equals("Helmet")){
+                equipment.setHelmet((Helmet)item);
+            } else if (itemClass.equals("Torso")){
+                equipment.setTorso((Torso)item);
+            }
+        }
     }
 }

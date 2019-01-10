@@ -6,4 +6,5 @@ public class Item {
     protected int quality;
     protected Rarity rarity;
     protected Material material;
+
 }
