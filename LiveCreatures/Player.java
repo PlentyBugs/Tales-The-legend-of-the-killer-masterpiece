@@ -225,7 +225,7 @@ public class Player extends Human {
             String itemClass = item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1];
             if (itemClass.equals("Sword")){
                 if (((Weapon)item).getWeaponType() == WeaponType.ONEHANDED){
-                    if (getAbility(new TwoOneHandedWeapon()) != null){
+                    if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
                         equipment.setOneHandedWeaponLeft((Weapon)item);
                     } else {
