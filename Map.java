@@ -20,9 +20,23 @@ public class Map {
             for(int j = 0; j < mapWidth; j++){
                 Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
                 Human[] randomHumanList = {new Bandit(), new Goblin()};
+
+                int chance = (int) Math.ceil(Math.random() * 100);
+
+                /*
+
+                Старый прототип генерации с большим количеством врагов
+
                 GodCreature[][] list = {randomHumanList, randomThingList};
                 GodCreature[] random = list[(int)(list.length*Math.random())];
                 GodCreature randomGodCreature = random[(int)(random.length*Math.random())];
+                */
+                GodCreature randomGodCreature = new GodCreature();
+                if (chance >= 1 && chance <= 5){
+                    randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
+                } else {
+                    randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
+                }
                 randomGodCreature.setX(j);
                 randomGodCreature.setY(i);
 
