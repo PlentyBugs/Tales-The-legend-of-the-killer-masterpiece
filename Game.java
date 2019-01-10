@@ -1,6 +1,10 @@
 package JGame;
 
 import JGame.Ability.Passive.TwoOneHandedWeapon;
+import JGame.Items.*;
+import JGame.LiveCreatures.Player;
+import JGame.Windows.ChooseDifficultyWindow;
+import JGame.Windows.Window;
 
 import java.io.IOException;
 public class Game {
@@ -25,7 +29,7 @@ public class Game {
             player.setDifficulty(difficulty);
         }
 
-        Window window1 = new Window("Поле", 1024, 720, player.getVision(), player, map.getMap(player.x, player.y));
+        Window window1 = new Window("Поле", 1024, 720, player.getVision(), player, map.getMap(player.getX(), player.getY()));
         window1.setCurrentMap(map);
 
         player.setWindow(window1);

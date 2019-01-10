@@ -1,11 +1,13 @@
 package JGame;
 
+import JGame.LiveCreatures.LiveCreature;
+
 import java.util.ArrayList;
 
 public class Battle {
     ArrayList Enemies = new ArrayList();
     ArrayList Friends = new ArrayList();
-    public void addFoe(LiveCreature ... liveCreatures){
+    public void addFoe(LiveCreature... liveCreatures){
         for (LiveCreature liveCreature : liveCreatures){
             Enemies.add(liveCreature);
         }

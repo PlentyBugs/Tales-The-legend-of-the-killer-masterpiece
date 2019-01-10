@@ -1,5 +1,8 @@
 package JGame;
 
+import JGame.LiveCreatures.*;
+import JGame.Things.*;
+
 public class Map {
 
     private int playerVision;

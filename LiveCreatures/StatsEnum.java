@@ -1,0 +1,21 @@
+package JGame.LiveCreatures;
+
+public enum  StatsEnum {
+    STRENGTH,
+    SPEED,
+    AGILITY,
+    INTELLIGENCE,
+    LUCK,
+    ELOQUENCE,
+    BLACKSMITH,
+    ALCHEMY,
+    ONEHANDEDWEAPON,
+    TWOHANDEDWEAPON,
+    POLEWEAPON,
+    CHOPPINGWEAPON,
+    LONGRANGEWEAPON,
+    KNOWLEDGE,
+    ENERGY,
+    MILITARISM,
+    PACIFISM
+}
