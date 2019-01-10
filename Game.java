@@ -1,14 +1,19 @@
 package JGame;
 
+import JGame.Ability.Passive.TwoOneHandedWeapon;
+
 import java.io.IOException;
 public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player(0,0, "Вы");
 
+        player.addAbility(new TwoOneHandedWeapon());
+
         player.addItemToInventory(
-        new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
+                new Sword(Material.COPPER, Rarity.RARE, Grade.COMMON, 3, WeaponType.ONEHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.COMMON, 1)
+                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.ARTIFACT, 1)
                 );
 
         Map map = new Map(player, 100, 200);
