@@ -1,4 +1,4 @@
-package JGame.Things;
+package Things;
 
 import java.awt.*;
 

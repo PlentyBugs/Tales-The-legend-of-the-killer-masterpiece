@@ -1,7 +1,7 @@
-package JGame.Windows;
+package Windows;
 
-import JGame.Items.Item;
-import JGame.LiveCreatures.Player;
+import Items.Item;
+import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,9 +1,7 @@
-package JGame;
-
-import JGame.LiveCreatures.Difficulty;
-import JGame.LiveCreatures.Player;
-import JGame.Windows.ChooseNameWindow;
-import JGame.Windows.FieldWindow;
+import LiveCreatures.Difficulty;
+import LiveCreatures.Player;
+import Windows.ChooseNameWindow;
+import Windows.FieldWindow;
 
 import java.io.IOException;
 import java.util.Scanner;

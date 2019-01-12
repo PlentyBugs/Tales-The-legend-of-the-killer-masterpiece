@@ -1,6 +1,6 @@
-package JGame.Things;
+package Things;
 
-import JGame.LiveCreatures.GodCreature;
+import LiveCreatures.GodCreature;
 
 public class Thing extends GodCreature {
     protected String name;

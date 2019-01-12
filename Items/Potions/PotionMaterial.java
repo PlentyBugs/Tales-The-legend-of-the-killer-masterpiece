@@ -1,4 +1,4 @@
-package JGame.Items.Potions;
+package Items.Potions;
 
 public enum PotionMaterial {
     WATER,

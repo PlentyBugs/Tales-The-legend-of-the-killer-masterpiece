@@ -1,9 +1,4 @@
-package JGame.Items;
-
-import JGame.Items.Helmet;
-import JGame.Items.Item;
-import JGame.Items.Torso;
-import JGame.Items.Weapon;
+package Items;
 
 public class Equipment {
 

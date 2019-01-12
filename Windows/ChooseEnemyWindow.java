@@ -1,8 +1,8 @@
-package JGame.Windows;
+package Windows;
 
-import JGame.LiveCreatures.LiveCreature;
-import JGame.LiveCreatures.Player;
-import JGame.Windows.BattleWindows.FightWindow;
+import LiveCreatures.LiveCreature;
+import LiveCreatures.Player;
+import Windows.BattleWindows.FightWindow;
 
 import javax.swing.*;
 import java.awt.*;

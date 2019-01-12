@@ -1,4 +1,4 @@
-package JGame.Windows;
+package Windows;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;

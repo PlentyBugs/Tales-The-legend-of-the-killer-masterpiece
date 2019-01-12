@@ -1,7 +1,6 @@
-package JGame.LiveCreatures;
+package LiveCreatures;
 
-import JGame.Effects.Effect;
-import JGame.LiveCreatures.GodCreature;
+import Effects.Effect;
 
 import java.util.ArrayList;
 
@@ -9,6 +8,7 @@ public abstract class LiveCreature extends GodCreature {
     protected int x;
     protected int y;
     protected int hp;
+    protected int maxHp;
     protected int lvl;
     protected int money = 0;
     protected ArrayList<Effect> effects = new ArrayList<Effect>();
@@ -20,12 +20,17 @@ public abstract class LiveCreature extends GodCreature {
         this.name = name;
         this.x = x;
         this.y = y;
-        this.hp = hp;
+        this.maxHp = hp;
+        this.hp = maxHp;
         this.lvl = lvl;
     }
 
     public int getHp() {
         return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public int getLvl() {
@@ -34,6 +39,10 @@ public abstract class LiveCreature extends GodCreature {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public void setMaxHp(int hp) {
+        this.maxHp = maxHp;
     }
 
     public void setLvl(int lvl) {

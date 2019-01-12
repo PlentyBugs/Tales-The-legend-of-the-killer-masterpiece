@@ -1,7 +1,7 @@
-package JGame.Windows;
+package Windows;
 
-import JGame.LiveCreatures.Player;
-import JGame.LiveCreatures.StatsEnum;
+import LiveCreatures.Player;
+import LiveCreatures.StatsEnum;
 
 import javax.swing.*;
 import java.awt.*;

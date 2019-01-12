@@ -1,13 +1,9 @@
-package JGame.LiveCreatures;
+package LiveCreatures;
 
-import JGame.Ability.Ability;
-import JGame.Ability.Passive.TwoOneHandedWeapon;
-import JGame.Items.*;
-import JGame.Windows.EquipmentWindow;
-import JGame.Windows.InventoryWindow;
-import JGame.Windows.PlayerWindowManager;
-import JGame.Windows.UpStatsWindow;
-import JGame.Windows.FieldWindow;
+import Items.*;
+import Ability.Ability;
+import Ability.Passive.TwoOneHandedWeapon;
+import Windows.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,11 +19,13 @@ public class Player extends Human {
     private InventoryWindow inventoryWindow;
     private EquipmentWindow equipmentWindow;
     private PlayerWindowManager managerWindow;
+    private PlayerInfoWindow playerInfoWindow;
 
     private boolean isUpStatsOpen;
     private boolean isInventoryOpen;
     private boolean isEquipmentOpen;
     private boolean isManagerOpen;
+    private boolean isInfoWindowOpen;
 
     private ArrayList<Item> inventory = new ArrayList<Item>();
 
@@ -40,7 +38,8 @@ public class Player extends Human {
     public Player(int x, int y, String name, int lvl, int hp){
         super(x, y, name, lvl, hp);
 
-        this.hp = hp;
+        maxHp = hp;
+        this.hp = maxHp;
         this.lvl = lvl;
         this.name = name;
         stats.strength = 5;
@@ -77,6 +76,9 @@ public class Player extends Human {
 
         managerWindow = new PlayerWindowManager(this);
         setManagerWindowIsVisible(false);
+
+        playerInfoWindow = new PlayerInfoWindow(this);
+        setInfoWindowIsVisible(false);
 
         isPlayer = true;
 
@@ -213,6 +215,18 @@ public class Player extends Human {
         managerWindow.setIsVisible(isVisible);
     }
 
+    public void setInfoWindowOpen(boolean isInfoWindowOpen) {
+        this.isInfoWindowOpen = isInfoWindowOpen;
+    }
+
+    public boolean getIsInfoWindowOpen() {
+        return isInfoWindowOpen;
+    }
+
+    public void setInfoWindowIsVisible(boolean isVisible) {
+        playerInfoWindow.setIsVisible(isVisible);
+    }
+
     public ArrayList<Item> getInventory(){
         return inventory;
     }
@@ -257,6 +271,10 @@ public class Player extends Human {
         levelup();
     }
 
+    public int getNeedExpToNextLvl() {
+        return needExpToNextLvl;
+    }
+
     private void levelup(){
         while(exp > needExpToNextLvl){
             exp -= needExpToNextLvl;
@@ -291,6 +309,7 @@ public class Player extends Human {
                     break;
             }
 
+            chance += (int)(stats.luck/2);
             while(chance > 0){
                 int isExtraPoint = (int) Math.ceil(Math.random() * 100);
                 if (isExtraPoint < chance){
@@ -299,6 +318,8 @@ public class Player extends Human {
                 chance -= 5;
             }
 
+            addMaxHpByStats();
+
             try {
                 fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
                 fieldWindow.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
@@ -306,5 +327,9 @@ public class Player extends Human {
 
             }
         }
+    }
+
+    private void addMaxHpByStats(){
+        maxHp += (int)(stats.strength*5 + (stats.luck*2)*Math.random());
     }
 }

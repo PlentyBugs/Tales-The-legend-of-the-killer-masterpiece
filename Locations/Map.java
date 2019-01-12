@@ -1,7 +1,7 @@
-package JGame.Locations;
+package Locations;
 
-import JGame.LiveCreatures.*;
-import JGame.Things.*;
+import LiveCreatures.*;
+import Things.*;
 
 public class Map {
 

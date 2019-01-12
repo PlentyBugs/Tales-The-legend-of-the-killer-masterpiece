@@ -1,7 +1,7 @@
-package JGame.Ability.Passive;
+package Ability.Passive;
 
-import JGame.Ability.Ability;
-import JGame.Ability.AbilityType;
+import Ability.Ability;
+import Ability.AbilityType;
 
 public class TwoOneHandedWeapon extends Ability {
 

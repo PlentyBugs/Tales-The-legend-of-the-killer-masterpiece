@@ -1,9 +1,9 @@
-package JGame.Items.Potions;
+package Items.Potions;
 
-import JGame.Effects.EffectType;
-import JGame.Effects.Poison;
-import JGame.Items.Grade;
-import JGame.Items.Rarity;
+import Effects.EffectType;
+import Effects.Poison;
+import Items.Grade;
+import Items.Rarity;
 
 public class PoisonPotion extends Potion {
 

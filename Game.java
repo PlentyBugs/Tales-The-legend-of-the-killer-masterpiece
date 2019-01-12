@@ -1,16 +1,13 @@
-package JGame;
-
-import JGame.Ability.Passive.TwoOneHandedWeapon;
-import JGame.Effects.Poison;
-import JGame.Items.*;
-import JGame.Items.Potions.HealPotion;
-import JGame.Items.Potions.PoisonPotion;
-import JGame.Items.Potions.PotionMaterial;
-import JGame.LiveCreatures.Difficulty;
-import JGame.LiveCreatures.Player;
-import JGame.Locations.Map;
-import JGame.Windows.ChooseDifficultyWindow;
-import JGame.Windows.FieldWindow;
+import Ability.Passive.TwoOneHandedWeapon;
+import Items.*;
+import Items.Potions.HealPotion;
+import Items.Potions.PoisonPotion;
+import Items.Potions.PotionMaterial;
+import LiveCreatures.Difficulty;
+import LiveCreatures.Player;
+import Locations.Map;
+import Windows.ChooseDifficultyWindow;
+import Windows.FieldWindow;
 
 import java.io.IOException;
 public class Game {

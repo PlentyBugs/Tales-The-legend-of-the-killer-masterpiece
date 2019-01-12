@@ -1,6 +1,4 @@
-package JGame.Things;
-
-import JGame.Things.Thing;
+package Things;
 
 import java.awt.*;
 

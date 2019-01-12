@@ -1,6 +1,4 @@
-package JGame.LiveCreatures;
-
-import JGame.LiveCreatures.Human;
+package LiveCreatures;
 
 import java.awt.*;
 
@@ -9,7 +7,8 @@ public class Bandit extends Human {
     public Bandit(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);
 
-        this.hp = hp;
+        maxHp = hp;
+        this.hp = maxHp;
         this.lvl = lvl;
 
         this.name = name;

@@ -1,4 +1,4 @@
-package JGame.LiveCreatures;
+package LiveCreatures;
 
 import java.awt.*;
 

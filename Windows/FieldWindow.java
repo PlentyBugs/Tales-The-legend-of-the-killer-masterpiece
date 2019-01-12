@@ -1,9 +1,9 @@
-package JGame.Windows;
+package Windows;
 
-import JGame.LiveCreatures.GodCreature;
-import JGame.LiveCreatures.LiveCreature;
-import JGame.Locations.Map;
-import JGame.LiveCreatures.Player;
+import LiveCreatures.GodCreature;
+import LiveCreatures.LiveCreature;
+import Locations.Map;
+import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +65,8 @@ public class FieldWindow extends JFrame {
                 button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
 
-                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[1].equals("LiveCreatures");
+
+                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
 
                 GodCreature liveCreature = information[i][j];
 

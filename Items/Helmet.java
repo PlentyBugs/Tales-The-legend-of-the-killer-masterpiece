@@ -1,4 +1,4 @@
-package JGame.Items;
+package Items;
 
 public class Helmet extends Armor {
     public Helmet(Material material, Rarity rarity, Grade grade, int protection){

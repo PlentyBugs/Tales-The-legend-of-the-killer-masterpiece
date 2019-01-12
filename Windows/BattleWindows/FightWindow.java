@@ -1,12 +1,12 @@
-package JGame.Windows.BattleWindows;
+package Windows.BattleWindows;
 
-import JGame.LiveCreatures.LiveCreature;
-import JGame.LiveCreatures.Player;
-import JGame.Things.Corpse;
-import JGame.Windows.Console;
-import JGame.Windows.DialogWindow;
-import JGame.Windows.FieldWindow;
-import JGame.Windows.LossWindow;
+import LiveCreatures.LiveCreature;
+import LiveCreatures.Player;
+import Things.Corpse;
+import Windows.Console;
+import Windows.DialogWindow;
+import Windows.FieldWindow;
+import Windows.LossWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;

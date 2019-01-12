@@ -1,9 +1,9 @@
-package JGame.Items.Potions;
+package Items.Potions;
 
-import JGame.Effects.EffectType;
-import JGame.Effects.Heal;
-import JGame.Items.Grade;
-import JGame.Items.Rarity;
+import Effects.EffectType;
+import Effects.Heal;
+import Items.Grade;
+import Items.Rarity;
 
 public class HealPotion extends Potion {
 

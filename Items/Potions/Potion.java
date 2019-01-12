@@ -1,10 +1,10 @@
-package JGame.Items.Potions;
+package Items.Potions;
 
-import JGame.Effects.Effect;
-import JGame.Items.Grade;
-import JGame.Items.Item;
-import JGame.Items.Rarity;
-import JGame.LiveCreatures.LiveCreature;
+import Effects.Effect;
+import Items.Grade;
+import Items.Item;
+import Items.Rarity;
+import LiveCreatures.LiveCreature;
 
 public class Potion extends Item {
 

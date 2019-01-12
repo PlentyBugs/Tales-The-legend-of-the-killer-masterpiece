@@ -1,6 +1,4 @@
-package JGame.LiveCreatures;
-
-import JGame.LiveCreatures.StatsEnum;
+package LiveCreatures;
 
 public class Stats {
 

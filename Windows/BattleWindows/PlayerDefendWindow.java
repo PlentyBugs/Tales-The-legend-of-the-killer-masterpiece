@@ -1,4 +1,4 @@
-package JGame.Windows.BattleWindows;
+package Windows.BattleWindows;
 
 public class PlayerDefendWindow {
 }

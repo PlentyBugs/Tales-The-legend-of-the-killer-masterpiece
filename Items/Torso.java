@@ -1,4 +1,4 @@
-package JGame.Items;
+package Items;
 
 public class Torso extends Armor {
     public Torso(Material material, Rarity rarity, Grade grade, int protection){

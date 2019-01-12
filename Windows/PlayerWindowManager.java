@@ -1,6 +1,6 @@
-package JGame.Windows;
+package Windows;
 
-import JGame.LiveCreatures.Player;
+import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class PlayerWindowManager extends JFrame {
     public PlayerWindowManager(Player player){
         super("Менеджер окон игрока");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(400,60));
+        setPreferredSize(new Dimension(440,60));
 
         this.player = player;
 
@@ -23,6 +23,7 @@ public class PlayerWindowManager extends JFrame {
         JButton inventory = new JButton("Инвентарь");
         JButton uoStats = new JButton("Прокачка");
         JButton equipment = new JButton("Экипировка");
+        JButton info = new JButton("Информация");
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,9 +61,22 @@ public class PlayerWindowManager extends JFrame {
             }
         });
 
+        info.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(!player.getIsInfoWindowOpen()){
+                    player.setInfoWindowIsVisible(true);
+                    player.setInfoWindowOpen(true);
+                } else {
+                    player.setInfoWindowIsVisible(false);
+                    player.setInfoWindowOpen(false);
+                }
+            }
+        });
+
         panel.add(inventory);
         panel.add(uoStats);
         panel.add(equipment);
+        panel.add(info);
 
         getContentPane().add(panel);
         pack();

@@ -1,4 +1,4 @@
-package JGame.LiveCreatures;
+package LiveCreatures;
 
 public class Human extends LiveCreature {
     protected String name;
@@ -13,7 +13,8 @@ public class Human extends LiveCreature {
 
         super(x, y, name, lvl, hp);
 
-        this.hp = hp;
+        maxHp = hp;
+        this.hp = maxHp;
         this.lvl = lvl;
 
         stats.strength = 5;

@@ -1,4 +1,4 @@
-package JGame.Items;
+package Items;
 
 public enum Material {
     LEATHER,

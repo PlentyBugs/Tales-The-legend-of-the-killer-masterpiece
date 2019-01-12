@@ -1,6 +1,4 @@
-package JGame.LiveCreatures;
-
-import JGame.LiveCreatures.Human;
+package LiveCreatures;
 
 import java.awt.*;
 
@@ -9,7 +7,8 @@ public class Goblin extends Human {
     public Goblin(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);
 
-        this.hp = hp;
+        maxHp = hp;
+        this.hp = maxHp;
         this.lvl = lvl;
         this.name = name;
         stats.strength = 5 + (int)(Math.random()*(lvl+2));
@@ -21,7 +20,7 @@ public class Goblin extends Human {
         stats.blacksmith = 5;
         stats.alchemy = 5;
         stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
-        stats.two_handed_weapon = 5;
+        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8));
         stats.pole_weapon = 5;
         stats.chopping_weapon = 5;
         stats.long_range_weapon = 5;

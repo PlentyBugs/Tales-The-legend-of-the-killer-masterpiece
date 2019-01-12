@@ -1,4 +1,4 @@
-package JGame.Effects;
+package Effects;
 
 public enum EffectType {
     ACTIVE,

@@ -1,4 +1,4 @@
-package JGame.Ability;
+package Ability;
 
 public class Ability {
     private AbilityType abilityType;
