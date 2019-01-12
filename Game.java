@@ -1,7 +1,11 @@
 package JGame;
 
 import JGame.Ability.Passive.TwoOneHandedWeapon;
+import JGame.Effects.Poison;
 import JGame.Items.*;
+import JGame.Items.Potions.HealPotion;
+import JGame.Items.Potions.PoisonPotion;
+import JGame.Items.Potions.PotionMaterial;
 import JGame.LiveCreatures.Difficulty;
 import JGame.LiveCreatures.Player;
 import JGame.Locations.Map;
@@ -19,7 +23,9 @@ public class Game {
                 new Sword(Material.COPPER, Rarity.RARE, Grade.COMMON, 3, WeaponType.ONEHANDED),
                 new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.ARTIFACT, 1)
+                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.ARTIFACT, 1),
+                new HealPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON),
+                new PoisonPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON)
                 );
 
         Map map = new Map(player, 100, 200);

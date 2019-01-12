@@ -13,19 +13,19 @@ public class Bandit extends Human {
         this.lvl = lvl;
 
         this.name = name;
-        stats.strength = 5;
-        stats.speed = 5;
-        stats.agility = 5;
-        stats.intelligence = 5;
-        stats.luck = 5;
+        stats.strength = 5 + (int)(Math.random()*(lvl+6));
+        stats.speed = 5 + (int)(Math.random()*(lvl+1));
+        stats.agility = 5 + (int)(Math.random()*(lvl+3));
+        stats.intelligence = 5 + (int)(Math.random()*lvl);
+        stats.luck = 5 + (int)(Math.random()*(lvl+4));
         stats.eloquence = 5;
         stats.blacksmith = 5;
         stats.alchemy = 5;
-        stats.one_handed_weapon = 5;
-        stats.two_handed_weapon = 5;
-        stats.pole_weapon = 5;
-        stats.chopping_weapon = 5;
-        stats.long_range_weapon = 5;
+        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
+        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
+        stats.pole_weapon = 5 + (int)(Math.random()*(lvl+2));
+        stats.chopping_weapon = 5 + (int)(Math.random()*(lvl+2));
+        stats.long_range_weapon = 5 + (int)(Math.random()*(lvl+2));
 
         stats.knowledge = 0;
         stats.energy = 0;

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class Player extends Human {
 
-    protected int money = 0;
     private int vision;
+    private int exp;
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
@@ -243,5 +243,12 @@ public class Player extends Human {
                 equipment.setTorso((Torso)item);
             }
         }
+    }
+    public int getExp() {
+        return exp;
+    }
+
+    public void addExp(int exp) {
+        this.exp += exp;
     }
 }

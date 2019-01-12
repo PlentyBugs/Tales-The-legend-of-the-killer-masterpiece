@@ -10,6 +10,7 @@ public class Console extends JPanel
     private JScrollPane vertical;
     private JTextArea console;
     private boolean firstTime = true;
+    private int speed = 100;
 
     public Console()
     {
@@ -37,7 +38,7 @@ public class Console extends JPanel
 
         for(char ch : text.toCharArray()){
             console.append(Character.toString(ch));
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(speed);
         }
     }
     public JTextArea getConsole(String password){
@@ -46,5 +47,15 @@ public class Console extends JPanel
         } else {
             return null;
         }
+    }
+    public void setRowsAndColumns(int rows, int columns){
+        console.setRows(rows);
+        console.setColumns(columns);
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public void clear(){
+        console.setText("");
     }
 }

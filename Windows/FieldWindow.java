@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class FieldWindow extends JFrame {
     private int x, y;
@@ -88,7 +89,7 @@ public class FieldWindow extends JFrame {
                                 player.setY(Y);
                                 drawMap();
                             } else if (isLiveCreature){
-                                ChooseEnemyWindow chooseEnemyWindow = new ChooseEnemyWindow(player, (LiveCreature) liveCreature);
+                                ChooseEnemyWindow chooseEnemyWindow = new ChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
                             }
                         }
                     });
@@ -118,5 +119,13 @@ public class FieldWindow extends JFrame {
 
     public Console getConsole() {
         return console;
+    }
+
+    public void close(){
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    public void setIsVisible(boolean b) {
+        setVisible(b);
     }
 }

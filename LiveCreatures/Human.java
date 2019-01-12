@@ -4,8 +4,6 @@ public class Human extends LiveCreature {
     protected String name;
     protected String location = "Пустота";
 
-    Stats stats = new Stats();
-
     protected int upPointCount = 0;
     public int hp = 100;
 

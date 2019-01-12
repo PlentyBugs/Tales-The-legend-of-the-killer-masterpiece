@@ -66,6 +66,7 @@ public class InventoryWindow extends JFrame {
                 case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
                 case HEROIC: colorForeground = new Color(255, 96, 0); break;
                 case ABOVETHEGODS: colorForeground = new Color(255, 0, 197); break;
+                default:  colorForeground = new Color(0,0,0); break;
             }
 
             switch(item.getRarity()){
@@ -76,6 +77,7 @@ public class InventoryWindow extends JFrame {
                 case LEGENDARY: colorBackground = new Color(255, 232, 0,100); break;
                 case DRAGON: colorBackground = new Color(255, 9, 0,100); break;
                 case DIVINE: colorBackground = new Color(255, 169, 0,100); break;
+                default:  colorBackground = new Color(255,255,255,100); break;
             }
 
             JLabel itemName = new JLabel(item.getName());
@@ -91,13 +93,19 @@ public class InventoryWindow extends JFrame {
             itemConstraints.gridx = 2;
             JButton equip = new JButton("Экипировать");
 
+            if(((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
+                itemQuality.setText("");
+                equip.setText("Использовать");
+            }
             equip.setSize(100,40);
 
-            equip.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    player.equip(item);
-                }
-            });
+            if(!((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
+                equip.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        player.equip(item);
+                    }
+                });
+            }
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
             itemPanel.add(equip, itemConstraints);

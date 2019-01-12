@@ -58,4 +58,16 @@ public class Equipment {
 
         return itemList;
     }
+
+    public int getWeaponDamage(){
+        int damage = 0;
+        Weapon[] weaponList = {oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
+
+        for(Weapon weapon : weaponList){
+            if (weapon != null){
+                damage += weapon.damage;
+            }
+        }
+        return damage;
+    }
 }

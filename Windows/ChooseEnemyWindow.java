@@ -2,6 +2,7 @@ package JGame.Windows;
 
 import JGame.LiveCreatures.LiveCreature;
 import JGame.LiveCreatures.Player;
+import JGame.Windows.BattleWindows.FightWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,11 +21,13 @@ public class ChooseEnemyWindow extends JFrame {
     private GridBagConstraints constraints;
 
     Player player;
+    private FieldWindow field;
 
-    public ChooseEnemyWindow(Player player, LiveCreature ... liveCreatures){
+    public ChooseEnemyWindow(Player player, FieldWindow field, LiveCreature ... liveCreatures){
         super("Выберите противника");
 
         this.player = player;
+        this.field = field;
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         addEnemy(liveCreatures);
@@ -69,7 +72,7 @@ public class ChooseEnemyWindow extends JFrame {
 
             fight.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    FightWindow fightWindow = new FightWindow(player, liveCreature);
+                    FightWindow fightWindow = new FightWindow(player, liveCreature, field);
                     close();
                 }
             });
