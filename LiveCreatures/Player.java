@@ -16,6 +16,7 @@ public class Player extends Human {
 
     private int vision;
     private int exp;
+    private int needExpToNextLvl;
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
@@ -78,6 +79,9 @@ public class Player extends Human {
         setManagerWindowIsVisible(false);
 
         isPlayer = true;
+
+        exp = 0;
+        needExpToNextLvl = 500;
     }
 
     public void addItemToInventory(Item ... itemList){
@@ -248,7 +252,59 @@ public class Player extends Human {
         return exp;
     }
 
-    public void addExp(int exp) {
-        this.exp += exp;
+    public void addExp(int addExp) {
+        this.exp += addExp;
+        levelup();
+    }
+
+    private void levelup(){
+        while(exp > needExpToNextLvl){
+            exp -= needExpToNextLvl;
+            int wasUpCountPoints = upPointCount;
+            needExpToNextLvl += lvl*500;
+            lvl ++;
+            int chance = 10;
+            switch (difficulty){
+                case EASY:
+                    upPointCount += 5;
+                    chance = 10;
+                    break;
+                case NORMAL:
+                    upPointCount += 5;
+                    chance = 15;
+                    break;
+                case HARD:
+                    upPointCount += 5;
+                    chance = 20;
+                    break;
+                case VERYHARD:
+                    upPointCount += 6;
+                    chance = 25;
+                    break;
+                case NIGHTMARE:
+                    upPointCount += 6;
+                    chance = 30;
+                    break;
+                case STOPIT:
+                    upPointCount += 7;
+                    chance = 40;
+                    break;
+            }
+
+            while(chance > 0){
+                int isExtraPoint = (int) Math.ceil(Math.random() * 100);
+                if (isExtraPoint < chance){
+                    upPointCount ++;
+                }
+                chance -= 5;
+            }
+
+            try {
+                fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
+                fieldWindow.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
+            } catch (InterruptedException ex){
+
+            }
+        }
     }
 }

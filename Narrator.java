@@ -59,7 +59,7 @@ public class Narrator {
         if (skill_points_count > 0){
             monolog("Ладно, пожалуй нам стоит задать твой вектор развития, я дам тебе " + skill_points_count + " очков прокачки", "Неизвестный");
             monolog("Распредели их как следует:", "Неизвестный");
-            player.setUpPointCount(skill_points_count);
+            player.addUpPoints(skill_points_count);
             player.setUpStatsWindowIsVisible(true);
             while (player.getUpPointCount() > 0){
                 fieldWindow.getConsole().getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");

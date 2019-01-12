@@ -2,9 +2,11 @@ package JGame.Windows.BattleWindows;
 
 import JGame.LiveCreatures.LiveCreature;
 import JGame.LiveCreatures.Player;
+import JGame.Things.Corpse;
 import JGame.Windows.Console;
 import JGame.Windows.DialogWindow;
 import JGame.Windows.FieldWindow;
+import JGame.Windows.LossWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -251,13 +253,15 @@ public class FightWindow extends JFrame {
             writeToPlayerConsole("Осталось жизней: " + player.getHp());
         } else {
             writeToPlayerConsole(player.getName() + " повержен!");
-            getReward();
+            loss();
         }
     }
 
     private void getReward(){
 
         field.setIsVisible(true);
+        field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
+        field.drawMap();
 
         close();
         int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random());
@@ -277,5 +281,10 @@ public class FightWindow extends JFrame {
                         "Опыт: " + Integer.toString(rewardExp));
         player.addMoney(rewardMoney);
         player.addExp(rewardExp);
+    }
+
+    public void loss(){
+        close();
+        LossWindow loss = new LossWindow();
     }
 }

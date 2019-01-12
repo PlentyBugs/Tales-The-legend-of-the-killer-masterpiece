@@ -59,4 +59,8 @@ public class Map {
         }
         return currentMap;
     }
+
+    public void setElementByCoordinates(int x, int y, GodCreature godCreature){
+        map[y][x] = godCreature;
+    }
 }

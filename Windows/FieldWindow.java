@@ -128,4 +128,8 @@ public class FieldWindow extends JFrame {
     public void setIsVisible(boolean b) {
         setVisible(b);
     }
+
+    public Map getCurrentMap() {
+        return currentMap;
+    }
 }
