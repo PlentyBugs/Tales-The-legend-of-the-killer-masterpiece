@@ -1,6 +1,8 @@
 package Windows;
 
+import Items.Armor;
 import Items.Item;
+import Items.Weapon;
 import LiveCreatures.Player;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class InventoryWindow extends JFrame {
     private JPanel panel = new JPanel(new GridBagLayout());
     JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
-    private int width = 300;
+    private int width = 480;
     private int height = 720;
 
     public InventoryWindow(Player player){
@@ -82,15 +84,32 @@ public class InventoryWindow extends JFrame {
 
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 1;
-            JLabel itemQuality = new JLabel(Integer.toString(item.getQuality()));
+            JLabel itemQuality = new JLabel("Прочность: " + Integer.toString(item.getQuality()));
+
+            itemConstraints.gridx = 2;
+            JLabel property = new JLabel();
+            itemConstraints.gridx = 3;
+            JLabel propertyCount = new JLabel();
+
+            if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
+                property.setText("Урон: ");
+                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+            } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
+                property.setText("Прочность: ");
+                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
             itemQuality.setFont(new Font("Serif", Font.PLAIN, 16));
+            property.setFont(new Font("Serif", Font.PLAIN, 16));
+            propertyCount.setFont(new Font("Serif", Font.PLAIN, 16));
 
             itemName.setForeground(colorForeground);
             itemQuality.setForeground(colorForeground);
+            property.setForeground(colorForeground);
+            propertyCount.setForeground(colorForeground);
 
-            itemConstraints.gridx = 2;
+            itemConstraints.gridx = 4;
             JButton equip = new JButton("Экипировать");
 
             if(((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
@@ -108,6 +127,8 @@ public class InventoryWindow extends JFrame {
             }
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
+            itemPanel.add(property, itemConstraints);
+            itemPanel.add(propertyCount, itemConstraints);
             itemPanel.add(equip, itemConstraints);
 
             itemPanel.setBackground(colorBackground);

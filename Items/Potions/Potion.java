@@ -21,4 +21,20 @@ public class Potion extends Item {
     public void use(LiveCreature liveCreature){
         liveCreature.addEffect(effect);
     }
+
+    public void setPotionMaterial(PotionMaterial potionMaterial) {
+        this.potionMaterial = potionMaterial;
+    }
+
+    public void setEffect(Effect effect) {
+        this.effect = effect;
+    }
+
+    public Effect getEffect() {
+        return effect;
+    }
+
+    public PotionMaterial getPotionMaterial() {
+        return potionMaterial;
+    }
 }

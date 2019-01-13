@@ -1,6 +1,7 @@
 package LiveCreatures;
 
 import Effects.Effect;
+import Items.Item;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public abstract class LiveCreature extends GodCreature {
     protected int money = 0;
     protected ArrayList<Effect> effects = new ArrayList<Effect>();
     protected Stats stats = new Stats();
+    protected Item[] uniqueDropItems;
 
 
     public LiveCreature(int x, int y, String name, int lvl, int hp){
@@ -67,5 +69,9 @@ public abstract class LiveCreature extends GodCreature {
 
     public void reduceMoney(int money) {
         this.money -= money;
+    }
+
+    public Item[] getUniqueDropItems() {
+        return uniqueDropItems;
     }
 }

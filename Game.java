@@ -17,10 +17,10 @@ public class Game {
         player.addAbility(new TwoOneHandedWeapon());
 
         player.addItemToInventory(
-                new Sword(Material.COPPER, Rarity.DRAGON, Grade.ARTIFACT, 30  , WeaponType.ONEHANDED),
+                new Sword(Material.ADAMANTINE, Rarity.COMMON, Grade.COMMON, 0  , WeaponType.ONEHANDED),
                 new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                new Helmet(Material.CHAIN, Rarity.COMMON, Grade.ARTIFACT, 1),
+                new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
                 new HealPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON),
                 new PoisonPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON)
                 );

@@ -1,5 +1,10 @@
 package LiveCreatures;
 
+import Items.Item;
+import Items.Potions.HealPotion;
+import Items.Potions.PoisonPotion;
+import Items.Sword;
+
 import java.awt.*;
 
 public class Goblin extends Human {
@@ -32,6 +37,7 @@ public class Goblin extends Human {
         stats.pacifism = 0;
 
         color = new Color(170,200,10);
+        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion()};
     }
 
     public Goblin(){

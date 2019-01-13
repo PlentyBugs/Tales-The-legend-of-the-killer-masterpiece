@@ -1,5 +1,11 @@
 package LiveCreatures;
 
+import Items.Helmet;
+import Items.Item;
+import Items.Potions.HealPotion;
+import Items.Sword;
+import Items.Torso;
+
 import java.awt.*;
 
 public class Bandit extends Human {
@@ -33,6 +39,8 @@ public class Bandit extends Human {
         stats.pacifism = 0;
 
         color = Color.RED;
+
+        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion()};
     }
 
     public Bandit(){

@@ -73,9 +73,6 @@ public class FieldWindow extends JFrame {
 
                 GodCreature liveCreature = information[i][j];
 
-                System.out.println(player.getX());
-                System.out.println(player.getY());
-
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {

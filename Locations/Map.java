@@ -46,10 +46,6 @@ public class Map {
         int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
         int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
         map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
-        System.out.println(healBlockX);
-        System.out.println(healBlockY);
-        System.out.println(doorToUpperLevelLocationX);
-        System.out.println(doorToUpperLevelLocationY);
     }
 
     public GodCreature[][] getMap(int x, int y){

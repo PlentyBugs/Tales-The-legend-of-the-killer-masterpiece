@@ -16,4 +16,8 @@ public class HealPotion extends Potion {
 
         effect = new Heal(EffectType.ACTIVE);
     }
+
+    public HealPotion(){
+        this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
+    }
 }

@@ -16,4 +16,8 @@ public class PoisonPotion extends Potion {
 
         effect = new Poison(EffectType.ACTIVE);
     }
+
+    public PoisonPotion(){
+        this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
+    }
 }
