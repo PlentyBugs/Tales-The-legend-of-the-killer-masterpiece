@@ -181,6 +181,11 @@ public class FightWindow extends JFrame {
                     if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
                         dialogWindow.close();
                         dialogWindow = new DialogWindow("Вам удалось сбежать");
+                        isPlayerTurn = true;
+
+                        field.setIsVisible(true);
+                        field.drawMap();
+
                         close();
                     } else {
                         dialogWindow.close();

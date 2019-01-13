@@ -2,8 +2,9 @@ package Windows;
 
 import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
-import Locations.Map;
 import LiveCreatures.Player;
+import Locations.Map;
+import Things.Grass;
 import Things.HealBlock;
 
 import javax.swing.*;
@@ -68,9 +69,12 @@ public class FieldWindow extends JFrame {
 
                 boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
                 boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
-                boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("DoorToUpperLevelLocation");
+                boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("DoorToUpperLevelLocation");
 
                 GodCreature liveCreature = information[i][j];
+
+                System.out.println(player.getX());
+                System.out.println(player.getY());
 
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
@@ -85,13 +89,25 @@ public class FieldWindow extends JFrame {
                         }
                     });
                 } else if (isHealBlock){
-                    ((HealBlock)liveCreature).heal(player);
-                    int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
-                    int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
-                    currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
+                    button.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        currentMap.setElementByCoordinates(liveCreature.getX(), liveCreature.getY(), new Grass());
+                        ((HealBlock)liveCreature).heal(player);
+                        int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
+                        int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
+                        currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
+                        drawMap();
+                    }
+                });
                 } else if (isDoorToUpperLevel) {
-                    currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
-                    drawMap();
+                    button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
+                            player.setX(0);
+                            player.setY(0);
+                            drawMap();
+                        }
+                    });
                 }else {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -100,7 +116,16 @@ public class FieldWindow extends JFrame {
                                 player.setY(Y);
                                 drawMap();
                             } else if (isLiveCreature){
-                                ChooseEnemyWindow chooseEnemyWindow = new ChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
+                                if (liveCreature.getChooseEnemyWindow() == null){
+                                    liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
+                                }
+                                if(!liveCreature.getIsChooseEnemyWindowOpen()){
+                                    liveCreature.setChooseEnemyWindowIsVisible(true);
+                                    liveCreature.setChooseEnemyWindowOpen(true);
+                                } else {
+                                    liveCreature.setChooseEnemyWindowIsVisible(false);
+                                    liveCreature.setChooseEnemyWindowOpen(false);
+                                }
                             }
                         }
                     });

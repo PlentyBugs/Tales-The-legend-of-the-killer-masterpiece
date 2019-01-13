@@ -1,5 +1,8 @@
 package LiveCreatures;
 
+import Windows.ChooseEnemyWindow;
+import Windows.FieldWindow;
+
 import java.awt.*;
 
 public class GodCreature {
@@ -9,6 +12,8 @@ public class GodCreature {
     protected int x;
     protected int y;
     protected boolean isPlayer = false;
+    private ChooseEnemyWindow chooseEnemyWindow;
+    private boolean isChooseEnemyWindowOpen;
 
     public String getName(){
         return name;
@@ -48,5 +53,25 @@ public class GodCreature {
 
     public boolean getIsPlayer(){
         return isPlayer;
+    }
+
+    public void setChooseEnemyWindow(Player player, FieldWindow fieldWindow, LiveCreature liveCreature){
+        chooseEnemyWindow = new ChooseEnemyWindow(player, fieldWindow, liveCreature);
+    }
+
+    public void setChooseEnemyWindowOpen(boolean isChooseEnemyWindowOpen) {
+        this.isChooseEnemyWindowOpen = isChooseEnemyWindowOpen;
+    }
+
+    public boolean getIsChooseEnemyWindowOpen() {
+        return isChooseEnemyWindowOpen;
+    }
+
+    public void setChooseEnemyWindowIsVisible(boolean isVisible) {
+        chooseEnemyWindow.setIsVisible(isVisible);
+    }
+
+    public ChooseEnemyWindow getChooseEnemyWindow() {
+        return chooseEnemyWindow;
     }
 }
