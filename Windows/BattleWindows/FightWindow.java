@@ -137,7 +137,9 @@ public class FightWindow extends JFrame {
                         writeToEnemyStatusConsole(enemy.getName() + " повержен!");
                         getReward();
                     }
-                    enemyTurn();
+                    if(!isPlayerTurn){
+                        enemyTurn();
+                    }
                 }
             }
         });
@@ -258,6 +260,7 @@ public class FightWindow extends JFrame {
     }
 
     private void getReward(){
+        isPlayerTurn = true;
 
         field.setIsVisible(true);
         field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
