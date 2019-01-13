@@ -4,6 +4,7 @@ import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
 import Locations.Map;
 import LiveCreatures.Player;
+import Things.HealBlock;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,8 +66,9 @@ public class FieldWindow extends JFrame {
                 button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
 
-
                 boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
+                boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
+                boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("DoorToUpperLevelLocation");
 
                 GodCreature liveCreature = information[i][j];
 
@@ -82,7 +84,15 @@ public class FieldWindow extends JFrame {
                             }
                         }
                     });
-                } else {
+                } else if (isHealBlock){
+                    ((HealBlock)liveCreature).heal(player);
+                    int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
+                    int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
+                    currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
+                } else if (isDoorToUpperLevel) {
+                    currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
+                    drawMap();
+                }else {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (isStep){

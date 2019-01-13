@@ -40,6 +40,12 @@ public class Map {
                 map[i][j] = randomGodCreature;
             }
         }
+        int healBlockY = (int)(Math.random()*(mapHeight-1));
+        int healBlockX = (int)(Math.random()*(mapWidth-1));
+        map[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
+        int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
+        int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
+        map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new HealBlock(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
     }
 
     public GodCreature[][] getMap(int x, int y){
@@ -62,5 +68,12 @@ public class Map {
 
     public void setElementByCoordinates(int x, int y, GodCreature godCreature){
         map[y][x] = godCreature;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
+    public int getMapWidth() {
+        return mapWidth;
     }
 }
