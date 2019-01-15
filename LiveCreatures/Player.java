@@ -320,6 +320,7 @@ public class Player extends Human {
             }
 
             addMaxHpByStats();
+            setHp(maxHp);
 
             try {
                 fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
@@ -328,7 +329,6 @@ public class Player extends Human {
 
             }
         }
-        setHp(maxHp);
     }
 
     private void addMaxHpByStats(){

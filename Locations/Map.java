@@ -29,8 +29,8 @@ public class Map {
                 GodCreature randomGodCreature = new GodCreature();
                 if (chance >= 1 && chance <= 5){
                     randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
-                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl());
-                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+5)+1) + player.getLvl() - 1);
+                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
+                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl());
                     ((LiveCreature)randomGodCreature).countStatsAfterBorn();
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];

@@ -32,16 +32,16 @@ public class Goblin extends Human {
     }
 
     public void countStatsAfterBorn(){
-        stats.strength = 5 + (int)(Math.random()*(lvl+2));
-        stats.speed = 5 + (int)(Math.random()*(lvl+2));
-        stats.agility = 5 + (int)(Math.random()*(lvl+2));
+        stats.strength = 5 + (int)(Math.random()*(lvl+2) + lvl*3);
+        stats.speed = 5 + (int)(Math.random()*(lvl+2) + lvl*2);
+        stats.agility = 5 + (int)(Math.random()*(lvl+2) + lvl*4);
         stats.intelligence = 5;
         stats.luck = 5;
         stats.eloquence = 5;
         stats.blacksmith = 5;
         stats.alchemy = 5;
-        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
-        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8));
+        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*5);
+        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8) + lvl*6);
         stats.pole_weapon = 5;
         stats.chopping_weapon = 5;
         stats.long_range_weapon = 5;
