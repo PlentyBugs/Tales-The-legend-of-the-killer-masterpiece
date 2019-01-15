@@ -14,7 +14,7 @@ public class PoisonPotion extends Potion {
         this.rarity = rarity;
         this.grade = grade;
 
-        effect = new Poison(EffectType.ACTIVE);
+        effect = new Poison(EffectType.MOMENT);
     }
 
     public PoisonPotion(){

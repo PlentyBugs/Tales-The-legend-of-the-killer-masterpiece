@@ -1,7 +1,6 @@
-package Windows;
+package Windows.BattleWindows;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LossWindow extends JFrame {
 

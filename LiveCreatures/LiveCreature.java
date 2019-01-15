@@ -74,4 +74,10 @@ public abstract class LiveCreature extends GodCreature {
     public Item[] getUniqueDropItems() {
         return uniqueDropItems;
     }
+
+    public void useMomentEffect(Effect effect){
+        effect.use(this);
+    }
+
+    public void countStatsAfterBorn(){}
 }

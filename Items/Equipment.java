@@ -65,4 +65,9 @@ public class Equipment {
         }
         return damage;
     }
+
+    public Item[] getArmor(){
+        Item[] armor = {torso, helmet};
+        return armor;
+    }
 }

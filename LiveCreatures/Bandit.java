@@ -18,6 +18,22 @@ public class Bandit extends Human {
         this.lvl = lvl;
 
         this.name = name;
+        color = Color.RED;
+
+        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion()};
+    }
+
+    public Bandit(){
+        this(0,0,"Бандит",1,70);
+    }
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void countStatsAfterBorn(){
         stats.strength = 5 + (int)(Math.random()*(lvl+6));
         stats.speed = 5 + (int)(Math.random()*(lvl+1));
         stats.agility = 5 + (int)(Math.random()*(lvl+3));
@@ -37,20 +53,6 @@ public class Bandit extends Human {
 
         stats.militarism = 0;
         stats.pacifism = 0;
-
-        color = Color.RED;
-
-        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion()};
-    }
-
-    public Bandit(){
-        this(0,0,"Бандит",1,70);
-    }
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
     }
 
 }

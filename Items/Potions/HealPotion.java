@@ -14,7 +14,7 @@ public class HealPotion extends Potion {
         this.rarity = rarity;
         this.grade = grade;
 
-        effect = new Heal(EffectType.ACTIVE);
+        effect = new Heal(EffectType.MOMENT);
     }
 
     public HealPotion(){

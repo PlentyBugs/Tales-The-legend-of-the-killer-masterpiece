@@ -1,6 +1,6 @@
 package LiveCreatures;
 
-import Windows.ChooseEnemyWindow;
+import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.FieldWindow;
 
 import java.awt.*;

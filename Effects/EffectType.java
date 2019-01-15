@@ -2,5 +2,6 @@ package Effects;
 
 public enum EffectType {
     ACTIVE,
-    PASSIVE
+    PASSIVE,
+    MOMENT
 }

@@ -29,8 +29,9 @@ public class Map {
                 GodCreature randomGodCreature = new GodCreature();
                 if (chance >= 1 && chance <= 5){
                     randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
-                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+10));
-                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+5)+1));
+                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl());
+                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+5)+1) + player.getLvl() - 1);
+                    ((LiveCreature)randomGodCreature).countStatsAfterBorn();
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
                 }
@@ -40,12 +41,16 @@ public class Map {
                 map[i][j] = randomGodCreature;
             }
         }
-        int healBlockY = (int)(Math.random()*(mapHeight-1));
-        int healBlockX = (int)(Math.random()*(mapWidth-1));
-        map[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
-        int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
-        int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
-        map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+        for (int i = 0; i < 7; i++){
+            int healBlockY = (int)(Math.random()*(mapHeight-1));
+            int healBlockX = (int)(Math.random()*(mapWidth-1));
+            map[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
+        }
+        for (int i = 0; i < 3; i++){
+            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
+            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
+            map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+        }
     }
 
     public GodCreature[][] getMap(int x, int y){

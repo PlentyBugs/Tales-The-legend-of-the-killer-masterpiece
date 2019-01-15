@@ -16,25 +16,6 @@ public class Goblin extends Human {
         this.hp = maxHp;
         this.lvl = lvl;
         this.name = name;
-        stats.strength = 5 + (int)(Math.random()*(lvl+2));
-        stats.speed = 5 + (int)(Math.random()*(lvl+2));
-        stats.agility = 5 + (int)(Math.random()*(lvl+2));
-        stats.intelligence = 5;
-        stats.luck = 5;
-        stats.eloquence = 5;
-        stats.blacksmith = 5;
-        stats.alchemy = 5;
-        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
-        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8));
-        stats.pole_weapon = 5;
-        stats.chopping_weapon = 5;
-        stats.long_range_weapon = 5;
-
-        stats.knowledge = 0;
-        stats.energy = 0;
-
-        stats.militarism = 0;
-        stats.pacifism = 0;
 
         color = new Color(170,200,10);
         uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion()};
@@ -48,6 +29,22 @@ public class Goblin extends Human {
     }
     public void setName(String name){
         this.name = name;
+    }
+
+    public void countStatsAfterBorn(){
+        stats.strength = 5 + (int)(Math.random()*(lvl+2));
+        stats.speed = 5 + (int)(Math.random()*(lvl+2));
+        stats.agility = 5 + (int)(Math.random()*(lvl+2));
+        stats.intelligence = 5;
+        stats.luck = 5;
+        stats.eloquence = 5;
+        stats.blacksmith = 5;
+        stats.alchemy = 5;
+        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2));
+        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8));
+        stats.pole_weapon = 5;
+        stats.chopping_weapon = 5;
+        stats.long_range_weapon = 5;
     }
 
 }

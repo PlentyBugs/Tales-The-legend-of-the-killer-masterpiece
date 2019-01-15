@@ -1,4 +1,4 @@
-package Windows;
+package Windows.SupportWindows;
 
 import LiveCreatures.Difficulty;
 

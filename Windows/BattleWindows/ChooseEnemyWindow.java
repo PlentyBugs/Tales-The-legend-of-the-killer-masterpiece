@@ -1,8 +1,8 @@
-package Windows;
+package Windows.BattleWindows;
 
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
-import Windows.BattleWindows.FightWindow;
+import Windows.FieldWindow;
 
 import javax.swing.*;
 import java.awt.*;

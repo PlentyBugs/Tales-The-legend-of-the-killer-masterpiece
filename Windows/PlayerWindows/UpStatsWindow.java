@@ -1,4 +1,4 @@
-package Windows;
+package Windows.PlayerWindows;
 
 import LiveCreatures.Player;
 import LiveCreatures.StatsEnum;

@@ -4,6 +4,7 @@ import Items.*;
 import Ability.Ability;
 import Ability.Passive.TwoOneHandedWeapon;
 import Windows.*;
+import Windows.PlayerWindows.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -319,7 +320,6 @@ public class Player extends Human {
             }
 
             addMaxHpByStats();
-            hp = maxHp;
 
             try {
                 fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
@@ -328,9 +328,28 @@ public class Player extends Human {
 
             }
         }
+        setHp(maxHp);
     }
 
     private void addMaxHpByStats(){
         maxHp += (int)(stats.strength*5 + (stats.luck*2)*Math.random());
+    }
+
+    public void removeItem(Item item){
+        if(inventory.contains(item)){
+            inventory.remove(item);
+        }
+    }
+
+    public int absorbDamage(int damage){
+        int countProtection = 1;
+        for (Item item : equipment.getArmor()){
+            if (item != null){
+                countProtection += ((Armor)item).getProtection();
+            }
+        }
+
+        int absorbedDamage = (int)(damage*(1 - Math.pow(Math.E, -200/countProtection)));
+        return absorbedDamage;
     }
 }

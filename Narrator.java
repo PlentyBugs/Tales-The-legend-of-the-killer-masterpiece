@@ -1,6 +1,6 @@
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
-import Windows.ChooseNameWindow;
+import Windows.SupportWindows.ChooseNameWindow;
 import Windows.FieldWindow;
 
 import java.io.IOException;

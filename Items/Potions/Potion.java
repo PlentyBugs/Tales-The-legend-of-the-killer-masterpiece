@@ -1,6 +1,7 @@
 package Items.Potions;
 
 import Effects.Effect;
+import Effects.EffectType;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
@@ -19,7 +20,11 @@ public class Potion extends Item {
     }
 
     public void use(LiveCreature liveCreature){
-        liveCreature.addEffect(effect);
+        if(effect.getType() != EffectType.MOMENT){
+            liveCreature.addEffect(effect);
+        } else {
+            liveCreature.useMomentEffect(effect);
+        }
     }
 
     public void setPotionMaterial(PotionMaterial potionMaterial) {

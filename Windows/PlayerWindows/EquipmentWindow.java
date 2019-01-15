@@ -1,4 +1,4 @@
-package Windows;
+package Windows.PlayerWindows;
 
 import Items.Item;
 import LiveCreatures.Player;
@@ -85,7 +85,7 @@ public class EquipmentWindow extends JFrame {
             itemConstraints.gridx = 1;
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 2;
-            JLabel itemQuality = new JLabel(Integer.toString(item.getQuality()));
+            JLabel itemQuality = new JLabel(Double.toString(item.getQuality()));
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
             itemQuality.setFont(new Font("Serif", Font.PLAIN, 16));

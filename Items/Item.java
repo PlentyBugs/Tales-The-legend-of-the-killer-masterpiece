@@ -3,7 +3,7 @@ package Items;
 public class Item {
     protected String name;
     protected Grade grade;
-    protected int quality;
+    protected double quality;
     protected Rarity rarity;
     protected Material material;
     protected String stockName;
@@ -20,7 +20,7 @@ public class Item {
         return name;
     }
 
-    public int getQuality() {
+    public double getQuality() {
         return quality;
     }
 
@@ -36,7 +36,7 @@ public class Item {
         this.name = name;
     }
 
-    public void setQuality(int quality) {
+    public void setQuality(double quality) {
         this.quality = quality;
     }
 

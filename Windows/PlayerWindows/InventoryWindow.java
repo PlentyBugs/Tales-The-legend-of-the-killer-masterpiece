@@ -1,7 +1,8 @@
-package Windows;
+package Windows.PlayerWindows;
 
 import Items.Armor;
 import Items.Item;
+import Items.Potions.Potion;
 import Items.Weapon;
 import LiveCreatures.Player;
 
@@ -17,7 +18,7 @@ public class InventoryWindow extends JFrame {
     private JPanel panel = new JPanel(new GridBagLayout());
     JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
-    private int width = 480;
+    private int width = 600;
     private int height = 720;
 
     public InventoryWindow(Player player){
@@ -84,7 +85,7 @@ public class InventoryWindow extends JFrame {
 
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 1;
-            JLabel itemQuality = new JLabel("Прочность: " + Integer.toString(item.getQuality()));
+            JLabel itemQuality = new JLabel("Прочность: " + Double.toString(item.getQuality()));
 
             itemConstraints.gridx = 2;
             JLabel property = new JLabel();
@@ -110,18 +111,26 @@ public class InventoryWindow extends JFrame {
             propertyCount.setForeground(colorForeground);
 
             itemConstraints.gridx = 4;
-            JButton equip = new JButton("Экипировать");
+            JButton useButton = new JButton("Экипировать");
 
             if(((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
                 itemQuality.setText("");
-                equip.setText("Использовать");
+                useButton.setText("Использовать");
             }
-            equip.setSize(100,40);
+            useButton.setSize(100,40);
 
             if(!((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
-                equip.addActionListener(new ActionListener() {
+                useButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         player.equip(item);
+                    }
+                });
+            } else {
+                useButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        ((Potion)item).use(player);
+                        player.removeItem(item);
+                        drawInventory();
                     }
                 });
             }
@@ -129,7 +138,7 @@ public class InventoryWindow extends JFrame {
             itemPanel.add(itemQuality, itemConstraints);
             itemPanel.add(property, itemConstraints);
             itemPanel.add(propertyCount, itemConstraints);
-            itemPanel.add(equip, itemConstraints);
+            itemPanel.add(useButton, itemConstraints);
 
             itemPanel.setBackground(colorBackground);
 
