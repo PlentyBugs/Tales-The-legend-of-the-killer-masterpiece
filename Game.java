@@ -16,8 +16,11 @@ public class Game {
 
         player.addAbility(new TwoOneHandedWeapon());
 
+        Sword testerSword = new Sword(Material.MYTHRIL, Rarity.UNCOMMON, Grade.MAGIC, 3, WeaponType.ONEHANDED);
+        testerSword.countProperty();
+
         player.addItemToInventory(
-                new Sword(Material.IRON, Rarity.COMMON, Grade.COMMON, 3, WeaponType.ONEHANDED),
+                testerSword,
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                 new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
                 new HealPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON),

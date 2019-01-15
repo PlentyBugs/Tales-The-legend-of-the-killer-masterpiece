@@ -278,7 +278,7 @@ public class FightWindow extends JFrame {
         if (rewardMoney <= 0){
             rewardMoney = (int)(Math.random()*170);
         }
-        int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl());
+        int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl());
         if (rewardExp <= 0){
             rewardExp = (int)(Math.random()*60);
         }
@@ -286,6 +286,9 @@ public class FightWindow extends JFrame {
         ArrayList<Item> dropItems = new ArrayList<>();
         for (int i = 0; i < countItemsDrop; i++){
             Item item = enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)];
+            if (dropItems.contains(item)){
+                break;
+            }
             int chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
             if (chanceDropItem < enemy.getLvl()*20){
@@ -419,12 +422,13 @@ public class FightWindow extends JFrame {
             player.addItemToInventory(item);
             rewardItemMessage += item.getName() + "\n";
         }
-
-        dialogWindow = new DialogWindow(
-                "Выпавшие вещи\n" +
-                        rewardItemMessage);
-        player.addMoney(rewardMoney);
-        player.addExp(rewardExp);
+        if(!rewardItemMessage.equals("")){
+            dialogWindow = new DialogWindow(
+                    "Выпавшие вещи\n" +
+                            rewardItemMessage);
+            player.addMoney(rewardMoney);
+            player.addExp(rewardExp);
+        }
     }
 
     public void loss(){

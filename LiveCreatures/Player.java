@@ -349,7 +349,7 @@ public class Player extends Human {
             }
         }
 
-        int absorbedDamage = (int)(damage*(1 - Math.pow(Math.E, -200/countProtection)));
+        int absorbedDamage = (int)(damage*(1 - Math.pow(Math.E, -10*getLvl()/countProtection)));
         return absorbedDamage;
     }
 }
