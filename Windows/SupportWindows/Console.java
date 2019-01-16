@@ -10,7 +10,7 @@ public class Console extends JPanel
     private JScrollPane vertical;
     private JTextArea console;
     private boolean firstTime = true;
-    private int speed = 100;
+    private int speed = 60;
 
     public Console()
     {

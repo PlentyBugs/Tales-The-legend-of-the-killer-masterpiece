@@ -47,10 +47,13 @@ public class PlayerInfoWindow extends JFrame {
         constraints.gridy = 4;
         JLabel lvl = new JLabel("Уровень: ");
         panel.add(lvl, constraints);
+        constraints.gridy = 5;
+        JLabel levelpoints = new JLabel("Очки способностей: ");
+        panel.add(levelpoints, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 0;
-        JLabel hpCount = new JLabel(Integer.toString(player.getHp()) + "\\" + Integer.toString(player.getMaxHp()));
+        JLabel hpCount = new JLabel(Double.toString(player.getHp()) + "\\" + Integer.toString(player.getMaxHp()));
         panel.add(hpCount, constraints);
         constraints.gridy = 1;
         JLabel moneyCount = new JLabel(Integer.toString(player.getMoney()));
@@ -64,6 +67,9 @@ public class PlayerInfoWindow extends JFrame {
         constraints.gridy = 4;
         JLabel lvlCount = new JLabel(Integer.toString(player.getLvl()));
         panel.add(lvlCount, constraints);
+        constraints.gridy = 5;
+        JLabel lvlPointsCount = new JLabel(Integer.toString(player.getLevelpoints()));
+        panel.add(lvlPointsCount, constraints);
 
         getContentPane().add(panel);
         pack();

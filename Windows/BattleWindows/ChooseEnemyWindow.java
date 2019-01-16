@@ -64,7 +64,7 @@ public class ChooseEnemyWindow extends JFrame {
 
             JLabel enemyName = new JLabel("Имя: " + liveCreature.getName());
             liveCreatureConstraints.gridx = 1;
-            JLabel enemyHp = new JLabel("Жизни: " + Integer.toString(liveCreature.getHp()));
+            JLabel enemyHp = new JLabel("Жизни: " + Double.toString(liveCreature.getHp()));
             liveCreatureConstraints.gridx = 2;
             JLabel enemyLvl = new JLabel("Уровень: " + Integer.toString(liveCreature.getLvl()));
             liveCreatureConstraints.gridx = 3;

@@ -89,7 +89,7 @@ public class FieldWindow extends JFrame {
                 } else if (isHealBlock){
                     button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        currentMap.setElementByCoordinates(liveCreature.getX(), liveCreature.getY(), new Grass());
+                        currentMap.setElementByCoordinates(liveCreature.getX(), liveCreature.getY(), new Grass(liveCreature.getX(), liveCreature.getY()));
                         ((HealBlock)liveCreature).heal(player);
                         int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
                         int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));

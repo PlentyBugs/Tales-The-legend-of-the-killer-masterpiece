@@ -8,4 +8,10 @@ public class Grass extends Thing {
         color = Color.GREEN;
         isStep = true;
     }
+
+    public Grass(int x, int y) {
+        this();
+        this.x = x;
+        this.y = y;
+    }
 }

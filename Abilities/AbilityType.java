@@ -1,4 +1,4 @@
-package Ability;
+package Abilities;
 
 public enum AbilityType {
     PASSIVE,

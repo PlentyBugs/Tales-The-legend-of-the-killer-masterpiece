@@ -1,8 +1,8 @@
 package LiveCreatures;
 
 import Items.*;
-import Ability.Ability;
-import Ability.Passive.TwoOneHandedWeapon;
+import Abilities.Ability;
+import Abilities.Passive.TwoOneHandedWeapon;
 import Windows.*;
 import Windows.PlayerWindows.*;
 
@@ -14,6 +14,7 @@ public class Player extends Human {
     private int vision;
     private int exp;
     private int needExpToNextLvl;
+    private int levelpoints;
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
@@ -63,6 +64,7 @@ public class Player extends Human {
         stats.militarism = 0;
         stats.pacifism = 0;
         vision = 3;
+        levelpoints = 0;
 
         color = Color.ORANGE;
 
@@ -99,6 +101,13 @@ public class Player extends Human {
                 this.abilities.add(ability);
             }
         }
+    }
+
+    public boolean hasAbility(Ability ability){
+        if (getAbility(ability) != null){
+            return true;
+        }
+        return false;
     }
 
     public Ability getAbility(Ability ability){
@@ -272,6 +281,10 @@ public class Player extends Human {
         levelup();
     }
 
+    public int getLevelpoints() {
+        return levelpoints;
+    }
+
     public int getNeedExpToNextLvl() {
         return needExpToNextLvl;
     }
@@ -282,6 +295,7 @@ public class Player extends Human {
             int wasUpCountPoints = upPointCount;
             needExpToNextLvl += lvl*500;
             lvl ++;
+            levelpoints ++;
             int chance = 10;
             switch (difficulty){
                 case EASY:
@@ -341,15 +355,18 @@ public class Player extends Human {
         }
     }
 
-    public int absorbDamage(int damage){
+    public double absorbDamage(double damage){
         int countProtection = 1;
         for (Item item : equipment.getArmor()){
             if (item != null){
+                System.out.println(item);
+                System.out.println(countProtection);
                 countProtection += ((Armor)item).getProtection();
+                System.out.println(countProtection);
             }
         }
 
-        int absorbedDamage = (int)(damage*(1 - Math.pow(Math.E, -10*getLvl()/countProtection)));
+        double absorbedDamage = damage*(1 - Math.pow(Math.E, -12*getLvl()/countProtection));
         return absorbedDamage;
     }
 }

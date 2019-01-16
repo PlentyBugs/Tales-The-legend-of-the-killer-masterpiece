@@ -1,5 +1,7 @@
 package Windows.BattleWindows;
 
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
 import Items.*;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
@@ -128,10 +130,17 @@ public class FightWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isPlayerTurn){
                     isPlayerTurn = false;
-                    int damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(200 - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed))/200);
-                    enemy.setHp(enemy.getHp()-damage);
-                    writeToEnemyStatusConsole(enemy.getName() + " получил " + Integer.toString(damage) + " единиц урона");
-                    writeToPlayerConsole("Вы нанесли " + Integer.toString(damage) + " единиц урона");
+                    double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(200 - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed))/200);
+                    int chance = (int)Math.ceil(Math.random()*100);
+                    if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
+                        writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                        writeToEnemyStatusConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                        damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
+                    }
+                    damage = Math.round(damage*100.0)/100.0;
+                    enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
+                    writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
+                    writeToPlayerConsole("Вы нанесли " + Double.toString(damage) + " единиц урона");
                     if (enemy.getHp() > 0){
                         writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
                     } else {
@@ -178,7 +187,7 @@ public class FightWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isPlayerTurn){
                     isPlayerTurn = false;
-                    int chance = (int)(Math.random()*100);
+                    int chance = (int)(Math.random()*(100-player.getStats().luck/2));
                     if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
                         dialogWindow.close();
                         dialogWindow = new DialogWindow("Вам удалось сбежать");
@@ -253,16 +262,23 @@ public class FightWindow extends JFrame {
 
     public void enemyTurn(){
         isPlayerTurn = true;
-        int damage = (int)(enemy.getStats().strength*(200 - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed))/200);
-        damage = player.absorbDamage(damage);
-        player.setHp(player.getHp()-damage);
-        writeToPlayerConsole(player.getName() + " получил " + Integer.toString(damage) + " единиц урона");
-        writeToEnemyActionConsole(enemy.getName() + " нанес " + Integer.toString(damage) + " единиц урона");
-        if (player.getHp() > 0){
-            writeToPlayerConsole("Осталось жизней: " + player.getHp());
+        int chance = (int)Math.ceil(Math.random()*100);
+        System.out.println(player.hasAbility(new Evasion()));
+        if (chance <= player.getAbility(new Evasion()).getChance() && player.hasAbility(new Evasion())){
+            writeToEnemyActionConsole(enemy.getName() + " промахнулся");
+            writeToPlayerConsole("Вы увернулись");
         } else {
-            writeToPlayerConsole(player.getName() + " повержен!");
-            loss();
+            double damage = enemy.getStats().strength*(200 - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed))/200;
+            damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
+            player.setHp(Math.round((player.getHp()-damage)*100.0)/100.0);
+            writeToPlayerConsole(player.getName() + " получил " + Double.toString(damage) + " единиц урона");
+            writeToEnemyActionConsole(enemy.getName() + " нанес " + Double.toString(damage) + " единиц урона");
+            if (player.getHp() > 0){
+                writeToPlayerConsole("Осталось жизней: " + player.getHp());
+            } else {
+                writeToPlayerConsole(player.getName() + " повержен!");
+                loss();
+            }
         }
     }
 
@@ -286,8 +302,8 @@ public class FightWindow extends JFrame {
         ArrayList<Item> dropItems = new ArrayList<>();
         for (int i = 0; i < countItemsDrop; i++){
             Item item = enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)];
-            if (dropItems.contains(item)){
-                break;
+            if (dropItems.contains(item)) {
+                continue;
             }
             int chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
@@ -406,7 +422,7 @@ public class FightWindow extends JFrame {
 
             item.countProperty();
 
-            dropItems.add(enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)]);
+            dropItems.add(item);
         }
 
         dialogWindow.close();

@@ -1,4 +1,6 @@
-import Ability.Passive.TwoOneHandedWeapon;
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
+import Abilities.Passive.TwoOneHandedWeapon;
 import Items.*;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
@@ -14,7 +16,8 @@ public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player(0,0, "Вы",1,250);
 
-        player.addAbility(new TwoOneHandedWeapon());
+        player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion());
+
 
         Sword testerSword = new Sword(Material.MYTHRIL, Rarity.UNCOMMON, Grade.MAGIC, 3, WeaponType.ONEHANDED);
         testerSword.countProperty();

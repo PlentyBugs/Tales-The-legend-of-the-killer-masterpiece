@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class LiveCreature extends GodCreature {
     protected int x;
     protected int y;
-    protected int hp;
+    protected double hp;
     protected int maxHp;
     protected int lvl;
     protected int money = 0;
@@ -27,7 +27,7 @@ public abstract class LiveCreature extends GodCreature {
         this.lvl = lvl;
     }
 
-    public int getHp() {
+    public double getHp() {
         return hp;
     }
 
@@ -39,7 +39,7 @@ public abstract class LiveCreature extends GodCreature {
         return lvl;
     }
 
-    public void setHp(int hp) {
+    public void setHp(double hp) {
         this.hp = hp;
     }
 
