@@ -22,12 +22,14 @@ public class Player extends Human {
     private EquipmentWindow equipmentWindow;
     private PlayerWindowManager managerWindow;
     private PlayerInfoWindow playerInfoWindow;
+    private UpgradeSkillsWindow playerAbilityWindow;
 
     private boolean isUpStatsOpen;
     private boolean isInventoryOpen;
     private boolean isEquipmentOpen;
     private boolean isManagerOpen;
     private boolean isInfoWindowOpen;
+    private boolean isAbilityWindowOpen;
 
     private ArrayList<Item> inventory = new ArrayList<Item>();
 
@@ -83,6 +85,9 @@ public class Player extends Human {
         playerInfoWindow = new PlayerInfoWindow(this);
         setInfoWindowIsVisible(false);
 
+        playerAbilityWindow = new UpgradeSkillsWindow(this);
+        setAbilityWindowIsVisible(false);
+
         isPlayer = true;
 
         exp = 0;
@@ -101,6 +106,10 @@ public class Player extends Human {
                 this.abilities.add(ability);
             }
         }
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
     }
 
     public boolean hasAbility(Ability ability){
@@ -237,6 +246,18 @@ public class Player extends Human {
         playerInfoWindow.setIsVisible(isVisible);
     }
 
+    public void setAbilityWindowIsVisible(boolean isVisible) {
+        playerAbilityWindow.setIsVisible(isVisible);
+    }
+
+    public void setAbilityWindowOpen(boolean isAbilityWindowOpen) {
+        this.isAbilityWindowOpen = isAbilityWindowOpen;
+    }
+
+    public boolean getIsAbilityWindowOpen() {
+        return isAbilityWindowOpen;
+    }
+
     public ArrayList<Item> getInventory(){
         return inventory;
     }
@@ -283,6 +304,10 @@ public class Player extends Human {
 
     public int getLevelpoints() {
         return levelpoints;
+    }
+
+    public void setLevelpoints(int levelpoints) {
+        this.levelpoints = levelpoints;
     }
 
     public int getNeedExpToNextLvl() {

@@ -15,7 +15,7 @@ public class PlayerWindowManager extends JFrame {
     public PlayerWindowManager(Player player){
         super("Менеджер окон игрока");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(440,60));
+        setPreferredSize(new Dimension(520,60));
 
         this.player = player;
 
@@ -24,6 +24,7 @@ public class PlayerWindowManager extends JFrame {
         JButton uoStats = new JButton("Прокачка");
         JButton equipment = new JButton("Экипировка");
         JButton info = new JButton("Информация");
+        JButton abilities = new JButton("Умения");
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -73,10 +74,23 @@ public class PlayerWindowManager extends JFrame {
             }
         });
 
+        abilities.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(!player.getIsAbilityWindowOpen()){
+                    player.setAbilityWindowIsVisible(true);
+                    player.setAbilityWindowOpen(true);
+                } else {
+                    player.setAbilityWindowIsVisible(false);
+                    player.setAbilityWindowOpen(false);
+                }
+            }
+        });
+
         panel.add(inventory);
         panel.add(uoStats);
         panel.add(equipment);
         panel.add(info);
+        panel.add(abilities);
 
         getContentPane().add(panel);
         pack();

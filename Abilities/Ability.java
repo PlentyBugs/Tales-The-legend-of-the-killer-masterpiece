@@ -6,6 +6,8 @@ public class Ability {
     protected int chance;
     protected int level;
     protected int maxLevel;
+    protected int cost = 1;
+    protected String name;
 
     public void setAbilityType(AbilityType abilityType) {
         this.abilityType = abilityType;
@@ -47,5 +49,13 @@ public class Ability {
 
     public void setChance(int chance) {
         this.chance = chance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCost() {
+        return cost;
     }
 }

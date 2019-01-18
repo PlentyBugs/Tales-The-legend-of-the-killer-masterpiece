@@ -134,7 +134,7 @@ public class FightWindow extends JFrame {
                     int chance = (int)Math.ceil(Math.random()*100);
                     if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
                         writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
-                        writeToEnemyStatusConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                        writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
                         damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
                     }
                     damage = Math.round(damage*100.0)/100.0;
@@ -442,9 +442,9 @@ public class FightWindow extends JFrame {
             dialogWindow = new DialogWindow(
                     "Выпавшие вещи\n" +
                             rewardItemMessage);
-            player.addMoney(rewardMoney);
-            player.addExp(rewardExp);
         }
+        player.addMoney(rewardMoney);
+        player.addExp(rewardExp);
     }
 
     public void loss(){

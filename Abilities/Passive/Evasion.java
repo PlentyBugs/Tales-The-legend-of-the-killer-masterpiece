@@ -8,6 +8,8 @@ public class Evasion extends Ability {
     public Evasion(){
         setLevel(1);
         setAbilityType(AbilityType.PASSIVE);
+        name = "Уклонение";
+        maxLevel = 5;
     }
 
     public Evasion(int level){
@@ -29,5 +31,7 @@ public class Evasion extends Ability {
         } else if(level == 5){
             chance = 45;
         }
+
+        cost = level;
     }
 }

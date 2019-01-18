@@ -7,9 +7,12 @@ public class CriticalStrike extends Ability {
     public CriticalStrike(){
         setLevel(1);
         setAbilityType(AbilityType.PASSIVE);
+        name = "Критический удар";
+        maxLevel = 5;
     }
 
     public CriticalStrike(int level) {
+        this();
         setLevel(level);
     }
 
@@ -31,5 +34,7 @@ public class CriticalStrike extends Ability {
             power = 300;
             chance = 20;
         }
+
+        cost = level;
     }
 }
