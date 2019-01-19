@@ -131,7 +131,7 @@ public class FightWindow extends JFrame {
                 if (isPlayerTurn){
                     isPlayerTurn = false;
                     double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(200 - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed))/200);
-                    int chance = (int)Math.ceil(Math.random()*100);
+                    int chance = (int)Math.ceil(Math.random()*100 + player.getStats().luck/5);
                     if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
                         writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
                         writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
@@ -262,13 +262,12 @@ public class FightWindow extends JFrame {
 
     public void enemyTurn(){
         isPlayerTurn = true;
-        int chance = (int)Math.ceil(Math.random()*100);
-        System.out.println(player.hasAbility(new Evasion()));
+        int chance = (int)Math.ceil(Math.random()*100 + player.getStats().luck/5);
         if (chance <= player.getAbility(new Evasion()).getChance() && player.hasAbility(new Evasion())){
             writeToEnemyActionConsole(enemy.getName() + " промахнулся");
             writeToPlayerConsole("Вы увернулись");
         } else {
-            double damage = enemy.getStats().strength*(200 - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed) - (player.getStats().speed - enemy.getStats().speed))/200;
+            double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
             damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
             player.setHp(Math.round((player.getHp()-damage)*100.0)/100.0);
             writeToPlayerConsole(player.getName() + " получил " + Double.toString(damage) + " единиц урона");
@@ -283,6 +282,7 @@ public class FightWindow extends JFrame {
     }
 
     private void getReward(){
+        System.out.println("123");
         isPlayerTurn = true;
 
         field.setIsVisible(true);

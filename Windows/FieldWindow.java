@@ -114,15 +114,25 @@ public class FieldWindow extends JFrame {
                                 player.setY(Y);
                                 drawMap();
                             } else if (isLiveCreature){
-                                if (liveCreature.getChooseEnemyWindow() == null){
-                                    liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
-                                }
-                                if(!liveCreature.getIsChooseEnemyWindowOpen()){
-                                    liveCreature.setChooseEnemyWindowIsVisible(true);
-                                    liveCreature.setChooseEnemyWindowOpen(true);
+                                if (((LiveCreature)liveCreature).getTalkative()){
+                                    if(!((LiveCreature)liveCreature).getIsConversationWindowOpen()){
+                                        ((LiveCreature)liveCreature).setConversationWindowIsVisible(true);
+                                        ((LiveCreature)liveCreature).setConversationWindowOpen(true);
+                                    } else {
+                                        ((LiveCreature)liveCreature).setConversationWindowIsVisible(false);
+                                        ((LiveCreature)liveCreature).setConversationWindowOpen(false);
+                                    }
                                 } else {
-                                    liveCreature.setChooseEnemyWindowIsVisible(false);
-                                    liveCreature.setChooseEnemyWindowOpen(false);
+                                    if (liveCreature.getChooseEnemyWindow() == null){
+                                        liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
+                                    }
+                                    if(!liveCreature.getIsChooseEnemyWindowOpen()){
+                                        liveCreature.setChooseEnemyWindowIsVisible(true);
+                                        liveCreature.setChooseEnemyWindowOpen(true);
+                                    } else {
+                                        liveCreature.setChooseEnemyWindowIsVisible(false);
+                                        liveCreature.setChooseEnemyWindowOpen(false);
+                                    }
                                 }
                             }
                         }

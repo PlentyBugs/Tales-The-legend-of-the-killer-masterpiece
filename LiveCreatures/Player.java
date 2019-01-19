@@ -8,6 +8,7 @@ import Windows.PlayerWindows.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player extends Human {
 
@@ -92,12 +93,11 @@ public class Player extends Human {
 
         exp = 0;
         needExpToNextLvl = 500;
+        money = 16000;
     }
 
     public void addItemToInventory(Item ... itemList){
-        for (Item item : itemList){
-            inventory.add(item);
-        }
+        inventory.addAll(Arrays.asList(itemList));
     }
 
     public void addAbility(Ability ... abilities){
@@ -390,8 +390,8 @@ public class Player extends Human {
                 System.out.println(countProtection);
             }
         }
-
-        double absorbedDamage = damage*(1 - Math.pow(Math.E, -12*getLvl()/countProtection));
+        double absorbedDamage = damage*(1 - Math.pow(Math.E, -25*(Math.pow(getLvl()/5.0, 0.5))/countProtection));
+        System.out.println(absorbedDamage);
         return absorbedDamage;
     }
 }

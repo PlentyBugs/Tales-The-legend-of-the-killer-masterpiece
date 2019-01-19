@@ -1,7 +1,9 @@
 package LiveCreatures;
 
+import Conversations.Conversation;
 import Effects.Effect;
 import Items.Item;
+import Windows.ConversationWindows.ConversationWindow;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,10 @@ public abstract class LiveCreature extends GodCreature {
     protected ArrayList<Effect> effects = new ArrayList<Effect>();
     protected Stats stats = new Stats();
     protected Item[] uniqueDropItems;
+    protected boolean talkative = false;
+    protected Conversation conversation;
+    private ConversationWindow conversationWindow;
+    private boolean isConversationWindowOpen;
 
 
     public LiveCreature(int x, int y, String name, int lvl, int hp){
@@ -27,8 +33,21 @@ public abstract class LiveCreature extends GodCreature {
         this.lvl = lvl;
     }
 
+    public void initializeWindowConv(){
+        conversationWindow = new ConversationWindow(this);
+        setConversationWindowIsVisible(false);
+    }
+
     public double getHp() {
         return hp;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public boolean getTalkative(){
+        return talkative;
     }
 
     public int getMaxHp() {
@@ -80,4 +99,19 @@ public abstract class LiveCreature extends GodCreature {
     }
 
     public void countStatsAfterBorn(){}
+
+    public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setIsVisible(isVisible);
+    }
+
+    public void setConversationWindowOpen(boolean isConversationWindowOpen) {
+        this.isConversationWindowOpen = isConversationWindowOpen;
+    }
+
+    public boolean getIsConversationWindowOpen() {
+        return isConversationWindowOpen;
+    }
+
+    public ConversationWindow getConversationWindow() {
+        return conversationWindow;
+    }
 }

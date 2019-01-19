@@ -53,7 +53,7 @@ public class PlayerInfoWindow extends JFrame {
 
         constraints.gridx = 1;
         constraints.gridy = 0;
-        JLabel hpCount = new JLabel(Double.toString(player.getHp()) + "\\" + Integer.toString(player.getMaxHp()));
+        JLabel hpCount = new JLabel(Double.toString(Math.round(player.getHp()*100.0)/100.0) + "\\" + Integer.toString(player.getMaxHp()));
         panel.add(hpCount, constraints);
         constraints.gridy = 1;
         JLabel moneyCount = new JLabel(Integer.toString(player.getMoney()));

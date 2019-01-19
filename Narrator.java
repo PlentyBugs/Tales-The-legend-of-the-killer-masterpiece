@@ -54,6 +54,13 @@ public class Narrator {
             monolog("Ну и ну, решил остаться безымянным? Пусть так тебя и будут звать!", "Неизвестный");
         }
 
+        if(player.getName().equals("TesteratorGun1479")){
+            player.setLevelpoints(50);
+            player.setUpPointCount(60);
+            player.setName("cheater");
+            player.setHp(2000);
+            player.setMaxHp(2000);
+        }
         if (skill_points_count > 0){
             monolog("Ладно, пожалуй нам стоит задать твой вектор развития, я дам тебе " + skill_points_count + " очков прокачки", "Неизвестный");
             monolog("Распредели их как следует:", "Неизвестный");

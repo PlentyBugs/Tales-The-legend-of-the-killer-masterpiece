@@ -2,14 +2,11 @@ import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Items.*;
-import Items.Potions.HealPotion;
-import Items.Potions.PoisonPotion;
-import Items.Potions.PotionMaterial;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
 import Locations.Map;
-import Windows.SupportWindows.ChooseDifficultyWindow;
 import Windows.FieldWindow;
+import Windows.SupportWindows.ChooseDifficultyWindow;
 
 import java.io.IOException;
 public class Game {
@@ -25,10 +22,7 @@ public class Game {
         player.addItemToInventory(
                 testerSword,
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
-                new HealPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON),
-                new PoisonPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON),
-                new PoisonPotion(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON)
+                new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1)
                 );
 
         Map map = new Map(player, 100, 200);

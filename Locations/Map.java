@@ -39,6 +39,7 @@ public class Map {
                 randomGodCreature.setY(i);
 
                 map[i][j] = randomGodCreature;
+
             }
         }
         for (int i = 0; i < 7; i++){
@@ -51,6 +52,9 @@ public class Map {
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
             map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
         }
+        Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
+        dealer.getConversationWindow().setPlayer(player);
+        map[1][1] = dealer;
     }
 
     public GodCreature[][] getMap(int x, int y){
