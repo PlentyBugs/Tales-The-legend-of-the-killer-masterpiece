@@ -3,6 +3,7 @@ package Abilities.Passive;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
+import LiveCreatures.Player;
 
 public class Evasion extends Ability {
     public Evasion(){
@@ -33,5 +34,15 @@ public class Evasion extends Ability {
         }
 
         cost = level;
+    }
+
+    public boolean check(Player player){
+        System.out.println(player.getStats().speed);
+        System.out.println(level);
+        System.out.println(player.getStats().agility);
+        if (player.getStats().speed >= (level - 1)*10 + 5 && player.getStats().agility >= (level - 1)*10 + 5){
+            return true;
+        }
+        return false;
     }
 }

@@ -9,7 +9,7 @@ public class TwoOneHandedWeapon extends Ability {
         setAbilityType(AbilityType.PASSIVE);
         level = 1;
         maxLevel = 1;
-        name = "По 1h в руку";
+        name = "Мастер мечник";
     }
 
 }

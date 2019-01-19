@@ -1,9 +1,11 @@
 package LiveCreatures;
 
-import Items.*;
 import Abilities.Ability;
+import Abilities.AbilityType;
+import Abilities.Auras.Aura;
 import Abilities.Passive.TwoOneHandedWeapon;
-import Windows.*;
+import Items.*;
+import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
 
 import java.awt.*;
@@ -106,6 +108,10 @@ public class Player extends Human {
                 this.abilities.add(ability);
             }
         }
+    }
+
+    public void setVision(int vision) {
+        this.vision = vision;
     }
 
     public ArrayList<Ability> getAbilities() {
@@ -393,5 +399,13 @@ public class Player extends Human {
         double absorbedDamage = damage*(1 - Math.pow(Math.E, -25*(Math.pow(getLvl()/5.0, 0.5))/countProtection));
         System.out.println(absorbedDamage);
         return absorbedDamage;
+    }
+
+    public void countPassiveBuffs(){
+        for (Ability ability : abilities){
+            if (ability.getAbilityType() == AbilityType.AURA){
+                ((Aura)ability).use(this);
+            }
+        }
     }
 }

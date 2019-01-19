@@ -131,7 +131,7 @@ public class FightWindow extends JFrame {
                 if (isPlayerTurn){
                     isPlayerTurn = false;
                     double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(200 - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed))/200);
-                    int chance = (int)Math.ceil(Math.random()*100 + player.getStats().luck/5);
+                    int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
                     if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
                         writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
                         writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
@@ -262,7 +262,7 @@ public class FightWindow extends JFrame {
 
     public void enemyTurn(){
         isPlayerTurn = true;
-        int chance = (int)Math.ceil(Math.random()*100 + player.getStats().luck/5);
+        int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
         if (chance <= player.getAbility(new Evasion()).getChance() && player.hasAbility(new Evasion())){
             writeToEnemyActionConsole(enemy.getName() + " промахнулся");
             writeToPlayerConsole("Вы увернулись");

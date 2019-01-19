@@ -1,6 +1,7 @@
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.TwoOneHandedWeapon;
+import Abilities.Auras.Vision;
 import Items.*;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
@@ -13,7 +14,7 @@ public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
         Player player = new Player(0,0, "Вы",1,250);
 
-        player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion());
+        player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion(), new Vision());
 
 
         Sword testerSword = new Sword(Material.MYTHRIL, Rarity.UNCOMMON, Grade.MAGIC, 3, WeaponType.ONEHANDED);

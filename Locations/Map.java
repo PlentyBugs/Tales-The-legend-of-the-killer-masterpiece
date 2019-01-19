@@ -58,6 +58,7 @@ public class Map {
     }
 
     public GodCreature[][] getMap(int x, int y){
+        playerVision = player.getVision()*2+1;
         GodCreature[][] currentMap = new GodCreature[playerVision][playerVision];
         int vision = (playerVision-1)/2;
         for (int i = 0; i < playerVision; i++){

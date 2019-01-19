@@ -63,7 +63,7 @@ public abstract class LiveCreature extends GodCreature {
     }
 
     public void setMaxHp(int hp) {
-        this.maxHp = maxHp;
+        this.maxHp = hp;
     }
 
     public void setLvl(int lvl) {

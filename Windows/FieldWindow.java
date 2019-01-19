@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 public class FieldWindow extends JFrame {
     private int x, y;
     private int counter = -1;
+    private int realVision;
     private int vision;
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
@@ -48,7 +49,7 @@ public class FieldWindow extends JFrame {
 
     public void drawField(GodCreature[][] information){
 
-        int realVision = vision*2+1;
+        realVision = player.getVision()*2+1;
         int width = (int)(x*0.95)/realVision;
         int height = (int)(y*0.7)/realVision;
 
@@ -67,6 +68,11 @@ public class FieldWindow extends JFrame {
                 button.setBackground(information[i][j].getColor());
                 button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
+                button.setFont(new Font("TimesRoman", Font.BOLD, (int)(80/Math.pow(realVision, 0.9))));
+
+                button.setPreferredSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
+                button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
+                button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
 
                 boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
                 boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
@@ -155,6 +161,8 @@ public class FieldWindow extends JFrame {
         getContentPane().add(panel);
         pack();
         setVisible(true);
+        player.countPassiveBuffs();
+        realVision = player.getVision()*2+1;
     }
 
     public void setCurrentMap(Map currentMap) {

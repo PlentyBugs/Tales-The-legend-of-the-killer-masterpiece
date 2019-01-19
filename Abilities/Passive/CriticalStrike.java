@@ -2,6 +2,7 @@ package Abilities.Passive;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
+import LiveCreatures.Player;
 
 public class CriticalStrike extends Ability {
     public CriticalStrike(){
@@ -36,5 +37,12 @@ public class CriticalStrike extends Ability {
         }
 
         cost = level;
+    }
+
+    public boolean check(Player player){
+        if (player.getStats().strength >= (level-1)*10 + 5 && player.getStats().agility >= (level-1)*10 + 5){
+            return true;
+        }
+        return false;
     }
 }

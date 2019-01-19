@@ -2,5 +2,6 @@ package Abilities;
 
 public enum AbilityType {
     PASSIVE,
-    ACTIVE
+    ACTIVE,
+    AURA
 }

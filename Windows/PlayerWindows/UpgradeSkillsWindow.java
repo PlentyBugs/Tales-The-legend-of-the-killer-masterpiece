@@ -60,7 +60,7 @@ public class UpgradeSkillsWindow extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         if (player.getLevelpoints() >= ability.getCost()){
                             player.setLevelpoints(player.getLevelpoints() - ability.getCost());
-                            ability.setLevel(ability.getLevel()+1);
+                            ability.levelUp(player);
                             drawWindow();
                         }
                     }

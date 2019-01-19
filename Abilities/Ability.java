@@ -1,5 +1,7 @@
 package Abilities;
 
+import LiveCreatures.Player;
+
 public class Ability {
     private AbilityType abilityType;
     protected int power;
@@ -57,5 +59,15 @@ public class Ability {
 
     public int getCost() {
         return cost;
+    }
+
+    public boolean check(Player player){
+        return false;
+    }
+
+    public void levelUp(Player player){
+        if(check(player)){
+            setLevel(getLevel()+1);
+        }
     }
 }
