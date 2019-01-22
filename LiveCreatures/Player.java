@@ -321,59 +321,67 @@ public class Player extends Human {
     }
 
     private void levelup(){
-        while(exp > needExpToNextLvl){
-            exp -= needExpToNextLvl;
-            int wasUpCountPoints = upPointCount;
-            needExpToNextLvl += lvl*500;
-            lvl ++;
-            levelpoints ++;
-            int chance = 10;
-            switch (difficulty){
-                case EASY:
-                    upPointCount += 5;
-                    chance = 10;
-                    break;
-                case NORMAL:
-                    upPointCount += 5;
-                    chance = 15;
-                    break;
-                case HARD:
-                    upPointCount += 5;
-                    chance = 20;
-                    break;
-                case VERYHARD:
-                    upPointCount += 6;
-                    chance = 25;
-                    break;
-                case NIGHTMARE:
-                    upPointCount += 6;
-                    chance = 30;
-                    break;
-                case STOPIT:
-                    upPointCount += 7;
-                    chance = 40;
-                    break;
-            }
+        Thread myThready = new Thread(new Runnable()
+        {
+            public void run()
+            {
 
-            chance += (int)(stats.luck/2);
-            while(chance > 0){
-                int isExtraPoint = (int) Math.ceil(Math.random() * 100);
-                if (isExtraPoint < chance){
-                    upPointCount ++;
+                while(exp > needExpToNextLvl){
+                    exp -= needExpToNextLvl;
+                    int wasUpCountPoints = upPointCount;
+                    needExpToNextLvl += lvl*500;
+                    lvl ++;
+                    levelpoints ++;
+                    int chance = 10;
+                    switch (difficulty){
+                        case EASY:
+                            upPointCount += 5;
+                            chance = 10;
+                            break;
+                        case NORMAL:
+                            upPointCount += 5;
+                            chance = 15;
+                            break;
+                        case HARD:
+                            upPointCount += 5;
+                            chance = 20;
+                            break;
+                        case VERYHARD:
+                            upPointCount += 6;
+                            chance = 25;
+                            break;
+                        case NIGHTMARE:
+                            upPointCount += 6;
+                            chance = 30;
+                            break;
+                        case STOPIT:
+                            upPointCount += 7;
+                            chance = 40;
+                            break;
+                    }
+
+                    chance += (int)(stats.luck/2);
+                    while(chance > 0){
+                        int isExtraPoint = (int) Math.ceil(Math.random() * 100);
+                        if (isExtraPoint < chance){
+                            upPointCount ++;
+                        }
+                        chance -= 5;
+                    }
+
+                    addMaxHpByStats();
+                    setHp(maxHp);
+
+                    try {
+                        fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
+                        fieldWindow.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
+                    } catch (InterruptedException ex){
+
+                    }
                 }
-                chance -= 5;
             }
-
-            addMaxHpByStats();
-            setHp(maxHp);
-
-            try {
-                fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
-                fieldWindow.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
-            } catch (InterruptedException ex){
-
-            }
-        }
+        });
+        myThready.start();
     }
 
     private void addMaxHpByStats(){
