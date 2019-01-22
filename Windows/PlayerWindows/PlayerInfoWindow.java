@@ -5,12 +5,14 @@ import LiveCreatures.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class PlayerInfoWindow extends JFrame {
+public class PlayerInfoWindow extends JFrame implements Serializable {
 
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints;
     private Player player;
+    private static final long serialVersionUID = -3370586347546836372L;
 
     public PlayerInfoWindow(Player player){
         super("Информация");

@@ -1,4 +1,6 @@
 package Windows.BattleWindows;
 
-public class PlayerAbilityWindow {
+import java.io.Serializable;
+
+public class PlayerAbilityWindow implements Serializable {
 }

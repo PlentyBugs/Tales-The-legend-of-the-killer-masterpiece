@@ -16,9 +16,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FightWindow extends JFrame {
+public class FightWindow extends JFrame implements Serializable {
 
     private Player player;
     private LiveCreature enemy;
@@ -130,7 +131,7 @@ public class FightWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (isPlayerTurn){
                     isPlayerTurn = false;
-                    double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(200 - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed) - (enemy.getStats().speed - player.getStats().speed))/200);
+                    double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
                     int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
                     if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
                         writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");

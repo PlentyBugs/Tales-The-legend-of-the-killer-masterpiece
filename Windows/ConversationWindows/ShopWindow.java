@@ -7,9 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ShopWindow extends JFrame {
+public class ShopWindow extends JFrame implements Serializable {
 
     private Player player;
     private ArrayList<Object> catalog = new ArrayList<Object>();
@@ -84,5 +85,9 @@ public class ShopWindow extends JFrame {
         getContentPane().add(panel);
         pack();
         setVisible(true);
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

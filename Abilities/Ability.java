@@ -2,7 +2,9 @@ package Abilities;
 
 import LiveCreatures.Player;
 
-public class Ability {
+import java.io.Serializable;
+
+public class Ability implements Serializable {
     private AbilityType abilityType;
     protected int power;
     protected int chance;

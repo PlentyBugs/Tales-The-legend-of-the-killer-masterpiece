@@ -4,6 +4,7 @@ import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
 import Locations.Map;
+import Things.Chest;
 import Things.Grass;
 import Things.HealBlock;
 import Windows.SupportWindows.Console;
@@ -13,8 +14,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class FieldWindow extends JFrame {
+public class FieldWindow extends JFrame implements Serializable {
     private int x, y;
     private int counter = -1;
     private int realVision;
@@ -77,6 +79,7 @@ public class FieldWindow extends JFrame {
                 boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
                 boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
                 boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("DoorToUpperLevelLocation");
+                boolean isChest = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest");
 
                 GodCreature liveCreature = information[i][j];
 
@@ -112,7 +115,22 @@ public class FieldWindow extends JFrame {
                             drawMap();
                         }
                     });
-                }else {
+                } else if (isChest) {
+                    button.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            if(!((Chest)liveCreature).getIsInventoryChestOpen()){
+                                ((Chest)liveCreature).setPlayer(player);
+                                ((Chest)liveCreature).setInventoryWindow();
+                                ((Chest)liveCreature).setInventoryWindowChestIsVisible(true);
+                                ((Chest)liveCreature).setInventoryChestOpen(true);
+                            } else {
+                                ((Chest)liveCreature).getInventoryWindow().close();
+                                ((Chest)liveCreature).setInventoryWindowChestIsVisible(false);
+                                ((Chest)liveCreature).setInventoryChestOpen(false);
+                            }
+                        }
+                    });
+                } else {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (isStep){
@@ -121,6 +139,7 @@ public class FieldWindow extends JFrame {
                                 drawMap();
                             } else if (isLiveCreature){
                                 if (((LiveCreature)liveCreature).getTalkative()){
+                                    ((LiveCreature)liveCreature).setConversationWindowPlayer(player);
                                     if(!((LiveCreature)liveCreature).getIsConversationWindowOpen()){
                                         ((LiveCreature)liveCreature).setConversationWindowIsVisible(true);
                                         ((LiveCreature)liveCreature).setConversationWindowOpen(true);
@@ -129,6 +148,9 @@ public class FieldWindow extends JFrame {
                                         ((LiveCreature)liveCreature).setConversationWindowOpen(false);
                                     }
                                 } else {
+                                    if(((LiveCreature)liveCreature).getHp() == 0){
+                                        ((LiveCreature)liveCreature).countStatsAfterBorn();
+                                    }
                                     if (liveCreature.getChooseEnemyWindow() == null){
                                         liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
                                     }

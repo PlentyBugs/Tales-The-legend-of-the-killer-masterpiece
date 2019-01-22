@@ -2,7 +2,9 @@ package Effects;
 
 import LiveCreatures.LiveCreature;
 
-public class Effect {
+import java.io.Serializable;
+
+public class Effect implements Serializable {
     protected EffectType type;
     protected int power;
 

@@ -3,13 +3,17 @@ package Locations;
 import LiveCreatures.*;
 import Things.*;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable {
 
     private int playerVision;
     private GodCreature[][] map;
     protected int mapWidth;
     protected int mapHeight;
     private Player player;
+
+    private static final long serialVersionUID = 5350390037103737479L;
 
     public Map(Player player, int mapWidth, int mapHeight){
         this.mapHeight = mapHeight;
@@ -76,6 +80,10 @@ public class Map {
         return currentMap;
     }
 
+    public void setMap(GodCreature[][] map) {
+        this.map = map;
+    }
+
     public void setElementByCoordinates(int x, int y, GodCreature godCreature){
         map[y][x] = godCreature;
     }
@@ -85,5 +93,17 @@ public class Map {
     }
     public int getMapWidth() {
         return mapWidth;
+    }
+
+    public void setMapHeight() {
+        this.mapHeight = map.length;
+    }
+
+    public void setMapWidth() {
+        this.mapWidth = map[0].length;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

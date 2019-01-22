@@ -1,8 +1,9 @@
 package Windows.BattleWindows;
 
 import javax.swing.*;
+import java.io.Serializable;
 
-public class LossWindow extends JFrame {
+public class LossWindow extends JFrame implements Serializable {
 
     public LossWindow(){
         super("Вы проиграли");

@@ -1,7 +1,7 @@
+import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.TwoOneHandedWeapon;
-import Abilities.Auras.Vision;
 import Items.*;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
@@ -9,10 +9,27 @@ import Locations.Map;
 import Windows.FieldWindow;
 import Windows.SupportWindows.ChooseDifficultyWindow;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+
 public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
+        System.getProperty("user.dir");
         Player player = new Player(0,0, "Вы",1,250);
+        Map map = new Map(player,20,20);
+        try{
+            FileInputStream fis = new FileInputStream("./Maps/temp.txt");
+            ObjectInputStream inputStream = new ObjectInputStream(fis);
+            map = (Map) inputStream.readObject();
+            map.setMapHeight();
+            map.setMapWidth();
+            map.setPlayer(player);
+            inputStream.close();
+        }catch(Exception e){
+            System.out.println("Error" +e.getMessage());
+        }
+
 
         player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion(), new Vision());
 
@@ -25,8 +42,6 @@ public class Game {
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                 new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1)
                 );
-
-        Map map = new Map(player, 100, 200);
 
         ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
         Difficulty difficulty = Difficulty.STOPIT;

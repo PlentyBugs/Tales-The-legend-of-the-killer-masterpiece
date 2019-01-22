@@ -17,5 +17,5 @@ public enum  StatsEnum {
     KNOWLEDGE,
     ENERGY,
     MILITARISM,
-    PACIFISM
+    PACIFISM;
 }

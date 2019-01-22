@@ -14,5 +14,6 @@ public class Helmet extends Armor {
 
     public Helmet(){
         this(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0);
+        name = "шлем";
     }
 }

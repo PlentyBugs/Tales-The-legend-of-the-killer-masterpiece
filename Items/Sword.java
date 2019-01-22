@@ -16,5 +16,6 @@ public class Sword extends Weapon {
 
     public Sword(){
         this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.ONEHANDED);
+        name = "меч";
     }
 }

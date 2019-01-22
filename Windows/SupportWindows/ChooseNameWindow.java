@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class ChooseNameWindow extends JFrame {
+public class ChooseNameWindow extends JFrame implements Serializable {
 
     private JTextArea jTextArea;
     private String name = "";

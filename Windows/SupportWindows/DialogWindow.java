@@ -3,8 +3,9 @@ package Windows.SupportWindows;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class DialogWindow extends JFrame {
+public class DialogWindow extends JFrame implements Serializable {
 
     public DialogWindow(String message){
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

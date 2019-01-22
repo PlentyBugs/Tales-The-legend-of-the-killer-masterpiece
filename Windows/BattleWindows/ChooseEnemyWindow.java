@@ -9,9 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChooseEnemyWindow extends JFrame {
+public class ChooseEnemyWindow extends JFrame implements Serializable {
 
     private int width = 480;
     private int heigt = 360;

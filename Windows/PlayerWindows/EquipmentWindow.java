@@ -6,14 +6,16 @@ import LiveCreatures.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class EquipmentWindow extends JFrame {
+public class EquipmentWindow extends JFrame implements Serializable {
 
     private Player player;
     private JPanel panel = new JPanel();
     private GridBagConstraints constraints;
     private int width = 480;
     private int height = 240;
+    private static final long serialVersionUID = 3557302482173437655L;
 
     public EquipmentWindow(Player player){
         super("Экипировка");

@@ -3,10 +3,10 @@ package Windows.SupportWindows;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-public class Console extends JPanel
-{
+public class Console extends JPanel implements Serializable {
     private JScrollPane vertical;
     private JTextArea console;
     private boolean firstTime = true;

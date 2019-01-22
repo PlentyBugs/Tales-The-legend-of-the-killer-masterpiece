@@ -1,6 +1,8 @@
 package Items;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     protected String name;
     protected Grade grade;
     protected double quality;

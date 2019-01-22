@@ -1,6 +1,8 @@
 package LiveCreatures;
 
-public class Stats {
+import java.io.Serializable;
+
+public class Stats implements Serializable {
 
     public int strength;
     public int speed;

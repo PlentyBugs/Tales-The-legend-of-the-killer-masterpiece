@@ -14,5 +14,6 @@ public class Torso extends Armor {
 
     public Torso(){
         this(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0);
+        name = "броня";
     }
 }

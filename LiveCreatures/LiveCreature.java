@@ -21,6 +21,7 @@ public abstract class LiveCreature extends GodCreature {
     protected Conversation conversation;
     private ConversationWindow conversationWindow;
     private boolean isConversationWindowOpen;
+    private static final long serialVersionUID = 3432956647310864719L;
 
 
     public LiveCreature(int x, int y, String name, int lvl, int hp){
@@ -100,7 +101,9 @@ public abstract class LiveCreature extends GodCreature {
 
     public void countStatsAfterBorn(){}
 
-    public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setIsVisible(isVisible);
+    public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setIsVisible(isVisible);}
+    public void setConversationWindowPlayer(Player player){
+        conversationWindow.setPlayer(player);
     }
 
     public void setConversationWindowOpen(boolean isConversationWindowOpen) {
@@ -113,5 +116,16 @@ public abstract class LiveCreature extends GodCreature {
 
     public ConversationWindow getConversationWindow() {
         return conversationWindow;
+    }
+
+    public void addToUniqueDropItem(Item ... items){
+        Item[] oldUniqueDropItem = uniqueDropItems;
+        uniqueDropItems = new Item[oldUniqueDropItem.length+items.length];
+        for (int s = 0; s < oldUniqueDropItem.length; s++){
+            uniqueDropItems[s] = oldUniqueDropItem[s];
+        }
+        for (int s = 0; s < items.length; s++){
+            uniqueDropItems[s+oldUniqueDropItem.length] = items[s];
+        }
     }
 }

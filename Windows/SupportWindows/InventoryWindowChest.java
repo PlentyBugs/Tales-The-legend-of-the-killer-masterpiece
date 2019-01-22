@@ -1,33 +1,33 @@
-package Windows.PlayerWindows;
+package Windows.SupportWindows;
 
 import Items.Armor;
 import Items.Item;
-import Items.Potions.Potion;
 import Items.Weapon;
 import LiveCreatures.Player;
+import Things.Chest;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.Serializable;
 
-public class InventoryWindow extends JFrame implements Serializable {
+public class InventoryWindowChest extends JFrame {
 
+    private Chest chest;
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
-    JScrollPane scroll = new JScrollPane(panel);
+    private JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
     private int width = 600;
-    private int height = 720;
-    private static final long serialVersionUID = -559721917387219997L;
+    private int height = 480;
+    private static final long serialVersionUID = -3364742123084557236L;
 
-    public InventoryWindow(Player player){
-        super("Инвентарь");
+    public InventoryWindowChest(Chest chest){
+        super("Сундук");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        this.player = player;
+        this.chest = chest;
         drawInventory();
     }
 
@@ -51,7 +51,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        for (Item item : player.getInventory()){
+        for (Item item : chest.getInventory()){
 
             JPanel itemPanel = new JPanel();
             itemPanel.setPreferredSize(new Dimension(width, 40));
@@ -113,29 +113,16 @@ public class InventoryWindow extends JFrame implements Serializable {
             propertyCount.setForeground(colorForeground);
 
             itemConstraints.gridx = 4;
-            JButton useButton = new JButton("Экипировать");
+            JButton useButton = new JButton("Взять");
 
-            if(((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
-                itemQuality.setText("");
-                useButton.setText("Использовать");
-            }
-            useButton.setSize(100,40);
+            useButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    player.addItemToInventory(item);
+                    chest.removeItemFromInventory(item);
+                    drawInventory();
+                }
+            });
 
-            if(!((item.getClass().toString().split("\\."))[item.getClass().toString().split("\\.").length-2]).equals("Potions")){
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        player.equip(item);
-                    }
-                });
-            } else {
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        ((Potion)item).use(player);
-                        player.removeItem(item);
-                        drawInventory();
-                    }
-                });
-            }
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
             itemPanel.add(property, itemConstraints);
@@ -154,5 +141,9 @@ public class InventoryWindow extends JFrame implements Serializable {
         getContentPane().add(scroll);
         pack();
         setVisible(true);
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

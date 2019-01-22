@@ -8,12 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class UpgradeSkillsWindow extends JFrame {
+public class UpgradeSkillsWindow extends JFrame implements Serializable {
 
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints;
+    private static final long serialVersionUID = 4460300534250353120L;
 
     public UpgradeSkillsWindow(Player player){
         super("Прокачка умений");
@@ -59,9 +61,12 @@ public class UpgradeSkillsWindow extends JFrame {
                 upgrade.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (player.getLevelpoints() >= ability.getCost()){
-                            player.setLevelpoints(player.getLevelpoints() - ability.getCost());
+                            int lastlevel = ability.getLevel();
                             ability.levelUp(player);
-                            drawWindow();
+                            if(ability.getLevel()-lastlevel > 0){
+                                player.setLevelpoints(player.getLevelpoints() - ability.getCost());
+                                drawWindow();
+                            }
                         }
                     }
                 });

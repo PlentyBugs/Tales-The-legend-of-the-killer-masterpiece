@@ -1,6 +1,8 @@
 package Items;
 
-public class Equipment {
+import java.io.Serializable;
+
+public class Equipment implements Serializable {
 
     private Helmet helmet;
     private Torso torso;

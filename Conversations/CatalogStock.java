@@ -2,9 +2,10 @@ package Conversations;
 
 import Items.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CatalogStock {
+public class CatalogStock implements Serializable {
 
     ArrayList<Object> stock = new ArrayList<>();
 

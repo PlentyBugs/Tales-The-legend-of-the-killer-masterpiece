@@ -1,8 +1,9 @@
 package Conversations;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Conversation {
+public class Conversation implements Serializable {
     protected ArrayList<Conversation> conversationTree = new ArrayList<Conversation>();
     protected String Title;
 

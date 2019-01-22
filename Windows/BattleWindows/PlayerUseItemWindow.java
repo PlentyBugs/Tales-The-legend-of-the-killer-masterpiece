@@ -1,4 +1,6 @@
 package Windows.BattleWindows;
 
-public class PlayerUseItemWindow {
+import java.io.Serializable;
+
+public class PlayerUseItemWindow implements Serializable {
 }

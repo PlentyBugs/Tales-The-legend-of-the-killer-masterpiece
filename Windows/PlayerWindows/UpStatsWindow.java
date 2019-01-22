@@ -8,12 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class UpStatsWindow extends JFrame{
+public class UpStatsWindow extends JFrame implements Serializable {
 
     private Player player;
 
     private JPanel panel = new JPanel(new GridBagLayout());
+    private static final long serialVersionUID = -6544494898042825420L;
 
     public UpStatsWindow(Player player){
         super("Прокачка");

@@ -390,14 +390,10 @@ public class Player extends Human {
         int countProtection = 1;
         for (Item item : equipment.getArmor()){
             if (item != null){
-                System.out.println(item);
-                System.out.println(countProtection);
                 countProtection += ((Armor)item).getProtection();
-                System.out.println(countProtection);
             }
         }
         double absorbedDamage = damage*(1 - Math.pow(Math.E, -25*(Math.pow(getLvl()/5.0, 0.5))/countProtection));
-        System.out.println(absorbedDamage);
         return absorbedDamage;
     }
 

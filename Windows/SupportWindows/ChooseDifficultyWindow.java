@@ -7,8 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
-public class ChooseDifficultyWindow extends JFrame {
+public class ChooseDifficultyWindow extends JFrame implements Serializable {
 
     private boolean check;
     private Difficulty difficulty;

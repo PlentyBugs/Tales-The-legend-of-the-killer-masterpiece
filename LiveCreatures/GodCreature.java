@@ -4,8 +4,9 @@ import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.FieldWindow;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class GodCreature {
+public class GodCreature  implements Serializable, Cloneable  {
     protected String name;
     protected Color color;
     protected boolean isStep;
@@ -73,5 +74,11 @@ public class GodCreature {
 
     public ChooseEnemyWindow getChooseEnemyWindow() {
         return chooseEnemyWindow;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }
