@@ -8,6 +8,6 @@ public class Constructor {
         toolMode.setToolModeEnum(ToolModeEnum.BUILD);
 
         ConstructorField constructorField = new ConstructorField(choosedBlock, toolMode);
-        BlockChooser blockChooser = new BlockChooser(choosedBlock, constructorField.getMap(), toolMode);
+        BlockChooser blockChooser = new BlockChooser(choosedBlock, constructorField, toolMode);
     }
 }

@@ -18,19 +18,19 @@ public class BlockChooser extends JFrame {
     private int width = 360;
     private int height = 720;
     private Block block;
-    private GodCreature[][] map;
     private GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
     private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight()};
 
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private ToolMode toolMode;
+    private ConstructorField constructorField;
 
-    public BlockChooser(Block block, GodCreature[][] map, ToolMode toolMode){
+    public BlockChooser(Block block, ConstructorField constructorField, ToolMode toolMode){
         super("Выбор блока");
 
         this.block = block;
-        this.map = map;
+        this.constructorField = constructorField;
         this.toolMode = toolMode;
 
         setPreferredSize(new Dimension(width, height));
@@ -158,7 +158,7 @@ public class BlockChooser extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try{
                     Map newMap = new Map(new Player(0,0,"",0,0), 20,20);
-                    newMap.setMap(map);
+                    newMap.setMap(constructorField.getMap());
                     FileOutputStream fos = new FileOutputStream("./temp.txt");
                     ObjectOutputStream outStream = new ObjectOutputStream(fos);
                     outStream.writeObject(newMap);
