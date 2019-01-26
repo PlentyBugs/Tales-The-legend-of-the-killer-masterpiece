@@ -24,6 +24,11 @@ public class AbilityActive extends Ability {
     }
 
     public Buff getBuff() {
+        try {
+            return (Buff) buff.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         return buff;
     }
 

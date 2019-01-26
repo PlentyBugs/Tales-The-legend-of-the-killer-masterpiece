@@ -81,8 +81,7 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
                             fightWindow.writeToPlayerConsole("На " + enemy.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
                             enemy.addBuffs(((AbilityActive) ability).getBuff());
                         }
-                    }
-                    if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
+                    } else if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
                         ((AbilityActive)ability).use(enemy);
                     }
                     fightWindow.enemyTurn();

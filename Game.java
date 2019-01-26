@@ -17,7 +17,7 @@ import java.io.ObjectInputStream;
 
 public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
-        System.getProperty("user.dir");
+
         Player player = new Player(0,0, "Вы",1,250);
         Map map = new Map(player,20,20);
         try{

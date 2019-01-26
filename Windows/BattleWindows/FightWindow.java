@@ -278,6 +278,11 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void enemyTurn(){
+
+        if (enemy.getHp() <= 0){
+            getReward();
+        }
+
         isPlayerTurn = true;
         int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
         if (chance <= player.getAbility(new Evasion()).getChance() && player.hasAbility(new Evasion())){
@@ -307,28 +312,32 @@ public class FightWindow extends JFrame implements Serializable {
         }
         for (Buff buff : enemy.getBuffs()){
             buff.setStepCount(buff.getStepCount() - 1);
-            writeToEnemyStatusConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
-            if (buff.getStepCount() == 0){
+            if (buff.getStepCount() <= 0){
                 enemy.removeBuff(buff);
+                continue;
             }
+            writeToEnemyStatusConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
         }
         for (Buff buff : player.getBuffs()){
             buff.setStepCount(buff.getStepCount() - 1);
-            writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
-            if (buff.getStepCount() == 0){
+            if (buff.getStepCount() <= 0){
                 player.removeBuff(buff);
+                continue;
             }
+            writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
         }
     }
 
     private void getReward(){
-        System.out.println("123");
         isPlayerTurn = true;
 
         field.setIsVisible(true);
         field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
         field.drawMap();
 
+        if (playerAbilityWindow != null){
+            playerAbilityWindow.close();
+        }
         close();
         int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
         if (rewardMoney <= 0){
@@ -488,6 +497,7 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void loss(){
+        playerAbilityWindow.close();
         close();
         LossWindow loss = new LossWindow();
     }

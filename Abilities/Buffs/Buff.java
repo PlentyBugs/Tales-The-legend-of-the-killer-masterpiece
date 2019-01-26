@@ -3,7 +3,7 @@ package Abilities.Buffs;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
 
-public class Buff {
+public class Buff implements Cloneable {
     protected int stepCount;
     protected String name;
     protected int power;
@@ -31,4 +31,10 @@ public class Buff {
     public void use(Player player){}
 
     public void use(LiveCreature liveCreature){}
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 }
