@@ -62,6 +62,10 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
                 abilityConstraints.gridx ++;
             }
 
+            JLabel abilityTarget = new JLabel("Цель: " + ((AbilityActive)ability).getAbilityTarget());
+            abilityPanel.add(abilityTarget, abilityConstraints);
+            abilityConstraints.gridx ++;
+
             JButton abilityUseButton = new JButton("Использовать");
             abilityPanel.add(abilityUseButton, abilityConstraints);
             abilityConstraints.gridx ++;

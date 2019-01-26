@@ -290,7 +290,7 @@ public class FightWindow extends JFrame implements Serializable {
             enemy.setCurrentDamage(damage);
 
             for (Buff buff : enemy.getBuffs()){
-                buff.use(player);
+                buff.use(enemy);
             }
 
             damage = enemy.getCurrentDamage();
