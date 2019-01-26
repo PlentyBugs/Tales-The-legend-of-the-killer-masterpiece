@@ -118,6 +118,16 @@ public class Player extends Human {
         return abilities;
     }
 
+    public ArrayList<Ability> getAbilitiesByType(AbilityType abilityType) {
+        ArrayList<Ability> abilitiesByType = new ArrayList<>();
+        for (Ability ability : abilities){
+            if (ability.getAbilityType().contains(abilityType)){
+                abilitiesByType.add(ability);
+            }
+        }
+        return abilitiesByType;
+    }
+
     public boolean hasAbility(Ability ability){
         if (getAbility(ability) != null){
             return true;
@@ -407,7 +417,7 @@ public class Player extends Human {
 
     public void countPassiveBuffs(){
         for (Ability ability : abilities){
-            if (ability.getAbilityType() == AbilityType.AURA){
+            if (ability.getAbilityType().contains(AbilityType.AURA)){
                 ((Aura)ability).use(this);
             }
         }

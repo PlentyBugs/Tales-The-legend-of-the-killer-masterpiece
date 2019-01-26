@@ -7,7 +7,7 @@ import LiveCreatures.Player;
 public class Vision extends Aura {
     public Vision(){
         setLevel(1);
-        setAbilityType(AbilityType.AURA);
+        addAbilityType(AbilityType.AURA);
         name = "Зрение";
         maxLevel = 4;
     }

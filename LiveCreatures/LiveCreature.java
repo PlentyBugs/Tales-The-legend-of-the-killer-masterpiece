@@ -1,11 +1,13 @@
 package LiveCreatures;
 
+import Abilities.Buffs.Buff;
 import Conversations.Conversation;
 import Effects.Effect;
 import Items.Item;
 import Windows.ConversationWindows.ConversationWindow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class LiveCreature extends GodCreature {
     protected int x;
@@ -15,12 +17,14 @@ public abstract class LiveCreature extends GodCreature {
     protected int lvl;
     protected int money = 0;
     protected ArrayList<Effect> effects = new ArrayList<Effect>();
+    protected ArrayList<Buff> buffs = new ArrayList<>();
     protected Stats stats = new Stats();
     protected Item[] uniqueDropItems;
     protected boolean talkative = false;
     protected Conversation conversation;
     private ConversationWindow conversationWindow;
     private boolean isConversationWindowOpen;
+    protected double currentDamage;
     private static final long serialVersionUID = 3432956647310864719L;
 
 
@@ -37,6 +41,24 @@ public abstract class LiveCreature extends GodCreature {
     public void initializeWindowConv(){
         conversationWindow = new ConversationWindow(this);
         setConversationWindowIsVisible(false);
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void addBuffs(Buff ... buffs) {
+        this.buffs.addAll(Arrays.asList(buffs));
+    }
+
+    public void removeBuff(Buff buff){
+        if (buffs.contains(buff)){
+            buffs.remove(buff);
+        }
+    }
+
+    public double getCurrentDamage() {
+        return currentDamage;
     }
 
     public double getHp() {
@@ -57,6 +79,10 @@ public abstract class LiveCreature extends GodCreature {
 
     public int getLvl() {
         return lvl;
+    }
+
+    public void setCurrentDamage(double currentDamage) {
+        this.currentDamage = currentDamage;
     }
 
     public void setHp(double hp) {

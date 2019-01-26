@@ -3,9 +3,10 @@ package Abilities;
 import LiveCreatures.Player;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Ability implements Serializable {
-    private AbilityType abilityType;
+    protected ArrayList<AbilityType> abilityType = new ArrayList<>();
     protected int power;
     protected int chance;
     protected int level;
@@ -13,11 +14,11 @@ public class Ability implements Serializable {
     protected int cost = 1;
     protected String name;
 
-    public void setAbilityType(AbilityType abilityType) {
-        this.abilityType = abilityType;
+    public void addAbilityType(AbilityType abilityTypes) {
+        abilityType.add(abilityTypes);
     }
 
-    public AbilityType getAbilityType() {
+    public ArrayList<AbilityType> getAbilityType() {
         return abilityType;
     }
 

@@ -1,14 +1,18 @@
 package Windows.BattleWindows;
 
+import Abilities.Buffs.Buff;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Items.*;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
+import Items.Rarity;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
 import Things.Corpse;
+import Windows.FieldWindow;
 import Windows.SupportWindows.Console;
 import Windows.SupportWindows.DialogWindow;
-import Windows.FieldWindow;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -36,6 +40,7 @@ public class FightWindow extends JFrame implements Serializable {
     private DialogWindow dialogWindow = new DialogWindow("");
 
     private JPanel panel = new JPanel(new BorderLayout());
+    private PlayerAbilityWindow playerAbilityWindow;
 
     public FightWindow(Player player, LiveCreature enemy, FieldWindow field) {
         super("Бой");
@@ -138,6 +143,14 @@ public class FightWindow extends JFrame implements Serializable {
                         writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
                         damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
                     }
+
+                    player.setCurrentDamage(damage);
+
+                    for (Buff buff : player.getBuffs()){
+                        buff.use(player);
+                    }
+                    damage = player.getCurrentDamage();
+
                     damage = Math.round(damage*100.0)/100.0;
                     enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
                     writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
@@ -158,9 +171,12 @@ public class FightWindow extends JFrame implements Serializable {
         playerAbilityButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (isPlayerTurn){
-                    isPlayerTurn = false;
-                    // Coming soon because there aren't Abilities
-                    enemyTurn();
+                    if (playerAbilityWindow == null){
+                        playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
+                    } else {
+                        playerAbilityWindow.close();
+                        playerAbilityWindow = null;
+                    }
                 }
             }
         });
@@ -225,7 +241,7 @@ public class FightWindow extends JFrame implements Serializable {
         setVisible(true);
     }
 
-    private void writeToEnemyStatusConsole(String text){
+    public void writeToEnemyStatusConsole(String text){
         try{
             enemyConsoleStatus.writeToConsole(text);
         } catch (InterruptedException ex){
@@ -233,7 +249,7 @@ public class FightWindow extends JFrame implements Serializable {
         }
     }
 
-    private void writeToEnemyActionConsole(String text){
+    public void writeToEnemyActionConsole(String text){
         try{
             enemyConsoleActions.writeToConsole(text);
         } catch (InterruptedException ex){
@@ -241,7 +257,7 @@ public class FightWindow extends JFrame implements Serializable {
         }
     }
 
-    private void writeToPlayerConsole(String text){
+    public void writeToPlayerConsole(String text){
         try{
             playerConsole.writeToConsole(text);
         } catch (InterruptedException ex){
@@ -270,6 +286,15 @@ public class FightWindow extends JFrame implements Serializable {
         } else {
             double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
             damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
+
+            enemy.setCurrentDamage(damage);
+
+            for (Buff buff : enemy.getBuffs()){
+                buff.use(player);
+            }
+
+            damage = enemy.getCurrentDamage();
+
             player.setHp(Math.round((player.getHp()-damage)*100.0)/100.0);
             writeToPlayerConsole(player.getName() + " получил " + Double.toString(damage) + " единиц урона");
             writeToEnemyActionConsole(enemy.getName() + " нанес " + Double.toString(damage) + " единиц урона");
@@ -278,6 +303,20 @@ public class FightWindow extends JFrame implements Serializable {
             } else {
                 writeToPlayerConsole(player.getName() + " повержен!");
                 loss();
+            }
+        }
+        for (Buff buff : enemy.getBuffs()){
+            buff.setStepCount(buff.getStepCount() - 1);
+            writeToEnemyStatusConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
+            if (buff.getStepCount() == 0){
+                enemy.removeBuff(buff);
+            }
+        }
+        for (Buff buff : player.getBuffs()){
+            buff.setStepCount(buff.getStepCount() - 1);
+            writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
+            if (buff.getStepCount() == 0){
+                player.removeBuff(buff);
             }
         }
     }

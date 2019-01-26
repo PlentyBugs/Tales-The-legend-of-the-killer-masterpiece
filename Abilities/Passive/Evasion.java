@@ -8,7 +8,7 @@ import LiveCreatures.Player;
 public class Evasion extends Ability {
     public Evasion(){
         setLevel(1);
-        setAbilityType(AbilityType.PASSIVE);
+        addAbilityType(AbilityType.PASSIVE);
         name = "Уклонение";
         maxLevel = 5;
     }

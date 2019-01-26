@@ -7,7 +7,7 @@ import LiveCreatures.Player;
 public class CriticalStrike extends Ability {
     public CriticalStrike(){
         setLevel(1);
-        setAbilityType(AbilityType.PASSIVE);
+        addAbilityType(AbilityType.PASSIVE);
         name = "Критический удар";
         maxLevel = 5;
     }

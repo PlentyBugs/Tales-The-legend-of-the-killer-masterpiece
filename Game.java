@@ -1,3 +1,5 @@
+import Abilities.Active.DamageUp;
+import Abilities.Active.DecreaseDamage;
 import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
@@ -31,7 +33,7 @@ public class Game {
         }
 
 
-        player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion(), new Vision());
+        player.addAbility(new TwoOneHandedWeapon(), new CriticalStrike(), new Evasion(), new Vision(), new DamageUp(), new DecreaseDamage());
 
 
         Sword testerSword = new Sword(Material.MYTHRIL, Rarity.UNCOMMON, Grade.MAGIC, 3, WeaponType.ONEHANDED);

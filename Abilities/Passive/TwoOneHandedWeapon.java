@@ -6,7 +6,7 @@ import Abilities.AbilityType;
 public class TwoOneHandedWeapon extends Ability {
 
     public TwoOneHandedWeapon(){
-        setAbilityType(AbilityType.PASSIVE);
+        addAbilityType(AbilityType.PASSIVE);
         level = 1;
         maxLevel = 1;
         name = "Мастер мечник";
