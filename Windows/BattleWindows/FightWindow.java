@@ -146,8 +146,10 @@ public class FightWindow extends JFrame implements Serializable {
 
                     player.setCurrentDamage(damage);
 
-                    for (Buff buff : player.getBuffs()){
-                        buff.use(player);
+                    if (player.getBuffs() != null){
+                        for (Buff buff : player.getBuffs()){
+                            buff.use(player);
+                        }
                     }
                     damage = player.getCurrentDamage();
 
@@ -285,17 +287,21 @@ public class FightWindow extends JFrame implements Serializable {
 
         isPlayerTurn = true;
         int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
-        if (chance <= player.getAbility(new Evasion()).getChance() && player.hasAbility(new Evasion())){
-            writeToEnemyActionConsole(enemy.getName() + " промахнулся");
-            writeToPlayerConsole("Вы увернулись");
+        if (player.hasAbility(new Evasion())){
+            if (chance <= player.getAbility(new Evasion()).getChance()) {
+                writeToEnemyActionConsole(enemy.getName() + " промахнулся");
+                writeToPlayerConsole("Вы увернулись");
+            }
         } else {
             double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
             damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
 
             enemy.setCurrentDamage(damage);
 
-            for (Buff buff : enemy.getBuffs()){
-                buff.use(enemy);
+            if (enemy.getBuffs() != null){
+                for (Buff buff : enemy.getBuffs()){
+                    buff.use(enemy);
+                }
             }
 
             damage = enemy.getCurrentDamage();
@@ -310,21 +316,25 @@ public class FightWindow extends JFrame implements Serializable {
                 loss();
             }
         }
-        for (Buff buff : enemy.getBuffs()){
-            buff.setStepCount(buff.getStepCount() - 1);
-            if (buff.getStepCount() <= 0){
-                enemy.removeBuff(buff);
-                continue;
+        if (enemy.getBuffs() != null){
+            for (Buff buff : enemy.getBuffs()){
+                buff.setStepCount(buff.getStepCount() - 1);
+                if (buff.getStepCount() <= 0){
+                    enemy.removeBuff(buff);
+                    continue;
+                }
+                writeToEnemyStatusConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
             }
-            writeToEnemyStatusConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
         }
-        for (Buff buff : player.getBuffs()){
-            buff.setStepCount(buff.getStepCount() - 1);
-            if (buff.getStepCount() <= 0){
-                player.removeBuff(buff);
-                continue;
+        if (player.getBuffs() != null){
+            for (Buff buff : player.getBuffs()){
+                buff.setStepCount(buff.getStepCount() - 1);
+                if (buff.getStepCount() <= 0){
+                    player.removeBuff(buff);
+                    continue;
+                }
+                writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
             }
-            writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
         }
     }
 
@@ -497,7 +507,9 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void loss(){
-        playerAbilityWindow.close();
+        if (playerAbilityWindow != null){
+            playerAbilityWindow.close();
+        }
         close();
         LossWindow loss = new LossWindow();
     }
