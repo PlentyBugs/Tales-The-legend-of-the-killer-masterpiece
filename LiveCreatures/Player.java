@@ -41,6 +41,7 @@ public class Player extends Human {
     private ArrayList<Ability> abilities = new ArrayList<Ability>();
 
     private FieldWindow fieldWindow;
+    private static final long serialVersionUID = 4994679203117290921L;
 
     public Player(int x, int y, String name, int lvl, int hp){
         super(x, y, name, lvl, hp);
@@ -95,7 +96,7 @@ public class Player extends Human {
 
         exp = 0;
         needExpToNextLvl = 500;
-        money = 16000;
+        money = 99000;
     }
 
     public void addItemToInventory(Item ... itemList){

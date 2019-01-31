@@ -1,5 +1,7 @@
 package LiveCreatures;
 
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
 import Conversations.CatalogStock;
 import Conversations.Conversation;
 import Conversations.Shop;
@@ -32,9 +34,7 @@ public class Dealer extends Human {
 
         conversation = new Conversation();
 
-        conversation.setTitle("Магазин");
-
-        shop = new Shop();
+        Shop shop = new Shop();
         shop.setTitle("Магазин");
         catalogStock = new CatalogStock();
 
@@ -44,6 +44,17 @@ public class Dealer extends Human {
         shop.setCatalog(catalogStock);
 
         conversation.addConversationBranch(shop);
+
+        Shop train = new Shop();
+        train.setTitle("Тренировка");
+        catalogStock = new CatalogStock();
+
+        catalogStock.addToStock(new CriticalStrike(), 45000, 1);
+        catalogStock.addToStock(new Evasion(), 38000, 1);
+
+        train.setCatalog(catalogStock);
+
+        conversation.addConversationBranch(train);
         if(talkative){
             initializeWindowConv();
         }

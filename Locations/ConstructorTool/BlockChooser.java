@@ -56,6 +56,9 @@ public class BlockChooser extends JFrame {
         JButton build = new JButton("Строить");
         panel.add(build, constraints);
         constraints.gridx ++;
+        JButton areaBuilder = new JButton("Строить по площади");
+        panel.add(areaBuilder, constraints);
+        constraints.gridy ++;
         JButton edit = new JButton("Редактировать");
         panel.add(edit, constraints);
         constraints.gridy ++;
@@ -69,16 +72,32 @@ public class BlockChooser extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 toolMode.setToolModeEnum(ToolModeEnum.BUILD);
                 build.setBackground(new Color(0,255,0));
+                areaBuilder.setBackground(new Color(255,255,255));
                 edit.setBackground(new Color(255,255,255));
+            }
+        });
+        areaBuilder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                constructorField.setClickAreaBuilderCheck(false);
+                constructorField.setSecondClickAreaBuilderIdX(-1);
+                constructorField.setFirstClickAreaBuilderIdX(-1);
+                constructorField.setSecondClickAreaBuilderIdY(-1);
+                constructorField.setFirstClickAreaBuilderIdY(-1);
+                toolMode.setToolModeEnum(ToolModeEnum.AREABUILDER);
+                areaBuilder.setBackground(new Color(0,255,0));
+                edit.setBackground(new Color(255,255,255));
+                build.setBackground(new Color(255,255,255));
             }
         });
         edit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 toolMode.setToolModeEnum(ToolModeEnum.EDITOR);
                 edit.setBackground(new Color(0,255,0));
+                areaBuilder.setBackground(new Color(255,255,255));
                 build.setBackground(new Color(255,255,255));
             }
         });
+
         for (GodCreature creature : blockListNotLive){
             JPanel blockPanel = new JPanel(new BorderLayout());
 

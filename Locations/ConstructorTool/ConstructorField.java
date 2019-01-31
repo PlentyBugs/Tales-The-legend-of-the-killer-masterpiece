@@ -22,6 +22,12 @@ public class ConstructorField extends JFrame {
     private int mapWidth;
     private int mapHeight;
     private ToolMode toolMode;
+    private int firstClickAreaBuilderIdX = -1;
+    private int secondClickAreaBuilderIdX = -1;
+    private int firstClickAreaBuilderIdY = -1;
+    private int secondClickAreaBuilderIdY = -1;
+    private boolean ClickAreaBuilderCheck = false;
+
 
     public ConstructorField(Block block, ToolMode toolMode){
         super("Поле");
@@ -126,6 +132,52 @@ public class ConstructorField extends JFrame {
                             drawWindow();
                         } else if(toolMode.getToolModeEnum() == ToolModeEnum.EDITOR && isEditableMap[finalI][finalJ]){
                             EditorWindow editorWindow = new EditorWindow(map[finalI][finalJ]);
+                        }else if(toolMode.getToolModeEnum() == ToolModeEnum.AREABUILDER){
+                            Thread myThready = new Thread(new Runnable()
+                            {
+                                public void run()
+                                {
+
+                                    if (!ClickAreaBuilderCheck){
+                                        ClickAreaBuilderCheck = true;
+                                        firstClickAreaBuilderIdX = finalJ;
+                                        firstClickAreaBuilderIdY = finalI;
+                                    } else {
+                                        ClickAreaBuilderCheck = false;
+                                        secondClickAreaBuilderIdX = finalJ;
+                                        secondClickAreaBuilderIdY = finalI;
+
+                                        if (firstClickAreaBuilderIdX > secondClickAreaBuilderIdX){
+                                            firstClickAreaBuilderIdX = firstClickAreaBuilderIdX + secondClickAreaBuilderIdX;
+                                            secondClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
+                                            firstClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
+                                        }
+
+                                        if (firstClickAreaBuilderIdY > secondClickAreaBuilderIdY){
+                                            firstClickAreaBuilderIdY = firstClickAreaBuilderIdY + secondClickAreaBuilderIdY;
+                                            secondClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                            firstClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                        }
+
+                                        for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
+                                            for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
+                                                GodCreature godCreature = new GodCreature();
+                                                try {
+                                                    godCreature = (GodCreature) block.getBlock().clone();
+                                                } catch (CloneNotSupportedException e1) {
+                                                    e1.printStackTrace();
+                                                }
+                                                godCreature.setX(k);
+                                                godCreature.setY(z);
+                                                map[z][k] = godCreature;
+                                                isEditableMap[z][k] = block.getEditable();
+                                                drawWindow();
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            myThready.start();
                         }
                     }
                 });
@@ -242,5 +294,25 @@ public class ConstructorField extends JFrame {
 
     public GodCreature[][] getMap() {
         return map;
+    }
+
+    public void setClickAreaBuilderCheck(boolean clickAreaBuilderCheck) {
+        ClickAreaBuilderCheck = clickAreaBuilderCheck;
+    }
+
+    public void setFirstClickAreaBuilderIdX(int firstClickAreaBuilderIdX) {
+        this.firstClickAreaBuilderIdX = firstClickAreaBuilderIdX;
+    }
+
+    public void setFirstClickAreaBuilderIdY(int firstClickAreaBuilderIdY) {
+        this.firstClickAreaBuilderIdY = firstClickAreaBuilderIdY;
+    }
+
+    public void setSecondClickAreaBuilderIdX(int secondClickAreaBuilderIdX) {
+        this.secondClickAreaBuilderIdX = secondClickAreaBuilderIdX;
+    }
+
+    public void setSecondClickAreaBuilderIdY(int secondClickAreaBuilderIdY) {
+        this.secondClickAreaBuilderIdY = secondClickAreaBuilderIdY;
     }
 }

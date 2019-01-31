@@ -1,5 +1,7 @@
 package Windows.ConversationWindows;
 
+import Abilities.Ability;
+import Conversations.CatalogStockTypeOfItem;
 import Items.Item;
 import LiveCreatures.Player;
 
@@ -53,29 +55,46 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemConstraints.gridx = 0;
                 itemConstraints.gridy = 0;
 
-                JLabel itemName = new JLabel(((Item)(((Object[])obj)[0])).getName());
-                itemPanel.add(itemName, itemConstraints);
-                itemConstraints.gridx = 1;
+
+                if (((Object[])obj)[3] == CatalogStockTypeOfItem.ITEM){
+                    JLabel itemName = new JLabel(((Item)(((Object[])obj)[0])).getName());
+                    itemPanel.add(itemName, itemConstraints);
+                    itemConstraints.gridx = 1;
+                } else if (((Object[])obj)[3] == CatalogStockTypeOfItem.ABILITY){
+                    JLabel abilityName = new JLabel(((Ability)(((Object[])obj)[0])).getName());
+                    itemPanel.add(abilityName, itemConstraints);
+                    itemConstraints.gridx = 1;
+                }
                 JLabel itemCost = new JLabel(Integer.toString(price));
                 itemPanel.add(itemCost, itemConstraints);
                 itemConstraints.gridx = 2;
                 JLabel itemCount = new JLabel(Integer.toString(count));
                 itemPanel.add(itemCount, itemConstraints);
                 itemConstraints.gridx = 3;
-                JButton itemBuy = new JButton("Купить");
+                JButton buy = new JButton("Купить");
 
-                itemBuy.addActionListener(new ActionListener() {
+                buy.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (count > 0 && player.getMoney() >= price){
-                            Item item = ((Item)(((Object[])obj)[0]));
-                            player.addItemToInventory(item);
-                            player.reduceMoney(price);
-                            (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
-                            drawWindow();
+                            if (((Object[])obj)[3] == CatalogStockTypeOfItem.ITEM){
+                                Item item = ((Item)(((Object[])obj)[0]));
+                                player.addItemToInventory(item);
+                                player.reduceMoney(price);
+                                (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
+                                drawWindow();
+                            } else if (((Object[])obj)[3] == CatalogStockTypeOfItem.ABILITY){
+                                Ability ability = ((Ability)(((Object[])obj)[0]));
+                                if (!player.hasAbility(ability)){
+                                    player.reduceMoney(price);
+                                    (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
+                                    drawWindow();
+                                    player.addAbility(ability);
+                                }
+                            }
                         }
                     }
                 });
-                itemPanel.add(itemBuy, itemConstraints);
+                itemPanel.add(buy, itemConstraints);
 
                 panel.add(itemPanel, constraints);
                 constraints.gridy ++;

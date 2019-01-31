@@ -77,7 +77,7 @@ public class ConversationWindow extends JFrame implements Serializable {
 
             title.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if(conversation.getTitle().contains("Магазин")){
+                    if(conversation.getTitle().contains("Магазин") || conversation.getTitle().contains("Тренировка")){
                         ((Shop)conversation).setPlayer(player);
                         close();
                     }
