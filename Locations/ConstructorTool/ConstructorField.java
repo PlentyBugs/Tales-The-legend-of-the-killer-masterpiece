@@ -171,9 +171,9 @@ public class ConstructorField extends JFrame {
                                                 godCreature.setY(z);
                                                 map[z][k] = godCreature;
                                                 isEditableMap[z][k] = block.getEditable();
-                                                drawWindow();
                                             }
                                         }
+                                        drawWindow();
                                     }
                                 }
                             });

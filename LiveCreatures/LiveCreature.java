@@ -144,6 +144,10 @@ public abstract class LiveCreature extends GodCreature {
         return conversationWindow;
     }
 
+    public void setConversationWindow(ConversationWindow conversationWindow) {
+        this.conversationWindow = conversationWindow;
+    }
+
     public void addToUniqueDropItem(Item ... items){
         Item[] oldUniqueDropItem = uniqueDropItems;
         uniqueDropItems = new Item[oldUniqueDropItem.length+items.length];

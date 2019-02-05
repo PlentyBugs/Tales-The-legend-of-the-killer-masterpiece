@@ -1,6 +1,7 @@
 package Windows.ConversationWindows;
 
 import Conversations.Conversation;
+import Conversations.DialogConversation;
 import Conversations.Shop;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ConversationWindow extends JFrame implements Serializable {
 
@@ -19,19 +21,26 @@ public class ConversationWindow extends JFrame implements Serializable {
     private LiveCreature opponent;
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints;
-    Console dialog = new Console();
+    private Console dialog = new Console();
     private int width = 720;
     private int height = 720;
 
     public ConversationWindow(LiveCreature opponent){
         super("Диалог с " + opponent.getName());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.opponent = opponent;
 
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
+
+        dialog = new Console();
+
+        dialog.setSpeed(5);
+
+        dialog.setSizeArea(width-30,height-240);
+
+        getContentPane().add(dialog, BorderLayout.NORTH);
 
         drawWindow();
     }
@@ -41,58 +50,80 @@ public class ConversationWindow extends JFrame implements Serializable {
     }
 
     private void drawWindow(){
+        Thread thread = new Thread(new Runnable(){
+            public void run(){
 
-        getContentPane().remove(dialog);
-        getContentPane().remove(panel);
+                getContentPane().remove(panel);
 
-        dialog = new Console();
-        dialog.setSpeed(5);
+                panel = new JPanel(new GridBagLayout());
+                constraints = new GridBagConstraints();
 
-        dialog.setSizeArea(width-30,height-240);
+                constraints.anchor = GridBagConstraints.NORTH;
+                constraints.insets = new Insets(5, 0, 0, 0);
+                constraints.gridx = 0;
+                constraints.gridy = 0;
 
-        getContentPane().add(dialog, BorderLayout.NORTH);
+                for(int s = 0; s < opponent.getConversation().getConversationTree().size(); s++) {
+                    for (int k = 0; k < opponent.getConversation().getConversationTree().get(s).size(); k++) {
+                        if(opponent.getConversation().getConversationTree().get(s).get(k) == null){
+                            continue;
+                        }
+                        JPanel convPart = new JPanel(new GridBagLayout());
+                        GridBagConstraints convPartconstraints = new GridBagConstraints();
 
-        panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+                        convPartconstraints.anchor = GridBagConstraints.WEST;
+                        convPartconstraints.insets = new Insets(0, 10, 0, 0);
+                        convPartconstraints.gridx = 0;
+                        convPartconstraints.gridy = 0;
 
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.insets = new Insets(5, 0, 0, 0);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+                        JButton title = new JButton(opponent.getConversation().getConversationTree().get(s).get(k).getTitle());
 
-        for(Conversation conversation : opponent.getConversation().getConversationTree()) {
-            JPanel convPart = new JPanel(new GridBagLayout());
-            GridBagConstraints convPartconstraints = new GridBagConstraints();
+                        title.setPreferredSize(new Dimension(width, 30));
+                        title.setMinimumSize(new Dimension(width, 30));
+                        title.setMaximumSize(new Dimension(width, 30));
 
-            convPartconstraints.anchor = GridBagConstraints.WEST;
-            convPartconstraints.insets = new Insets(0, 10, 0, 0);
-            convPartconstraints.gridx = 0;
-            convPartconstraints.gridy = 0;
+                        int finalS = s;
+                        int finalK = k;
+                        title.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("Shop")) {
+                                    ((Shop) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
+                                    close();
+                                    opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
+                                } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("DialogConversation")) {
+                                    ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayerName(player.getName());
+                                    ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setOpponentName(opponent.getName());
+                                    ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setConsole(dialog);
+                                    opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
 
-            JButton title = new JButton(conversation.getTitle());
+                                    int size = opponent.getConversation().getConversationTree().get(finalS).get(finalK).getConversationTree().size();
+                                    Conversation supportConversation = opponent.getConversation().getConversationTree().get(finalS).get(finalK);
+                                    opponent.getConversation().getConversationTree().remove(finalS);
+                                    for (int z = 0; z < size; z++){
+                                        ArrayList<Conversation> conv = new ArrayList<>();
+                                        for (int x = 0; x < supportConversation.getConversationTree().get(z).size(); x++){
+                                            conv.add(supportConversation.getConversationTree().get(z).get(x));
+                                        }
+                                        opponent.getConversation().getConversationTree().add(z+1, conv);
+                                    }
+                                    setVisible(false);
+                                    drawWindow();
+                                }
+                            }
+                        });
 
-            title.setPreferredSize(new Dimension(width,60));
-            title.setMinimumSize(new Dimension(width,60));
-            title.setMaximumSize(new Dimension(width,60));
+                        convPart.add(title, convPartconstraints);
 
-            title.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if(conversation.getTitle().contains("Магазин") || conversation.getTitle().contains("Тренировка")){
-                        ((Shop)conversation).setPlayer(player);
-                        close();
+                        panel.add(convPart, constraints);
+                        constraints.gridy++;
                     }
-                    conversation.run();
+                    getContentPane().add(panel, BorderLayout.SOUTH);
+                    pack();
+                    setVisible(true);
                 }
-            });
-
-            convPart.add(title, convPartconstraints);
-
-            panel.add(convPart, constraints);
-            constraints.gridy ++;
-        }
-        getContentPane().add(panel, BorderLayout.SOUTH);
-        pack();
-        setVisible(true);
+            }
+        });
+        thread.run();
     }
 
     public void close(){
@@ -100,7 +131,13 @@ public class ConversationWindow extends JFrame implements Serializable {
     }
 
     public void setIsVisible(boolean b) {
-        drawWindow();
         setVisible(b);
+        if(b){
+            drawWindow();
+        }
+    }
+
+    public Console getDialog() {
+        return dialog;
     }
 }

@@ -1,5 +1,11 @@
 package Locations;
 
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
+import Conversations.DialogConversation;
+import Conversations.QuestDialogConversation;
+import Items.Potions.HealPotion;
+import Items.Potions.PoisonPotion;
 import LiveCreatures.*;
 import Things.*;
 
@@ -56,9 +62,38 @@ public class Map implements Serializable {
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
             map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
         }
+
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
+        dealer.setStarterPhrase("Добрый день, путник.");
+        dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
+        dealer.addConversationShop(2, "Тренировка", new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1});
         dealer.getConversationWindow().setPlayer(player);
         map[1][1] = dealer;
+
+        Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
+        inhabitant.setStarterPhrase("Привет!");
+        inhabitant.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 3000, 1000});
+        inhabitant.addConversationDialog(2, "Прощание", "Пока", "Прощай");
+        inhabitant.addConversationDialog(3, "Приветствие", "Привет", "Привет");
+
+        DialogConversation dialogConversation = new DialogConversation();
+        dialogConversation.setTitle("Как дела?");
+        dialogConversation.setText("Хорошо");
+        dialogConversation.setPlayerText("Как дела?");
+        DialogConversation dialogConversation2 = new DialogConversation();
+        dialogConversation2.setTitle("Точно?");
+        dialogConversation2.setText("Да");
+        dialogConversation2.setPlayerText("Точно?");
+        dialogConversation.addConversationBranch(dialogConversation2, 1);
+        QuestDialogConversation questDialogConversation = new QuestDialogConversation();
+        questDialogConversation.setTitle("Задание");
+        questDialogConversation.setText("Пока нет");
+        questDialogConversation.setPlayerText("У тебя есть для меня задание?");
+        dialogConversation2.addConversationBranch(questDialogConversation, 1);
+        inhabitant.addConversationDialog(3, dialogConversation);
+
+        inhabitant.getConversationWindow().setPlayer(player);
+        map[2][2] = inhabitant;
     }
 
     public GodCreature[][] getMap(int x, int y){

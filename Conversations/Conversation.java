@@ -4,15 +4,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Conversation implements Serializable {
-    protected ArrayList<Conversation> conversationTree = new ArrayList<Conversation>();
+    protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();
     protected String Title;
+    protected int branchNumber;
 
-    public ArrayList<Conversation> getConversationTree() {
+    public ArrayList<ArrayList<Conversation>> getConversationTree() {
         return conversationTree;
     }
 
-    public void addConversationBranch(Conversation conversation){
-        conversationTree.add(conversation);
+    public void addConversationBranch(Conversation conversation, int branchNumber){
+        branchNumber --;
+        if(branchNumber < conversationTree.size()){
+            conversationTree.get(branchNumber).add(conversation);
+        } else {
+            ArrayList<Conversation> conv = new ArrayList<>();
+            conv.add(conversation);
+            conversationTree.add(conv);
+        }
     }
 
     public void run(){}
