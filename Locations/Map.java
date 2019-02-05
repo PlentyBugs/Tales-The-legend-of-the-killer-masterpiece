@@ -7,6 +7,7 @@ import Conversations.QuestDialogConversation;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import LiveCreatures.*;
+import Quests.Quest;
 import Things.*;
 
 import java.io.Serializable;
@@ -87,8 +88,13 @@ public class Map implements Serializable {
         dialogConversation.addConversationBranch(dialogConversation2, 1);
         QuestDialogConversation questDialogConversation = new QuestDialogConversation();
         questDialogConversation.setTitle("Задание");
-        questDialogConversation.setText("Пока нет");
+        questDialogConversation.setText("У нас проблемы с бандитами, иди убей дял меня полдюжины");
         questDialogConversation.setPlayerText("У тебя есть для меня задание?");
+        Quest quest = new Quest();
+        quest.setExpReward(2000);
+        quest.setGoldReward(15000);
+        quest.setTitle("Бандиты атакуют!");
+        questDialogConversation.setQuest(quest);
         dialogConversation2.addConversationBranch(questDialogConversation, 1);
         inhabitant.addConversationDialog(3, dialogConversation);
 

@@ -17,7 +17,7 @@ public class PlayerWindowManager extends JFrame implements Serializable {
     public PlayerWindowManager(Player player){
         super("Менеджер окон игрока");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(520,60));
+        setPreferredSize(new Dimension(600,60));
 
         this.player = player;
 
@@ -27,6 +27,7 @@ public class PlayerWindowManager extends JFrame implements Serializable {
         JButton equipment = new JButton("Экипировка");
         JButton info = new JButton("Информация");
         JButton abilities = new JButton("Умения");
+        JButton quests = new JButton("Квесты");
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -88,11 +89,24 @@ public class PlayerWindowManager extends JFrame implements Serializable {
             }
         });
 
+        quests.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(!player.getIsQuestWindowOpen()){
+                    player.setQuestWindowIsVisible(true);
+                    player.setQuestWindowOpen(true);
+                } else {
+                    player.setQuestWindowIsVisible(false);
+                    player.setQuestWindowOpen(false);
+                }
+            }
+        });
+
         panel.add(inventory);
         panel.add(uoStats);
         panel.add(equipment);
         panel.add(info);
         panel.add(abilities);
+        panel.add(quests);
 
         getContentPane().add(panel);
         pack();

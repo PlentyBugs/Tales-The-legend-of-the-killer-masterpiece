@@ -2,6 +2,7 @@ package Windows.ConversationWindows;
 
 import Conversations.Conversation;
 import Conversations.DialogConversation;
+import Conversations.QuestDialogConversation;
 import Conversations.Shop;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
@@ -94,6 +95,9 @@ public class ConversationWindow extends JFrame implements Serializable {
                                     ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayerName(player.getName());
                                     ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setOpponentName(opponent.getName());
                                     ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setConsole(dialog);
+                                    if(opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("QuestDialogConversation")){
+                                        ((QuestDialogConversation)opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
+                                    }
                                     opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
 
                                     int size = opponent.getConversation().getConversationTree().get(finalS).get(finalK).getConversationTree().size();

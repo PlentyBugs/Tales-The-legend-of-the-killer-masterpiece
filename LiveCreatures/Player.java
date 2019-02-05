@@ -5,6 +5,7 @@ import Abilities.AbilityType;
 import Abilities.Auras.Aura;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Items.*;
+import Quests.Quest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
 
@@ -26,6 +27,7 @@ public class Player extends Human {
     private PlayerWindowManager managerWindow;
     private PlayerInfoWindow playerInfoWindow;
     private UpgradeSkillsWindow playerAbilityWindow;
+    private QuestsWindow playerQuestWindow;
 
     private boolean isUpStatsOpen;
     private boolean isInventoryOpen;
@@ -33,12 +35,14 @@ public class Player extends Human {
     private boolean isManagerOpen;
     private boolean isInfoWindowOpen;
     private boolean isAbilityWindowOpen;
+    private boolean isQuestWindowOpen;
 
     private ArrayList<Item> inventory = new ArrayList<Item>();
 
     private Equipment equipment = new Equipment();
 
     private ArrayList<Ability> abilities = new ArrayList<Ability>();
+    private ArrayList<Quest> quests = new ArrayList<>();
 
     private FieldWindow fieldWindow;
     private static final long serialVersionUID = 4994679203117290921L;
@@ -92,6 +96,9 @@ public class Player extends Human {
         playerAbilityWindow = new UpgradeSkillsWindow(this);
         setAbilityWindowIsVisible(false);
 
+        playerQuestWindow = new QuestsWindow(this);
+        setQuestWindowIsVisible(false);
+
         isPlayer = true;
 
         exp = 0;
@@ -117,6 +124,14 @@ public class Player extends Human {
 
     public ArrayList<Ability> getAbilities() {
         return abilities;
+    }
+
+    public ArrayList<Quest> getQuests() {
+        return quests;
+    }
+
+    public void addQuest(Quest quest){
+        quests.add(quest);
     }
 
     public ArrayList<Ability> getAbilitiesByType(AbilityType abilityType) {
@@ -273,6 +288,18 @@ public class Player extends Human {
 
     public boolean getIsAbilityWindowOpen() {
         return isAbilityWindowOpen;
+    }
+
+    public void setQuestWindowIsVisible(boolean isVisible) {
+        playerQuestWindow.setIsVisible(isVisible);
+    }
+
+    public void setQuestWindowOpen(boolean isQuestWindowOpen) {
+        this.isQuestWindowOpen = isQuestWindowOpen;
+    }
+
+    public boolean getIsQuestWindowOpen() {
+        return isQuestWindowOpen;
     }
 
     public ArrayList<Item> getInventory(){

@@ -11,8 +11,8 @@ public class DialogConversation extends Conversation{
 
     public void run() {
         try {
-            console.writeToConsole(opponentName + ": " + playerText);
-            console.writeToConsole(playerName + ": " + text);
+            console.writeToConsole( playerName + ": " + playerText);
+            console.writeToConsole(opponentName + ": " + text);
         } catch (InterruptedException ex){}
     }
 
