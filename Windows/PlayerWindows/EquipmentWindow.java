@@ -1,6 +1,8 @@
 package Windows.PlayerWindows;
 
+import Items.Armor;
 import Items.Item;
+import Items.Weapon;
 import LiveCreatures.Player;
 
 import javax.swing.*;
@@ -89,15 +91,34 @@ public class EquipmentWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 2;
             JLabel itemQuality = new JLabel(Double.toString(item.getQuality()));
 
+            itemConstraints.gridx = 2;
+            JLabel property = new JLabel();
+            itemConstraints.gridx = 3;
+            JLabel propertyCount = new JLabel();
+
+            if (item.getClass().toString().contains("Sword")){
+                property.setText("Урон: ");
+                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
+                property.setText("Защита: ");
+                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            }
+
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
             itemQuality.setFont(new Font("Serif", Font.PLAIN, 16));
+            property.setFont(new Font("Serif", Font.PLAIN, 16));
+            propertyCount.setFont(new Font("Serif", Font.PLAIN, 16));
 
             itemName.setForeground(colorForeground);
             itemQuality.setForeground(colorForeground);
+            property.setForeground(colorForeground);
+            propertyCount.setForeground(colorForeground);
 
             itemPanel.add(equipmentItem, itemConstraints);
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
+            itemPanel.add(property, itemConstraints);
+            itemPanel.add(propertyCount, itemConstraints);
 
             itemPanel.setBackground(colorBackground);
 

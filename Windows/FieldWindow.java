@@ -184,6 +184,7 @@ public class FieldWindow extends JFrame implements Serializable {
         pack();
         setVisible(true);
         player.countPassiveBuffs();
+        player.checkQuests();
         realVision = player.getVision()*2+1;
     }
 

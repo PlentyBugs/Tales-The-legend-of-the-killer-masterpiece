@@ -9,6 +9,7 @@ import Items.Material;
 import Items.Rarity;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
+import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Quests.Quest;
 import Things.Corpse;
@@ -344,6 +345,14 @@ public class FightWindow extends JFrame implements Serializable {
                         if(quest.getClass().toString().contains("Kill") && enemy.getClass().toString().contains(((KillQuest)quest).getEnemyToKill().getClass().toString())){
                             ((KillQuest)quest).setEnemyCountToKillCurrent(((KillQuest)quest).getEnemyCountToKillCurrent()+1);
                         }
+                        if(quest.getClass().toString().contains("Collect")){
+                            for (Item item : enemy.getUniqueDropItems()){
+                                if (item.getClass().toString().equals(((CollectItemQuest)quest).getItem().getClass().toString())){
+                                    player.addItemToInventory(((CollectItemQuest)quest).getItem());
+                                    break;
+                                }
+                            }
+                        }
                         if(quest.check()){
                             quest.getReward(player);
                             player.removeQuest(quest);
@@ -360,7 +369,7 @@ public class FightWindow extends JFrame implements Serializable {
                 if (rewardMoney <= 0){
                     rewardMoney = (int)(Math.random()*170);
                 }
-                int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl());
+                int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl() + (int)Math.pow(enemy.getLvl(), 2.5));
                 if (rewardExp <= 0){
                     rewardExp = (int)(Math.random()*60);
                 }

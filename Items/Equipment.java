@@ -6,9 +6,20 @@ public class Equipment implements Serializable {
 
     private Helmet helmet;
     private Torso torso;
+    private Ring[] rings = new Ring[10];
     private Weapon oneHandedWeaponLeft;
     private Weapon oneHandedWeaponRight;
     private Weapon twoHandedWeapon;
+
+    public void setRings(Ring ring){
+        Ring[] ringsCopy = new Ring[10];
+        for (int s = 1; s < 10; s++){
+            ringsCopy[s] = rings[s-1];
+        }
+        ringsCopy[0] = ring;
+
+        rings = ringsCopy;
+    }
 
     public void setHelmet(Helmet helmet) {
         this.helmet = helmet;
@@ -51,7 +62,7 @@ public class Equipment implements Serializable {
     }
 
     public Item[] getListOfEquipment(){
-        Item[] itemList = {torso, helmet, oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
+        Item[] itemList = {torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9], oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
 
         return itemList;
     }
@@ -69,7 +80,7 @@ public class Equipment implements Serializable {
     }
 
     public Item[] getArmor(){
-        Item[] armor = {torso, helmet};
+        Item[] armor = {torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9]};
         return armor;
     }
 }

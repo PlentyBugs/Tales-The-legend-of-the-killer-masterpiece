@@ -12,6 +12,9 @@ import Windows.PlayerWindows.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Player extends Human {
 
@@ -37,12 +40,12 @@ public class Player extends Human {
     private boolean isAbilityWindowOpen;
     private boolean isQuestWindowOpen;
 
-    private ArrayList<Item> inventory = new ArrayList<Item>();
+    private Set<Item> inventory = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     private Equipment equipment = new Equipment();
 
     private ArrayList<Ability> abilities = new ArrayList<Ability>();
-    private ArrayList<Quest> quests = new ArrayList<>();
+    private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     private FieldWindow fieldWindow;
     private static final long serialVersionUID = 4994679203117290921L;
@@ -126,7 +129,7 @@ public class Player extends Human {
         return abilities;
     }
 
-    public ArrayList<Quest> getQuests() {
+    public Set<Quest> getQuests() {
         return quests;
     }
 
@@ -308,7 +311,7 @@ public class Player extends Human {
         return isQuestWindowOpen;
     }
 
-    public ArrayList<Item> getInventory(){
+    public Set<Item> getInventory(){
         return inventory;
     }
 
@@ -322,8 +325,7 @@ public class Player extends Human {
 
     public void equip(Item item){
         if (inventory.contains(item)){
-            String itemClass = item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1];
-            if (itemClass.equals("Sword")){
+            if (item.getClass().toString().contains("Sword")){
                 if (((Weapon)item).getWeaponType() == WeaponType.ONEHANDED){
                     if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
@@ -336,10 +338,12 @@ public class Player extends Human {
                     equipment.setTwoHandedWeapon((Weapon)item);
                     equipment.setOneHandedWeaponRight(null);
                 }
-            } else if (itemClass.equals("Helmet")){
+            } else if (item.getClass().toString().contains("Helmet")){
                 equipment.setHelmet((Helmet)item);
-            } else if (itemClass.equals("Torso")){
+            } else if (item.getClass().toString().contains("Torso")){
                 equipment.setTorso((Torso)item);
+            } else if (item.getClass().toString().contains("Ring")){
+                equipment.setRings((Ring) item);
             }
         }
     }
@@ -453,6 +457,14 @@ public class Player extends Human {
         for (Ability ability : abilities){
             if (ability.getAbilityType().contains(AbilityType.AURA)){
                 ((Aura)ability).use(this);
+            }
+        }
+    }
+
+    public void checkQuests(){
+        for(Quest quest : quests){
+            if(quest.check()){
+                quest.getReward(this);
             }
         }
     }

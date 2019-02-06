@@ -94,10 +94,10 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
+            if (item.getClass().toString().contains("Sword")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
-            } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
+            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
             }

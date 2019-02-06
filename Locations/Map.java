@@ -4,9 +4,11 @@ import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
+import Items.KingGoblinRing;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import LiveCreatures.*;
+import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Things.*;
 
@@ -82,6 +84,19 @@ public class Map implements Serializable {
         questDialogConversationDealer.setText("Иди убей 15 гоблинов");
         questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
         questDialogConversationDealer.setQuest(questDealer);
+        QuestDialogConversation questDialogConversationDealer2 = new QuestDialogConversation();
+        CollectItemQuest questDealer2 = new CollectItemQuest();
+        questDealer2.setExpReward(78120);
+        questDealer2.setGoldReward(253000);
+        questDealer2.setItem(new KingGoblinRing());
+        questDealer2.setPlayer(player);
+        questDealer2.setTitle("Король гоблинов");
+        questDealer2.setEmployer(dealer);
+        questDialogConversationDealer2.setTitle(questDealer2.getTitle());
+        questDialogConversationDealer2.setText("Да, тут где-то находится Король гоблинов, крайне сильная тварь, мне нужно его кольцо, говорят, что оно стоит немалых денег!");
+        questDialogConversationDealer2.setPlayerText("У тебя есть еще что-нибудь для меня?");
+        questDialogConversationDealer2.setQuest(questDealer2);
+        questDialogConversationDealer.addConversationBranch(questDialogConversationDealer2, 1);
         dealer.addConversationDialog(3, questDialogConversationDealer);
         map[1][1] = dealer;
 
@@ -122,6 +137,14 @@ public class Map implements Serializable {
 
         inhabitant.getConversationWindow().setPlayer(player);
         map[2][2] = inhabitant;
+
+
+        int GoblinKingY = (int)(Math.random()*(mapHeight-1));
+        int GoblinKingX = (int)(Math.random()*(mapWidth-1));
+        GoblinKing goblinKing = new GoblinKing();
+        goblinKing.setX(GoblinKingX);
+        goblinKing.setY(GoblinKingY);
+        map[GoblinKingY][GoblinKingX] = goblinKing;
     }
 
     public GodCreature[][] getMap(int x, int y){
