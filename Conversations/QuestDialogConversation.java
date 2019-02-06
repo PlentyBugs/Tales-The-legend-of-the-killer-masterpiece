@@ -1,5 +1,6 @@
 package Conversations;
 
+import LiveCreatures.Peaceful;
 import LiveCreatures.Player;
 import Quests.Quest;
 
@@ -7,8 +8,9 @@ public class QuestDialogConversation extends DialogConversation {
 
     private Quest quest;
     private Player player;
+    private Peaceful peaceful;
 
-    public void run(){
+    public void run() {
         super.run();
         if (player != null && quest != null){
             player.addQuest(quest);
@@ -29,5 +31,9 @@ public class QuestDialogConversation extends DialogConversation {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPeaceful(Peaceful peaceful) {
+        this.peaceful = peaceful;
     }
 }

@@ -134,6 +134,12 @@ public class Player extends Human {
         quests.add(quest);
     }
 
+    public void removeQuest(Quest quest){
+        if(quests.contains(quest)){
+            quests.remove(quest);
+        }
+    }
+
     public ArrayList<Ability> getAbilitiesByType(AbilityType abilityType) {
         ArrayList<Ability> abilitiesByType = new ArrayList<>();
         for (Ability ability : abilities){

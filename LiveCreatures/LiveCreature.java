@@ -6,8 +6,10 @@ import Effects.Effect;
 import Items.Item;
 import Windows.ConversationWindows.ConversationWindow;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class LiveCreature extends GodCreature {
     protected int x;
@@ -16,8 +18,8 @@ public abstract class LiveCreature extends GodCreature {
     protected int maxHp;
     protected int lvl;
     protected int money = 0;
-    protected ArrayList<Effect> effects = new ArrayList<Effect>();
-    protected ArrayList<Buff> buffs = new ArrayList<>();
+    protected Set<Effect> effects = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    protected Set<Buff> buffs = Collections.newSetFromMap(new ConcurrentHashMap<>());
     protected Stats stats = new Stats();
     protected Item[] uniqueDropItems;
     protected boolean talkative = false;
@@ -43,7 +45,7 @@ public abstract class LiveCreature extends GodCreature {
         setConversationWindowIsVisible(false);
     }
 
-    public ArrayList<Buff> getBuffs() {
+    public Set<Buff> getBuffs() {
         return buffs;
     }
 

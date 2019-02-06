@@ -30,7 +30,7 @@ public class Console extends JPanel implements Serializable {
         vertical = new JScrollPane(console,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(vertical);
     }
-    public void writeToConsole(String text) throws InterruptedException {
+    public void writeToConsole(String text) {
         if(!firstTime){
             console.append("\n");
         }
@@ -38,7 +38,11 @@ public class Console extends JPanel implements Serializable {
 
         for(char ch : text.toCharArray()){
             console.append(Character.toString(ch));
-            TimeUnit.MILLISECONDS.sleep(speed);
+            try {
+                TimeUnit.MILLISECONDS.sleep(speed);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
     public JTextArea getConsole(String password){

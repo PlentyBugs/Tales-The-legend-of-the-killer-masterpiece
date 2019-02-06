@@ -9,6 +9,8 @@ import Items.Material;
 import Items.Rarity;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
+import Quests.KillQuest;
+import Quests.Quest;
 import Things.Corpse;
 import Windows.FieldWindow;
 import Windows.SupportWindows.Console;
@@ -244,27 +246,15 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void writeToEnemyStatusConsole(String text){
-        try{
-            enemyConsoleStatus.writeToConsole(text);
-        } catch (InterruptedException ex){
-
-        }
+        enemyConsoleStatus.writeToConsole(text);
     }
 
     public void writeToEnemyActionConsole(String text){
-        try{
-            enemyConsoleActions.writeToConsole(text);
-        } catch (InterruptedException ex){
-
-        }
+        enemyConsoleActions.writeToConsole(text);
     }
 
     public void writeToPlayerConsole(String text){
-        try{
-            playerConsole.writeToConsole(text);
-        } catch (InterruptedException ex){
-
-        }
+        playerConsole.writeToConsole(text);
     }
 
     private void clearStatusConsole(){
@@ -339,171 +329,191 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     private void getReward(){
-        isPlayerTurn = true;
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
 
-        field.setIsVisible(true);
-        field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
-        field.drawMap();
+                isPlayerTurn = true;
 
-        if (playerAbilityWindow != null){
-            playerAbilityWindow.close();
-        }
-        close();
-        int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
-        if (rewardMoney <= 0){
-            rewardMoney = (int)(Math.random()*170);
-        }
-        int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl());
-        if (rewardExp <= 0){
-            rewardExp = (int)(Math.random()*60);
-        }
-        int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
-        ArrayList<Item> dropItems = new ArrayList<>();
-        for (int i = 0; i < countItemsDrop; i++){
-            Item item = enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)];
-            if (dropItems.contains(item)) {
-                continue;
-            }
-            int chanceDropItem = (int)Math.ceil(Math.random()*1000);
+                field.setIsVisible(true);
+                field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
+                field.drawMap();
 
-            if (chanceDropItem < enemy.getLvl()*20){
-                item.setGrade(Grade.MAGIC);
-            }
-            if(chanceDropItem < -90 + enemy.getLvl()*15){
-                item.setGrade(Grade.CURSE);
-            }
-            if(chanceDropItem < -60 + enemy.getLvl()*5){
-                item.setGrade(Grade.ARTIFACT);
-            }
-            if(chanceDropItem < -60 + enemy.getLvl()*3){
-                item.setGrade(Grade.HEROIC);
-            }
-            if(chanceDropItem < -60 + enemy.getLvl()){
-                item.setGrade(Grade.ABOVETHEGODS);
-            }
+                if (player.getQuests() != null){
+                    for (Quest quest : player.getQuests()){
+                        if(quest.getClass().toString().contains("Kill") && enemy.getClass().toString().contains(((KillQuest)quest).getEnemyToKill().getClass().toString())){
+                            ((KillQuest)quest).setEnemyCountToKillCurrent(((KillQuest)quest).getEnemyCountToKillCurrent()+1);
+                        }
+                        if(quest.check()){
+                            quest.getReward(player);
+                            player.removeQuest(quest);
+                        }
+                    }
+                }
 
-            chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
-            if (chanceDropItem < enemy.getLvl()*20){
-                item.setRarity(Rarity.UNCOMMON);
+                if (playerAbilityWindow != null){
+                    playerAbilityWindow.close();
+                }
+                close();
+                int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
+                if (rewardMoney <= 0){
+                    rewardMoney = (int)(Math.random()*170);
+                }
+                int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl());
+                if (rewardExp <= 0){
+                    rewardExp = (int)(Math.random()*60);
+                }
+                int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
+                ArrayList<Item> dropItems = new ArrayList<>();
+                for (int i = 0; i < countItemsDrop; i++){
+                    Item item = enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)];
+                    if (dropItems.contains(item)) {
+                        continue;
+                    }
+                    int chanceDropItem = (int)Math.ceil(Math.random()*1000);
+
+                    if (chanceDropItem < enemy.getLvl()*20){
+                        item.setGrade(Grade.MAGIC);
+                    }
+                    if(chanceDropItem < -90 + enemy.getLvl()*15){
+                        item.setGrade(Grade.CURSE);
+                    }
+                    if(chanceDropItem < -60 + enemy.getLvl()*5){
+                        item.setGrade(Grade.ARTIFACT);
+                    }
+                    if(chanceDropItem < -60 + enemy.getLvl()*3){
+                        item.setGrade(Grade.HEROIC);
+                    }
+                    if(chanceDropItem < -60 + enemy.getLvl()){
+                        item.setGrade(Grade.ABOVETHEGODS);
+                    }
+
+                    chanceDropItem = (int)Math.ceil(Math.random()*1000);
+
+                    if (chanceDropItem < enemy.getLvl()*20){
+                        item.setRarity(Rarity.UNCOMMON);
+                    }
+                    if(chanceDropItem < -50 + enemy.getLvl()*10){
+                        item.setRarity(Rarity.RARE);
+                    }
+                    if(chanceDropItem < -40 + enemy.getLvl()*5){
+                        item.setRarity(Rarity.MYSTICAL);
+                    }
+                    if(chanceDropItem < -300 + enemy.getLvl()*10){
+                        item.setRarity(Rarity.LEGENDARY);
+                    }
+                    if(chanceDropItem < -1000 + enemy.getLvl()*20){
+                        item.setRarity(Rarity.DRAGON);
+                    }
+                    if(chanceDropItem < -210 + enemy.getLvl()*3){
+                        item.setRarity(Rarity.DIVINE);
+                    }
+
+                    chanceDropItem = (int)Math.ceil(Math.random()*1000);
+
+                    if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
+                        if (chanceDropItem < enemy.getLvl()*12){
+                            item.setMaterial(Material.IRON);
+                        }
+                        if (chanceDropItem < -50 + enemy.getLvl()*10){
+                            item.setMaterial(Material.BRONZE);
+                        }
+                        if (chanceDropItem < -132 + enemy.getLvl()*12){
+                            item.setMaterial(Material.STEEL);
+                        }
+                        if (chanceDropItem < -147 + enemy.getLvl()*7){
+                            item.setMaterial(Material.MYTHRIL);
+                        }
+                        if (chanceDropItem < -183 + enemy.getLvl()*6){
+                            item.setMaterial(Material.ADAMANTINE);
+                        }
+                        if (chanceDropItem < -126 + enemy.getLvl()*3){
+                            item.setMaterial(Material.ELVENMYTHRIL);
+                        }
+                        if (chanceDropItem < -96 + enemy.getLvl()*2){
+                            item.setMaterial(Material.CRYSTAL);
+                        }
+                        if (chanceDropItem < -112 + enemy.getLvl()*2){
+                            item.setMaterial(Material.DEEP);
+                        }
+                        if (chanceDropItem < -243 + enemy.getLvl()*3){
+                            item.setMaterial(Material.GODSHEART);
+                        }
+                        if (chanceDropItem < -500 + enemy.getLvl()*5){
+                            item.setMaterial(Material.ABSOLUTEZERO);
+                        }
+                    } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
+
+                        if (chanceDropItem < enemy.getLvl()*12){
+                            item.setMaterial(Material.STUDDEDLEATHER);
+                        }
+                        if (chanceDropItem < -72 + enemy.getLvl()*12){
+                            item.setMaterial(Material.CHAIN);
+                        }
+                        if (chanceDropItem < -175 + enemy.getLvl()*15){
+                            item.setMaterial(Material.COPPER);
+                        }
+                        if (chanceDropItem < -196 + enemy.getLvl()*12){
+                            item.setMaterial(Material.IRON);
+                        }
+                        if (chanceDropItem < -279 + enemy.getLvl()*9){
+                            item.setMaterial(Material.BRONZE);
+                        }
+                        if (chanceDropItem < -320 + enemy.getLvl()*8){
+                            item.setMaterial(Material.STEEL);
+                        }
+                        if (chanceDropItem < -320 + enemy.getLvl()*7){
+                            item.setMaterial(Material.MYTHRIL);
+                        }
+                        if (chanceDropItem < -212 + enemy.getLvl()*4){
+                            item.setMaterial(Material.ADAMANTINE);
+                        }
+                        if (chanceDropItem < -170 + enemy.getLvl()*3){
+                            item.setMaterial(Material.ELVENMYTHRIL);
+                        }
+                        if (chanceDropItem < -130 + enemy.getLvl()*2){
+                            item.setMaterial(Material.CRYSTAL);
+                        }
+                        if (chanceDropItem < -180 + enemy.getLvl()*2){
+                            item.setMaterial(Material.DEEP);
+                        }
+                        if (chanceDropItem < -100 + enemy.getLvl()){
+                            item.setMaterial(Material.GODSHEART);
+                        }
+                        if (chanceDropItem < -500 + enemy.getLvl()*4){
+                            item.setMaterial(Material.ABSOLUTEZERO);
+                        }
+                    }
+
+                    item.countProperty();
+
+                    dropItems.add(item);
+                }
+
+                dialogWindow.close();
+                dialogWindow = new DialogWindow(
+                        "Поздравляю, вы победили!\n" +
+                                "Награда:\n" +
+                                "Деньги: " + Integer.toString(rewardMoney) + "\n" +
+                                "Опыт: " + Integer.toString(rewardExp));
+
+                String rewardItemMessage = "";
+
+                for (Item item : dropItems){
+                    player.addItemToInventory(item);
+                    rewardItemMessage += item.getName() + "\n";
+                }
+                if(!rewardItemMessage.equals("")){
+                    dialogWindow = new DialogWindow(
+                            "Выпавшие вещи\n" +
+                                    rewardItemMessage);
+                }
+                player.addMoney(rewardMoney);
+                player.addExp(rewardExp);
             }
-            if(chanceDropItem < -50 + enemy.getLvl()*10){
-                item.setRarity(Rarity.RARE);
-            }
-            if(chanceDropItem < -40 + enemy.getLvl()*5){
-                item.setRarity(Rarity.MYSTICAL);
-            }
-            if(chanceDropItem < -300 + enemy.getLvl()*10){
-                item.setRarity(Rarity.LEGENDARY);
-            }
-            if(chanceDropItem < -1000 + enemy.getLvl()*20){
-                item.setRarity(Rarity.DRAGON);
-            }
-            if(chanceDropItem < -210 + enemy.getLvl()*3){
-                item.setRarity(Rarity.DIVINE);
-            }
-
-            chanceDropItem = (int)Math.ceil(Math.random()*1000);
-
-            if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
-                if (chanceDropItem < enemy.getLvl()*12){
-                    item.setMaterial(Material.IRON);
-                }
-                if (chanceDropItem < -50 + enemy.getLvl()*10){
-                    item.setMaterial(Material.BRONZE);
-                }
-                if (chanceDropItem < -132 + enemy.getLvl()*12){
-                    item.setMaterial(Material.STEEL);
-                }
-                if (chanceDropItem < -147 + enemy.getLvl()*7){
-                    item.setMaterial(Material.MYTHRIL);
-                }
-                if (chanceDropItem < -183 + enemy.getLvl()*6){
-                    item.setMaterial(Material.ADAMANTINE);
-                }
-                if (chanceDropItem < -126 + enemy.getLvl()*3){
-                    item.setMaterial(Material.ELVENMYTHRIL);
-                }
-                if (chanceDropItem < -96 + enemy.getLvl()*2){
-                    item.setMaterial(Material.CRYSTAL);
-                }
-                if (chanceDropItem < -112 + enemy.getLvl()*2){
-                    item.setMaterial(Material.DEEP);
-                }
-                if (chanceDropItem < -243 + enemy.getLvl()*3){
-                    item.setMaterial(Material.GODSHEART);
-                }
-                if (chanceDropItem < -500 + enemy.getLvl()*5){
-                    item.setMaterial(Material.ABSOLUTEZERO);
-                }
-            } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
-
-                if (chanceDropItem < enemy.getLvl()*12){
-                    item.setMaterial(Material.STUDDEDLEATHER);
-                }
-                if (chanceDropItem < -72 + enemy.getLvl()*12){
-                    item.setMaterial(Material.CHAIN);
-                }
-                if (chanceDropItem < -175 + enemy.getLvl()*15){
-                    item.setMaterial(Material.COPPER);
-                }
-                if (chanceDropItem < -196 + enemy.getLvl()*12){
-                    item.setMaterial(Material.IRON);
-                }
-                if (chanceDropItem < -279 + enemy.getLvl()*9){
-                    item.setMaterial(Material.BRONZE);
-                }
-                if (chanceDropItem < -320 + enemy.getLvl()*8){
-                    item.setMaterial(Material.STEEL);
-                }
-                if (chanceDropItem < -320 + enemy.getLvl()*7){
-                    item.setMaterial(Material.MYTHRIL);
-                }
-                if (chanceDropItem < -212 + enemy.getLvl()*4){
-                    item.setMaterial(Material.ADAMANTINE);
-                }
-                if (chanceDropItem < -170 + enemy.getLvl()*3){
-                    item.setMaterial(Material.ELVENMYTHRIL);
-                }
-                if (chanceDropItem < -130 + enemy.getLvl()*2){
-                    item.setMaterial(Material.CRYSTAL);
-                }
-                if (chanceDropItem < -180 + enemy.getLvl()*2){
-                    item.setMaterial(Material.DEEP);
-                }
-                if (chanceDropItem < -100 + enemy.getLvl()){
-                    item.setMaterial(Material.GODSHEART);
-                }
-                if (chanceDropItem < -500 + enemy.getLvl()*4){
-                    item.setMaterial(Material.ABSOLUTEZERO);
-                }
-            }
-
-            item.countProperty();
-
-            dropItems.add(item);
-        }
-
-        dialogWindow.close();
-        dialogWindow = new DialogWindow(
-                "Поздравляю, вы победили!\n" +
-                        "Награда:\n" +
-                        "Деньги: " + Integer.toString(rewardMoney) + "\n" +
-                        "Опыт: " + Integer.toString(rewardExp));
-
-        String rewardItemMessage = "";
-
-        for (Item item : dropItems){
-            player.addItemToInventory(item);
-            rewardItemMessage += item.getName() + "\n";
-        }
-        if(!rewardItemMessage.equals("")){
-            dialogWindow = new DialogWindow(
-                    "Выпавшие вещи\n" +
-                            rewardItemMessage);
-        }
-        player.addMoney(rewardMoney);
-        player.addExp(rewardExp);
+        });
+        thread.run();
     }
 
     public void loss(){

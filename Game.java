@@ -17,7 +17,7 @@ public class Game {
     public static void main(String[] args) throws InterruptedException, IOException {
 
         Player player = new Player(0,0, "Вы",1,250);
-        Map map = new Map(player,20,20);
+        Map map = new Map(player,150,150);
         try{
             FileInputStream fis = new FileInputStream("./Maps/temp.txt");
             ObjectInputStream inputStream = new ObjectInputStream(fis);

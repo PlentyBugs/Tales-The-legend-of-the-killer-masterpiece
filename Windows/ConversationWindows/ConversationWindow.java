@@ -5,6 +5,7 @@ import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Conversations.Shop;
 import LiveCreatures.LiveCreature;
+import LiveCreatures.Peaceful;
 import LiveCreatures.Player;
 import Windows.SupportWindows.Console;
 
@@ -97,6 +98,7 @@ public class ConversationWindow extends JFrame implements Serializable {
                                     ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setConsole(dialog);
                                     if(opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("QuestDialogConversation")){
                                         ((QuestDialogConversation)opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
+                                        ((QuestDialogConversation)opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPeaceful((Peaceful) opponent);
                                     }
                                     opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
 

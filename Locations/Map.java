@@ -7,7 +7,7 @@ import Conversations.QuestDialogConversation;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import LiveCreatures.*;
-import Quests.Quest;
+import Quests.KillQuest;
 import Things.*;
 
 import java.io.Serializable;
@@ -69,14 +69,32 @@ public class Map implements Serializable {
         dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
         dealer.addConversationShop(2, "Тренировка", new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1});
         dealer.getConversationWindow().setPlayer(player);
+
+        QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
+        KillQuest questDealer = new KillQuest();
+        questDealer.setExpReward(15000);
+        questDealer.setGoldReward(48000);
+        questDealer.setTitle("Зеленая опасность!");
+        questDealer.setEnemyCountToKill(16);
+        questDealer.setEnemyToKill(new Goblin());
+        questDealer.setEmployer(dealer);
+        questDialogConversationDealer.setTitle(questDealer.getTitle());
+        questDialogConversationDealer.setText("Иди убей 15 гоблинов");
+        questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
+        questDialogConversationDealer.setQuest(questDealer);
+        dealer.addConversationDialog(3, questDialogConversationDealer);
         map[1][1] = dealer;
 
         Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
         inhabitant.setStarterPhrase("Привет!");
         inhabitant.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 3000, 1000});
         inhabitant.addConversationDialog(2, "Прощание", "Пока", "Прощай");
-        inhabitant.addConversationDialog(3, "Приветствие", "Привет", "Привет");
 
+
+        DialogConversation hello = new DialogConversation();
+        hello.setTitle("Приветствие");
+        hello.setText("Привет");
+        hello.setPlayerText("Привет");
         DialogConversation dialogConversation = new DialogConversation();
         dialogConversation.setTitle("Как дела?");
         dialogConversation.setText("Хорошо");
@@ -86,17 +104,21 @@ public class Map implements Serializable {
         dialogConversation2.setText("Да");
         dialogConversation2.setPlayerText("Точно?");
         dialogConversation.addConversationBranch(dialogConversation2, 1);
+        hello.addConversationBranch(dialogConversation, 3);
         QuestDialogConversation questDialogConversation = new QuestDialogConversation();
-        questDialogConversation.setTitle("Задание");
-        questDialogConversation.setText("У нас проблемы с бандитами, иди убей дял меня полдюжины");
-        questDialogConversation.setPlayerText("У тебя есть для меня задание?");
-        Quest quest = new Quest();
+        KillQuest quest = new KillQuest();
         quest.setExpReward(2000);
         quest.setGoldReward(15000);
         quest.setTitle("Бандиты атакуют!");
+        quest.setEnemyCountToKill(6);
+        quest.setEnemyToKill(new Bandit());
+        quest.setEmployer(inhabitant);
+        questDialogConversation.setTitle(quest.getTitle());
+        questDialogConversation.setText("У нас проблемы с бандитами, иди убей для меня полдюжины");
+        questDialogConversation.setPlayerText("У тебя есть для меня задание?");
         questDialogConversation.setQuest(quest);
         dialogConversation2.addConversationBranch(questDialogConversation, 1);
-        inhabitant.addConversationDialog(3, dialogConversation);
+        inhabitant.addConversationDialog(3, hello);
 
         inhabitant.getConversationWindow().setPlayer(player);
         map[2][2] = inhabitant;

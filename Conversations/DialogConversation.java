@@ -10,10 +10,8 @@ public class DialogConversation extends Conversation{
     protected String playerName = "";
 
     public void run() {
-        try {
-            console.writeToConsole( playerName + ": " + playerText);
-            console.writeToConsole(opponentName + ": " + text);
-        } catch (InterruptedException ex){}
+        console.writeToConsole( playerName + ": " + playerText);
+        console.writeToConsole(opponentName + ": " + text);
     }
 
     public String getText() {

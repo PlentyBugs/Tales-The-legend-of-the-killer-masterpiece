@@ -1,19 +1,23 @@
 package Quests;
 
 import Items.Item;
+import LiveCreatures.Peaceful;
 import LiveCreatures.Player;
 
 public class Quest {
 
-    private String title;
-    private int expReward;
-    private int goldReward;
-    private Item[] itemReward;
+    protected String title;
+    protected int expReward;
+    protected int goldReward;
+    protected Item[] itemReward;
+    protected Peaceful employer;
 
     public Quest(){
         expReward = 0;
         goldReward = 0;
     }
+
+    public boolean check(){return false;}
 
     public String getTitle() {
         return title;
@@ -54,5 +58,13 @@ public class Quest {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Peaceful getEmployer() {
+        return employer;
+    }
+
+    public void setEmployer(Peaceful employer) {
+        this.employer = employer;
     }
 }

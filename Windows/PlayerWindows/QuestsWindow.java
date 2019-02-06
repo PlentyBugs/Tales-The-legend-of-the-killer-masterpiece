@@ -1,6 +1,7 @@
 package Windows.PlayerWindows;
 
 import LiveCreatures.Player;
+import Quests.KillQuest;
 import Quests.Quest;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class QuestsWindow extends JFrame {
     private Player player;
     private JPanel panel = new JPanel();
     private GridBagConstraints constraints;
-    private int width = 480;
+    private int width = 520;
     private int height = 240;
 
     public QuestsWindow(Player player){
@@ -32,7 +33,7 @@ public class QuestsWindow extends JFrame {
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
-        constraints.insets = new Insets(0, 0, 0, 0);
+        constraints.insets = new Insets(10, 10, 10, 10);
         constraints.gridx = 0;
         constraints.gridy = 0;
 
@@ -55,6 +56,13 @@ public class QuestsWindow extends JFrame {
             JLabel expReward = new JLabel("Опыт: " + Integer.toString(quest.getExpReward()));
             questPanel.add(expReward, questConstraints);
             questConstraints.gridx ++;
+            if(quest.getClass().toString().contains("Kill")) {
+                JLabel questGoal = new JLabel("Цель: " + Integer.toString(((KillQuest) quest).getEnemyCountToKillCurrent()) + "/" + Integer.toString(((KillQuest) quest).getEnemyCountToKill()));
+                questPanel.add(questGoal, questConstraints);
+                questConstraints.gridx ++;
+            }
+            JLabel questEmployer = new JLabel("Квестодатель: " + quest.getEmployer().getName());
+            questPanel.add(questEmployer, questConstraints);
 
             panel.add(questPanel, constraints);
 

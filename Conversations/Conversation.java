@@ -23,7 +23,7 @@ public class Conversation implements Serializable {
         }
     }
 
-    public void run(){}
+    public void run() {}
 
     public String getTitle() {
         return Title;
