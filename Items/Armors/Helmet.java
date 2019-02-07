@@ -1,4 +1,8 @@
-package Items;
+package Items.Armors;
+
+import Items.Grade;
+import Items.Material;
+import Items.Rarity;
 
 public class Helmet extends Armor {
     public Helmet(Material material, Rarity rarity, Grade grade, int protection){
@@ -8,8 +12,6 @@ public class Helmet extends Armor {
         this.grade = grade;
         this.protection = protection;
         quality = 100;
-
-        countProperty();
     }
 
     public Helmet(){

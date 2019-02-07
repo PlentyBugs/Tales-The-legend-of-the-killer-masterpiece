@@ -1,9 +1,9 @@
 package Windows.PlayerWindows;
 
-import Items.Armor;
+import Items.Armors.Armor;
 import Items.Item;
 import Items.Potions.Potion;
-import Items.Weapon;
+import Items.Weapons.Weapon;
 import LiveCreatures.Player;
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class InventoryWindow extends JFrame implements Serializable {
     private JPanel panel = new JPanel(new GridBagLayout());
     JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
-    private int width = 600;
+    private int width = 720;
     private int height = 720;
     private static final long serialVersionUID = -559721917387219997L;
 
@@ -94,7 +94,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().contains("Sword")){
+            if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){

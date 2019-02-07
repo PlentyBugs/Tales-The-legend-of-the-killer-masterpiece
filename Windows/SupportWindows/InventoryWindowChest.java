@@ -1,8 +1,8 @@
 package Windows.SupportWindows;
 
-import Items.Armor;
+import Items.Armors.Armor;
 import Items.Item;
-import Items.Weapon;
+import Items.Weapons.Weapon;
 import LiveCreatures.Player;
 import Things.Chest;
 

@@ -6,7 +6,7 @@ import Windows.FieldWindow;
 import java.awt.*;
 import java.io.Serializable;
 
-public class GodCreature  implements Serializable, Cloneable  {
+public class GodCreature implements Serializable, Cloneable  {
     protected String name;
     protected Color color;
     protected boolean isStep;

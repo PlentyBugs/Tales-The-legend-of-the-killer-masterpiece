@@ -2,7 +2,15 @@ import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
 import Abilities.Auras.Vision;
 import Abilities.Passive.TwoOneHandedWeapon;
-import Items.*;
+import Items.Armors.Helmet;
+import Items.Armors.Torso;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
+import Items.Rarity;
+import Items.Weapons.Bows.ShortBow;
+import Items.Weapons.Swords.Sword;
+import Items.Weapons.WeaponType;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
 import Locations.Map;
@@ -33,15 +41,17 @@ public class Game {
 
         player.addAbility(new TwoOneHandedWeapon(), new Vision(), new DamageUp(), new DecreaseDamage());
 
-
-        Sword testerSword = new Sword(Material.MYTHRIL, Rarity.UNCOMMON, Grade.MAGIC, 3, WeaponType.ONEHANDED);
-        testerSword.countProperty();
-
         player.addItemToInventory(
-                testerSword,
+                new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),
+                new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),
+                new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.TWOHANDED),
+                new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.LONGRANGE),
                 new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                 new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1)
                 );
+        for(Item item : player.getInventory()){
+            item.countProperty();
+        }
 
         ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
         Difficulty difficulty = Difficulty.STOPIT;

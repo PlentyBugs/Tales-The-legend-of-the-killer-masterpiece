@@ -67,7 +67,7 @@ public class ConversationWindow extends JFrame implements Serializable {
 
                 for(int s = 0; s < opponent.getConversation().getConversationTree().size(); s++) {
                     for (int k = 0; k < opponent.getConversation().getConversationTree().get(s).size(); k++) {
-                        if(opponent.getConversation().getConversationTree().get(s).get(k) == null){
+                        if(opponent.getConversation().getConversationTree().get(s).get(k) == null || !opponent.getConversation().getConversationTree().get(s).get(k).getIsVisible()){
                             continue;
                         }
                         JPanel convPart = new JPanel(new GridBagLayout());

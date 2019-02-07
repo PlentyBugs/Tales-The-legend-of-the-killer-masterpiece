@@ -5,6 +5,12 @@ import Abilities.AbilityType;
 import Abilities.Auras.Aura;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Items.*;
+import Items.Armors.Armor;
+import Items.Armors.Helmet;
+import Items.Armors.Ring;
+import Items.Armors.Torso;
+import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 import Quests.Quest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
@@ -40,7 +46,7 @@ public class Player extends Human {
     private boolean isAbilityWindowOpen;
     private boolean isQuestWindowOpen;
 
-    private Set<Item> inventory = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private ArrayList<Item> inventory = new ArrayList<>();
 
     private Equipment equipment = new Equipment();
 
@@ -311,7 +317,7 @@ public class Player extends Human {
         return isQuestWindowOpen;
     }
 
-    public Set<Item> getInventory(){
+    public ArrayList<Item> getInventory(){
         return inventory;
     }
 
@@ -325,17 +331,20 @@ public class Player extends Human {
 
     public void equip(Item item){
         if (inventory.contains(item)){
-            if (item.getClass().toString().contains("Sword")){
-                if (((Weapon)item).getWeaponType() == WeaponType.ONEHANDED){
+            if (item.getClass().toString().contains("Weapons")){
+                if (((Weapon)item).getWeaponType().contains(WeaponType.ONEHANDED)){
                     if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
                         equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setTwoHandedWeapon(null);
                     } else {
                         equipment.setOneHandedWeaponLeft((Weapon)item);
                         equipment.setOneHandedWeaponRight(null);
+                        equipment.setTwoHandedWeapon(null);
                     }
                 } else {
                     equipment.setTwoHandedWeapon((Weapon)item);
+                    equipment.setOneHandedWeaponLeft(null);
                     equipment.setOneHandedWeaponRight(null);
                 }
             } else if (item.getClass().toString().contains("Helmet")){
@@ -449,7 +458,7 @@ public class Player extends Human {
                 countProtection += ((Armor)item).getProtection();
             }
         }
-        double absorbedDamage = damage*(1 - Math.pow(Math.E, -25*(Math.pow(getLvl()/5.0, 0.5))/countProtection));
+        double absorbedDamage = damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
         return absorbedDamage;
     }
 

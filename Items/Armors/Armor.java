@@ -1,4 +1,6 @@
-package Items;
+package Items.Armors;
+
+import Items.Item;
 
 public class Armor extends Item {
     protected int protection;

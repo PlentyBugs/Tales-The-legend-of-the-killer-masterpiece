@@ -25,15 +25,7 @@ public class Vision extends Aura {
 
     public void setLevel(int level){
         this.level = level;
-        if (level == 1){
-            power = 3;
-        } else if(level == 2){
-            power = 4;
-        } else if(level == 3){
-            power = 5;
-        } else if(level == 4){
-            power = 6;
-        }
+        power = level + 2;
 
         cost = level*2;
     }

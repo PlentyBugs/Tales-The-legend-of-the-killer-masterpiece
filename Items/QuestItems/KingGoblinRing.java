@@ -1,4 +1,9 @@
-package Items;
+package Items.QuestItems;
+
+import Items.Grade;
+import Items.Material;
+import Items.Rarity;
+import Items.Armors.Ring;
 
 public class KingGoblinRing extends Ring {
 

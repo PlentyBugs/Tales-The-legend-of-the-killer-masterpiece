@@ -1,7 +1,8 @@
+import Abilities.Auras.Vision;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
-import Windows.SupportWindows.ChooseNameWindow;
 import Windows.FieldWindow;
+import Windows.SupportWindows.ChooseNameWindow;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -83,6 +84,36 @@ public class Narrator {
             player.setName("cheater");
             player.setHp(5000);
             player.setMaxHp(100);
+        }
+
+        if(player.getName().equals("WenToThER0CkinGCha1r")){
+
+            player.getStats().strength = 200;
+            player.getStats().two_handed_weapon = 200;
+
+            player.setName("cheater");
+            player.setHp(100);
+            player.setMaxHp(100);
+        }
+
+        if(player.getName().equals("LiKeG0D")){
+
+            player.getStats().strength = 10000;
+            player.getStats().luck = 10000;
+
+            player.setName("cheater");
+            player.setHp(100);
+            player.setMaxHp(100);
+        }
+
+        if(player.getName().equals("h0pelESSN3$S$33kУr")){
+
+            player.getStats().long_range_weapon = 150;
+            player.addAbility(new Vision(6));
+
+            player.setName("cheater");
+            player.setHp(500);
+            player.setMaxHp(500);
         }
 
         if (skill_points_count > 0){

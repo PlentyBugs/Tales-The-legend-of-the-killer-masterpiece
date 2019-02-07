@@ -1,6 +1,6 @@
 package LiveCreatures;
 
-public enum  StatsEnum {
+public enum StatsEnum {
     STRENGTH,
     SPEED,
     AGILITY,

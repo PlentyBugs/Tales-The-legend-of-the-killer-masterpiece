@@ -1,5 +1,10 @@
 package Items;
 
+import Items.Armors.Helmet;
+import Items.Armors.Ring;
+import Items.Armors.Torso;
+import Items.Weapons.Weapon;
+
 import java.io.Serializable;
 
 public class Equipment implements Serializable {
@@ -73,10 +78,15 @@ public class Equipment implements Serializable {
 
         for(Weapon weapon : weaponList){
             if (weapon != null){
-                damage += weapon.damage;
+                damage += weapon.getDamage();
             }
         }
         return damage;
+    }
+
+    public Weapon[] getWeaponList(){
+        Weapon[] weaponList = {oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
+        return weaponList;
     }
 
     public Item[] getArmor(){

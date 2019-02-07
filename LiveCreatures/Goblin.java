@@ -3,7 +3,8 @@ package LiveCreatures;
 import Items.Item;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
-import Items.Sword;
+import Items.Weapons.Bows.ShortBow;
+import Items.Weapons.Swords.Sword;
 
 import java.awt.*;
 
@@ -18,7 +19,7 @@ public class Goblin extends Human {
         this.name = name;
 
         color = new Color(170,200,10);
-        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion()};
+        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion(), new ShortBow()};
     }
 
     public Goblin(){
@@ -32,7 +33,7 @@ public class Goblin extends Human {
     }
 
     public void countStatsAfterBorn(){
-        stats.strength = 5 + (int)(Math.random()*(lvl+2) + lvl*3);
+        stats.strength = 5 + (int)(Math.random()*(lvl+2) + lvl*6);
         stats.speed = 5 + (int)(Math.random()*(lvl+2) + lvl*2);
         stats.agility = 5 + (int)(Math.random()*(lvl+2) + lvl*4);
         stats.intelligence = 5;

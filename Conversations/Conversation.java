@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Conversation implements Serializable {
     protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();
     protected String Title;
+    protected boolean visible = true;
     protected int branchNumber;
 
     public ArrayList<ArrayList<Conversation>> getConversationTree() {
@@ -31,5 +32,13 @@ public class Conversation implements Serializable {
 
     public void setTitle(String title) {
         Title = title;
+    }
+
+    public void setIsVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean getIsVisible(){
+        return visible;
     }
 }

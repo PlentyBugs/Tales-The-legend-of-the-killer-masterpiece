@@ -4,7 +4,7 @@ import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
-import Items.KingGoblinRing;
+import Items.QuestItems.KingGoblinRing;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import LiveCreatures.*;
@@ -43,8 +43,8 @@ public class Map implements Serializable {
                 if (chance >= 1 && chance <= 5){
                     randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
                     ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
-                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl());
                     ((LiveCreature)randomGodCreature).countStatsAfterBorn();
+                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl() + ((Human)randomGodCreature).getStats().strength*12);
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
                 }
@@ -79,7 +79,8 @@ public class Map implements Serializable {
         questDealer.setTitle("Зеленая опасность!");
         questDealer.setEnemyCountToKill(16);
         questDealer.setEnemyToKill(new Goblin());
-        questDealer.setEmployer(dealer);
+        questDealer.setEmployerName(dealer.getName());
+        questDealer.setConversationEmployer(questDialogConversationDealer);
         questDialogConversationDealer.setTitle(questDealer.getTitle());
         questDialogConversationDealer.setText("Иди убей 15 гоблинов");
         questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
@@ -91,11 +92,13 @@ public class Map implements Serializable {
         questDealer2.setItem(new KingGoblinRing());
         questDealer2.setPlayer(player);
         questDealer2.setTitle("Король гоблинов");
-        questDealer2.setEmployer(dealer);
+        questDealer2.setEmployerName(dealer.getName());
+        questDealer2.setConversationEmployer(questDialogConversationDealer2);
         questDialogConversationDealer2.setTitle(questDealer2.getTitle());
         questDialogConversationDealer2.setText("Да, тут где-то находится Король гоблинов, крайне сильная тварь, мне нужно его кольцо, говорят, что оно стоит немалых денег!");
         questDialogConversationDealer2.setPlayerText("У тебя есть еще что-нибудь для меня?");
         questDialogConversationDealer2.setQuest(questDealer2);
+        questDialogConversationDealer2.setIsVisible(false);
         questDialogConversationDealer.addConversationBranch(questDialogConversationDealer2, 1);
         dealer.addConversationDialog(3, questDialogConversationDealer);
         map[1][1] = dealer;
@@ -127,7 +130,8 @@ public class Map implements Serializable {
         quest.setTitle("Бандиты атакуют!");
         quest.setEnemyCountToKill(6);
         quest.setEnemyToKill(new Bandit());
-        quest.setEmployer(inhabitant);
+        quest.setEmployerName(inhabitant.getName());
+        quest.setConversationEmployer(questDialogConversation);
         questDialogConversation.setTitle(quest.getTitle());
         questDialogConversation.setText("У нас проблемы с бандитами, иди убей для меня полдюжины");
         questDialogConversation.setPlayerText("У тебя есть для меня задание?");

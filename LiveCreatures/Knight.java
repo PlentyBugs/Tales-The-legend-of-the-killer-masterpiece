@@ -1,10 +1,11 @@
 package LiveCreatures;
 
-import Items.Helmet;
+import Items.Armors.Helmet;
+import Items.Armors.Ring;
 import Items.Item;
 import Items.Potions.HealPotion;
-import Items.Sword;
-import Items.Torso;
+import Items.Weapons.Swords.Sword;
+import Items.Armors.Torso;
 
 import java.awt.*;
 
@@ -20,7 +21,7 @@ public class Knight extends Human {
         this.name = name;
         color = new Color(131, 131, 131);
 
-        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion()};
+        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion(), new Ring()};
     }
 
     public Knight(){
@@ -34,7 +35,7 @@ public class Knight extends Human {
     }
 
     public void countStatsAfterBorn(){
-        stats.strength = 5 + (int)(Math.random()*(lvl+30) + lvl*15);
+        stats.strength = 5 + (int)(Math.random()*(lvl+30) + lvl*27);
         stats.speed = 5 + (int)(Math.random()*(lvl+14) + lvl);
         stats.agility = 5 + (int)(Math.random()*(lvl+12) + lvl*12);
         stats.intelligence = 5 + (int)(Math.random()*lvl + lvl*5);

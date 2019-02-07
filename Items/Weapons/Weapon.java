@@ -1,11 +1,19 @@
-package Items;
+package Items.Weapons;
+
+import Items.Item;
+
+import java.util.ArrayList;
 
 public class Weapon extends Item {
     protected int damage;
-    protected WeaponType weaponType;
+    protected ArrayList<WeaponType> weaponType = new ArrayList<>();
 
-    public WeaponType getWeaponType() {
+    public ArrayList<WeaponType> getWeaponType() {
         return weaponType;
+    }
+
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType.add(weaponType);;
     }
 
     public int getDamage() {
@@ -14,14 +22,21 @@ public class Weapon extends Item {
 
     public void countProperty(){
         int addDamage = 0;
+
+        for(WeaponType type : weaponType){
+            switch (type){
+                case ONEHANDED: stockName = "Одноручный " + stockName; break;
+                case TWOHANDED: stockName = "Двуручный " + stockName; break;
+            }
+        }
         switch (material){
             case COPPER: addDamage += 1; break;
-            case IRON: addDamage += 4; break;
-            case BRONZE: addDamage += 10; break;
-            case STEEL: addDamage += 15; break;
-            case MYTHRIL: addDamage += 25; break;
-            case ADAMANTINE: addDamage += 50; break;
-            case ELVENMYTHRIL: addDamage += 78; break;
+            case IRON: addDamage += 15; break;
+            case BRONZE: addDamage += 31; break;
+            case STEEL: addDamage += 43; break;
+            case MYTHRIL: addDamage += 57; break;
+            case ADAMANTINE: addDamage += 76; break;
+            case ELVENMYTHRIL: addDamage += 92; break;
             case CRYSTAL: addDamage += 143; break;
             case DEEP: addDamage += 276; break;
             case GODSHEART: addDamage += 434; break;
@@ -56,6 +71,16 @@ public class Weapon extends Item {
             case LEGENDARY: addDamage += 160; break;
             case DRAGON: addDamage += 389; break;
             case DIVINE: addDamage += 587; break;
+        }
+
+        for(WeaponType type : weaponType){
+            switch (type){
+                case ONEHANDED: addDamage += 0; break;
+                case TWOHANDED: addDamage += addDamage; break;
+                case LONGRANGE: addDamage += 0; break;
+                case POLE: addDamage += 0; break;
+                case CHOPPING: addDamage += 0; break;
+            }
         }
 
         damage += addDamage;

@@ -1,8 +1,10 @@
 package Quests;
 
+import Conversations.Conversation;
 import Items.Item;
-import LiveCreatures.Peaceful;
 import LiveCreatures.Player;
+
+import java.util.ArrayList;
 
 public class Quest {
 
@@ -10,7 +12,8 @@ public class Quest {
     protected int expReward;
     protected int goldReward;
     protected Item[] itemReward;
-    protected Peaceful employer;
+    protected String employer;
+    protected Conversation conversationEmployer;
 
     public Quest(){
         expReward = 0;
@@ -43,6 +46,11 @@ public class Quest {
                 player.addItemToInventory(item);
             }
         }
+        for(ArrayList<Conversation> list : conversationEmployer.getConversationTree()){
+            for(Conversation conversation : list){
+                conversation.setIsVisible(true);
+            }
+        }
     }
 
     public void setExpReward(int expReward) {
@@ -60,11 +68,15 @@ public class Quest {
         this.title = title;
     }
 
-    public Peaceful getEmployer() {
+    public String getEmployerName() {
         return employer;
     }
 
-    public void setEmployer(Peaceful employer) {
+    public void setEmployerName(String employer) {
         this.employer = employer;
+    }
+
+    public void setConversationEmployer(Conversation conversationEmployer) {
+        this.conversationEmployer = conversationEmployer;
     }
 }

@@ -61,7 +61,7 @@ public class QuestsWindow extends JFrame {
                 questPanel.add(questGoal, questConstraints);
                 questConstraints.gridx ++;
             }
-            JLabel questEmployer = new JLabel("Квестодатель: " + quest.getEmployer().getName());
+            JLabel questEmployer = new JLabel("Квестодатель: " + quest.getEmployerName());
             questPanel.add(questEmployer, questConstraints);
 
             panel.add(questPanel, constraints);

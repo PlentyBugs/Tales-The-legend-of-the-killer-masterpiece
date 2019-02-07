@@ -3,10 +3,9 @@ package Windows.BattleWindows;
 import Abilities.Buffs.Buff;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
+import Items.*;
+import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
 import Quests.CollectItemQuest;
@@ -32,10 +31,9 @@ public class FightWindow extends JFrame implements Serializable {
     private LiveCreature enemy;
     private FieldWindow field;
 
-    private boolean isPlayerTurn = true;
-
     private int width = 720;
     private int height = 480;
+    private int countMoves = 1;
 
     private Console enemyConsoleActions = new Console();
     private Console enemyConsoleStatus = new Console();
@@ -127,104 +125,118 @@ public class FightWindow extends JFrame implements Serializable {
         writeToPlayerConsole("Окно персонажа");
         if(player.getStats().speed >= enemy.getStats().speed){
             writeToPlayerConsole("Ваш ход");
-            isPlayerTurn = true;
         } else {
             writeToPlayerConsole("Ход противника");
-            isPlayerTurn = false;
             enemyTurn();
         }
 
 
         playerAttackButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (isPlayerTurn){
-                    isPlayerTurn = false;
-                    double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
-                    int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
-                    if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
-                        writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
-                        writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
-                        damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
-                    }
+                double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
 
-                    player.setCurrentDamage(damage);
-
-                    if (player.getBuffs() != null){
-                        for (Buff buff : player.getBuffs()){
-                            buff.use(player);
+                for(Weapon weapon : player.getEquipment().getWeaponList()){
+                    if(weapon != null){
+                        for(WeaponType weaponType : weapon.getWeaponType()){
+                            switch (weaponType){
+                                case ONEHANDED:{
+                                    if(player.getStats().one_handed_weapon != 0) {
+                                        damage *= 1 + player.getStats().one_handed_weapon/150.0;
+                                    }
+                                }
+                                    break;
+                                case TWOHANDED:{
+                                    if(player.getStats().two_handed_weapon != 0) {
+                                        damage *= 1 + player.getStats().two_handed_weapon/150.0;
+                                    }
+                                } break;
+                                case LONGRANGE:{
+                                    if(player.getStats().long_range_weapon != 0) {
+                                        damage *= 1 + player.getStats().long_range_weapon/150.0;
+                                    }
+                                } break;
+                                case POLE:{
+                                    if(player.getStats().pole_weapon != 0) {
+                                        damage *= 1 + player.getStats().pole_weapon/150.0;
+                                    }
+                                } break;
+                                case CHOPPING:{
+                                    if(player.getStats().chopping_weapon != 0) {
+                                        damage *= 1 + player.getStats().chopping_weapon/150.0;
+                                    }
+                                } break;
+                            }
                         }
                     }
-                    damage = player.getCurrentDamage();
+                }
 
-                    damage = Math.round(damage*100.0)/100.0;
-                    enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
-                    writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
-                    writeToPlayerConsole("Вы нанесли " + Double.toString(damage) + " единиц урона");
-                    if (enemy.getHp() > 0){
-                        writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
-                    } else {
-                        writeToEnemyStatusConsole(enemy.getName() + " повержен!");
-                        getReward();
-                    }
-                    if(!isPlayerTurn){
-                        enemyTurn();
+                int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
+                if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
+                    writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                    writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                    damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
+                }
+
+                player.setCurrentDamage(damage);
+
+                if (player.getBuffs() != null){
+                    for (Buff buff : player.getBuffs()){
+                        buff.use(player);
                     }
                 }
+                damage = player.getCurrentDamage();
+
+                damage = Math.round(damage*100.0)/100.0;
+                enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
+                writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
+                writeToPlayerConsole("Вы нанесли " + Double.toString(damage) + " единиц урона");
+                if (enemy.getHp() > 0){
+                    writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
+                } else {
+                    writeToEnemyStatusConsole(enemy.getName() + " повержен!");
+                    getReward();
+                }
+                enemyTurn();
             }
         });
 
         playerAbilityButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (isPlayerTurn){
-                    if (playerAbilityWindow == null){
-                        playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
-                    } else {
-                        playerAbilityWindow.close();
-                        playerAbilityWindow = null;
-                    }
+                if (playerAbilityWindow == null){
+                    playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
+                } else {
+                    playerAbilityWindow.close();
+                    playerAbilityWindow = null;
                 }
             }
         });
 
         playerDefendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (isPlayerTurn){
-                    isPlayerTurn = false;
-                    enemyTurn();
-                }
+                enemyTurn();
             }
         });
 
         playerUseItemButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (isPlayerTurn){
-                    isPlayerTurn = false;
-
-                    enemyTurn();
-                }
+                enemyTurn();
             }
         });
 
         playerRunAwayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (isPlayerTurn){
-                    isPlayerTurn = false;
-                    int chance = (int)(Math.random()*(100-player.getStats().luck/2));
-                    if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
-                        dialogWindow.close();
-                        dialogWindow = new DialogWindow("Вам удалось сбежать");
-                        isPlayerTurn = true;
+                int chance = (int)(Math.random()*(100-player.getStats().luck/2));
+                if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
+                    dialogWindow.close();
+                    dialogWindow = new DialogWindow("Вам удалось сбежать");
 
-                        field.setIsVisible(true);
-                        field.drawMap();
+                    field.setIsVisible(true);
+                    field.drawMap();
 
-                        close();
-                    } else {
-                        dialogWindow.close();
-                        dialogWindow = new DialogWindow("Вам не удалось сбежать");
-                        enemyTurn();
-                    }
+                    close();
                 } else {
+                    dialogWindow.close();
+                    dialogWindow = new DialogWindow("Вам не удалось сбежать");
                     enemyTurn();
                 }
             }
@@ -271,42 +283,52 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void enemyTurn(){
+        if(countMoves <= 0){
 
-        if (enemy.getHp() <= 0){
-            getReward();
-        }
+            if (enemy.getHp() <= 0){
+                getReward();
+            }
 
-        isPlayerTurn = true;
-        int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
-        if (player.hasAbility(new Evasion())){
-            if (chance <= player.getAbility(new Evasion()).getChance()) {
+            int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
+            if (player.hasAbility(new Evasion()) && chance <= player.getAbility(new Evasion()).getChance()){
                 writeToEnemyActionConsole(enemy.getName() + " промахнулся");
                 writeToPlayerConsole("Вы увернулись");
-            }
-        } else {
-            double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
-            damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
+            } else {
+                double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
+                damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
 
-            enemy.setCurrentDamage(damage);
+                enemy.setCurrentDamage(damage);
 
-            if (enemy.getBuffs() != null){
-                for (Buff buff : enemy.getBuffs()){
-                    buff.use(enemy);
+                if (enemy.getBuffs() != null){
+                    for (Buff buff : enemy.getBuffs()){
+                        buff.use(enemy);
+                    }
+                }
+
+                damage = enemy.getCurrentDamage();
+
+                player.setHp(Math.round((player.getHp()-damage)*100.0)/100.0);
+                writeToPlayerConsole(player.getName() + " получил " + Double.toString(damage) + " единиц урона");
+                writeToEnemyActionConsole(enemy.getName() + " нанес " + Double.toString(damage) + " единиц урона");
+                if (player.getHp() > 0){
+                    writeToPlayerConsole("Осталось жизней: " + player.getHp());
+                } else {
+                    writeToPlayerConsole(player.getName() + " повержен!");
+                    loss();
                 }
             }
-
-            damage = enemy.getCurrentDamage();
-
-            player.setHp(Math.round((player.getHp()-damage)*100.0)/100.0);
-            writeToPlayerConsole(player.getName() + " получил " + Double.toString(damage) + " единиц урона");
-            writeToEnemyActionConsole(enemy.getName() + " нанес " + Double.toString(damage) + " единиц урона");
-            if (player.getHp() > 0){
-                writeToPlayerConsole("Осталось жизней: " + player.getHp());
-            } else {
-                writeToPlayerConsole(player.getName() + " повержен!");
-                loss();
+            for(Weapon weapon : player.getEquipment().getWeaponList()){
+                if (weapon != null){
+                    if(weapon.getWeaponType().contains(WeaponType.LONGRANGE)){
+                        countMoves = 2;
+                    } else {
+                        countMoves = 1;
+                    }
+                }
             }
         }
+        countMoves --;
+
         if (enemy.getBuffs() != null){
             for (Buff buff : enemy.getBuffs()){
                 buff.setStepCount(buff.getStepCount() - 1);
@@ -327,14 +349,13 @@ public class FightWindow extends JFrame implements Serializable {
                 writeToPlayerConsole("Осталось ходов(" + buff.getName() + "): " + buff.getStepCount());
             }
         }
+
     }
 
     private void getReward(){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                isPlayerTurn = true;
 
                 field.setIsVisible(true);
                 field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
@@ -376,10 +397,13 @@ public class FightWindow extends JFrame implements Serializable {
                 int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
                 ArrayList<Item> dropItems = new ArrayList<>();
                 for (int i = 0; i < countItemsDrop; i++){
-                    Item item = enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)];
-                    if (dropItems.contains(item)) {
-                        continue;
+                    Item item = null;
+                    try {
+                        item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)].clone();
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
                     }
+
                     int chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
                     if (chanceDropItem < enemy.getLvl()*20){
@@ -531,5 +555,13 @@ public class FightWindow extends JFrame implements Serializable {
         }
         close();
         LossWindow loss = new LossWindow();
+    }
+
+    public int getCountMoves() {
+        return countMoves;
+    }
+
+    public void setCountMoves(int countMoves) {
+        this.countMoves = countMoves;
     }
 }

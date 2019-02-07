@@ -1,8 +1,8 @@
 package Windows.PlayerWindows;
 
-import Items.Armor;
+import Items.Armors.Armor;
 import Items.Item;
-import Items.Weapon;
+import Items.Weapons.Weapon;
 import LiveCreatures.Player;
 
 import javax.swing.*;
@@ -33,7 +33,9 @@ public class EquipmentWindow extends JFrame implements Serializable {
     }
 
     public void setIsVisible(boolean b) {
-        drawEquipment();
+        if(b){
+            drawEquipment();
+        }
         setVisible(b);
     }
 
@@ -96,7 +98,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().contains("Sword")){
+            if (item.getClass().toString().contains("Weapon")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){

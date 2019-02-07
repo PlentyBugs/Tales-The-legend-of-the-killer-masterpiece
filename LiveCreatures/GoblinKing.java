@@ -1,10 +1,10 @@
 package LiveCreatures;
 
 import Items.Item;
-import Items.KingGoblinRing;
+import Items.QuestItems.KingGoblinRing;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
-import Items.Sword;
+import Items.Weapons.Swords.Sword;
 
 import java.awt.*;
 

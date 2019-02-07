@@ -1,4 +1,8 @@
-package Items;
+package Items.Weapons.Swords;
+
+import Items.*;
+import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 
 public class Sword extends Weapon {
 
@@ -7,11 +11,9 @@ public class Sword extends Weapon {
         this.material = material;
         this.rarity = rarity;
         this.grade = grade;
-        this.weaponType = weaponType;
+        this.weaponType.add(weaponType);
         this.damage = damage;
         quality = 100;
-
-        countProperty();
     }
 
     public Sword(){

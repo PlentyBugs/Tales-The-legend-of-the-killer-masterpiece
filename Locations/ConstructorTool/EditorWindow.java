@@ -1,8 +1,11 @@
 package Locations.ConstructorTool;
 
 import Items.*;
+import Items.Armors.Helmet;
+import Items.Armors.Torso;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
+import Items.Weapons.Swords.Sword;
 import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
 import Things.Chest;

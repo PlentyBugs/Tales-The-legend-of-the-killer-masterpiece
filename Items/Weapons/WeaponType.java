@@ -1,4 +1,4 @@
-package Items;
+package Items.Weapons;
 
 public enum  WeaponType {
     ONEHANDED,

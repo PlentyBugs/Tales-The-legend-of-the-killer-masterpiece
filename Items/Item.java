@@ -2,7 +2,7 @@ package Items;
 
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public class Item implements Serializable, Cloneable {
     protected String name;
     protected Grade grade;
     protected double quality;
@@ -47,4 +47,10 @@ public class Item implements Serializable {
     }
 
     public void countProperty(){}
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 }
