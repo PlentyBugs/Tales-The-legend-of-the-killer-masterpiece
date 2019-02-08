@@ -1,10 +1,11 @@
-package LiveCreatures;
+package LiveCreatures.AggressiveNPC;
 
 import Items.Item;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
+import LiveCreatures.Human;
 
 import java.awt.*;
 

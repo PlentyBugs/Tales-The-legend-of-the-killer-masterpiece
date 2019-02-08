@@ -5,7 +5,7 @@ import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Conversations.Shop;
 import LiveCreatures.LiveCreature;
-import LiveCreatures.Peaceful;
+import LiveCreatures.PeacefulNPC.Peaceful;
 import LiveCreatures.Player;
 import Windows.SupportWindows.Console;
 

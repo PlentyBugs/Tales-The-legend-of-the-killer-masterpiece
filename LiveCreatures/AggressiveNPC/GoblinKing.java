@@ -1,9 +1,9 @@
-package LiveCreatures;
+package LiveCreatures.AggressiveNPC;
 
 import Items.Item;
-import Items.QuestItems.KingGoblinRing;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
+import Items.QuestItems.KingGoblinRing;
 import Items.Weapons.Swords.Sword;
 
 import java.awt.*;

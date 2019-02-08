@@ -3,7 +3,9 @@ package Abilities.Buffs;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
 
-public class Buff implements Cloneable {
+import java.io.Serializable;
+
+public class Buff implements Cloneable, Serializable {
     protected int stepCount;
     protected String name;
     protected int power;

@@ -1,10 +1,16 @@
 package Locations.ConstructorTool;
 
-import Items.*;
 import Items.Armors.Helmet;
 import Items.Armors.Torso;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
+import Items.Rarity;
+import Items.Weapons.Bows.Bow;
+import Items.Weapons.Bows.LongBow;
+import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
 import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
@@ -40,7 +46,18 @@ public class EditorWindow extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
 
-        if (! godCreature.getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest")){
+        if (!godCreature.getClass().toString().contains("Chest")){
+
+            JLabel name = new JLabel("Имя: ");
+            panel.add(name, constraints);
+            constraints.gridx ++;
+            JTextArea nameTextArea = new JTextArea();
+            nameTextArea.setPreferredSize(new Dimension(150,20));
+            nameTextArea.setMaximumSize(new Dimension(150,20));
+            nameTextArea.setMinimumSize(new Dimension(150,20));
+            panel.add(nameTextArea, constraints);
+            constraints.gridy ++;
+
             JLabel stats = new JLabel("Статы: ");
             panel.add(stats, constraints);
             constraints.gridy ++;
@@ -299,66 +316,68 @@ public class EditorWindow extends JFrame {
 
         }
 
-        JLabel itemTypeName = new JLabel("Оружие: ");
-        panel.add(itemTypeName, constraints);
-        constraints.gridx ++;
-        JComboBox itemType = new JComboBox(new String[]{new Sword().getName(), new Torso().getName(), new Helmet().getName(), new HealPotion().getName(), new PoisonPotion().getName()});
-        panel.add(itemType, constraints);
-        constraints.gridy ++;
+        if(!godCreature.getClass().toString().contains("Peaceful")){
+            JLabel itemTypeName = new JLabel("Оружие: ");
+            panel.add(itemTypeName, constraints);
+            constraints.gridx ++;
+            JComboBox itemType = new JComboBox(new String[]{new Sword().getName(), new Torso().getName(), new Helmet().getName(), new HealPotion().getName(), new PoisonPotion().getName(), new Bow().getName(), new LongBow().getName(), new ShortBow().getName()});
+            panel.add(itemType, constraints);
+            constraints.gridy ++;
 
-        constraints.gridx = 0;
-        JLabel itemMaterialName = new JLabel("Материал: ");
-        panel.add(itemMaterialName, constraints);
-        constraints.gridx ++;
-        JComboBox itemMaterial = new JComboBox(Material.values());
-        panel.add(itemMaterial, constraints);
-        constraints.gridy ++;
+            constraints.gridx = 0;
+            JLabel itemMaterialName = new JLabel("Материал: ");
+            panel.add(itemMaterialName, constraints);
+            constraints.gridx ++;
+            JComboBox itemMaterial = new JComboBox(Material.values());
+            panel.add(itemMaterial, constraints);
+            constraints.gridy ++;
 
-        constraints.gridx = 0;
-        JLabel itemRarityName = new JLabel("Редкость: ");
-        panel.add(itemRarityName, constraints);
-        constraints.gridx ++;
-        JComboBox itemRarity = new JComboBox(Rarity.values());
-        panel.add(itemRarity, constraints);
-        constraints.gridy ++;
+            constraints.gridx = 0;
+            JLabel itemRarityName = new JLabel("Редкость: ");
+            panel.add(itemRarityName, constraints);
+            constraints.gridx ++;
+            JComboBox itemRarity = new JComboBox(Rarity.values());
+            panel.add(itemRarity, constraints);
+            constraints.gridy ++;
 
-        constraints.gridx = 0;
-        JLabel itemGradeName = new JLabel("Качество: ");
-        panel.add(itemGradeName, constraints);
-        constraints.gridx ++;
-        JComboBox itemGrade = new JComboBox(Grade.values());
-        panel.add(itemGrade, constraints);
-        constraints.gridy ++;
+            constraints.gridx = 0;
+            JLabel itemGradeName = new JLabel("Качество: ");
+            panel.add(itemGradeName, constraints);
+            constraints.gridx ++;
+            JComboBox itemGrade = new JComboBox(Grade.values());
+            panel.add(itemGrade, constraints);
+            constraints.gridy ++;
 
-        constraints.gridx = 0;
-        JButton addItem = new JButton("Добавить");
-        panel.add(addItem, constraints);
+            constraints.gridx = 0;
+            JButton addItem = new JButton("Добавить");
+            panel.add(addItem, constraints);
 
-        addItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Item item = new Item();
-                if (itemType.getSelectedIndex() == 0){
-                    item = new Sword();
-                } else if (itemType.getSelectedIndex() == 1){
-                    item = new Torso();
-                } else if (itemType.getSelectedIndex() == 2){
-                    item = new Helmet();
-                } else if (itemType.getSelectedIndex() == 3){
-                    item = new HealPotion();
-                } else if (itemType.getSelectedIndex() == 4){
-                    item = new PoisonPotion();
+            addItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    Item item = new Item();
+                    if (itemType.getSelectedIndex() == 0){
+                        item = new Sword();
+                    } else if (itemType.getSelectedIndex() == 1){
+                        item = new Torso();
+                    } else if (itemType.getSelectedIndex() == 2){
+                        item = new Helmet();
+                    } else if (itemType.getSelectedIndex() == 3){
+                        item = new HealPotion();
+                    } else if (itemType.getSelectedIndex() == 4){
+                        item = new PoisonPotion();
+                    }
+                    item.setMaterial(Material.values()[itemMaterial.getSelectedIndex()]);
+                    item.setRarity(Rarity.values()[itemRarity.getSelectedIndex()]);
+                    item.setGrade(Grade.values()[itemGrade.getSelectedIndex()]);
+                    item.countProperty();
+                    if (godCreature.getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest")){
+                        ((Chest)godCreature).addItemToInventory(item);
+                    } else {
+                        ((LiveCreature)godCreature).addToUniqueDropItem(item);
+                    }
                 }
-                item.setMaterial(Material.values()[itemMaterial.getSelectedIndex()]);
-                item.setRarity(Rarity.values()[itemRarity.getSelectedIndex()]);
-                item.setGrade(Grade.values()[itemGrade.getSelectedIndex()]);
-                item.countProperty();
-                if (godCreature.getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest")){
-                    ((Chest)godCreature).addItemToInventory(item);
-                } else {
-                    ((LiveCreature)godCreature).addToUniqueDropItem(item);
-                }
-            }
-        });
+            });
+        }
 
         getContentPane().add(panel);
         pack();

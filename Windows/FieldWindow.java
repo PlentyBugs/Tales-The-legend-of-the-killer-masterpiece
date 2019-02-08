@@ -25,6 +25,7 @@ public class FieldWindow extends JFrame implements Serializable {
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private Map currentMap;
+    private static final long serialVersionUID = -5963455665311017981L;
 
     Console console = new Console();
 
@@ -38,7 +39,6 @@ public class FieldWindow extends JFrame implements Serializable {
         this.y = y;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setPreferredSize(new Dimension(x,y));
         setPreferredSize(new Dimension(x,y));
 
         drawField(information);
@@ -86,6 +86,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                            player.setFieldWindow(FieldWindow.this);
                             if(!player.getIsManagerOpen()){
                                 player.setManagerWindowIsVisible(true);
                                 player.setManagerOpen(true);
@@ -98,6 +99,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 } else if (isHealBlock){
                     button.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        player.setFieldWindow(FieldWindow.this);
                         currentMap.setElementByCoordinates(liveCreature.getX(), liveCreature.getY(), new Grass(liveCreature.getX(), liveCreature.getY()));
                         ((HealBlock)liveCreature).heal(player);
                         int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
@@ -109,6 +111,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 } else if (isDoorToUpperLevel) {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                            player.setFieldWindow(FieldWindow.this);
                             currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
                             player.setX(0);
                             player.setY(0);
@@ -118,6 +121,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 } else if (isChest) {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
+                            player.setFieldWindow(FieldWindow.this);
                             if(!((Chest)liveCreature).getIsInventoryChestOpen()){
                                 ((Chest)liveCreature).setPlayer(player);
                                 ((Chest)liveCreature).setInventoryWindow();
@@ -134,10 +138,12 @@ public class FieldWindow extends JFrame implements Serializable {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             if (isStep){
+                                player.setFieldWindow(FieldWindow.this);
                                 player.setX(X);
                                 player.setY(Y);
                                 drawMap();
                             } else if (isLiveCreature){
+                                player.setFieldWindow(FieldWindow.this);
                                 if (((LiveCreature)liveCreature).getTalkative()){
                                     ((LiveCreature)liveCreature).setConversationWindowPlayer(player);
                                     if(!((LiveCreature)liveCreature).getIsConversationWindowOpen()){
@@ -148,6 +154,7 @@ public class FieldWindow extends JFrame implements Serializable {
                                         ((LiveCreature)liveCreature).setConversationWindowOpen(false);
                                     }
                                 } else {
+                                    player.setFieldWindow(FieldWindow.this);
                                     if(((LiveCreature)liveCreature).getHp() == 0){
                                         ((LiveCreature)liveCreature).countStatsAfterBorn();
                                     }
@@ -206,5 +213,9 @@ public class FieldWindow extends JFrame implements Serializable {
 
     public Map getCurrentMap() {
         return currentMap;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

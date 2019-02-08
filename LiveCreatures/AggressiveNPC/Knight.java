@@ -1,4 +1,4 @@
-package LiveCreatures;
+package LiveCreatures.AggressiveNPC;
 
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
@@ -6,6 +6,7 @@ import Items.Item;
 import Items.Potions.HealPotion;
 import Items.Weapons.Swords.Sword;
 import Items.Armors.Torso;
+import LiveCreatures.Human;
 
 import java.awt.*;
 

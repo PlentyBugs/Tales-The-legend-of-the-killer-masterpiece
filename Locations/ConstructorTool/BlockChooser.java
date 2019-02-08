@@ -1,6 +1,11 @@
 package Locations.ConstructorTool;
 
 import LiveCreatures.*;
+import LiveCreatures.AggressiveNPC.Bandit;
+import LiveCreatures.AggressiveNPC.Goblin;
+import LiveCreatures.AggressiveNPC.Knight;
+import LiveCreatures.PeacefulNPC.Dealer;
+import LiveCreatures.PeacefulNPC.Inhabitant;
 import Locations.Map;
 import Things.*;
 
@@ -19,7 +24,7 @@ public class BlockChooser extends JFrame {
     private int height = 720;
     private Block block;
     private GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
-    private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight()};
+    private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight(), new Inhabitant(0,0, "", 0,0)};
 
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();

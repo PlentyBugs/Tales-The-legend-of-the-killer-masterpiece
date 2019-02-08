@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.Serializable;
+import java.io.*;
+import java.util.Date;
 
 public class PlayerWindowManager extends JFrame implements Serializable {
 
@@ -17,7 +18,7 @@ public class PlayerWindowManager extends JFrame implements Serializable {
     public PlayerWindowManager(Player player){
         super("Менеджер окон игрока");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setPreferredSize(new Dimension(600,60));
+        setPreferredSize(new Dimension(660,60));
 
         this.player = player;
 
@@ -28,6 +29,7 @@ public class PlayerWindowManager extends JFrame implements Serializable {
         JButton info = new JButton("Информация");
         JButton abilities = new JButton("Умения");
         JButton quests = new JButton("Квесты");
+        JButton save = new JButton("Сохранить");
 
         inventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -101,12 +103,40 @@ public class PlayerWindowManager extends JFrame implements Serializable {
             }
         });
 
+        save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    Date date = new Date();
+                    try{
+                        FileOutputStream fos = new FileOutputStream("./Saves/save" + date.getTime() + ".txt");
+                        ObjectOutputStream outStream = new ObjectOutputStream(fos);
+                        outStream.writeObject(player.getFieldWindow());
+                        outStream.flush();
+                        outStream.close();
+                    } catch (FileNotFoundException ex){
+                        File dir = new File("./Saves");
+                        dir.mkdir();
+                        FileOutputStream fos = new FileOutputStream("./Saves/save" + date.getTime() + ".txt");
+                        ObjectOutputStream outStream = new ObjectOutputStream(fos);
+                        outStream.writeObject(player.getFieldWindow());
+                        outStream.flush();
+                        outStream.close();
+                    }
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         panel.add(inventory);
         panel.add(uoStats);
         panel.add(equipment);
         panel.add(info);
         panel.add(abilities);
         panel.add(quests);
+        panel.add(save);
 
         getContentPane().add(panel);
         pack();

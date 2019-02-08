@@ -3,10 +3,12 @@ package Quests;
 import Conversations.Conversation;
 import Items.Item;
 import LiveCreatures.Player;
+import Windows.SupportWindows.DialogWindow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Quest {
+public class Quest implements Serializable {
 
     protected String title;
     protected int expReward;
@@ -39,6 +41,9 @@ public class Quest {
     }
 
     public void getReward(Player player){
+        DialogWindow dialogWindow = new DialogWindow("Поздравляем, вы выполнили квест" + title + "!" +
+                "\nНагада золотом: " + Integer.toString(goldReward) +
+                "\nНаграда опытом: " + Integer.toString(expReward));
         player.addExp(expReward);
         player.addMoney(goldReward);
         if(itemReward != null){

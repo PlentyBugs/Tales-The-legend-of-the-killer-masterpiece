@@ -194,7 +194,6 @@ public class FightWindow extends JFrame implements Serializable {
                     writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
                 } else {
                     writeToEnemyStatusConsole(enemy.getName() + " повержен!");
-                    getReward();
                 }
                 enemyTurn();
             }
@@ -283,11 +282,11 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     public void enemyTurn(){
-        if(countMoves <= 0){
 
-            if (enemy.getHp() <= 0){
-                getReward();
-            }
+        if (enemy.getHp() <= 0){
+            getReward();
+        }
+        if(countMoves <= 0){
 
             int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
             if (player.hasAbility(new Evasion()) && chance <= player.getAbility(new Evasion()).getChance()){

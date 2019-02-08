@@ -37,6 +37,7 @@ public class Player extends Human {
     private PlayerInfoWindow playerInfoWindow;
     private UpgradeSkillsWindow playerAbilityWindow;
     private QuestsWindow playerQuestWindow;
+    private FieldWindow fieldWindow;
 
     private boolean isUpStatsOpen;
     private boolean isInventoryOpen;
@@ -53,7 +54,6 @@ public class Player extends Human {
     private ArrayList<Ability> abilities = new ArrayList<Ability>();
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-    private FieldWindow fieldWindow;
     private static final long serialVersionUID = 4994679203117290921L;
 
     public Player(int x, int y, String name, int lvl, int hp){
@@ -87,6 +87,28 @@ public class Player extends Human {
 
         color = Color.ORANGE;
 
+        initWindoows();
+
+        isPlayer = true;
+
+        exp = 0;
+        needExpToNextLvl = 500;
+        money = 99000;
+    }
+
+    public void addItemToInventory(Item ... itemList){
+        inventory.addAll(Arrays.asList(itemList));
+    }
+
+    public void addAbility(Ability ... abilities){
+        for (Ability ability : abilities){
+            if (!this.abilities.contains(ability)){
+                this.abilities.add(ability);
+            }
+        }
+    }
+
+    public void initWindoows(){
         upStatsWindow = new UpStatsWindow(this);
         setUpStatsWindowIsVisible(false);
 
@@ -107,24 +129,6 @@ public class Player extends Human {
 
         playerQuestWindow = new QuestsWindow(this);
         setQuestWindowIsVisible(false);
-
-        isPlayer = true;
-
-        exp = 0;
-        needExpToNextLvl = 500;
-        money = 99000;
-    }
-
-    public void addItemToInventory(Item ... itemList){
-        inventory.addAll(Arrays.asList(itemList));
-    }
-
-    public void addAbility(Ability ... abilities){
-        for (Ability ability : abilities){
-            if (!this.abilities.contains(ability)){
-                this.abilities.add(ability);
-            }
-        }
     }
 
     public void setVision(int vision) {
@@ -476,5 +480,9 @@ public class Player extends Human {
                 quest.getReward(this);
             }
         }
+    }
+
+    public FieldWindow getFieldWindow() {
+        return fieldWindow;
     }
 }

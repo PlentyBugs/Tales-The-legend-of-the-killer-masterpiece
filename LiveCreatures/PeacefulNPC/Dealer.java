@@ -1,4 +1,4 @@
-package LiveCreatures;
+package LiveCreatures.PeacefulNPC;
 
 import Conversations.Conversation;
 

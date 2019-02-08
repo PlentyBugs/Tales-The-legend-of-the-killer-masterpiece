@@ -1,10 +1,11 @@
-package LiveCreatures;
+package LiveCreatures.PeacefulNPC;
 
 import Abilities.Ability;
 import Conversations.CatalogStock;
 import Conversations.DialogConversation;
 import Conversations.Shop;
 import Items.Item;
+import LiveCreatures.Human;
 
 public class Peaceful extends Human {
     protected CatalogStock catalogStock;

@@ -1,6 +1,6 @@
 package Conversations;
 
-import LiveCreatures.Peaceful;
+import LiveCreatures.PeacefulNPC.Peaceful;
 import LiveCreatures.Player;
 import Quests.Quest;
 
