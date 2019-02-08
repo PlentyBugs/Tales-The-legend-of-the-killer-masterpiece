@@ -27,7 +27,7 @@ public class Console extends JPanel implements Serializable {
         DefaultCaret caret = (DefaultCaret) console.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
-        vertical = new JScrollPane(console,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        vertical = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(vertical);
     }
     public void writeToConsole(String text) {

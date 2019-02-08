@@ -9,6 +9,7 @@ public class QuestDialogConversation extends DialogConversation {
     private Quest quest;
     private Player player;
     private Peaceful peaceful;
+    private static final long serialVersionUID = 4385856357851843299L;
 
     public void run() {
         super.run();

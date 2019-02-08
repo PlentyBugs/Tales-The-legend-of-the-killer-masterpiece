@@ -14,6 +14,7 @@ import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
 import LiveCreatures.GodCreature;
 import LiveCreatures.LiveCreature;
+import LiveCreatures.PeacefulNPC.Peaceful;
 import Things.Chest;
 
 import javax.swing.*;
@@ -377,6 +378,9 @@ public class EditorWindow extends JFrame {
                     }
                 }
             });
+        }
+        if(godCreature.getClass().toString().contains("Peaceful")){
+            ConstructorConversationWindow constructorConversationWindow = new ConstructorConversationWindow((Peaceful)godCreature);
         }
 
         getContentPane().add(panel);

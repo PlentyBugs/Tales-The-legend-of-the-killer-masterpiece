@@ -16,13 +16,16 @@ import LiveCreatures.Player;
 import Locations.Map;
 import Windows.FieldWindow;
 import Windows.SupportWindows.ChooseDifficultyWindow;
+import Windows.SupportWindows.LoadGameWindow;
 import Windows.SupportWindows.StartWindow;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.File;
 
 public class Game {
+
     public static void main(String[] args) throws InterruptedException, IOException {
 
         StartWindow startWindow = new StartWindow();
@@ -92,9 +95,26 @@ public class Game {
             FileInputStream fin = null;
             ObjectInputStream ois = null;
 
+            FindFile ff = new FindFile();
+
+            ff.findFile("save*.txt", new File("./Saves/"));
+
+            LoadGameWindow loadGameWindow = new LoadGameWindow(ff.getFiles());
+
+            String fileName;
+            while(true){
+                fileName = loadGameWindow.getFileName();
+                System.out.println();
+                if(fileName != null){
+                    break;
+                }
+            }
+
+            loadGameWindow.close();
+
             try {
 
-                fin = new FileInputStream("./Saves/save1549573046421.txt");
+                fin = new FileInputStream("./Saves/" + fileName);
                 ois = new ObjectInputStream(fin);
                 fieldWindow = (FieldWindow) ois.readObject();
 
@@ -127,5 +147,4 @@ public class Game {
             }
         }
     }
-
 }

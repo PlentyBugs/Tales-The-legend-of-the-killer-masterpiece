@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DialogWindow extends JFrame implements Serializable {
 
@@ -27,6 +29,14 @@ public class DialogWindow extends JFrame implements Serializable {
         getContentPane().add(panel);
         pack();
         setVisible(true);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                close();
+            }
+        }, 10*1000);
     }
 
     public void close(){
