@@ -164,10 +164,12 @@ public class UpStatsWindow extends JFrame implements Serializable {
 
             strengthButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    player.getStats().upStat(StatsEnum.STRENGTH);
-                    player.setUpPointCount(player.getUpPointCount()-1);
-                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                    strengthLabelCount.setText( "   " + Integer.toString(player.getStats().strength) + "   ");
+                    if (player.getUpPointCount() > 0) {
+                        player.getStats().upStat(StatsEnum.STRENGTH);
+                        player.setUpPointCount(player.getUpPointCount() - 1);
+                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                        strengthLabelCount.setText("   " + Integer.toString(player.getStats().strength) + "   ");
+                    }
                 }
             });
             speedButton.addActionListener(new ActionListener() {

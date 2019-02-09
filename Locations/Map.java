@@ -98,7 +98,7 @@ public class Map implements Serializable {
         questDealer.setEmployerName(dealer.getName());
         questDealer.setConversationEmployer(questDialogConversationDealer);
         questDialogConversationDealer.setTitle(questDealer.getTitle());
-        questDialogConversationDealer.setText("Иди убей 15 гоблинов");
+        questDialogConversationDealer.setText("Иди убей 16 гоблинов");
         questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
         questDialogConversationDealer.setQuest(questDealer);
         QuestDialogConversation questDialogConversationDealer2 = new QuestDialogConversation();
