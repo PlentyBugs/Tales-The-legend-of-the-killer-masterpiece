@@ -5,6 +5,7 @@ import Items.Item;
 import Items.Weapons.Weapon;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
+import Windows.BattleWindows.FightWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -136,6 +137,9 @@ public class ThiefWindow extends JFrame implements Serializable {
                         player.removeItem(item);
                         drawInventory();
                         thief.getInventoryWindow().drawInventory();
+                    } else {
+                        FightWindow fightWindow = new FightWindow(thief, player, thief.getFieldWindow());
+                        close();
                     }
                 }
             });

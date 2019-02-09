@@ -40,7 +40,7 @@ public class Game {
         startWindow.close();
         if(game.equals("new")) {
             Player player = new Player(0, 0, "Вы", 1, 250);
-            Map map = new Map(player, 150, 150);
+            Map map = new Map(player, 75, 75);
             try {
                 FileInputStream fis = new FileInputStream("./Maps/temp.txt");
                 ObjectInputStream inputStream = new ObjectInputStream(fis);
