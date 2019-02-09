@@ -3,21 +3,13 @@ package LiveCreatures;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Abilities.Auras.Aura;
-import Abilities.Passive.TwoOneHandedWeapon;
-import Items.*;
 import Items.Armors.Armor;
-import Items.Armors.Helmet;
-import Items.Armors.Ring;
-import Items.Armors.Torso;
-import Items.Weapons.Weapon;
-import Items.Weapons.WeaponType;
+import Items.Item;
 import Quests.Quest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,11 +39,6 @@ public class Player extends Human {
     private boolean isAbilityWindowOpen;
     private boolean isQuestWindowOpen;
 
-    private ArrayList<Item> inventory = new ArrayList<>();
-
-    private Equipment equipment = new Equipment();
-
-    private ArrayList<Ability> abilities = new ArrayList<Ability>();
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     private static final long serialVersionUID = 4994679203117290921L;
@@ -70,6 +57,7 @@ public class Player extends Human {
         stats.luck = 5;
         stats.eloquence = 5;
         stats.blacksmith = 5;
+        stats.theft = 5;
         stats.alchemy = 5;
         stats.one_handed_weapon = 5;
         stats.two_handed_weapon = 5;
@@ -94,18 +82,6 @@ public class Player extends Human {
         exp = 0;
         needExpToNextLvl = 500;
         money = 99000;
-    }
-
-    public void addItemToInventory(Item ... itemList){
-        inventory.addAll(Arrays.asList(itemList));
-    }
-
-    public void addAbility(Ability ... abilities){
-        for (Ability ability : abilities){
-            if (!this.abilities.contains(ability)){
-                this.abilities.add(ability);
-            }
-        }
     }
 
     public void initWindoows(){
@@ -135,10 +111,6 @@ public class Player extends Human {
         this.vision = vision;
     }
 
-    public ArrayList<Ability> getAbilities() {
-        return abilities;
-    }
-
     public Set<Quest> getQuests() {
         return quests;
     }
@@ -151,33 +123,6 @@ public class Player extends Human {
         if(quests.contains(quest)){
             quests.remove(quest);
         }
-    }
-
-    public ArrayList<Ability> getAbilitiesByType(AbilityType abilityType) {
-        ArrayList<Ability> abilitiesByType = new ArrayList<>();
-        for (Ability ability : abilities){
-            if (ability.getAbilityType().contains(abilityType)){
-                abilitiesByType.add(ability);
-            }
-        }
-        return abilitiesByType;
-    }
-
-    public boolean hasAbility(Ability ability){
-        if (getAbility(ability) != null){
-            return true;
-        }
-        return false;
-    }
-
-    public Ability getAbility(Ability ability){
-        String abilityName = ability.getClass().toString().split("\\.")[ability.getClass().toString().split("\\.").length-1];
-        for (Ability abil : abilities){
-            if (abilityName.equals(abil.getClass().toString().split("\\.")[abil.getClass().toString().split("\\.").length-1])){
-                return abil;
-            }
-        }
-        return null;
     }
 
     public int getVision(){
@@ -320,46 +265,10 @@ public class Player extends Human {
     public boolean getIsQuestWindowOpen() {
         return isQuestWindowOpen;
     }
-
-    public ArrayList<Item> getInventory(){
-        return inventory;
-    }
-
     public UpStatsWindow getUpStatsWindow(){
         return upStatsWindow;
     }
 
-    public Equipment getEquipment() {
-        return equipment;
-    }
-
-    public void equip(Item item){
-        if (inventory.contains(item)){
-            if (item.getClass().toString().contains("Weapons")){
-                if (((Weapon)item).getWeaponType().contains(WeaponType.ONEHANDED)){
-                    if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
-                        equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
-                        equipment.setOneHandedWeaponLeft((Weapon)item);
-                        equipment.setTwoHandedWeapon(null);
-                    } else {
-                        equipment.setOneHandedWeaponLeft((Weapon)item);
-                        equipment.setOneHandedWeaponRight(null);
-                        equipment.setTwoHandedWeapon(null);
-                    }
-                } else {
-                    equipment.setTwoHandedWeapon((Weapon)item);
-                    equipment.setOneHandedWeaponLeft(null);
-                    equipment.setOneHandedWeaponRight(null);
-                }
-            } else if (item.getClass().toString().contains("Helmet")){
-                equipment.setHelmet((Helmet)item);
-            } else if (item.getClass().toString().contains("Torso")){
-                equipment.setTorso((Torso)item);
-            } else if (item.getClass().toString().contains("Ring")){
-                equipment.setRings((Ring) item);
-            }
-        }
-    }
     public int getExp() {
         return exp;
     }
@@ -449,12 +358,6 @@ public class Player extends Human {
         maxHp += (int)(stats.strength*5 + (stats.luck*2)*Math.random());
     }
 
-    public void removeItem(Item item){
-        if(inventory.contains(item)){
-            inventory.remove(item);
-        }
-    }
-
     public double absorbDamage(double damage){
         int countProtection = 1;
         for (Item item : equipment.getArmor()){
@@ -484,5 +387,13 @@ public class Player extends Human {
 
     public FieldWindow getFieldWindow() {
         return fieldWindow;
+    }
+
+    public EquipmentWindow getEquipmentWindow() {
+        return equipmentWindow;
+    }
+
+    public InventoryWindow getInventoryWindow() {
+        return inventoryWindow;
     }
 }

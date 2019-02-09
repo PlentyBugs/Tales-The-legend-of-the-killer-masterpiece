@@ -19,7 +19,7 @@ public class ShortBow extends Bow {
 
     public ShortBow(){
         this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.LONGRANGE);
-        stockName = "Короткий лук";
+        name = "Короткий лук";
     }
 
     public void countProperty(){

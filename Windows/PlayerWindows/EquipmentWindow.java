@@ -39,7 +39,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
         setVisible(b);
     }
 
-    private void drawEquipment(){
+    public void drawEquipment(){
 
         getContentPane().remove(panel);
 

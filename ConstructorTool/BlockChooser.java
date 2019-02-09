@@ -1,4 +1,4 @@
-package Locations.ConstructorTool;
+package ConstructorTool;
 
 import LiveCreatures.*;
 import LiveCreatures.AggressiveNPC.Bandit;

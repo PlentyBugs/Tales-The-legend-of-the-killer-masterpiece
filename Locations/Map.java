@@ -2,17 +2,28 @@ package Locations;
 
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
+import Abilities.Passive.Steal;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
-import Items.QuestItems.KingGoblinRing;
+import Items.Armors.Helmet;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
-import LiveCreatures.*;
+import Items.QuestItems.KingGoblinRing;
+import Items.Rarity;
+import Items.Weapons.Swords.Sword;
+import Items.Weapons.WeaponType;
 import LiveCreatures.AggressiveNPC.Bandit;
 import LiveCreatures.AggressiveNPC.Goblin;
 import LiveCreatures.AggressiveNPC.GoblinKing;
+import LiveCreatures.GodCreature;
+import LiveCreatures.Human;
+import LiveCreatures.LiveCreature;
 import LiveCreatures.PeacefulNPC.Dealer;
 import LiveCreatures.PeacefulNPC.Inhabitant;
+import LiveCreatures.Player;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Things.*;
@@ -74,7 +85,7 @@ public class Map implements Serializable {
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.");
         dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
-        dealer.addConversationShop(2, "Тренировка", new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1});
+        dealer.addConversationShop(2, "Тренировка", new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
         dealer.getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
@@ -106,6 +117,15 @@ public class Map implements Serializable {
         questDialogConversationDealer2.setIsVisible(false);
         questDialogConversationDealer.addConversationBranch(questDialogConversationDealer2, 1);
         dealer.addConversationDialog(3, questDialogConversationDealer);
+
+        dealer.addItemToInventory(
+                new Sword(Material.ELVENMYTHRIL, Rarity.LEGENDARY, Grade.ARTIFACT, 3, WeaponType.TWOHANDED),
+                new Helmet(Material.ELVENMYTHRIL, Rarity.MYSTICAL, Grade.ARTIFACT, 1)
+        );
+
+        for (Item item : dealer.getInventory()) {
+            item.countProperty();
+        }
         map[1][1] = dealer;
 
         Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);

@@ -8,6 +8,7 @@ public enum StatsEnum {
     LUCK,
     ELOQUENCE,
     BLACKSMITH,
+    THEFT,
     ALCHEMY,
     ONEHANDEDWEAPON,
     TWOHANDEDWEAPON,

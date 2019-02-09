@@ -1,4 +1,4 @@
-package Locations.ConstructorTool;
+package ConstructorTool;
 
 import Conversations.Conversation;
 import Conversations.DialogConversation;

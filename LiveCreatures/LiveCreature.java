@@ -1,11 +1,21 @@
 package LiveCreatures;
 
+import Abilities.Ability;
+import Abilities.AbilityType;
 import Abilities.Buffs.Buff;
+import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.Conversation;
 import Effects.Effect;
+import Items.Armors.Helmet;
+import Items.Armors.Ring;
+import Items.Armors.Torso;
+import Items.Equipment;
 import Items.Item;
+import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 import Windows.ConversationWindows.ConversationWindow;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
@@ -29,6 +39,11 @@ public abstract class LiveCreature extends GodCreature {
     protected double currentDamage;
     private static final long serialVersionUID = 3432956647310864719L;
 
+    protected ArrayList<Item> inventory = new ArrayList<>();
+
+    protected Equipment equipment = new Equipment();
+
+    protected ArrayList<Ability> abilities = new ArrayList<>();
 
     public LiveCreature(int x, int y, String name, int lvl, int hp){
 
@@ -57,6 +72,49 @@ public abstract class LiveCreature extends GodCreature {
         if (buffs.contains(buff)){
             buffs.remove(buff);
         }
+    }
+
+    public void addAbility(Ability ... abilities){
+        for (Ability ability : abilities){
+            if (!this.abilities.contains(ability)){
+                this.abilities.add(ability);
+            }
+        }
+    }
+
+    public ArrayList<Ability> getAbilities() {
+        return abilities;
+    }
+
+    public ArrayList<Ability> getAbilitiesByType(AbilityType abilityType) {
+        ArrayList<Ability> abilitiesByType = new ArrayList<>();
+        for (Ability ability : abilities){
+            if (ability.getAbilityType().contains(abilityType)){
+                abilitiesByType.add(ability);
+            }
+        }
+        return abilitiesByType;
+    }
+
+    public Ability getAbility(Ability ability){
+        String abilityName = ability.getClass().toString().split("\\.")[ability.getClass().toString().split("\\.").length-1];
+        for (Ability abil : abilities){
+            if (abilityName.equals(abil.getClass().toString().split("\\.")[abil.getClass().toString().split("\\.").length-1])){
+                return abil;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasAbility(Ability ability){
+        if (getAbility(ability) != null){
+            return true;
+        }
+        return false;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
     }
 
     public double getCurrentDamage() {
@@ -158,6 +216,48 @@ public abstract class LiveCreature extends GodCreature {
         }
         for (int s = 0; s < items.length; s++){
             uniqueDropItems[s+oldUniqueDropItem.length] = items[s];
+        }
+    }
+
+    public void addItemToInventory(Item ... itemList){
+        inventory.addAll(Arrays.asList(itemList));
+    }
+
+    public ArrayList<Item> getInventory(){
+        return inventory;
+    }
+
+    public void equip(Item item){
+        if (inventory.contains(item)){
+            if (item.getClass().toString().contains("Weapons")){
+                if (((Weapon)item).getWeaponType().contains(WeaponType.ONEHANDED)){
+                    if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
+                        equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
+                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setTwoHandedWeapon(null);
+                    } else {
+                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setOneHandedWeaponRight(null);
+                        equipment.setTwoHandedWeapon(null);
+                    }
+                } else {
+                    equipment.setTwoHandedWeapon((Weapon)item);
+                    equipment.setOneHandedWeaponLeft(null);
+                    equipment.setOneHandedWeaponRight(null);
+                }
+            } else if (item.getClass().toString().contains("Helmet")){
+                equipment.setHelmet((Helmet)item);
+            } else if (item.getClass().toString().contains("Torso")){
+                equipment.setTorso((Torso)item);
+            } else if (item.getClass().toString().contains("Ring")){
+                equipment.setRings((Ring) item);
+            }
+        }
+    }
+
+    public void removeItem(Item item){
+        if(inventory.contains(item)){
+            inventory.remove(item);
         }
     }
 }

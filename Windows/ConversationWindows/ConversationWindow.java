@@ -1,5 +1,6 @@
 package Windows.ConversationWindows;
 
+import Abilities.Passive.Steal;
 import Conversations.Conversation;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
@@ -38,7 +39,7 @@ public class ConversationWindow extends JFrame implements Serializable {
 
         dialog = new Console();
 
-        dialog.setSpeed(5);
+        dialog.setSpeed(0);
 
         dialog.setSizeArea(width-30,height-240);
 
@@ -123,10 +124,26 @@ public class ConversationWindow extends JFrame implements Serializable {
                         panel.add(convPart, constraints);
                         constraints.gridy++;
                     }
-                    getContentPane().add(panel, BorderLayout.SOUTH);
-                    pack();
-                    setVisible(true);
                 }
+
+                if(player != null && player.hasAbility(new Steal())){
+                    JButton title = new JButton("Обокрасть");
+
+                    title.setPreferredSize(new Dimension(width, 30));
+                    title.setMinimumSize(new Dimension(width, 30));
+                    title.setMaximumSize(new Dimension(width, 30));
+                    title.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            ThiefWindow thiefWindow = new ThiefWindow(opponent, player);
+                            close();
+                        }
+                    });
+
+                    panel.add(title, constraints);
+                }
+                getContentPane().add(panel, BorderLayout.SOUTH);
+                pack();
+                setVisible(true);
             }
         });
         thread.run();

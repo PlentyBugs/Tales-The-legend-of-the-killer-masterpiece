@@ -58,6 +58,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel luckLabel = new JLabel("Удача");
         JLabel eloquenceLabel = new JLabel("Красноречие");
         JLabel blacksmithLabel = new JLabel("Кузнечное дело");
+        JLabel theftLabel = new JLabel("Воровство");
         JLabel alchemyLabel = new JLabel("Алхимия");
         JLabel oneHandedWeaponLabel = new JLabel("Одноручное оружие");
         JLabel twoHandedWeaponLabel = new JLabel("Двуручное оружие");
@@ -73,6 +74,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel luckLabelCount = new JLabel("   " + Integer.toString(player.getStats().luck) + "   ");
         JLabel eloquenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().eloquence) + "   ");
         JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.getStats().blacksmith) + "   ");
+        JLabel theftLabelCount = new JLabel("   " + Integer.toString(player.getStats().theft) + "   ");
         JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.getStats().alchemy) + "   ");
         JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().one_handed_weapon) + "   ");
         JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().two_handed_weapon) + "   ");
@@ -81,59 +83,63 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().long_range_weapon) + "   ");
 
         panel.add(upPointsLeftLabel, constraints);
-        constraints.gridy = 1;
+        constraints.gridy ++;
         panel.add(strengthLabel, constraints);
-        constraints.gridy = 2;
+        constraints.gridy ++;
         panel.add(speedLabel, constraints);
-        constraints.gridy = 3;
+        constraints.gridy ++;
         panel.add(agilityLabel, constraints);
-        constraints.gridy = 4;
+        constraints.gridy ++;
         panel.add(intelligenceLabel, constraints);
-        constraints.gridy = 5;
+        constraints.gridy ++;
         panel.add(luckLabel, constraints);
-        constraints.gridy = 6;
+        constraints.gridy ++;
         panel.add(eloquenceLabel, constraints);
-        constraints.gridy = 7;
+        constraints.gridy ++;
         panel.add(blacksmithLabel, constraints);
-        constraints.gridy = 8;
+        constraints.gridy ++;
+        panel.add(theftLabel, constraints);
+        constraints.gridy ++;
         panel.add(alchemyLabel, constraints);
-        constraints.gridy = 9;
+        constraints.gridy ++;
         panel.add(oneHandedWeaponLabel, constraints);
-        constraints.gridy = 10;
+        constraints.gridy ++;
         panel.add(twoHandedWeaponLabel, constraints);
-        constraints.gridy = 11;
+        constraints.gridy ++;
         panel.add(poleWeaponLabel, constraints);
-        constraints.gridy = 12;
+        constraints.gridy ++;
         panel.add(choppingWeaponLabel, constraints);
-        constraints.gridy = 13;
+        constraints.gridy ++;
         panel.add(longRangeWeaponLabel, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 1;
         panel.add(strengthLabelCount, constraints);
-        constraints.gridy = 2;
+        constraints.gridy ++;
         panel.add(speedLabelCount, constraints);
-        constraints.gridy = 3;
+        constraints.gridy ++;
         panel.add(agilityLabelCount, constraints);
-        constraints.gridy = 4;
+        constraints.gridy ++;
         panel.add(intelligenceLabelCount, constraints);
-        constraints.gridy = 5;
+        constraints.gridy ++;
         panel.add(luckLabelCount, constraints);
-        constraints.gridy = 6;
+        constraints.gridy ++;
         panel.add(eloquenceLabelCount, constraints);
-        constraints.gridy = 7;
+        constraints.gridy ++;
         panel.add(blacksmithLabelCount, constraints);
-        constraints.gridy = 8;
+        constraints.gridy ++;
+        panel.add(theftLabelCount, constraints);
+        constraints.gridy ++;
         panel.add(alchemyLabelCount, constraints);
-        constraints.gridy = 9;
+        constraints.gridy ++;
         panel.add(oneHandedWeaponLabelCount, constraints);
-        constraints.gridy = 10;
+        constraints.gridy ++;
         panel.add(twoHandedWeaponLabelCount, constraints);
-        constraints.gridy = 11;
+        constraints.gridy ++;
         panel.add(poleWeaponLabelCount, constraints);
-        constraints.gridy = 12;
+        constraints.gridy ++;
         panel.add(choppingWeaponLabelCount, constraints);
-        constraints.gridy = 13;
+        constraints.gridy ++;
         panel.add(longRangeWeaponLabelCount, constraints);
 
         constraints.gridx = 2;
@@ -148,6 +154,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
             JButton luckButton = new JButton("+");
             JButton eloquenceButton = new JButton("+");
             JButton blacksmithButton = new JButton("+");
+            JButton theftButton = new JButton("+");
             JButton alchemyButton = new JButton("+");
             JButton oneHandedWeaponButton = new JButton("+");
             JButton twoHandedWeaponButton = new JButton("+");
@@ -223,6 +230,16 @@ public class UpStatsWindow extends JFrame implements Serializable {
                     }
                 }
             });
+            theftButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    if (player.getUpPointCount() > 0){
+                        player.getStats().upStat(StatsEnum.THEFT);
+                        player.setUpPointCount(player.getUpPointCount()-1);
+                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().theft) + "   ");
+                    }
+                }
+            });
             alchemyButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
@@ -286,29 +303,31 @@ public class UpStatsWindow extends JFrame implements Serializable {
 
             constraints.gridy = 1;
             panel.add(strengthButton, constraints);
-            constraints.gridy = 2;
+            constraints.gridy ++;
             panel.add(speedButton, constraints);
-            constraints.gridy = 3;
+            constraints.gridy ++;
             panel.add(agilityButton, constraints);
-            constraints.gridy = 4;
+            constraints.gridy ++;
             panel.add(intelligenceButton, constraints);
-            constraints.gridy = 5;
+            constraints.gridy ++;
             panel.add(luckButton, constraints);
-            constraints.gridy = 6;
+            constraints.gridy ++;
             panel.add(eloquenceButton, constraints);
-            constraints.gridy = 7;
+            constraints.gridy ++;
             panel.add(blacksmithButton, constraints);
-            constraints.gridy = 8;
+            constraints.gridy ++;
+            panel.add(theftButton, constraints);
+            constraints.gridy ++;
             panel.add(alchemyButton, constraints);
-            constraints.gridy = 9;
+            constraints.gridy ++;
             panel.add(oneHandedWeaponButton, constraints);
-            constraints.gridy = 10;
+            constraints.gridy ++;
             panel.add(twoHandedWeaponButton, constraints);
-            constraints.gridy = 11;
+            constraints.gridy ++;
             panel.add(poleWeaponButton, constraints);
-            constraints.gridy = 12;
+            constraints.gridy ++;
             panel.add(choppingWeaponButton, constraints);
-            constraints.gridy = 13;
+            constraints.gridy ++;
             panel.add(longRangeWeaponButton, constraints);
         }
         getContentPane().add(panel);

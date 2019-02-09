@@ -11,6 +11,7 @@ public class Stats implements Serializable {
     public int luck;
     public int eloquence;
     public int blacksmith;
+    public int theft;
     public int alchemy;
     public int one_handed_weapon;
     public int two_handed_weapon;
@@ -33,6 +34,7 @@ public class Stats implements Serializable {
             case LUCK: luck += 1; break;
             case ELOQUENCE: eloquence += 1; break;
             case BLACKSMITH: blacksmith += 1; break;
+            case THEFT: theft += 1; break;
             case ALCHEMY: alchemy += 1; break;
             case ONEHANDEDWEAPON: one_handed_weapon += 1; break;
             case TWOHANDEDWEAPON: two_handed_weapon += 1; break;

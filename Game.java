@@ -19,10 +19,10 @@ import Windows.SupportWindows.ChooseDifficultyWindow;
 import Windows.SupportWindows.LoadGameWindow;
 import Windows.SupportWindows.StartWindow;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.File;
 
 public class Game {
 

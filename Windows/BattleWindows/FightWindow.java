@@ -534,6 +534,7 @@ public class FightWindow extends JFrame implements Serializable {
 
                 for (Item item : dropItems){
                     player.addItemToInventory(item);
+                    player.getInventoryWindow().drawInventory();
                     rewardItemMessage += item.getName() + "\n";
                 }
                 if(!rewardItemMessage.equals("")){

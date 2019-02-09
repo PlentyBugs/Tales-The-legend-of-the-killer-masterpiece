@@ -1,4 +1,5 @@
 import Abilities.Auras.Vision;
+import Abilities.Passive.Steal;
 import LiveCreatures.Difficulty;
 import LiveCreatures.Player;
 import Windows.FieldWindow;
@@ -110,6 +111,16 @@ public class Narrator {
 
             player.getStats().long_range_weapon = 150;
             player.addAbility(new Vision(6));
+
+            player.setName("cheater");
+            player.setHp(500);
+            player.setMaxHp(500);
+        }
+
+        if(player.getName().equals("Th3ftIsJust1f13d")){
+
+            player.getStats().theft = 200;
+            player.addAbility(new Steal());
 
             player.setName("cheater");
             player.setHp(500);

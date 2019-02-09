@@ -1,4 +1,4 @@
-package Locations.ConstructorTool;
+package ConstructorTool;
 
 public class Constructor {
 

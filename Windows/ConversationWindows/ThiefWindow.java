@@ -1,8 +1,7 @@
-package Windows.PlayerWindows;
+package Windows.ConversationWindows;
 
 import Items.Armors.Armor;
 import Items.Item;
-import Items.Potions.Potion;
 import Items.Weapons.Weapon;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.Player;
@@ -14,21 +13,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class InventoryWindow extends JFrame implements Serializable {
+public class ThiefWindow extends JFrame implements Serializable {
 
     private LiveCreature player;
+    private Player thief;
     private JPanel panel = new JPanel(new GridBagLayout());
     JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
     private int width = 720;
     private int height = 720;
-    private static final long serialVersionUID = -559721917387219997L;
 
-    public InventoryWindow(LiveCreature player){
-        super("Инвентарь");
+    public ThiefWindow(LiveCreature player, Player thief) {
+        super("Инвентарь " + player.getName());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.player = player;
+        this.thief = thief;
         drawInventory();
     }
 
@@ -95,12 +95,16 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
+            int cost = 1;
+
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+                cost = ((Weapon)item).getDamage();
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+                cost = ((Armor)item).getProtection();
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -113,33 +117,28 @@ public class InventoryWindow extends JFrame implements Serializable {
             property.setForeground(colorForeground);
             propertyCount.setForeground(colorForeground);
 
-            itemConstraints.gridx = 4;
-            JButton useButton = new JButton("Экипировать");
+            double chance = thief.getStats().theft*47.87/(cost);
 
-            if(item.getClass().toString().contains("Potions")){
-                itemQuality.setText("");
-                useButton.setText("Использовать");
+            if(chance > 100.0){
+                chance = 100.0;
             }
+
+            itemConstraints.gridx = 4;
+            JButton useButton = new JButton("Украсть(Шанс " + Math.round(chance*100.0)/100.0 + "%)");
             useButton.setSize(100,40);
 
-            if(!item.getClass().toString().contains("Potions")){
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        player.equip(item);
-                        if(player.getClass().toString().contains("Player")){
-                            ((Player)player).getEquipmentWindow().drawEquipment();
-                        }
-                    }
-                });
-            } else {
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        ((Potion)item).use(player);
+            double finalChance = chance;
+            useButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    double randomChance = Math.ceil(Math.random()*10000.0)/100.0;
+                    if(randomChance <= finalChance){
+                        thief.addItemToInventory(item);
                         player.removeItem(item);
                         drawInventory();
+                        thief.getInventoryWindow().drawInventory();
                     }
-                });
-            }
+                }
+            });
             itemPanel.add(itemName, itemConstraints);
             itemPanel.add(itemQuality, itemConstraints);
             itemPanel.add(property, itemConstraints);

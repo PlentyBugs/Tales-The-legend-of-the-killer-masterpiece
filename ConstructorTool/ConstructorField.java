@@ -1,4 +1,4 @@
-package Locations.ConstructorTool;
+package ConstructorTool;
 
 import LiveCreatures.GodCreature;
 import Things.Grass;
