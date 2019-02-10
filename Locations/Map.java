@@ -1,5 +1,8 @@
 package Locations;
 
+import Abilities.Active.DamageUp;
+import Abilities.Active.DecreaseDamage;
+import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.Steal;
@@ -96,6 +99,7 @@ public class Map implements Serializable {
         questDealer.setEnemyCountToKill(16);
         questDealer.setEnemyToKill(new Goblin());
         questDealer.setEmployerName(dealer.getName());
+        questDealer.setEmployer(dealer);
         questDealer.setConversationEmployer(questDialogConversationDealer);
         questDialogConversationDealer.setTitle(questDealer.getTitle());
         questDialogConversationDealer.setText("Иди убей 16 гоблинов");
@@ -109,6 +113,8 @@ public class Map implements Serializable {
         questDealer2.setPlayer(player);
         questDealer2.setTitle("Король гоблинов");
         questDealer2.setEmployerName(dealer.getName());
+        questDealer2.setEmployer(dealer);
+        questDealer2.setItemCount(1);
         questDealer2.setConversationEmployer(questDialogConversationDealer2);
         questDialogConversationDealer2.setTitle(questDealer2.getTitle());
         questDialogConversationDealer2.setText("Да, тут где-то находится Король гоблинов, крайне сильная тварь, мне нужно его кольцо, говорят, что оно стоит немалых денег!");
@@ -127,6 +133,15 @@ public class Map implements Serializable {
             item.countProperty();
         }
         map[1][1] = dealer;
+
+
+        Dealer shutep = new Dealer(3,3,"Шутеп", 15623, 8461315);
+        Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
+        shutepSwordForSale.countProperty();
+        shutep.addConversationShop(1, "Магазин", new Object[] {shutepSwordForSale, 265000, 20});
+        shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1});
+        shutep.getConversationWindow().setPlayer(player);
+        map[3][3] = shutep;
 
         Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
         inhabitant.setStarterPhrase("Привет!");
@@ -156,6 +171,7 @@ public class Map implements Serializable {
         quest.setEnemyCountToKill(6);
         quest.setEnemyToKill(new Bandit());
         quest.setEmployerName(inhabitant.getName());
+        quest.setEmployer(inhabitant);
         quest.setConversationEmployer(questDialogConversation);
         questDialogConversation.setTitle(quest.getTitle());
         questDialogConversation.setText("У нас проблемы с бандитами, иди убей для меня полдюжины");

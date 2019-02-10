@@ -7,6 +7,8 @@ import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -21,7 +23,24 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
     public EquipmentWindow(Player player){
         super("Экипировка");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                player.setEquipmentOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                player.setEquipmentOpen(false);
+            }
+        });
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;

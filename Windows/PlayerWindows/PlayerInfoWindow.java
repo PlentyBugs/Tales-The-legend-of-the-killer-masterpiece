@@ -4,6 +4,8 @@ import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -18,8 +20,24 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
         super("Информация");
 
         this.player = player;
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                player.setInfoWindowOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                player.setInfoWindowOpen(false);
+            }
+        });
         drawInfo();
     }
 

@@ -5,9 +5,7 @@ import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.Serializable;
 
 public class UpgradeSkillsWindow extends JFrame implements Serializable {
@@ -19,8 +17,24 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
 
     public UpgradeSkillsWindow(Player player){
         super("Прокачка умений");
-        this.player = player;
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.player = player;setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                player.setAbilityWindowOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                player.setAbilityWindowOpen(false);
+            }
+        });
 
         drawWindow();
     }

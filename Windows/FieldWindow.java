@@ -27,7 +27,7 @@ public class FieldWindow extends JFrame implements Serializable {
     private Map currentMap;
     private static final long serialVersionUID = -5963455665311017981L;
 
-    Console console = new Console();
+    private Console console = new Console();
 
     public FieldWindow(String name, int x, int y, int vision, Player player, GodCreature[][] information) {
         super(name);

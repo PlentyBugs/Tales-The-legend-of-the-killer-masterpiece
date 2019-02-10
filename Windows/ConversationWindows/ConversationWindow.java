@@ -12,9 +12,7 @@ import Windows.SupportWindows.Console;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -33,6 +31,25 @@ public class ConversationWindow extends JFrame implements Serializable {
 
         this.opponent = opponent;
 
+        this.player = player;
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                opponent.setConversationWindowOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                opponent.setConversationWindowOpen(false);
+            }
+        });
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));

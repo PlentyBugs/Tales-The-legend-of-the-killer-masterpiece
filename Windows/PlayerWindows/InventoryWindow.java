@@ -9,24 +9,45 @@ import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.Serializable;
 
 public class InventoryWindow extends JFrame implements Serializable {
 
     private LiveCreature player;
     private JPanel panel = new JPanel(new GridBagLayout());
-    JScrollPane scroll = new JScrollPane(panel);
+    private JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
+    private JPanel menuPanel = new JPanel();
     private int width = 720;
     private int height = 720;
     private static final long serialVersionUID = -559721917387219997L;
+    private String currentInventory = "All";
 
     public InventoryWindow(LiveCreature player){
         super("Инвентарь");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                ((Player)player).setInventoryOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                ((Player)player).setInventoryOpen(false);
+            }
+        });
+
+        setPreferredSize(new Dimension(width, height));
+        setMinimumSize(new Dimension(width, height));
+        setMaximumSize(new Dimension(width, height));
 
         this.player = player;
         drawInventory();
@@ -42,6 +63,48 @@ public class InventoryWindow extends JFrame implements Serializable {
     }
 
     public void drawInventory(){
+        getContentPane().remove(menuPanel);
+        menuPanel = new JPanel();
+
+        JButton allInventory = new JButton("Всё");
+        JButton weaponInventory = new JButton("Оружие");
+        JButton armorInventory = new JButton("Броня");
+        JButton potionInventory = new JButton("Зелья");
+
+        menuPanel.add(allInventory);
+        menuPanel.add(weaponInventory);
+        menuPanel.add(armorInventory);
+        menuPanel.add(potionInventory);
+
+        getContentPane().add(menuPanel, BorderLayout.SOUTH);
+
+        allInventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentInventory = "All";
+                drawInventory();
+            }
+        });
+
+        weaponInventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentInventory = "Weapon";
+                drawInventory();
+            }
+        });
+
+        armorInventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentInventory = "Armor";
+                drawInventory();
+            }
+        });
+
+        potionInventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentInventory = "Potion";
+                drawInventory();
+            }
+        });
 
         getContentPane().remove(scroll);
 
@@ -54,6 +117,10 @@ public class InventoryWindow extends JFrame implements Serializable {
         constraints.gridy = 0;
         for (Item item : player.getInventory()){
 
+            if(!currentInventory.equals("All") && !item.getClass().toString().contains(currentInventory)){
+                continue;
+            }
+
             JPanel itemPanel = new JPanel();
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
@@ -61,6 +128,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.insets = new Insets(20, 10, 20, 10);
             itemConstraints.gridx = 0;
             itemConstraints.gridy = 0;
+            JLabel propertyCount = new JLabel();
 
             Color colorBackground = new Color(255,255,255,255);
             Color colorForeground = new Color(0,0,0);
@@ -93,7 +161,6 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 2;
             JLabel property = new JLabel();
             itemConstraints.gridx = 3;
-            JLabel propertyCount = new JLabel();
 
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
@@ -126,7 +193,7 @@ public class InventoryWindow extends JFrame implements Serializable {
                 useButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         player.equip(item);
-                        if(player.getClass().toString().contains("Player")){
+                        if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null && ((Player)player).getIsEquipmentOpen()){
                             ((Player)player).getEquipmentWindow().drawEquipment();
                         }
                     }
@@ -154,8 +221,8 @@ public class InventoryWindow extends JFrame implements Serializable {
         }
 
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(width,height));
-        getContentPane().add(scroll);
+        scroll.setPreferredSize(new Dimension(width,height-80));
+        getContentPane().add(scroll, BorderLayout.NORTH);
         pack();
         setVisible(true);
     }

@@ -1,6 +1,3 @@
-import Abilities.Active.DamageUp;
-import Abilities.Active.DecreaseDamage;
-import Abilities.Auras.Vision;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Items.Armors.Helmet;
 import Items.Armors.Torso;
@@ -54,7 +51,7 @@ public class Game {
             }
 
 
-            player.addAbility(new TwoOneHandedWeapon(), new Vision(), new DamageUp(), new DecreaseDamage());
+            player.addAbility(new TwoOneHandedWeapon());
 
             player.addItemToInventory(
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),

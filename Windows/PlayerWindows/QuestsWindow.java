@@ -1,11 +1,14 @@
 package Windows.PlayerWindows;
 
 import LiveCreatures.Player;
+import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Quests.Quest;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 
 public class QuestsWindow extends JFrame {
@@ -17,8 +20,24 @@ public class QuestsWindow extends JFrame {
     private int height = 240;
 
     public QuestsWindow(Player player){
-        super("Квесты");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        super("Квесты");setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                player.setQuestWindowOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                player.setQuestWindowOpen(false);
+            }
+        });
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;
@@ -58,6 +77,11 @@ public class QuestsWindow extends JFrame {
             questConstraints.gridx ++;
             if(quest.getClass().toString().contains("Kill")) {
                 JLabel questGoal = new JLabel("Цель: " + Integer.toString(((KillQuest) quest).getEnemyCountToKillCurrent()) + "/" + Integer.toString(((KillQuest) quest).getEnemyCountToKill()));
+                questPanel.add(questGoal, questConstraints);
+                questConstraints.gridx ++;
+            }
+            if(quest.getClass().toString().contains("Collect")) {
+                JLabel questGoal = new JLabel("Цель: " + Integer.toString(((CollectItemQuest) quest).getItemCountCurrent()) + "/" + Integer.toString(((CollectItemQuest) quest).getItemCount()));
                 questPanel.add(questGoal, questConstraints);
                 questConstraints.gridx ++;
             }

@@ -2,6 +2,7 @@ package Quests;
 
 import Conversations.Conversation;
 import Items.Item;
+import LiveCreatures.PeacefulNPC.Peaceful;
 import LiveCreatures.Player;
 import Windows.SupportWindows.DialogWindow;
 
@@ -16,6 +17,7 @@ public class Quest implements Serializable {
     protected Item[] itemReward;
     protected String employer;
     protected Conversation conversationEmployer;
+    protected Peaceful employerPeaceful;
 
     public Quest(){
         expReward = 0;
@@ -41,16 +43,22 @@ public class Quest implements Serializable {
     }
 
     public void getReward(Player player){
-        DialogWindow dialogWindow = new DialogWindow("Поздравляем, вы выполнили квест" + title + "!" +
-                "\nНагада золотом: " + Integer.toString(goldReward) +
-                "\nНаграда опытом: " + Integer.toString(expReward));
         player.addExp(expReward);
         player.addMoney(goldReward);
+        String rewardItemMessage = "";
         if(itemReward != null){
+            rewardItemMessage = "Выпавшие вещи:\n";
             for (Item item : itemReward) {
                 player.addItemToInventory(item);
+                rewardItemMessage += item.getName() + "\n";
             }
         }
+
+        DialogWindow dialogWindow = new DialogWindow("Поздравляем, вы выполнили квест" + title + "!" +
+                "\nНагада золотом: " + Integer.toString(goldReward) +
+                "\nНаграда опытом: " + Integer.toString(expReward) +
+                rewardItemMessage);
+
         for(ArrayList<Conversation> list : conversationEmployer.getConversationTree()){
             for(Conversation conversation : list){
                 conversation.setIsVisible(true);
@@ -83,5 +91,9 @@ public class Quest implements Serializable {
 
     public void setConversationEmployer(Conversation conversationEmployer) {
         this.conversationEmployer = conversationEmployer;
+    }
+
+    public void setEmployer(Peaceful employerPeaceful) {
+        this.employerPeaceful = employerPeaceful;
     }
 }

@@ -4,9 +4,7 @@ import LiveCreatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.Date;
 
@@ -16,8 +14,24 @@ public class PlayerWindowManager extends JFrame implements Serializable {
     private static final long serialVersionUID = 3259430673044045936L;
 
     public PlayerWindowManager(Player player){
-        super("Менеджер окон игрока");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        super("Менеджер окон игрока");setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                player.setManagerOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                player.setManagerOpen(false);
+            }
+        });
         setPreferredSize(new Dimension(660,60));
 
         this.player = player;

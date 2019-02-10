@@ -16,10 +16,15 @@ public class CollectItemQuest extends Quest {
     }
 
     public boolean check(){
+        int counter = 0;
         for(Item item : player.getInventory()){
             if(item.getClass().toString().equals(this.item.getClass().toString())){
-                return true;
+                counter ++;
+                itemCountCurrent = counter;
             }
+        }
+        if(itemCountCurrent >= itemCount){
+            return true;
         }
         return false;
     }
@@ -34,5 +39,21 @@ public class CollectItemQuest extends Quest {
 
     public Item getItem() {
         return item;
+    }
+
+    public int getItemCountCurrent() {
+        return itemCountCurrent;
+    }
+
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public void setItemCountCurrent(int itemCountCurrent) {
+        this.itemCountCurrent = itemCountCurrent;
     }
 }
