@@ -6,6 +6,7 @@ import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.Steal;
+import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Items.Armors.Helmet;
@@ -88,7 +89,7 @@ public class Map implements Serializable {
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.");
         dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
-        dealer.addConversationShop(2, "Тренировка", new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
+        dealer.addConversationShop(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
         dealer.getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();

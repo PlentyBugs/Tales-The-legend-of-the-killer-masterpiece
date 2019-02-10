@@ -81,7 +81,7 @@ public class Player extends Human {
 
         exp = 0;
         needExpToNextLvl = 500;
-        money = 99000;
+        money = 457000;
     }
 
     public void initWindoows(){

@@ -1,4 +1,3 @@
-import Abilities.Passive.TwoOneHandedWeapon;
 import Items.Armors.Helmet;
 import Items.Armors.Torso;
 import Items.Grade;
@@ -49,9 +48,6 @@ public class Game {
             } catch (Exception e) {
                 System.out.println("Error" + e.getMessage());
             }
-
-
-            player.addAbility(new TwoOneHandedWeapon());
 
             player.addItemToInventory(
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),
