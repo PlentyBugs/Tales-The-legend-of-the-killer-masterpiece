@@ -1,6 +1,6 @@
 package Conversations;
 
-import Windows.SupportWindows.Console;
+import Windows.SupportWindows.SupportComponents.Console;
 
 public class DialogConversation extends Conversation{
     protected String text;

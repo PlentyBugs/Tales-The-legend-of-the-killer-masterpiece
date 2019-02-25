@@ -7,7 +7,7 @@ import Locations.Map;
 import Things.Chest;
 import Things.Grass;
 import Things.HealBlock;
-import Windows.SupportWindows.Console;
+import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;

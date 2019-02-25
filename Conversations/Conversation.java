@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Conversation implements Serializable {
     protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();
     protected String Title;
+    protected int layerNumber = 0;
     protected boolean visible = true;
     protected int branchNumber;
 
@@ -15,6 +16,7 @@ public class Conversation implements Serializable {
 
     public void addConversationBranch(Conversation conversation, int branchNumber){
         branchNumber --;
+        conversation.setLayerNumber(layerNumber+1);
         if(branchNumber < conversationTree.size()){
             conversationTree.get(branchNumber).add(conversation);
         } else {
@@ -40,5 +42,21 @@ public class Conversation implements Serializable {
 
     public boolean getIsVisible(){
         return visible;
+    }
+
+    public int getBranchNumber() {
+        return branchNumber;
+    }
+
+    public void setBranchNumber(int branchNumber) {
+        this.branchNumber = branchNumber;
+    }
+
+    public int getLayerNumber() {
+        return layerNumber;
+    }
+
+    public void setLayerNumber(int layerNumber) {
+        this.layerNumber = layerNumber;
     }
 }

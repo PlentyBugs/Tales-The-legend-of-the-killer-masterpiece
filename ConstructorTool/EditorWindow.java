@@ -251,6 +251,7 @@ public class EditorWindow extends JFrame {
                     } catch (Exception ex){
                         ((LiveCreature)godCreature).setLvl(1);
                     }
+                    ((LiveCreature)godCreature).countStatsAfterBorn();
                     try{
                         ((LiveCreature)godCreature).setHp(Integer.parseInt(hpValue.getText()));
                         ((LiveCreature)godCreature).setMaxHp(Integer.parseInt(hpValue.getText()));
@@ -260,74 +261,46 @@ public class EditorWindow extends JFrame {
                     }
                     try{
                         ((LiveCreature)godCreature).getStats().strength = Integer.parseInt(strengthValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().strength = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().speed = Integer.parseInt(speedValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().speed = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().agility = Integer.parseInt(strengthValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().agility = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().intelligence = Integer.parseInt(intelligenceValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().intelligence = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().luck = Integer.parseInt(luckValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().luck = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().eloquence = Integer.parseInt(eloquenceValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().eloquence = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().blacksmith = Integer.parseInt(blacksmithValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().blacksmith = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().theft = Integer.parseInt(theftValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().theft = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().alchemy = Integer.parseInt(alchemyValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().alchemy = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().one_handed_weapon = Integer.parseInt(one_handed_weaponValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().one_handed_weapon = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().two_handed_weapon = Integer.parseInt(two_handed_weaponValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().two_handed_weapon = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().pole_weapon = Integer.parseInt(pole_weaponValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().pole_weapon = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().chopping_weapon = Integer.parseInt(chopping_weaponValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().chopping_weapon = 5;
-                    }
+                    } catch (Exception ex){}
                     try{
                         ((LiveCreature)godCreature).getStats().long_range_weapon = Integer.parseInt(long_range_weaponValue.getText());
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).getStats().long_range_weapon = 5;
-                    }
+                    } catch (Exception ex){}
                 }
             });
 

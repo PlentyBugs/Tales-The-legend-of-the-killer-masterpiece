@@ -8,7 +8,7 @@ import Conversations.Shop;
 import LiveCreatures.LiveCreature;
 import LiveCreatures.PeacefulNPC.Peaceful;
 import LiveCreatures.Player;
-import Windows.SupportWindows.Console;
+import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;

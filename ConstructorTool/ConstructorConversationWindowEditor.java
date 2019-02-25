@@ -6,10 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 public class ConstructorConversationWindowEditor extends JFrame {
 
-    public ConstructorConversationWindowEditor(DialogConversation conversation, ConstructorConversationWindow constructorConversationWindow){
+    public ConstructorConversationWindowEditor(DialogConversation conversation, ConstructorConversationWindow constructorConversationWindow, int countBranches){
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -32,7 +33,11 @@ public class ConstructorConversationWindowEditor extends JFrame {
         JLabel branchLabel = new JLabel("Диалоговая ветка: ");
         panel.add(branchLabel, constraints);
         constraints.gridx = 1;
-        JComboBox branchComboBox = new JComboBox();
+        String[] branches = new String[countBranches+1];
+        for(int i = 0; i <= countBranches; i++){
+            branches[i] = Integer.toString(i);
+        }
+        JComboBox branchComboBox = new JComboBox(branches);
         panel.add(branchComboBox, constraints);
         constraints.gridx = 0;
         constraints.gridy ++;
@@ -63,10 +68,23 @@ public class ConstructorConversationWindowEditor extends JFrame {
         JButton sum = new JButton("Принять");
         sum.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                conversation.setTitle(titleTextArea.getText());
-                conversation.setText(textTextArea.getText());
-                conversation.setPlayerText(playerTextLabel.getText());
+
+                DialogConversation dialogConversation = new DialogConversation();
+                dialogConversation.setOpponentName(constructorConversationWindow.getPeaceful().getName());
+                if(conversation == null){
+                    constructorConversationWindow.getPeaceful().addConversationDialog(branchComboBox.getSelectedIndex()+1, dialogConversation);
+                } else {
+                    conversation.addConversationBranch(dialogConversation, branchComboBox.getSelectedIndex()+1);
+                }
+
+                dialogConversation.setTitle(titleTextArea.getText());
+                dialogConversation.setBranchNumber(branchComboBox.getSelectedIndex()+1);
+                dialogConversation.setText(textTextArea.getText());
+                dialogConversation.setPlayerText(playerTextLabel.getText());
+                constructorConversationWindow.setChosenConversation(dialogConversation);
+
                 constructorConversationWindow.drawWindow();
+                close();
             }
         });
         panel.add(sum, constraints);
@@ -74,5 +92,9 @@ public class ConstructorConversationWindowEditor extends JFrame {
         getContentPane().add(panel);
         pack();
         setVisible(true);
+    }
+
+    public void close(){
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }

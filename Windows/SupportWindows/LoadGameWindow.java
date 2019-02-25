@@ -14,6 +14,7 @@ public class LoadGameWindow extends JFrame {
 
     public LoadGameWindow(ArrayList<File> files){
         super("Загрузка");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(new GridBagLayout());
 

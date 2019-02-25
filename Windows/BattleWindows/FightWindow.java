@@ -13,7 +13,7 @@ import Quests.KillQuest;
 import Quests.Quest;
 import Things.Corpse;
 import Windows.FieldWindow;
-import Windows.SupportWindows.Console;
+import Windows.SupportWindows.SupportComponents.Console;
 import Windows.SupportWindows.DialogWindow;
 
 import javax.swing.*;
