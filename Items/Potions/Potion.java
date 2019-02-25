@@ -5,7 +5,7 @@ import Effects.EffectType;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
-import LiveCreatures.LiveCreature;
+import Creatures.LiveCreature;
 
 public class Potion extends Item {
 

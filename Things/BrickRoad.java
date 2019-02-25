@@ -14,4 +14,8 @@ public class BrickRoad extends Thing{
         this.x = x;
         this.y = y;
     }
+    @Override
+    public BrickRoad getClearCopy() {
+        return new BrickRoad();
+    }
 }

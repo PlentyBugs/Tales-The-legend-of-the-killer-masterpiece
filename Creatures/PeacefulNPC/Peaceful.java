@@ -1,15 +1,19 @@
-package LiveCreatures.PeacefulNPC;
+package Creatures.PeacefulNPC;
 
 import Abilities.Ability;
 import Conversations.CatalogStock;
 import Conversations.DialogConversation;
 import Conversations.Shop;
 import Items.Item;
-import LiveCreatures.Human;
+import Creatures.Human;
 
 public class Peaceful extends Human {
     protected CatalogStock catalogStock;
     protected String starterPhrase;
+
+    public Peaceful(){
+        this(0,0,"Мирный",1,100);
+    }
 
     public Peaceful(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);
@@ -51,5 +55,16 @@ public class Peaceful extends Human {
 
     public void setStarterPhrase(String starterPhrase) {
         this.starterPhrase = starterPhrase;
+    }
+
+    @Override
+    public Peaceful clone() throws CloneNotSupportedException
+    {
+        return (Peaceful) super.clone();
+    }
+
+    @Override
+    public Peaceful getClearCopy() {
+        return new Peaceful();
     }
 }

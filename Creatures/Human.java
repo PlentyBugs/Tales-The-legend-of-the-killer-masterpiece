@@ -1,4 +1,4 @@
-package LiveCreatures;
+package Creatures;
 
 public class Human extends LiveCreature {
     protected String name;
@@ -8,6 +8,10 @@ public class Human extends LiveCreature {
     public int hp = 100;
 
     protected String race = "Человек";
+
+    public Human(){
+        this(0,0,"Человек",1,100);
+    }
 
     public Human(int x, int y, String name, int lvl, int hp){
 
@@ -63,5 +67,16 @@ public class Human extends LiveCreature {
 
         stats.militarism = 0;
         stats.pacifism = 0;
+    }
+
+    @Override
+    public Human clone() throws CloneNotSupportedException
+    {
+        return (Human) super.clone();
+    }
+
+    @Override
+    public Human getClearCopy() {
+        return new Human();
     }
 }

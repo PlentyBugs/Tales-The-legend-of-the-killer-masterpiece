@@ -5,9 +5,9 @@ import Conversations.Conversation;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Conversations.Shop;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.PeacefulNPC.Peaceful;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.PeacefulNPC.Peaceful;
+import Creatures.Player;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;

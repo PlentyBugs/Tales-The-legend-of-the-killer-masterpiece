@@ -1,6 +1,6 @@
 package Things;
 
-import LiveCreatures.GodCreature;
+import Creatures.GodCreature;
 
 import java.awt.*;
 
@@ -9,5 +9,9 @@ public class GreatWallNullerField extends GodCreature {
         name = "Великая стена";
         color = Color.BLACK;
         isStep = false;
+    }
+    @Override
+    public GreatWallNullerField getClearCopy() {
+        return new GreatWallNullerField();
     }
 }

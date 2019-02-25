@@ -1,7 +1,7 @@
 package Abilities.Auras;
 
 import Abilities.Ability;
-import LiveCreatures.LiveCreature;
+import Creatures.LiveCreature;
 
 public class Aura extends Ability {
 

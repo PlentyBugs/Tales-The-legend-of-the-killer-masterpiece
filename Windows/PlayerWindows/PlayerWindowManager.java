@@ -1,6 +1,6 @@
 package Windows.PlayerWindows;
 
-import LiveCreatures.Player;
+import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

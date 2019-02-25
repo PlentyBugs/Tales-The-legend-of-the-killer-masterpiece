@@ -1,7 +1,7 @@
 package Quests;
 
 import Items.Item;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 public class CollectItemQuest extends Quest {
 

@@ -1,6 +1,6 @@
 package Effects;
 
-import LiveCreatures.LiveCreature;
+import Creatures.LiveCreature;
 
 import java.io.Serializable;
 

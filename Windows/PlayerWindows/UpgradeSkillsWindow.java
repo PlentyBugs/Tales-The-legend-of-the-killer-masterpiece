@@ -1,7 +1,7 @@
 package Windows.PlayerWindows;
 
 import Abilities.Ability;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

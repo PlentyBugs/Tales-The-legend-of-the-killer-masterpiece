@@ -1,7 +1,7 @@
 package Abilities.Buffs;
 
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 
 import java.io.Serializable;
 

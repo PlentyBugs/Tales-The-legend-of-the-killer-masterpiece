@@ -1,6 +1,6 @@
 package Things;
 
-import LiveCreatures.GodCreature;
+import Creatures.GodCreature;
 
 public class Thing extends GodCreature {
     protected String name;

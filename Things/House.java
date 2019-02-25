@@ -14,4 +14,8 @@ public class House extends Thing{
         this.x = x;
         this.y = y;
     }
+    @Override
+    public House getClearCopy() {
+        return new House();
+    }
 }

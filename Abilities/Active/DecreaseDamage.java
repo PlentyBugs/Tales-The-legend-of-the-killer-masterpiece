@@ -3,7 +3,7 @@ package Abilities.Active;
 import Abilities.AbilityTarget;
 import Abilities.AbilityType;
 import Abilities.Buffs.DecreaseDamageBuff;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 public class DecreaseDamage extends AbilityActive {
 

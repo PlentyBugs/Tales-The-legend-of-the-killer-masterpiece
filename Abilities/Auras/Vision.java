@@ -1,8 +1,8 @@
 package Abilities.Auras;
 
 import Abilities.AbilityType;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 
 public class Vision extends Aura {
     public Vision(){

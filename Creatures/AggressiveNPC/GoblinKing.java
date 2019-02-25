@@ -1,4 +1,4 @@
-package LiveCreatures.AggressiveNPC;
+package Creatures.AggressiveNPC;
 
 import Items.Item;
 import Items.Potions.HealPotion;
@@ -48,4 +48,14 @@ public class GoblinKing extends Goblin {
         stats.long_range_weapon = 5;
     }
 
+    @Override
+    public GoblinKing clone() throws CloneNotSupportedException
+    {
+        return (GoblinKing) super.clone();
+    }
+
+    @Override
+    public GoblinKing getClearCopy() {
+        return new GoblinKing();
+    }
 }

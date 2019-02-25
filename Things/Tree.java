@@ -8,4 +8,9 @@ public class Tree extends Thing {
         color = new Color(0,255,100);
         isStep = false;
     }
+
+    @Override
+    public Tree getClearCopy() {
+        return new Tree();
+    }
 }

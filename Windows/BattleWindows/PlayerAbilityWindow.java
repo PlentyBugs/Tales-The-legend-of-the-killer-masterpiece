@@ -4,8 +4,8 @@ import Abilities.Ability;
 import Abilities.AbilityTarget;
 import Abilities.AbilityType;
 import Abilities.Active.AbilityActive;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package LiveCreatures;
+package Creatures;
 
 import java.io.Serializable;
 

@@ -3,8 +3,8 @@ package Abilities.Active;
 import Abilities.Ability;
 import Abilities.AbilityTarget;
 import Abilities.Buffs.Buff;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 
 public class AbilityActive extends Ability {
 

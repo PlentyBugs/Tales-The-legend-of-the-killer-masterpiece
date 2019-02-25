@@ -14,4 +14,8 @@ public class Grass extends Thing {
         this.x = x;
         this.y = y;
     }
+    @Override
+    public Grass getClearCopy() {
+        return new Grass();
+    }
 }

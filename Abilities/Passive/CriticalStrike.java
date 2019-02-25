@@ -2,7 +2,7 @@ package Abilities.Passive;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 public class CriticalStrike extends Ability {
     public CriticalStrike(){

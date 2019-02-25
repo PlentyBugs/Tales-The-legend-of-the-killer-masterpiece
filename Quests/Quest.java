@@ -2,8 +2,8 @@ package Quests;
 
 import Conversations.Conversation;
 import Items.Item;
-import LiveCreatures.PeacefulNPC.Peaceful;
-import LiveCreatures.Player;
+import Creatures.PeacefulNPC.Peaceful;
+import Creatures.Player;
 import Windows.SupportWindows.DialogWindow;
 
 import java.io.Serializable;

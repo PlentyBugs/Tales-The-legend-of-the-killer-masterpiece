@@ -3,7 +3,7 @@ package Abilities.Passive;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 public class Evasion extends Ability {
     public Evasion(){

@@ -1,6 +1,6 @@
 package ConstructorTool;
 
-import LiveCreatures.GodCreature;
+import Creatures.GodCreature;
 import Things.Grass;
 import Things.Tree;
 
@@ -119,12 +119,7 @@ public class ConstructorField extends JFrame {
                 blockButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if(toolMode.getToolModeEnum() == ToolModeEnum.BUILD){
-                            GodCreature godCreature = new GodCreature();
-                            try {
-                                godCreature = (GodCreature) block.getBlock().clone();
-                            } catch (CloneNotSupportedException e1) {
-                                e1.printStackTrace();
-                            }
+                            GodCreature godCreature = block.getBlock().getClearCopy();
                             godCreature.setX(finalJ);
                             godCreature.setY(finalI);
                             map[finalI][finalJ] = godCreature;
@@ -161,12 +156,7 @@ public class ConstructorField extends JFrame {
 
                                         for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
                                             for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
-                                                GodCreature godCreature = new GodCreature();
-                                                try {
-                                                    godCreature = (GodCreature) block.getBlock().clone();
-                                                } catch (CloneNotSupportedException e1) {
-                                                    e1.printStackTrace();
-                                                }
+                                                GodCreature godCreature = block.getBlock().getClearCopy();
                                                 godCreature.setX(k);
                                                 godCreature.setY(z);
                                                 map[z][k] = godCreature;

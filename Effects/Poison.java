@@ -1,6 +1,6 @@
 package Effects;
 
-import LiveCreatures.LiveCreature;
+import Creatures.LiveCreature;
 
 public class Poison extends Effect {
 

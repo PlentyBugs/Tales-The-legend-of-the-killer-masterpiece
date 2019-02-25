@@ -1,6 +1,6 @@
 package Conversations;
 
-import LiveCreatures.Player;
+import Creatures.Player;
 import Windows.ConversationWindows.ShopWindow;
 
 import java.util.ArrayList;

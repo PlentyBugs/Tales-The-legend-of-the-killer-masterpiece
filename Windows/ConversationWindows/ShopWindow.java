@@ -3,7 +3,7 @@ package Windows.ConversationWindows;
 import Abilities.Ability;
 import Conversations.CatalogStockTypeOfItem;
 import Items.Item;
-import LiveCreatures.Player;
+import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

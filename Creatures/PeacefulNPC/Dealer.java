@@ -1,10 +1,14 @@
-package LiveCreatures.PeacefulNPC;
+package Creatures.PeacefulNPC;
 
 import Conversations.Conversation;
 
 import java.awt.*;
 
 public class Dealer extends Peaceful {
+
+    public Dealer(){
+        this(0,0,"Торговец",1,100);
+    }
 
     public Dealer(int x, int y, String name, int lvl, int hp) {
         super(x, y, "Торговец " + name, lvl, hp);
@@ -28,5 +32,16 @@ public class Dealer extends Peaceful {
         if(talkative){
             initializeWindowConv();
         }
+    }
+
+    @Override
+    public Dealer clone() throws CloneNotSupportedException
+    {
+        return (Dealer) super.clone();
+    }
+
+    @Override
+    public Dealer getClearCopy() {
+        return new Dealer();
     }
 }

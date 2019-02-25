@@ -1,6 +1,6 @@
 package Windows.SupportWindows;
 
-import LiveCreatures.Difficulty;
+import Creatures.Difficulty;
 
 import javax.swing.*;
 import java.awt.*;

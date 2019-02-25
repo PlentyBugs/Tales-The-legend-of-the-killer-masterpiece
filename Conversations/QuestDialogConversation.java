@@ -1,7 +1,7 @@
 package Conversations;
 
-import LiveCreatures.PeacefulNPC.Peaceful;
-import LiveCreatures.Player;
+import Creatures.PeacefulNPC.Peaceful;
+import Creatures.Player;
 import Quests.Quest;
 
 public class QuestDialogConversation extends DialogConversation {

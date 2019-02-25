@@ -2,7 +2,7 @@ package ConstructorTool;
 
 import Conversations.Conversation;
 import Conversations.DialogConversation;
-import LiveCreatures.PeacefulNPC.Peaceful;
+import Creatures.PeacefulNPC.Peaceful;
 import Windows.SupportWindows.SupportComponents.ScrollPanels;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package Things;
 
 import Items.Item;
-import LiveCreatures.Player;
+import Creatures.Player;
 import Windows.SupportWindows.InventoryWindowChest;
 
 import java.awt.*;
@@ -83,5 +83,9 @@ public class Chest extends Thing {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+    @Override
+    public Chest getClearCopy() {
+        return new Chest();
     }
 }

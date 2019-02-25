@@ -1,4 +1,4 @@
-package LiveCreatures;
+package Creatures;
 
 import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.FieldWindow;
@@ -6,7 +6,7 @@ import Windows.FieldWindow;
 import java.awt.*;
 import java.io.Serializable;
 
-public class GodCreature implements Serializable, Cloneable  {
+public class GodCreature implements Serializable, Cloneable, Copying  {
     protected String name;
     protected Color color;
     protected boolean isStep;
@@ -77,8 +77,12 @@ public class GodCreature implements Serializable, Cloneable  {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException
+    public GodCreature clone() throws CloneNotSupportedException
     {
-        return super.clone();
+        return (GodCreature) super.clone();
+    }
+
+    public GodCreature getClearCopy(){
+        return new GodCreature();
     }
 }

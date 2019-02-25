@@ -1,11 +1,11 @@
-package LiveCreatures.AggressiveNPC;
+package Creatures.AggressiveNPC;
 
 import Items.Item;
 import Items.Potions.HealPotion;
 import Items.Potions.PoisonPotion;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
-import LiveCreatures.Human;
+import Creatures.Human;
 
 import java.awt.*;
 
@@ -49,4 +49,14 @@ public class Goblin extends Human {
         stats.long_range_weapon = 5;
     }
 
+    @Override
+    public Goblin clone() throws CloneNotSupportedException
+    {
+        return (Goblin) super.clone();
+    }
+
+    @Override
+    public Goblin getClearCopy() {
+        return new Goblin();
+    }
 }

@@ -1,6 +1,6 @@
 package Windows.PlayerWindows;
 
-import LiveCreatures.Player;
+import Creatures.Player;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Quests.Quest;

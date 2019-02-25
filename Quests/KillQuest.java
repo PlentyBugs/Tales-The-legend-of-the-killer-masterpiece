@@ -1,6 +1,6 @@
 package Quests;
 
-import LiveCreatures.LiveCreature;
+import Creatures.LiveCreature;
 
 public class KillQuest extends Quest {
     private LiveCreature enemyToKill;

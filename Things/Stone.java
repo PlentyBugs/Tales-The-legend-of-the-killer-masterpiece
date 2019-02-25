@@ -8,4 +8,8 @@ public class Stone extends Thing {
         color = Color.LIGHT_GRAY;
         isStep = true;
     }
+    @Override
+    public Stone getClearCopy() {
+        return new Stone();
+    }
 }

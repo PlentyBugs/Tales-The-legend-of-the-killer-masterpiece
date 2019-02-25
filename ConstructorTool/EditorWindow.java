@@ -12,9 +12,9 @@ import Items.Weapons.Bows.Bow;
 import Items.Weapons.Bows.LongBow;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
-import LiveCreatures.GodCreature;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.PeacefulNPC.Peaceful;
+import Creatures.GodCreature;
+import Creatures.LiveCreature;
+import Creatures.PeacefulNPC.Peaceful;
 import Things.Chest;
 
 import javax.swing.*;

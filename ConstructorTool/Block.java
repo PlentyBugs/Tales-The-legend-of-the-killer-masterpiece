@@ -1,6 +1,6 @@
 package ConstructorTool;
 
-import LiveCreatures.GodCreature;
+import Creatures.GodCreature;
 
 public class Block {
     private BlockType blockType;

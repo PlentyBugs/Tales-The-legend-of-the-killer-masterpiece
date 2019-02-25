@@ -1,7 +1,7 @@
 package Windows.PlayerWindows;
 
-import LiveCreatures.Player;
-import LiveCreatures.StatsEnum;
+import Creatures.Player;
+import Creatures.StatsEnum;
 
 import javax.swing.*;
 import java.awt.*;

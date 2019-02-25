@@ -1,4 +1,4 @@
-package LiveCreatures;
+package Creatures;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
@@ -44,6 +44,10 @@ public abstract class LiveCreature extends GodCreature {
     protected Equipment equipment = new Equipment();
 
     protected ArrayList<Ability> abilities = new ArrayList<>();
+
+    public LiveCreature(){
+        this(0,0,"Существо",1,100);
+    }
 
     public LiveCreature(int x, int y, String name, int lvl, int hp){
 

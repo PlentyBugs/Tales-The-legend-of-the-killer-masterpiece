@@ -1,8 +1,8 @@
 package Windows;
 
-import LiveCreatures.GodCreature;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.GodCreature;
+import Creatures.LiveCreature;
+import Creatures.Player;
 import Locations.Map;
 import Things.Chest;
 import Things.Grass;
@@ -76,7 +76,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
                 button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
 
-                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("LiveCreatures");
+                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("Creatures");
                 boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
                 boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("DoorToUpperLevelLocation");
                 boolean isChest = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest");

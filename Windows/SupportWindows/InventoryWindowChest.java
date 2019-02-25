@@ -3,7 +3,7 @@ package Windows.SupportWindows;
 import Items.Armors.Armor;
 import Items.Item;
 import Items.Weapons.Weapon;
-import LiveCreatures.Player;
+import Creatures.Player;
 import Things.Chest;
 
 import javax.swing.*;

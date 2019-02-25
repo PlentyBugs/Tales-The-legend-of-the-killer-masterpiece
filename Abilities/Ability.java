@@ -1,6 +1,6 @@
 package Abilities;
 
-import LiveCreatures.Player;
+import Creatures.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;

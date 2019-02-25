@@ -1,7 +1,7 @@
 import Abilities.Auras.Vision;
 import Abilities.Passive.Steal;
-import LiveCreatures.Difficulty;
-import LiveCreatures.Player;
+import Creatures.Difficulty;
+import Creatures.Player;
 import Windows.FieldWindow;
 import Windows.SupportWindows.ChooseNameWindow;
 

@@ -1,4 +1,4 @@
-package LiveCreatures;
+package Creatures;
 
 import Abilities.Ability;
 import Abilities.AbilityType;

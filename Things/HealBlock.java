@@ -1,10 +1,15 @@
 package Things;
 
-import LiveCreatures.Player;
+import Creatures.Player;
 
 import java.awt.*;
 
 public class HealBlock extends Thing {
+
+    public HealBlock(){
+        this(0, 0);
+    }
+
     public HealBlock(int x, int y){
         this.x = x;
         this.y = y;
@@ -20,5 +25,9 @@ public class HealBlock extends Thing {
         } else {
             player.setHp(player.getHp() + healCount);
         }
+    }
+    @Override
+    public HealBlock getClearCopy() {
+        return new HealBlock();
     }
 }

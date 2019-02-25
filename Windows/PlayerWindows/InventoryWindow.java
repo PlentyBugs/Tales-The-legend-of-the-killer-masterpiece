@@ -4,8 +4,8 @@ import Items.Armors.Armor;
 import Items.Item;
 import Items.Potions.Potion;
 import Items.Weapons.Weapon;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;

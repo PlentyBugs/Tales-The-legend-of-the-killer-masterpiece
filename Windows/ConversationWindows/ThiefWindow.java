@@ -3,8 +3,8 @@ package Windows.ConversationWindows;
 import Items.Armors.Armor;
 import Items.Item;
 import Items.Weapons.Weapon;
-import LiveCreatures.LiveCreature;
-import LiveCreatures.Player;
+import Creatures.LiveCreature;
+import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
 
 import javax.swing.*;

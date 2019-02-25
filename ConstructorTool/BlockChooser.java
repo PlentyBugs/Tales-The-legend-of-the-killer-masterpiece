@@ -1,11 +1,11 @@
 package ConstructorTool;
 
-import LiveCreatures.*;
-import LiveCreatures.AggressiveNPC.Bandit;
-import LiveCreatures.AggressiveNPC.Goblin;
-import LiveCreatures.AggressiveNPC.Knight;
-import LiveCreatures.PeacefulNPC.Dealer;
-import LiveCreatures.PeacefulNPC.Inhabitant;
+import Creatures.*;
+import Creatures.AggressiveNPC.Bandit;
+import Creatures.AggressiveNPC.Goblin;
+import Creatures.AggressiveNPC.Knight;
+import Creatures.PeacefulNPC.Dealer;
+import Creatures.PeacefulNPC.Inhabitant;
 import Locations.Map;
 import Things.*;
 
@@ -158,7 +158,7 @@ public class BlockChooser extends JFrame {
 
             blockButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if (creature.getClass().toString().split(" ")[1].split("\\.")[0].equals("LiveCreatures")){
+                    if (creature.getClass().toString().split(" ")[1].split("\\.")[0].equals("Creatures")){
                         block.setEditable(true);
                     } else {
                         block.setEditable(false);

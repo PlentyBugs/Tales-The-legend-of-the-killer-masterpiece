@@ -125,13 +125,9 @@ public class ScrollPanels {
         if(!check){
             ArrayList<String> old = (ArrayList<String>) numberOfLayers.clone();
             numberOfLayers.clear();
-            System.out.println();
-            System.out.println(old);
             for (int i = 0; i < layer; i++){
-                System.out.println(i);
                 numberOfLayers.add(old.get(i));
             }
-            System.out.println(numberOfLayers);
         }
     }
 
