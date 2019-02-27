@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -24,32 +25,40 @@ public class FieldWindow extends JFrame implements Serializable {
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
+    private JPanel mainPanel = new JPanel(new GridBagLayout());
+    private GridBagConstraints mainConstraints = new GridBagConstraints();
+    private JPanel contentPanel = new JPanel(new GridBagLayout());
+    private GridBagConstraints contentConstraints = new GridBagConstraints();
+    private Component selectedTab;
+    private JTabbedPane menu = new JTabbedPane();
     private Map currentMap;
     private static final long serialVersionUID = -5963455665311017981L;
 
-    private Console console = new Console();
+    private Console console;
 
-    public FieldWindow(String name, int x, int y, int vision, Player player, GodCreature[][] information) {
+    public FieldWindow(String name, int vision, Player player, GodCreature[][] information, Map map) {
         super(name);
 
         this.player = player;
 
+        console = new Console();
+
         this.vision = vision;
-        this.x = x;
-        this.y = y;
+        x = 1024;
+        y = 720;
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        console.setSizeArea((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()-40, (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/6.5));
 
-        setPreferredSize(new Dimension(x,y));
+        currentMap = map;
 
-        drawField(information);
-
-        getContentPane().add(panel);
-        getContentPane().add(console, BorderLayout.SOUTH);
-        pack();
-        setVisible(true);
+        drawMap();
     }
 
     public void drawField(GodCreature[][] information){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         realVision = player.getVision()*2+1;
         int width = (int)(x*0.95)/realVision;
@@ -86,14 +95,7 @@ public class FieldWindow extends JFrame implements Serializable {
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                            player.setFieldWindow(FieldWindow.this);
-                            if(!player.getIsManagerOpen()){
-                                player.setManagerWindowIsVisible(true);
-                                player.setManagerOpen(true);
-                            } else {
-                                player.setManagerWindowIsVisible(false);
-                                player.setManagerOpen(false);
-                            }
+                            // he he
                         }
                     });
                 } else if (isHealBlock){
@@ -184,15 +186,87 @@ public class FieldWindow extends JFrame implements Serializable {
     }
 
     public void drawMap(){
-        getContentPane().remove(panel);
+        getContentPane().removeAll();
+        mainPanel = new JPanel(new GridBagLayout());
+        mainConstraints = new GridBagConstraints();
+        mainConstraints.anchor = GridBagConstraints.WEST;
+        mainConstraints.insets = new Insets(0, 5, 0, 5);
+        mainConstraints.gridx = 0;
+        mainConstraints.gridy = 0;
+
         panel = new JPanel(new GridBagLayout());
         drawField(currentMap.getMap(player.getX(),player.getY()));
-        getContentPane().add(panel);
-        pack();
+        mainPanel.add(panel, mainConstraints);
+
+        fillContentPanel();
+
+        getContentPane().add(mainPanel, BorderLayout.NORTH);
+        getContentPane().add(console, BorderLayout.SOUTH);
         setVisible(true);
+
         player.countPassiveBuffs();
         player.checkQuests();
         realVision = player.getVision()*2+1;
+    }
+
+    private void fillContentPanel(){
+        mainPanel.remove(contentPanel);
+
+        contentPanel = new JPanel(new GridBagLayout());
+        contentConstraints = new GridBagConstraints();
+        contentConstraints.anchor = GridBagConstraints.WEST;
+        contentConstraints.insets = new Insets(0, 5, 0, 5);
+        contentConstraints.gridx = 0;
+        contentConstraints.gridy = 0;
+
+        contentPanel.setMinimumSize(new Dimension(x - (int)(x/realVision)-380, y));
+        contentPanel.setMaximumSize(new Dimension(x - (int)(x/realVision)-380, y));
+        contentPanel.setPreferredSize(new Dimension(x - (int)(x/realVision)-380, y));
+
+
+        selectedTab = menu.getSelectedComponent();
+        menu = new JTabbedPane();
+
+        menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-380, y));
+        menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-380, y));
+        menu.setPreferredSize(new Dimension(x - (int)(x/realVision)-380, y));
+        updateTabs(menu);
+
+        contentPanel.add(menu);
+        mainConstraints.gridx = 1;
+        mainPanel.add(contentPanel, mainConstraints);
+    }
+
+    private void updateTabs(JTabbedPane menu){
+        menu.removeAll();
+
+        JPanel inventory = player.getInventoryWindow().getPanel();
+        JPanel upgrade = player.getUpStatsWindow().getPanel();
+        JPanel equipment = player.getEquipmentWindow().getPanel();
+        JPanel info = player.getPlayerInfoWindow().getPanel();
+        JPanel abilities = player.getPlayerAbilityWindow().getPanel();
+        JPanel quests = player.getPlayerQuestWindow().getPanel();
+        JPanel save = new JPanel();
+
+        menu.addTab("Инвентарь", inventory);
+        menu.setMnemonicAt(0, KeyEvent.VK_I);
+        menu.addTab("Прокачка", upgrade);
+        menu.setMnemonicAt(1, KeyEvent.VK_C);
+        menu.addTab("Экипировка", equipment);
+        menu.setMnemonicAt(2, KeyEvent.VK_E);
+        menu.addTab("Информация", info);
+        menu.setMnemonicAt(3, KeyEvent.VK_O);
+        menu.addTab("Умения", abilities);
+        menu.setMnemonicAt(4, KeyEvent.VK_K);
+        menu.addTab("Квесты", quests);
+        menu.setMnemonicAt(5, KeyEvent.VK_Q);
+        menu.addTab("Сохранить", save);
+        menu.setMnemonicAt(6, KeyEvent.VK_F5);
+        if(selectedTab != null){
+            try{
+                menu.setSelectedComponent(selectedTab);
+            }catch (IllegalArgumentException e){}
+        }
     }
 
     public void setCurrentMap(Map currentMap) {

@@ -25,19 +25,10 @@ public class Player extends Human {
     private UpStatsWindow upStatsWindow;
     private InventoryWindow inventoryWindow;
     private EquipmentWindow equipmentWindow;
-    private PlayerWindowManager managerWindow;
     private PlayerInfoWindow playerInfoWindow;
     private UpgradeSkillsWindow playerAbilityWindow;
     private QuestsWindow playerQuestWindow;
     private FieldWindow fieldWindow;
-
-    private boolean isUpStatsOpen;
-    private boolean isInventoryOpen;
-    private boolean isEquipmentOpen;
-    private boolean isManagerOpen;
-    private boolean isInfoWindowOpen;
-    private boolean isAbilityWindowOpen;
-    private boolean isQuestWindowOpen;
 
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
@@ -86,25 +77,11 @@ public class Player extends Human {
 
     public void initWindoows(){
         upStatsWindow = new UpStatsWindow(this);
-        setUpStatsWindowIsVisible(false);
-
         inventoryWindow = new InventoryWindow(this);
-        setInventoryWindowIsVisible(false);
-
         equipmentWindow = new EquipmentWindow(this);
-        setEquipmentIsVisible(false);
-
-        managerWindow = new PlayerWindowManager(this);
-        setManagerWindowIsVisible(false);
-
         playerInfoWindow = new PlayerInfoWindow(this);
-        setInfoWindowIsVisible(false);
-
         playerAbilityWindow = new UpgradeSkillsWindow(this);
-        setAbilityWindowIsVisible(false);
-
         playerQuestWindow = new QuestsWindow(this);
-        setQuestWindowIsVisible(false);
     }
 
     public void setVision(int vision) {
@@ -182,91 +159,19 @@ public class Player extends Human {
         fieldWindow.writeToConsole("\tДальнобойное оружие: " + stats.long_range_weapon);
     }
 
+    public QuestsWindow getPlayerQuestWindow() {
+        return playerQuestWindow;
+    }
+
+    public PlayerInfoWindow getPlayerInfoWindow() {
+        return playerInfoWindow;
+    }
+
+    public UpgradeSkillsWindow getPlayerAbilityWindow() {
+        return playerAbilityWindow;
+    }
+
     public void setUpStatsOpen(boolean isUpStatsOpen) {
-        this.isUpStatsOpen = isUpStatsOpen;
-    }
-
-    public boolean getIsUpStatsOpen() {
-        return isUpStatsOpen;
-    }
-
-    public void setUpStatsWindowIsVisible(boolean isVisible) {
-        upStatsWindow.setIsVisible(isVisible);
-    }
-
-    public void setInventoryOpen(boolean isInventoryOpen) {
-        this.isInventoryOpen = isInventoryOpen;
-    }
-
-    public boolean getIsInventoryOpen() {
-        return isInventoryOpen;
-    }
-
-    public void setInventoryWindowIsVisible(boolean isVisible) {
-        inventoryWindow.setIsVisible(isVisible);
-    }
-
-    public void setEquipmentOpen(boolean isEquipmentOpen) {
-        this.isEquipmentOpen = isEquipmentOpen;
-    }
-
-    public boolean getIsEquipmentOpen() {
-        return isEquipmentOpen;
-    }
-
-    public void setEquipmentIsVisible(boolean isVisible) {
-        equipmentWindow.setIsVisible(isVisible);
-    }
-
-    public void setManagerOpen(boolean isManagerOpen) {
-        this.isManagerOpen = isManagerOpen;
-    }
-
-    public boolean getIsManagerOpen() {
-        return isManagerOpen;
-    }
-
-    public void setManagerWindowIsVisible(boolean isVisible) {
-        managerWindow.setIsVisible(isVisible);
-    }
-
-    public void setInfoWindowOpen(boolean isInfoWindowOpen) {
-        this.isInfoWindowOpen = isInfoWindowOpen;
-    }
-
-    public boolean getIsInfoWindowOpen() {
-        return isInfoWindowOpen;
-    }
-
-    public void setInfoWindowIsVisible(boolean isVisible) {
-        playerInfoWindow.setIsVisible(isVisible);
-    }
-
-    public void setAbilityWindowIsVisible(boolean isVisible) {
-        playerAbilityWindow.setIsVisible(isVisible);
-    }
-
-    public void setAbilityWindowOpen(boolean isAbilityWindowOpen) {
-        this.isAbilityWindowOpen = isAbilityWindowOpen;
-    }
-
-    public boolean getIsAbilityWindowOpen() {
-        return isAbilityWindowOpen;
-    }
-
-    public void setQuestWindowIsVisible(boolean isVisible) {
-        playerQuestWindow.setIsVisible(isVisible);
-    }
-
-    public void setQuestWindowOpen(boolean isQuestWindowOpen) {
-        this.isQuestWindowOpen = isQuestWindowOpen;
-    }
-
-    public boolean getIsQuestWindowOpen() {
-        return isQuestWindowOpen;
-    }
-    public UpStatsWindow getUpStatsWindow(){
-        return upStatsWindow;
     }
 
     public int getExp() {
@@ -395,5 +300,9 @@ public class Player extends Human {
 
     public InventoryWindow getInventoryWindow() {
         return inventoryWindow;
+    }
+
+    public UpStatsWindow getUpStatsWindow() {
+        return upStatsWindow;
     }
 }

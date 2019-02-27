@@ -4,8 +4,6 @@ import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -20,30 +18,10 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
         super("Информация");
 
         this.player = player;
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                player.setInfoWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                player.setInfoWindowOpen(false);
-            }
-        });
         drawInfo();
     }
 
-    private void drawInfo(){
-
-        getContentPane().remove(panel);
+    public void drawInfo(){
 
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -91,9 +69,8 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
         JLabel lvlPointsCount = new JLabel(Integer.toString(player.getLevelpoints()));
         panel.add(lvlPointsCount, constraints);
 
-        getContentPane().add(panel);
         pack();
-        setVisible(true);
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public void close(){
@@ -102,6 +79,9 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
 
     public void setIsVisible(boolean b) {
         drawInfo();
-        setVisible(b);
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }

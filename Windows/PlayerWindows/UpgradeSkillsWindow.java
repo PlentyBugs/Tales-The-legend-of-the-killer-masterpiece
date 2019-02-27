@@ -17,32 +17,12 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
 
     public UpgradeSkillsWindow(Player player){
         super("Прокачка умений");
-        this.player = player;setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
 
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                player.setAbilityWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                player.setAbilityWindowOpen(false);
-            }
-        });
-
+        this.player = player;
         drawWindow();
     }
 
-    private void drawWindow(){
-
-        getContentPane().remove(panel);
-
+    public void drawWindow(){
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
 
@@ -91,9 +71,8 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
             panel.add(skill, constraints);
             constraints.gridy ++;
         }
-        getContentPane().add(panel);
         pack();
-        setVisible(true);
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public void close(){
@@ -102,6 +81,9 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
 
     public void setIsVisible(boolean b) {
         drawWindow();
-        setVisible(b);
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }

@@ -1,14 +1,12 @@
 package Windows.PlayerWindows;
 
+import Creatures.Player;
 import Items.Armors.Armor;
 import Items.Item;
 import Items.Weapons.Weapon;
-import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -23,24 +21,6 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
     public EquipmentWindow(Player player){
         super("Экипировка");
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                player.setEquipmentOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                player.setEquipmentOpen(false);
-            }
-        });
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;
@@ -52,16 +32,10 @@ public class EquipmentWindow extends JFrame implements Serializable {
     }
 
     public void setIsVisible(boolean b) {
-        if(b){
-            drawEquipment();
-        }
-        setVisible(b);
+        drawEquipment();
     }
 
     public void drawEquipment(){
-
-        getContentPane().remove(panel);
-
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
 
@@ -147,8 +121,11 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
             constraints.gridy ++;
         }
-        getContentPane().add(panel);
         pack();
-        setVisible(true);
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }

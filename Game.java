@@ -68,8 +68,7 @@ public class Game {
                 player.setDifficulty(difficulty);
             }
 
-            FieldWindow fieldWindow1 = new FieldWindow("Поле", 1024, 720, player.getVision(), player, map.getMap(player.getX(), player.getY()));
-            fieldWindow1.setCurrentMap(map);
+            FieldWindow fieldWindow1 = new FieldWindow("Поле", player.getVision(), player, map.getMap(player.getX(), player.getY()), map);
 
             player.setFieldWindow(fieldWindow1);
 

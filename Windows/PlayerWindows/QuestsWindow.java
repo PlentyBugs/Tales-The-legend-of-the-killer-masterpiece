@@ -7,8 +7,6 @@ import Quests.Quest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 
 public class QuestsWindow extends JFrame {
@@ -20,24 +18,7 @@ public class QuestsWindow extends JFrame {
     private int height = 240;
 
     public QuestsWindow(Player player){
-        super("Квесты");setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                player.setQuestWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                player.setQuestWindowOpen(false);
-            }
-        });
+        super("Квесты");
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;
@@ -45,8 +26,7 @@ public class QuestsWindow extends JFrame {
         drawWindow();
     }
 
-    private void drawWindow(){
-        getContentPane().remove(panel);
+    public void drawWindow(){
 
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -92,11 +72,8 @@ public class QuestsWindow extends JFrame {
 
             constraints.gridy ++;
         }
-
-        getContentPane().add(panel);
         pack();
-        setVisible(true);
-
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public void close(){
@@ -104,9 +81,10 @@ public class QuestsWindow extends JFrame {
     }
 
     public void setIsVisible(boolean b) {
-        setVisible(b);
-        if(b){
-            drawWindow();
-        }
+        drawWindow();
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }

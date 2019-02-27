@@ -136,9 +136,7 @@ public class ThiefWindow extends JFrame implements Serializable {
                         thief.addItemToInventory(item);
                         player.removeItem(item);
                         drawInventory();
-                        if(thief.getIsInventoryOpen()){
-                            thief.getInventoryWindow().drawInventory();
-                        }
+                        thief.getInventoryWindow().drawInventory();
                     } else {
                         FightWindow fightWindow = new FightWindow(thief, player, thief.getFieldWindow());
                         close();

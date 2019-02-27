@@ -21,29 +21,12 @@ public class InventoryWindow extends JFrame implements Serializable {
     private JPanel menuPanel = new JPanel();
     private int width = 720;
     private int height = 720;
+    private JPanel panelz = new JPanel();;
     private static final long serialVersionUID = -559721917387219997L;
     private String currentInventory = "All";
 
     public InventoryWindow(LiveCreature player){
         super("Инвентарь");
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                ((Player)player).setInventoryOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                ((Player)player).setInventoryOpen(false);
-            }
-        });
 
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
@@ -59,11 +42,9 @@ public class InventoryWindow extends JFrame implements Serializable {
 
     public void setIsVisible(boolean b) {
         drawInventory();
-        setVisible(b);
     }
 
     public void drawInventory(){
-        getContentPane().remove(menuPanel);
         menuPanel = new JPanel();
 
         JButton allInventory = new JButton("Всё");
@@ -76,12 +57,13 @@ public class InventoryWindow extends JFrame implements Serializable {
         menuPanel.add(armorInventory);
         menuPanel.add(potionInventory);
 
-        getContentPane().add(menuPanel, BorderLayout.SOUTH);
-
         allInventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 currentInventory = "All";
                 drawInventory();
+                if(player.getClass().toString().contains("Player")){
+                    ((Player)player).getFieldWindow().drawMap();
+                }
             }
         });
 
@@ -89,6 +71,9 @@ public class InventoryWindow extends JFrame implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 currentInventory = "Weapon";
                 drawInventory();
+                if(player.getClass().toString().contains("Player")){
+                    ((Player)player).getFieldWindow().drawMap();
+                }
             }
         });
 
@@ -96,6 +81,9 @@ public class InventoryWindow extends JFrame implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 currentInventory = "Armor";
                 drawInventory();
+                if(player.getClass().toString().contains("Player")){
+                    ((Player)player).getFieldWindow().drawMap();
+                }
             }
         });
 
@@ -103,10 +91,11 @@ public class InventoryWindow extends JFrame implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 currentInventory = "Potion";
                 drawInventory();
+                if(player.getClass().toString().contains("Player")){
+                    ((Player)player).getFieldWindow().drawMap();
+                }
             }
         });
-
-        getContentPane().remove(scroll);
 
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -170,10 +159,10 @@ public class InventoryWindow extends JFrame implements Serializable {
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
             }
 
-            itemName.setFont(new Font("Serif", Font.PLAIN, 16));
-            itemQuality.setFont(new Font("Serif", Font.PLAIN, 16));
-            property.setFont(new Font("Serif", Font.PLAIN, 16));
-            propertyCount.setFont(new Font("Serif", Font.PLAIN, 16));
+            itemName.setFont(new Font("Serif", Font.PLAIN, 12));
+            itemQuality.setFont(new Font("Serif", Font.PLAIN, 12));
+            property.setFont(new Font("Serif", Font.PLAIN, 12));
+            propertyCount.setFont(new Font("Serif", Font.PLAIN, 12));
 
             itemName.setForeground(colorForeground);
             itemQuality.setForeground(colorForeground);
@@ -193,8 +182,9 @@ public class InventoryWindow extends JFrame implements Serializable {
                 useButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         player.equip(item);
-                        if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null && ((Player)player).getIsEquipmentOpen()){
+                        if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
                             ((Player)player).getEquipmentWindow().drawEquipment();
+                            ((Player)player).getFieldWindow().drawMap();
                         }
                     }
                 });
@@ -204,6 +194,7 @@ public class InventoryWindow extends JFrame implements Serializable {
                         ((Potion)item).use(player);
                         player.removeItem(item);
                         drawInventory();
+                        ((Player)player).getFieldWindow().drawMap();
                     }
                 });
             }
@@ -222,8 +213,14 @@ public class InventoryWindow extends JFrame implements Serializable {
 
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(width,height-80));
-        getContentPane().add(scroll, BorderLayout.NORTH);
-        pack();
-        setVisible(true);
+    }
+
+    public JPanel getPanel() {
+        drawInventory();
+        panelz.removeAll();
+        panelz = new JPanel();
+        panelz.add(menuPanel);
+        panelz.add(this.panel);
+        return panelz;
     }
 }

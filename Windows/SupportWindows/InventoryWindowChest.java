@@ -120,9 +120,7 @@ public class InventoryWindowChest extends JFrame {
                     player.addItemToInventory(item);
                     chest.removeItemFromInventory(item);
                     drawInventory();
-                    if(player.getIsInventoryOpen()){
-                        player.getInventoryWindow().drawInventory();
-                    }
+                    player.getInventoryWindow().drawInventory();
                 }
             });
 

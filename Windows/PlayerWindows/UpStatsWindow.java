@@ -36,25 +36,20 @@ public class UpStatsWindow extends JFrame implements Serializable {
             }
         });
         setPreferredSize(new Dimension(220,680));
-        getContentPane().add(panel);
 
         setLayout(new FlowLayout());
 
-        drawInventory();
+        drawWindow();
     }
     public void close(){
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public void setIsVisible(boolean b) {
-        drawInventory();
-        setVisible(b);
+        drawWindow();
     }
 
-    private void drawInventory(){
-
-        getContentPane().remove(panel);
-
+    public void drawWindow(){
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -346,8 +341,11 @@ public class UpStatsWindow extends JFrame implements Serializable {
             constraints.gridy ++;
             panel.add(longRangeWeaponButton, constraints);
         }
-        getContentPane().add(panel);
         pack();
-        setVisible(true);
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }
