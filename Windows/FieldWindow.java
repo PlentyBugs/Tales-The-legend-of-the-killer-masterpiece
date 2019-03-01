@@ -3,16 +3,16 @@ package Windows;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Alchemy.Ingredients.Ingredient;
 import Locations.Map;
-import Things.Chest;
+import Things.ChestLike.Chest;
 import Things.Grass;
 import Things.HealBlock;
+import Things.Herbs.Herb;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
@@ -31,6 +31,13 @@ public class FieldWindow extends JFrame implements Serializable {
     private GridBagConstraints contentConstraints = new GridBagConstraints();
     private Component selectedTab;
     private JTabbedPane menu = new JTabbedPane();
+    private JPanel inventory;
+    private JPanel upgrade;
+    private JPanel equipment;
+    private JPanel info;
+    private JPanel abilities;
+    private JPanel quests;
+    private JPanel save;
     private Map currentMap;
     private static final long serialVersionUID = -5963455665311017981L;
 
@@ -40,6 +47,14 @@ public class FieldWindow extends JFrame implements Serializable {
         super(name);
 
         this.player = player;
+
+        inventory = player.getInventoryWindow().getPanel();
+        upgrade = player.getUpStatsWindow().getPanel();
+        equipment = player.getEquipmentWindow().getPanel();
+        info = player.getPlayerInfoWindow().getPanel();
+        abilities = player.getPlayerAbilityWindow().getPanel();
+        quests = player.getPlayerQuestWindow().getPanel();
+        save = new JPanel();
 
         console = new Console();
 
@@ -85,22 +100,19 @@ public class FieldWindow extends JFrame implements Serializable {
                 button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
                 button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
 
-                boolean isLiveCreature = information[i][j].getClass().toString().split("\\.")[0].split(" ")[1].equals("Creatures");
-                boolean isHealBlock = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("HealBlock");
-                boolean isDoorToUpperLevel = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("DoorToUpperLevelLocation");
-                boolean isChest = information[i][j].getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest");
+                boolean isLiveCreature = information[i][j].getClass().toString().contains("Creatures");
+                boolean isHerb = information[i][j].getClass().toString().contains("Herb");
+                boolean isHealBlock = information[i][j].getClass().toString().contains("HealBlock");
+                boolean isDoorToUpperLevel = information[i][j].getClass().toString().contains("DoorToUpperLevelLocation");
+                boolean isChest = information[i][j].getClass().toString().contains("Chest");
 
                 GodCreature liveCreature = information[i][j];
 
                 if (information[i][j].getIsPlayer()){
-                    button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            // he he
-                        }
-                    });
+                    button.addActionListener(e -> drawAllPlayerWindow());
                 } else if (isHealBlock){
-                    button.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+                    button.addActionListener(e -> {
+                        drawAllPlayerWindow();
                         player.setFieldWindow(FieldWindow.this);
                         currentMap.setElementByCoordinates(liveCreature.getX(), liveCreature.getY(), new Grass(liveCreature.getX(), liveCreature.getY()));
                         ((HealBlock)liveCreature).heal(player);
@@ -108,68 +120,70 @@ public class FieldWindow extends JFrame implements Serializable {
                         int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
                         currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
                         drawMap();
-                    }
-                });
+                    });
                 } else if (isDoorToUpperLevel) {
-                    button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            player.setFieldWindow(FieldWindow.this);
-                            currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
-                            player.setX(0);
-                            player.setY(0);
-                            drawMap();
-                        }
+                    button.addActionListener(e -> {
+                        drawAllPlayerWindow();
+                        player.setFieldWindow(FieldWindow.this);
+                        currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
+                        player.setX(0);
+                        player.setY(0);
+                        drawMap();
                     });
                 } else if (isChest) {
-                    button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            player.setFieldWindow(FieldWindow.this);
-                            if(!((Chest)liveCreature).getIsInventoryChestOpen()){
-                                ((Chest)liveCreature).setPlayer(player);
-                                ((Chest)liveCreature).setInventoryWindow();
-                                ((Chest)liveCreature).setInventoryWindowChestIsVisible(true);
-                                ((Chest)liveCreature).setInventoryChestOpen(true);
-                            } else {
-                                ((Chest)liveCreature).getInventoryWindow().close();
-                                ((Chest)liveCreature).setInventoryWindowChestIsVisible(false);
-                                ((Chest)liveCreature).setInventoryChestOpen(false);
-                            }
+                    button.addActionListener(e -> {
+                        drawAllPlayerWindow();
+                        player.setFieldWindow(FieldWindow.this);
+                        if(!((Chest)liveCreature).getIsInventoryChestOpen()){
+                            ((Chest)liveCreature).setPlayer(player);
+                            ((Chest)liveCreature).setInventoryWindow();
+                            ((Chest)liveCreature).setInventoryWindowChestIsVisible(true);
+                            ((Chest)liveCreature).setInventoryChestOpen(true);
+                        } else {
+                            ((Chest)liveCreature).getInventoryWindow().close();
+                            ((Chest)liveCreature).setInventoryWindowChestIsVisible(false);
+                            ((Chest)liveCreature).setInventoryChestOpen(false);
                         }
                     });
                 } else {
-                    button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            if (isStep){
-                                player.setFieldWindow(FieldWindow.this);
-                                player.setX(X);
-                                player.setY(Y);
-                                drawMap();
-                            } else if (isLiveCreature){
-                                player.setFieldWindow(FieldWindow.this);
-                                if (((LiveCreature)liveCreature).getTalkative()){
-                                    ((LiveCreature)liveCreature).setConversationWindowPlayer(player);
-                                    if(!((LiveCreature)liveCreature).getIsConversationWindowOpen()){
-                                        ((LiveCreature)liveCreature).setConversationWindowIsVisible(true);
-                                        ((LiveCreature)liveCreature).setConversationWindowOpen(true);
-                                    } else {
-                                        ((LiveCreature)liveCreature).setConversationWindowIsVisible(false);
-                                        ((LiveCreature)liveCreature).setConversationWindowOpen(false);
-                                    }
+                    int finalI = i;
+                    int finalJ = j;
+                    button.addActionListener(e -> {
+                        drawAllPlayerWindow();
+                        if (isStep){
+                            player.setFieldWindow(FieldWindow.this);
+                            player.setX(X);
+                            player.setY(Y);
+                            if(isHerb){
+                                player.addItemToInventory((Ingredient)((Herb)information[finalI][finalJ]).getHerb());
+                                currentMap.setElementByCoordinates(X, Y, new Grass());
+                            }
+                            drawMap();
+                        } else if (isLiveCreature){
+                            player.setFieldWindow(FieldWindow.this);
+                            if (((LiveCreature)liveCreature).getTalkative()){
+                                ((LiveCreature)liveCreature).setConversationWindowPlayer(player);
+                                if(!((LiveCreature)liveCreature).getIsConversationWindowOpen()){
+                                    ((LiveCreature)liveCreature).setConversationWindowIsVisible(true);
+                                    ((LiveCreature)liveCreature).setConversationWindowOpen(true);
                                 } else {
-                                    player.setFieldWindow(FieldWindow.this);
-                                    if(((LiveCreature)liveCreature).getHp() == 0){
-                                        ((LiveCreature)liveCreature).countStatsAfterBorn();
-                                    }
-                                    if (liveCreature.getChooseEnemyWindow() == null){
-                                        liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
-                                    }
-                                    if(!liveCreature.getIsChooseEnemyWindowOpen()){
-                                        liveCreature.setChooseEnemyWindowIsVisible(true);
-                                        liveCreature.setChooseEnemyWindowOpen(true);
-                                    } else {
-                                        liveCreature.setChooseEnemyWindowIsVisible(false);
-                                        liveCreature.setChooseEnemyWindowOpen(false);
-                                    }
+                                    ((LiveCreature)liveCreature).setConversationWindowIsVisible(false);
+                                    ((LiveCreature)liveCreature).setConversationWindowOpen(false);
+                                }
+                            } else {
+                                player.setFieldWindow(FieldWindow.this);
+                                if(((LiveCreature)liveCreature).getHp() == 0){
+                                    ((LiveCreature)liveCreature).countStatsAfterBorn();
+                                }
+                                if (liveCreature.getChooseEnemyWindow() == null){
+                                    liveCreature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) liveCreature);
+                                }
+                                if(!liveCreature.getIsChooseEnemyWindowOpen()){
+                                    liveCreature.setChooseEnemyWindowIsVisible(true);
+                                    liveCreature.setChooseEnemyWindowOpen(true);
+                                } else {
+                                    liveCreature.setChooseEnemyWindowIsVisible(false);
+                                    liveCreature.setChooseEnemyWindowOpen(false);
                                 }
                             }
                         }
@@ -223,30 +237,33 @@ public class FieldWindow extends JFrame implements Serializable {
         contentPanel.setMaximumSize(new Dimension(x - (int)(x/realVision)-380, y));
         contentPanel.setPreferredSize(new Dimension(x - (int)(x/realVision)-380, y));
 
-
-        selectedTab = menu.getSelectedComponent();
-        menu = new JTabbedPane();
-
-        menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-380, y));
-        menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-380, y));
-        menu.setPreferredSize(new Dimension(x - (int)(x/realVision)-380, y));
-        updateTabs(menu);
+        updateTabs();
 
         contentPanel.add(menu);
         mainConstraints.gridx = 1;
         mainPanel.add(contentPanel, mainConstraints);
     }
 
-    private void updateTabs(JTabbedPane menu){
+    private void updateTabs(){
+        int i;
+        for(i = 0; i < menu.getComponents().length; i++){
+            if(menu.getSelectedComponent() == menu.getComponent(i)){
+                break;
+            }
+        }
         menu.removeAll();
 
-        JPanel inventory = player.getInventoryWindow().getPanel();
-        JPanel upgrade = player.getUpStatsWindow().getPanel();
-        JPanel equipment = player.getEquipmentWindow().getPanel();
-        JPanel info = player.getPlayerInfoWindow().getPanel();
-        JPanel abilities = player.getPlayerAbilityWindow().getPanel();
-        JPanel quests = player.getPlayerQuestWindow().getPanel();
-        JPanel save = new JPanel();
+        menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-404, y));
+        menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-404, y));
+        menu.setPreferredSize(new Dimension(x - (int)(x/realVision)-404, y));
+
+        inventory = player.getInventoryWindow().getPanel();
+        upgrade = player.getUpStatsWindow().getPanel();
+        equipment = player.getEquipmentWindow().getPanel();
+        info = player.getPlayerInfoWindow().getPanel();
+        abilities = player.getPlayerAbilityWindow().getPanel();
+        quests = player.getPlayerQuestWindow().getPanel();
+        save = new JPanel();
 
         menu.addTab("Инвентарь", inventory);
         menu.setMnemonicAt(0, KeyEvent.VK_I);
@@ -262,11 +279,8 @@ public class FieldWindow extends JFrame implements Serializable {
         menu.setMnemonicAt(5, KeyEvent.VK_Q);
         menu.addTab("Сохранить", save);
         menu.setMnemonicAt(6, KeyEvent.VK_F5);
-        if(selectedTab != null){
-            try{
-                menu.setSelectedComponent(selectedTab);
-            }catch (IllegalArgumentException e){}
-        }
+        menu.setSelectedComponent(menu.getComponentAt(i));
+
     }
 
     public void setCurrentMap(Map currentMap) {
@@ -291,5 +305,14 @@ public class FieldWindow extends JFrame implements Serializable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void drawAllPlayerWindow(){
+        player.getInventoryWindow().drawInventory();
+        player.getUpStatsWindow().drawWindow();
+        player.getEquipmentWindow().drawEquipment();
+        player.getPlayerInfoWindow().drawInfo();
+        player.getPlayerAbilityWindow().drawWindow();
+        player.getPlayerQuestWindow().drawWindow();
     }
 }

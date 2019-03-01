@@ -5,7 +5,7 @@ public class Human extends LiveCreature {
     protected String location = "Пустота";
 
     protected int upPointCount = 0;
-    public int hp = 100;
+    protected double hp = 100;
 
     protected String race = "Человек";
 

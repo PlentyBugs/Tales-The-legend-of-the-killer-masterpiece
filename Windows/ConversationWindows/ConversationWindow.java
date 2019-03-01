@@ -28,6 +28,7 @@ public class ConversationWindow extends JFrame implements Serializable {
 
     public ConversationWindow(LiveCreature opponent){
         super("Диалог с " + opponent.getName());
+        setAlwaysOnTop(true);
 
         this.opponent = opponent;
 

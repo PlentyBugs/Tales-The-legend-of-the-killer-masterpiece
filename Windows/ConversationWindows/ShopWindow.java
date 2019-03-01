@@ -21,6 +21,7 @@ public class ShopWindow extends JFrame implements Serializable {
 
     public ShopWindow(Player player, ArrayList<Object> catalog){
         super("Магазин");
+        setAlwaysOnTop(true);
 
         this.player = player;
         this.catalog = catalog;

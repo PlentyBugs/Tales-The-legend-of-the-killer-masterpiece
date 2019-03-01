@@ -10,6 +10,11 @@ public class Item implements Serializable, Cloneable {
     protected Material material;
     protected String stockName;
 
+    public Item(){
+        grade = Grade.COMMON;
+        rarity = Rarity.COMMON;
+    }
+
     public Grade getGrade() {
         return grade;
     }

@@ -4,7 +4,7 @@ import Items.Armors.Armor;
 import Items.Item;
 import Items.Weapons.Weapon;
 import Creatures.Player;
-import Things.Chest;
+import Things.ChestLike.Chest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +25,7 @@ public class InventoryWindowChest extends JFrame {
 
     public InventoryWindowChest(Chest chest){
         super("Сундук");
+        setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.chest = chest;
@@ -120,7 +121,7 @@ public class InventoryWindowChest extends JFrame {
                     player.addItemToInventory(item);
                     chest.removeItemFromInventory(item);
                     drawInventory();
-                    player.getInventoryWindow().drawInventory();
+                    player.getFieldWindow().drawAllPlayerWindow();
                 }
             });
 

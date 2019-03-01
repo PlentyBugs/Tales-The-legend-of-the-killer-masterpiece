@@ -1,8 +1,8 @@
 package Creatures.AggressiveNPC;
 
 import Items.Item;
-import Items.Potions.HealPotion;
-import Items.Potions.PoisonPotion;
+import Items.Alchemy.Potions.HealPotion;
+import Items.Alchemy.Potions.PoisonPotion;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
 import Creatures.Human;

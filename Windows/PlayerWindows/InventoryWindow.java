@@ -1,15 +1,17 @@
 package Windows.PlayerWindows;
 
-import Items.Armors.Armor;
-import Items.Item;
-import Items.Potions.Potion;
-import Items.Weapons.Weapon;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Armors.Armor;
+import Items.Item;
+import Items.Alchemy.Potions.Potion;
+import Items.Weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
 public class InventoryWindow extends JFrame implements Serializable {
@@ -45,6 +47,10 @@ public class InventoryWindow extends JFrame implements Serializable {
     }
 
     public void drawInventory(){
+        drawInventory(true);
+    }
+
+    public void drawInventory(Boolean isDrawMap){
         menuPanel = new JPanel();
 
         JButton allInventory = new JButton("Всё");
@@ -62,7 +68,8 @@ public class InventoryWindow extends JFrame implements Serializable {
                 currentInventory = "All";
                 drawInventory();
                 if(player.getClass().toString().contains("Player")){
-                    ((Player)player).getFieldWindow().drawMap();
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
                 }
             }
         });
@@ -72,7 +79,8 @@ public class InventoryWindow extends JFrame implements Serializable {
                 currentInventory = "Weapon";
                 drawInventory();
                 if(player.getClass().toString().contains("Player")){
-                    ((Player)player).getFieldWindow().drawMap();
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
                 }
             }
         });
@@ -82,17 +90,19 @@ public class InventoryWindow extends JFrame implements Serializable {
                 currentInventory = "Armor";
                 drawInventory();
                 if(player.getClass().toString().contains("Player")){
-                    ((Player)player).getFieldWindow().drawMap();
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
                 }
             }
         });
 
         potionInventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                currentInventory = "Potion";
+                currentInventory = "Alchemy";
                 drawInventory();
                 if(player.getClass().toString().contains("Player")){
-                    ((Player)player).getFieldWindow().drawMap();
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
                 }
             }
         });
@@ -172,19 +182,20 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 4;
             JButton useButton = new JButton("Экипировать");
 
-            if(item.getClass().toString().contains("Potions")){
+            if(item.getClass().toString().contains("Alchemy")){
                 itemQuality.setText("");
                 useButton.setText("Использовать");
             }
             useButton.setSize(100,40);
 
-            if(!item.getClass().toString().contains("Potions")){
+            if(!item.getClass().toString().contains("Alchemy")){
                 useButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         player.equip(item);
                         if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
                             ((Player)player).getEquipmentWindow().drawEquipment();
-                            ((Player)player).getFieldWindow().drawMap();
+                            if(isDrawMap)
+                                ((Player)player).getFieldWindow().drawAllPlayerWindow();
                         }
                     }
                 });
@@ -194,7 +205,8 @@ public class InventoryWindow extends JFrame implements Serializable {
                         ((Potion)item).use(player);
                         player.removeItem(item);
                         drawInventory();
-                        ((Player)player).getFieldWindow().drawMap();
+                        if(isDrawMap)
+                            ((Player)player).getFieldWindow().drawAllPlayerWindow();
                     }
                 });
             }
@@ -220,7 +232,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         panelz.removeAll();
         panelz = new JPanel();
         panelz.add(menuPanel);
-        panelz.add(this.panel);
+        panelz.add(scroll);
         return panelz;
     }
 }

@@ -1,23 +1,23 @@
-package Items.Potions;
+package Items.Alchemy.Potions;
 
 import Effects.EffectType;
-import Effects.Heal;
+import Effects.Poison;
 import Items.Grade;
 import Items.Rarity;
 
-public class HealPotion extends Potion {
+public class PoisonPotion extends Potion {
 
-    public HealPotion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
+    public PoisonPotion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
         super(potionMaterial, rarity, grade);
-        this.name = "Зелье жизни";
+        this.name = "Яд";
         this.potionMaterial = potionMaterial;
         this.rarity = rarity;
         this.grade = grade;
 
-        effect = new Heal(EffectType.MOMENT);
+        effect = new Poison(EffectType.MOMENT);
     }
 
-    public HealPotion(){
+    public PoisonPotion(){
         this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
     }
 }

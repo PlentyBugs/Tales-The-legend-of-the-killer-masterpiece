@@ -26,6 +26,7 @@ public class ThiefWindow extends JFrame implements Serializable {
 
     public ThiefWindow(LiveCreature player, Player thief) {
         super("Инвентарь " + player.getName());
+        setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.player = player;

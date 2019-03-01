@@ -3,7 +3,7 @@ package Creatures.AggressiveNPC;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Item;
-import Items.Potions.HealPotion;
+import Items.Alchemy.Potions.HealPotion;
 import Items.Weapons.Bows.Bow;
 import Items.Weapons.Bows.LongBow;
 import Items.Weapons.Swords.Sword;

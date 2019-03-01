@@ -3,18 +3,21 @@ package Windows.BattleWindows;
 import Abilities.Buffs.Buff;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Items.*;
-import Items.Weapons.Weapon;
-import Items.Weapons.WeaponType;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
+import Items.Rarity;
+import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Quests.Quest;
-import Things.Corpse;
+import Things.ChestLike.Corpse;
 import Windows.FieldWindow;
-import Windows.SupportWindows.SupportComponents.Console;
 import Windows.SupportWindows.DialogWindow;
+import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -356,35 +359,6 @@ public class FightWindow extends JFrame implements Serializable {
             @Override
             public void run() {
 
-                field.setIsVisible(true);
-                field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), new Corpse(enemy.getX(), enemy.getY()));
-                field.drawMap();
-
-                if (player.getQuests() != null){
-                    for (Quest quest : player.getQuests()){
-                        if(quest.getClass().toString().contains("Kill") && enemy.getClass().toString().contains(((KillQuest)quest).getEnemyToKill().getClass().toString())){
-                            ((KillQuest)quest).setEnemyCountToKillCurrent(((KillQuest)quest).getEnemyCountToKillCurrent()+1);
-                        }
-                        if(quest.getClass().toString().contains("Collect")){
-                            for (Item item : enemy.getUniqueDropItems()){
-                                if (item.getClass().toString().equals(((CollectItemQuest)quest).getItem().getClass().toString())){
-                                    player.addItemToInventory(((CollectItemQuest)quest).getItem());
-                                    break;
-                                }
-                            }
-                        }
-                        if(quest.check()){
-                            quest.getReward(player);
-                            player.removeQuest(quest);
-                        }
-                    }
-                }
-
-
-                if (playerAbilityWindow != null){
-                    playerAbilityWindow.close();
-                }
-                close();
                 int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
                 if (rewardMoney <= 0){
                     rewardMoney = (int)(Math.random()*170);
@@ -524,26 +498,43 @@ public class FightWindow extends JFrame implements Serializable {
                 }
 
                 dialogWindow.close();
-                dialogWindow = new DialogWindow(
-                        "Поздравляю, вы победили!\n" +
-                                "Награда:\n" +
-                                "Деньги: " + Integer.toString(rewardMoney) + "\n" +
-                                "Опыт: " + Integer.toString(rewardExp));
 
-                String rewardItemMessage = "";
-
-                for (Item item : dropItems){
-                    player.addItemToInventory(item);
-                    player.getInventoryWindow().drawInventory();
-                    rewardItemMessage += item.getName() + "\n";
-                }
-                if(!rewardItemMessage.equals("")){
-                    dialogWindow = new DialogWindow(
-                            "Выпавшие вещи\n" +
-                                    rewardItemMessage);
-                }
                 player.addMoney(rewardMoney);
                 player.addExp(rewardExp);
+
+                field.setIsVisible(true);
+                Corpse corpse = new Corpse(enemy.getX(), enemy.getY());
+                for(Item item : dropItems){
+                    corpse.addItemToInventory(item);
+                }
+                field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), corpse);
+                field.drawMap();
+
+                if (player.getQuests() != null){
+                    for (Quest quest : player.getQuests()){
+                        if(quest.getClass().toString().contains("Kill") && enemy.getClass().toString().contains(((KillQuest)quest).getEnemyToKill().getClass().toString())){
+                            ((KillQuest)quest).setEnemyCountToKillCurrent(((KillQuest)quest).getEnemyCountToKillCurrent()+1);
+                        }
+                        if(quest.getClass().toString().contains("Collect")){
+                            for (Item item : enemy.getUniqueDropItems()){
+                                if (item.getClass().toString().equals(((CollectItemQuest)quest).getItem().getClass().toString())){
+                                    player.addItemToInventory(((CollectItemQuest)quest).getItem());
+                                    break;
+                                }
+                            }
+                        }
+                        if(quest.check()){
+                            quest.getReward(player);
+                            player.removeQuest(quest);
+                        }
+                    }
+                }
+
+
+                if (playerAbilityWindow != null){
+                    playerAbilityWindow.close();
+                }
+                close();
             }
         });
         thread.run();

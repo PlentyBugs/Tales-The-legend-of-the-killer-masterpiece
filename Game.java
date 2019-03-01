@@ -78,7 +78,7 @@ public class Game {
 
             narrator.theBeginning(player);
 
-            while (player.hp > 0) {
+            while (player.getHp() > 0) {
                 break;
             }
         } else if(game.equals("load")){
@@ -134,7 +134,7 @@ public class Game {
             Player player = fieldWindow.getPlayer();
             fieldWindow.drawMap();
             player.initWindoows();
-            while (player.hp > 0) {
+            while (player.getHp() > 0) {
                 break;
             }
         }

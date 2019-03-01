@@ -1,4 +1,4 @@
-package Items.Potions;
+package Items.Alchemy.Potions;
 
 public enum PotionMaterial {
     WATER,

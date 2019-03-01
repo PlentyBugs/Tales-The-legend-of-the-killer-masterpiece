@@ -9,16 +9,6 @@ import Abilities.Passive.Steal;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
-import Items.Armors.Helmet;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Potions.HealPotion;
-import Items.Potions.PoisonPotion;
-import Items.QuestItems.KingGoblinRing;
-import Items.Rarity;
-import Items.Weapons.Swords.Sword;
-import Items.Weapons.WeaponType;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Goblin;
 import Creatures.AggressiveNPC.GoblinKing;
@@ -28,9 +18,24 @@ import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
 import Creatures.Player;
+import Items.Armors.Helmet;
+import Items.Grade;
+import Items.Alchemy.Ingredients.BlueHerb;
+import Items.Alchemy.Ingredients.GreenHerb;
+import Items.Alchemy.Ingredients.Ingredient;
+import Items.Alchemy.Ingredients.RedHerb;
+import Items.Item;
+import Items.Material;
+import Items.Alchemy.Potions.HealPotion;
+import Items.Alchemy.Potions.PoisonPotion;
+import Items.QuestItems.KingGoblinRing;
+import Items.Rarity;
+import Items.Weapons.Swords.Sword;
+import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Things.*;
+import Things.Herbs.Herb;
 
 import java.io.Serializable;
 
@@ -67,6 +72,13 @@ public class Map implements Serializable {
                     ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl() + ((Human)randomGodCreature).getStats().strength*12);
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
+                    if (randomGodCreature.getClass().toString().contains("Grass")){
+                        int chanceHerb = (int) Math.ceil(Math.random() * 100);
+                        Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
+                        if(chanceHerb < 10){
+                            randomGodCreature = new Herb(herb[(int) (herb.length * Math.random())]);
+                        }
+                    }
                 }
                 randomGodCreature.setX(j);
                 randomGodCreature.setY(i);

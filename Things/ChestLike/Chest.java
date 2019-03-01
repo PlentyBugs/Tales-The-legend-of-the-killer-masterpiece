@@ -1,7 +1,8 @@
-package Things;
+package Things.ChestLike;
 
 import Items.Item;
 import Creatures.Player;
+import Things.Thing;
 import Windows.SupportWindows.InventoryWindowChest;
 
 import java.awt.*;

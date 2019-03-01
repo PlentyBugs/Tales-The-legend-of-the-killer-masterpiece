@@ -8,6 +8,8 @@ import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
 import Locations.Map;
 import Things.*;
+import Things.ChestLike.Chest;
+import Things.ChestLike.Corpse;
 
 import javax.swing.*;
 import java.awt.*;

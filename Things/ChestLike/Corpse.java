@@ -1,8 +1,8 @@
-package Things;
+package Things.ChestLike;
 
 import java.awt.*;
 
-public class Corpse extends Thing {
+public class Corpse extends Chest {
     public Corpse(){
         this(0,0);
     }

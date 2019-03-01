@@ -1,7 +1,8 @@
-package Items.Potions;
+package Items.Alchemy.Potions;
 
 import Effects.Effect;
 import Effects.EffectType;
+import Effects.Poison;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
@@ -17,6 +18,7 @@ public class Potion extends Item {
         this.potionMaterial = potionMaterial;
         this.rarity = rarity;
         this.grade = grade;
+        effect = new Poison(EffectType.MOMENT);
     }
 
     public void use(LiveCreature liveCreature){
