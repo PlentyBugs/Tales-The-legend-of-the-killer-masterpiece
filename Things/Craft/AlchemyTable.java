@@ -44,17 +44,17 @@ public class AlchemyTable extends Thing implements CraftTable{
 
     @Override
     public <T extends Ingredient> void create(T ... ingredients) {
-        HashMap<Potion, Integer> usage = new HashMap<>();
+        HashMap<String, Object[]> usage = new HashMap<>();
         int count = 0;
         for(Ingredient ingredient : ingredients){
             if(ingredient == null)
                 continue;
             count ++;
             for(Potion potion : ingredient.getUsage()){
-                if(usage.containsKey(potion)){
-                    usage.put(potion, usage.get(potion) + 1);
+                if(usage.containsKey(potion.getClass().toString())){
+                    usage.put(potion.getClass().toString(), new Object[]{(Potion)usage.get(potion.getClass().toString())[0], (int)usage.get(potion.getClass().toString())[1] + 1});
                 } else {
-                    usage.put(potion, 1);
+                    usage.put(potion.getClass().toString(), new Object[]{potion, 1});
                 }
             }
         }
@@ -71,13 +71,13 @@ public class AlchemyTable extends Thing implements CraftTable{
         return createdPotion;
     }
 
-    private Object[] maxKey(HashMap<Potion, Integer> table){
+    private Object[] maxKey(HashMap<String, Object[]> table){
         Potion key = null;
         int max = -1;
-        for(Potion str : table.keySet()){
-            if(max < table.get(str)){
-                key = str;
-                max = table.get(str);
+        for(String str : table.keySet()){
+            if(max < (int)table.get(str)[1]){
+                key = (Potion)table.get(str)[0];
+                max = (int)table.get(str)[1];
             }
         }
         return new Object[]{key, max};

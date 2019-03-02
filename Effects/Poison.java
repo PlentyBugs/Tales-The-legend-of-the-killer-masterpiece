@@ -11,8 +11,13 @@ public class Poison extends Effect {
 
     public void use(LiveCreature liveCreature){
         if (liveCreature.getHp() - power > 1){
-        liveCreature.setHp(liveCreature.getHp() - power);
-    } else {
-        liveCreature.setHp(1);
-    }}
+            liveCreature.setHp(liveCreature.getHp() - power);
+        } else
+            liveCreature.setHp(1);
+    }
+
+    @Override
+    public void setPowerAlchemy(int alchemyPower){
+        power += alchemyPower*30;
+    }
 }

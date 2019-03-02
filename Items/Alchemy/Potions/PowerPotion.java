@@ -9,7 +9,7 @@ public class PowerPotion extends Potion {
 
     public PowerPotion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
         super(potionMaterial, rarity, grade);
-        this.name = "Зелье жизни";
+        this.name = "Зелье повышения урона";
         this.potionMaterial = potionMaterial;
         this.rarity = rarity;
         this.grade = grade;

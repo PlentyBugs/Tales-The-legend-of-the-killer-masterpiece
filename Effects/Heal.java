@@ -16,4 +16,9 @@ public class Heal extends Effect {
             liveCreature.setHp(liveCreature.getMaxHp());
         }
     }
+
+    @Override
+    public void setPowerAlchemy(int alchemyPower){
+        power += alchemyPower*50;
+    }
 }
