@@ -7,8 +7,10 @@ import Items.Item;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class IngredientChooser extends JFrame{
+    private ArrayList<Item> uniqueInventory = new ArrayList<>();
 
     public IngredientChooser(Player player, Ingredient[] ingredients, int i, JButton buttonParent){
         setAlwaysOnTop(true);
@@ -22,6 +24,11 @@ public class IngredientChooser extends JFrame{
         constraints.gridy = 0;
 
         for(Item item : player.getInventory()){
+            if(!uniqueInventoryContains(item)){
+                uniqueInventory.add(item);
+            } else if(player.countOfItemInInventory(item) > 1){
+                continue;
+            }
             if(!item.getClass().toString().contains("Ingredients")){
                 continue;
             }
@@ -34,7 +41,13 @@ public class IngredientChooser extends JFrame{
             }
             if(!isOk)
                 continue;
-            JButton button = new JButton(item.getName());
+
+            int count = player.countOfItemInInventory(item);
+            JLabel ccunt = new JLabel();
+            if(count > 1){
+                ccunt = new JLabel("Количество: " + count);
+            }
+            JButton button = new JButton(item.getName() + " Количество: " + count);
             button.addActionListener(e -> {
                 ingredients[i] = (Ingredient) item;
                 buttonParent.setText(item.getName());
@@ -51,5 +64,14 @@ public class IngredientChooser extends JFrame{
 
     public void close(){
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    private boolean uniqueInventoryContains(Item item){
+        for(Item itm : uniqueInventory){
+            if(itm.compareTo(item) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }
