@@ -1,5 +1,5 @@
 import Abilities.Auras.Vision;
-import Abilities.Passive.Steal;
+import Abilities.Passive.Professions.Steal;
 import Creatures.Difficulty;
 import Creatures.Player;
 import Windows.FieldWindow;

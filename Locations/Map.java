@@ -5,7 +5,7 @@ import Abilities.Active.DecreaseDamage;
 import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Abilities.Passive.Steal;
+import Abilities.Passive.Professions.Steal;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
@@ -18,12 +18,9 @@ import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
 import Creatures.Player;
+import Items.Alchemy.Ingredients.*;
 import Items.Armors.Helmet;
 import Items.Grade;
-import Items.Alchemy.Ingredients.BlueHerb;
-import Items.Alchemy.Ingredients.GreenHerb;
-import Items.Alchemy.Ingredients.Ingredient;
-import Items.Alchemy.Ingredients.RedHerb;
 import Items.Item;
 import Items.Material;
 import Items.Alchemy.Potions.HealPotion;
@@ -35,7 +32,10 @@ import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Things.*;
-import Things.Herbs.Herb;
+import Things.AlchemyThings.Berry;
+import Things.AlchemyThings.Mushroom;
+import Things.Craft.AlchemyTable;
+import Things.AlchemyThings.Herb;
 
 import java.io.Serializable;
 
@@ -75,8 +75,14 @@ public class Map implements Serializable {
                     if (randomGodCreature.getClass().toString().contains("Grass")){
                         int chanceHerb = (int) Math.ceil(Math.random() * 100);
                         Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
-                        if(chanceHerb < 10){
+                        Ingredient[] berry = {new BlueBerry(), new DrunkenBerry(), new GoblinBerry(), new WildBerry()};
+                        Ingredient[] mushroom = {new HellMushroom(), new WhiteMushroom()};
+                        if(chanceHerb < 4){
                             randomGodCreature = new Herb(herb[(int) (herb.length * Math.random())]);
+                        } else if (chanceHerb < 9){
+                            randomGodCreature = new Berry(berry[(int) (berry.length * Math.random())]);
+                        } else if (chanceHerb < 13){
+                            randomGodCreature = new Mushroom(mushroom[(int) (mushroom.length * Math.random())]);
                         }
                     }
                 }
@@ -195,6 +201,7 @@ public class Map implements Serializable {
 
         inhabitant.getConversationWindow().setPlayer(player);
         map[2][2] = inhabitant;
+        map[2][3] = new AlchemyTable();
 
 
         int GoblinKingY = (int)(Math.random()*(mapHeight-1));

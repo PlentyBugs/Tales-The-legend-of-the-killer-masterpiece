@@ -8,9 +8,7 @@ import Things.ChestLike.Chest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class InventoryWindowChest extends JFrame {
 
@@ -26,6 +24,24 @@ public class InventoryWindowChest extends JFrame {
     public InventoryWindowChest(Chest chest){
         super("Сундук");
         setAlwaysOnTop(true);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {}
+
+            @Override
+            public void componentMoved(ComponentEvent e) {}
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                chest.setInventoryChestOpen(true);
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                chest.setInventoryChestOpen(false);
+            }
+        });
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.chest = chest;

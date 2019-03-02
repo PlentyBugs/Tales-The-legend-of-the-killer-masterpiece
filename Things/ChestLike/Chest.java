@@ -43,6 +43,7 @@ public class Chest extends Thing {
         for (int s = 0; s < items.length; s++){
             inventory[s+oldDropItem.length] = items[s];
         }
+        setNameWithNumberOfItems();
     }
     public Item[] getInventory(){
         return inventory;
@@ -80,6 +81,7 @@ public class Chest extends Thing {
             inventory[s] = itemR;
             s++;
         }
+        setNameWithNumberOfItems();
     }
 
     public void setPlayer(Player player) {
@@ -88,5 +90,10 @@ public class Chest extends Thing {
     @Override
     public Chest getClearCopy() {
         return new Chest();
+    }
+
+    private void setNameWithNumberOfItems(){
+        String[] str = name.split("()");
+        name = str[0] + "(" + inventory.length + ")";
     }
 }

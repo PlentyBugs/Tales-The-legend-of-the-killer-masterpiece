@@ -5,13 +5,13 @@ import Items.Alchemy.Potions.PoisonPotion;
 
 import java.awt.*;
 
-public class BlueHerb extends Ingredient {
+public class Moss extends Ingredient{
 
-    public BlueHerb(){
+    public Moss(){
         super();
-        name = "Синяя трава";
-        color = new Color(159, 130,255);
-        usage.add(new HealPotion());
+        name = "Мох";
+        color = new Color(105, 150, 27);
         usage.add(new PoisonPotion());
+        usage.add(new HealPotion());
     }
 }

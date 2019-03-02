@@ -1,6 +1,6 @@
 package Windows.ConversationWindows;
 
-import Abilities.Passive.Steal;
+import Abilities.Passive.Professions.Steal;
 import Conversations.Conversation;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;

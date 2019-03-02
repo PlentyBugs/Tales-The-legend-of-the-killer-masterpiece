@@ -18,6 +18,7 @@ public class Ingredient extends Potion {
 
     public Ingredient(PotionMaterial potionMaterial, Rarity rarity, Grade grade) {
         super(potionMaterial, rarity, grade);
+        usage = new ArrayList<>();
     }
 
     public ArrayList<Potion> getUsage() {

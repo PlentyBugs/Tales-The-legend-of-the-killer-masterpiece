@@ -6,7 +6,7 @@ public class Heal extends Effect {
 
     public Heal(EffectType type){
         this.type = type;
-        power = 150;
+        power = 70;
     }
 
     public void use(LiveCreature liveCreature){

@@ -13,4 +13,16 @@ public class Effect implements Serializable {
     }
 
     public void use(LiveCreature liveCreature){}
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPowerAlchemy(int alchemyPower){
+        power += alchemyPower;
+    }
 }

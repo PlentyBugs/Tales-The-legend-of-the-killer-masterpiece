@@ -167,6 +167,9 @@ public class InventoryWindow extends JFrame implements Serializable {
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            } else if (item.getClass().toString().contains("Potions")){
+                property.setText("Мощность: ");
+                propertyCount.setText(Integer.toString(((Potion)item).getEffect().getPower()));
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 12));

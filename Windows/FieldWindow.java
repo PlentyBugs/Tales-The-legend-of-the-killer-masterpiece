@@ -1,14 +1,16 @@
 package Windows;
 
+import Abilities.Passive.LittleFool;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
 import Locations.Map;
+import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
+import Things.Craft.CraftTable;
 import Things.Grass;
 import Things.HealBlock;
-import Things.Herbs.Herb;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
@@ -101,13 +103,16 @@ public class FieldWindow extends JFrame implements Serializable {
                 button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
 
                 boolean isLiveCreature = information[i][j].getClass().toString().contains("Creatures");
-                boolean isHerb = information[i][j].getClass().toString().contains("Herb");
+                boolean isAlchemyThings = information[i][j].getClass().toString().contains("AlchemyThings");
                 boolean isHealBlock = information[i][j].getClass().toString().contains("HealBlock");
                 boolean isDoorToUpperLevel = information[i][j].getClass().toString().contains("DoorToUpperLevelLocation");
                 boolean isChest = information[i][j].getClass().toString().contains("Chest");
+                boolean isCraft = information[i][j].getClass().toString().contains("Craft");
 
                 GodCreature liveCreature = information[i][j];
-
+                if(player.hasAbility(new LittleFool()) && liveCreature.getClass().toString().contains("Tree")){
+                    isStep = true;
+                }
                 if (information[i][j].getIsPlayer()){
                     button.addActionListener(e -> drawAllPlayerWindow());
                 } else if (isHealBlock){
@@ -130,7 +135,18 @@ public class FieldWindow extends JFrame implements Serializable {
                         player.setY(0);
                         drawMap();
                     });
-                } else if (isChest) {
+                } else if(isCraft){
+                    button.addActionListener(e -> {
+                        ((CraftTable)liveCreature).setPlayer(player);
+                        if(!((CraftTable)liveCreature).getCraftTableWindowOpen()){
+                            ((CraftTable)liveCreature).setCraftTableWindow(true);
+                            ((CraftTable)liveCreature).setCraftTableWindowOpen(true);
+                        } else {
+                            ((CraftTable)liveCreature).setCraftTableWindow(false);
+                            ((CraftTable)liveCreature).setCraftTableWindowOpen(false);
+                        }
+                    });
+                }else if (isChest) {
                     button.addActionListener(e -> {
                         drawAllPlayerWindow();
                         player.setFieldWindow(FieldWindow.this);
@@ -148,15 +164,19 @@ public class FieldWindow extends JFrame implements Serializable {
                 } else {
                     int finalI = i;
                     int finalJ = j;
+                    boolean finalIsStep = isStep;
                     button.addActionListener(e -> {
                         drawAllPlayerWindow();
-                        if (isStep){
+                        if (finalIsStep){
                             player.setFieldWindow(FieldWindow.this);
                             player.setX(X);
                             player.setY(Y);
-                            if(isHerb){
-                                player.addItemToInventory((Ingredient)((Herb)information[finalI][finalJ]).getHerb());
-                                currentMap.setElementByCoordinates(X, Y, new Grass());
+                            if(isAlchemyThings){
+                                player.addItemToInventory((Ingredient)((IngredientThing)information[finalI][finalJ]).getIngredient());
+                                GodCreature godCreature = (GodCreature) ((IngredientThing)information[finalI][finalJ]).getParent();
+                                godCreature.setX(X);
+                                godCreature.setY(Y);
+                                currentMap.setElementByCoordinates(X, Y, godCreature);
                             }
                             drawMap();
                         } else if (isLiveCreature){
