@@ -64,6 +64,26 @@ public class Narrator {
             player.setMaxHp(2000);
         }
 
+        if(player.getName().equals("IMN0TaDR1Nk3RiMAnA1c43m1st")){
+            player.setLevelpoints(30);
+            player.getStats().strength = 1;
+            player.getStats().speed = 0;
+            player.getStats().agility = 0;
+            player.getStats().intelligence = 0;
+            player.getStats().luck = 0;
+            player.getStats().eloquence = 0;
+            player.getStats().blacksmith = 0;
+            player.getStats().alchemy = 250;
+            player.getStats().one_handed_weapon = 0;
+            player.getStats().two_handed_weapon = 0;
+            player.getStats().pole_weapon = 0;
+            player.getStats().chopping_weapon = 0;
+            player.getStats().long_range_weapon = 0;
+            player.setName("cheater");
+            player.setHp(1);
+            player.setMaxHp(1);
+        }
+
         if(player.getName().equals("urMomGay512")){
 
             player.getStats().strength = 1;

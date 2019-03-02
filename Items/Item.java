@@ -2,7 +2,7 @@ package Items;
 
 import java.io.Serializable;
 
-public class Item implements Serializable, Cloneable {
+public class Item implements Serializable, Cloneable, Comparable {
     protected String name;
     protected Grade grade;
     protected double quality;
@@ -57,5 +57,13 @@ public class Item implements Serializable, Cloneable {
     public Object clone() throws CloneNotSupportedException
     {
         return super.clone();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(getName() == ((Item) o).getName() && getGrade() == ((Item) o).getGrade() && getQuality() == ((Item) o).getQuality() && getRarity() == ((Item) o).getRarity()){
+            return 0;
+        }
+        return -1;
     }
 }

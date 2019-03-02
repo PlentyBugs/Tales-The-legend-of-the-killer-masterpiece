@@ -18,6 +18,6 @@ public class Poison extends Effect {
 
     @Override
     public void setPowerAlchemy(int alchemyPower){
-        power += alchemyPower*30;
+        power += alchemyPower*20;
     }
 }

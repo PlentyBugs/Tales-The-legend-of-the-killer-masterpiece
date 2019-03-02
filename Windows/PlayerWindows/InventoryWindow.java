@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class InventoryWindow extends JFrame implements Serializable {
 
@@ -26,6 +27,7 @@ public class InventoryWindow extends JFrame implements Serializable {
     private JPanel panelz = new JPanel();;
     private static final long serialVersionUID = -559721917387219997L;
     private String currentInventory = "All";
+    private ArrayList<Item> uniqueInventory = new ArrayList<>();
 
     public InventoryWindow(LiveCreature player){
         super("Инвентарь");
@@ -114,7 +116,13 @@ public class InventoryWindow extends JFrame implements Serializable {
         constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
+        uniqueInventory.clear();
         for (Item item : player.getInventory()){
+            if(!uniqueInventoryContains(item)){
+                uniqueInventory.add(item);
+            } else if(player.countOfItemInInventory(item) > 1){
+                continue;
+            }
 
             if(!currentInventory.equals("All") && !item.getClass().toString().contains(currentInventory)){
                 continue;
@@ -154,12 +162,8 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
 
             JLabel itemName = new JLabel(item.getName());
-            itemConstraints.gridx = 1;
             JLabel itemQuality = new JLabel("Прочность: " + Double.toString(item.getQuality()));
-
-            itemConstraints.gridx = 2;
             JLabel property = new JLabel();
-            itemConstraints.gridx = 3;
 
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
@@ -172,6 +176,12 @@ public class InventoryWindow extends JFrame implements Serializable {
                 propertyCount.setText(Integer.toString(((Potion)item).getEffect().getPower()));
             }
 
+            int count = player.countOfItemInInventory(item);
+            JLabel ccunt = new JLabel();
+            if(count > 1){
+                ccunt = new JLabel("Количество: " + count);
+            }
+
             itemName.setFont(new Font("Serif", Font.PLAIN, 12));
             itemQuality.setFont(new Font("Serif", Font.PLAIN, 12));
             property.setFont(new Font("Serif", Font.PLAIN, 12));
@@ -182,7 +192,6 @@ public class InventoryWindow extends JFrame implements Serializable {
             property.setForeground(colorForeground);
             propertyCount.setForeground(colorForeground);
 
-            itemConstraints.gridx = 4;
             JButton useButton = new JButton("Экипировать");
 
             if(item.getClass().toString().contains("Alchemy")){
@@ -214,10 +223,17 @@ public class InventoryWindow extends JFrame implements Serializable {
                 });
             }
             itemPanel.add(itemName, itemConstraints);
+            itemConstraints.gridx ++;
             itemPanel.add(itemQuality, itemConstraints);
+            itemConstraints.gridx ++;
             itemPanel.add(property, itemConstraints);
+            itemConstraints.gridx ++;
             itemPanel.add(propertyCount, itemConstraints);
+            itemConstraints.gridx ++;
+            itemPanel.add(ccunt, itemConstraints);
+            itemConstraints.gridx ++;
             itemPanel.add(useButton, itemConstraints);
+            itemConstraints.gridx ++;
 
             itemPanel.setBackground(colorBackground);
 
@@ -237,5 +253,14 @@ public class InventoryWindow extends JFrame implements Serializable {
         panelz.add(menuPanel);
         panelz.add(scroll);
         return panelz;
+    }
+
+    private boolean uniqueInventoryContains(Item item){
+        for(Item itm : uniqueInventory){
+            if(itm.compareTo(item) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

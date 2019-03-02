@@ -62,7 +62,7 @@ public class AlchemyTable extends Thing implements CraftTable{
         Potion key = (Potion)objects[0];
 
         if(key != null){
-            key.getEffect().setPowerAlchemy(player.getStats().alchemy*((int)objects[1]));
+            key.getEffect().setPowerAlchemy((int)(player.getStats().alchemy*Math.pow((int)objects[1], 1.0 + ((int)objects[1])/10.0)));
             createdPotion = key;
         }
     }

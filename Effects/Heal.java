@@ -19,6 +19,6 @@ public class Heal extends Effect {
 
     @Override
     public void setPowerAlchemy(int alchemyPower){
-        power += alchemyPower*50;
+        power += alchemyPower*30;
     }
 }
