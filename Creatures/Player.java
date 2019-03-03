@@ -8,6 +8,7 @@ import Items.Item;
 import Quests.Quest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
+import Windows.SupportWindows.SupportComponents.SavePanel;
 
 import java.awt.*;
 import java.util.Collections;
@@ -29,6 +30,7 @@ public class Player extends Human {
     private UpgradeSkillsWindow playerAbilityWindow;
     private QuestsWindow playerQuestWindow;
     private FieldWindow fieldWindow;
+    private SavePanel savePanel;
 
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
@@ -82,6 +84,7 @@ public class Player extends Human {
         playerInfoWindow = new PlayerInfoWindow(this);
         playerAbilityWindow = new UpgradeSkillsWindow(this);
         playerQuestWindow = new QuestsWindow(this);
+        savePanel = new SavePanel(this);
     }
 
     public void setVision(int vision) {
@@ -300,6 +303,10 @@ public class Player extends Human {
 
     public InventoryWindow getInventoryWindow() {
         return inventoryWindow;
+    }
+
+    public SavePanel getSavePanel() {
+        return savePanel;
     }
 
     public UpStatsWindow getUpStatsWindow() {

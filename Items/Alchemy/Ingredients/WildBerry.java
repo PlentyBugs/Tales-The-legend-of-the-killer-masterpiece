@@ -11,7 +11,7 @@ public class WildBerry extends Ingredient {
         super();
         name = "Дикая ягода";
         color = new Color(219, 9, 73);
-        usage.add(new StatsUpPotion());
         usage.add(new StatsUpPotion(StatsEnum.ALCHEMY));
+        usage.add(new StatsUpPotion());
     }
 }

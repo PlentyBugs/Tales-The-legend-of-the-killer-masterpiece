@@ -32,7 +32,7 @@ public class FieldWindow extends JFrame implements Serializable {
     private JPanel contentPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints contentConstraints = new GridBagConstraints();
     private Component selectedTab;
-    private JTabbedPane menu = new JTabbedPane();
+    private JTabbedPane menu = new JTabbedPane();;
     private JPanel inventory;
     private JPanel upgrade;
     private JPanel equipment;
@@ -130,7 +130,7 @@ public class FieldWindow extends JFrame implements Serializable {
                     button.addActionListener(e -> {
                         drawAllPlayerWindow();
                         player.setFieldWindow(FieldWindow.this);
-                        currentMap = new Map(player, player.getLvl()*50, player.getLvl()*60);
+                        currentMap = new Map(player, player.getLvl()*10, player.getLvl()*10);
                         player.setX(0);
                         player.setY(0);
                         drawMap();
@@ -283,7 +283,7 @@ public class FieldWindow extends JFrame implements Serializable {
         info = player.getPlayerInfoWindow().getPanel();
         abilities = player.getPlayerAbilityWindow().getPanel();
         quests = player.getPlayerQuestWindow().getPanel();
-        save = new JPanel();
+        save = player.getSavePanel().getPanel();
 
         menu.addTab("Инвентарь", inventory);
         menu.setMnemonicAt(0, KeyEvent.VK_I);
@@ -334,5 +334,6 @@ public class FieldWindow extends JFrame implements Serializable {
         player.getPlayerInfoWindow().drawInfo();
         player.getPlayerAbilityWindow().drawWindow();
         player.getPlayerQuestWindow().drawWindow();
+        player.getSavePanel().drawWindow();
     }
 }

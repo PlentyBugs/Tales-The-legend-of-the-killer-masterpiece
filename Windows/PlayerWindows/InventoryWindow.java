@@ -120,7 +120,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         for (Item item : player.getInventory()){
             if(!uniqueInventoryContains(item)){
                 uniqueInventory.add(item);
-            } else if(player.countOfItemInInventory(item) > 1){
+            } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()){
                 continue;
             }
 
@@ -178,7 +178,7 @@ public class InventoryWindow extends JFrame implements Serializable {
 
             int count = player.countOfItemInInventory(item);
             JLabel ccunt = new JLabel();
-            if(count > 1){
+            if(count > 1 && item.getStackable()){
                 ccunt = new JLabel("Количество: " + count);
             }
 

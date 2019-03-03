@@ -82,4 +82,8 @@ public class AlchemyTable extends Thing implements CraftTable{
         }
         return new Object[]{key, max};
     }
+
+    public void clearCreatedPotion(){
+        createdPotion = null;
+    }
 }

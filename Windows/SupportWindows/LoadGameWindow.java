@@ -2,8 +2,6 @@ package Windows.SupportWindows;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ public class LoadGameWindow extends JFrame {
 
     public LoadGameWindow(ArrayList<File> files){
         super("Загрузка");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel(new GridBagLayout());
 
@@ -34,11 +32,7 @@ public class LoadGameWindow extends JFrame {
             panel.add(name, constraints);
             constraints.gridx ++;
             JButton loadButton = new JButton("Загрузитть");
-            loadButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    fileName = file.getName();
-                }
-            });
+            loadButton.addActionListener(e -> fileName = file.getName());
             panel.add(loadButton, constraints);
             constraints.gridy ++;
         }

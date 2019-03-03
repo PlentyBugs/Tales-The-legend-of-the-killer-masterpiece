@@ -224,7 +224,10 @@ public abstract class LiveCreature extends GodCreature {
     }
 
     public void addItemToInventory(Item ... itemList){
-        inventory.addAll(Arrays.asList(itemList));
+        for(Item item : itemList){
+            item.setId(inventory.size());
+            inventory.add(item);
+        }
     }
 
     public ArrayList<Item> getInventory(){
@@ -260,8 +263,11 @@ public abstract class LiveCreature extends GodCreature {
     }
 
     public void removeItem(Item item){
-        if(inventory.contains(item)){
-            inventory.remove(item);
+        for(Item itm : inventory){
+            if(itm.compareTo(item) == 0){
+                inventory.remove(itm);
+                break;
+            }
         }
     }
 

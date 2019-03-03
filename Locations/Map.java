@@ -77,11 +77,11 @@ public class Map implements Serializable {
                         Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
                         Ingredient[] berry = {new BlueBerry(), new DrunkenBerry(), new GoblinBerry(), new WildBerry()};
                         Ingredient[] mushroom = {new HellMushroom(), new WhiteMushroom()};
-                        if(chanceHerb < 4){
+                        if(chanceHerb < 2){
                             randomGodCreature = new Herb(herb[(int) (herb.length * Math.random())]);
-                        } else if (chanceHerb < 9){
+                        } else if (chanceHerb < 4){
                             randomGodCreature = new Berry(berry[(int) (berry.length * Math.random())]);
-                        } else if (chanceHerb < 13){
+                        } else if (chanceHerb < 6){
                             randomGodCreature = new Mushroom(mushroom[(int) (mushroom.length * Math.random())]);
                         }
                     }
@@ -98,7 +98,7 @@ public class Map implements Serializable {
             int healBlockX = (int)(Math.random()*(mapWidth-1));
             map[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
         }
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 6; i++){
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
             map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);

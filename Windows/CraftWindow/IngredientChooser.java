@@ -3,19 +3,21 @@ package Windows.CraftWindow;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
 import Items.Item;
+import Windows.SupportWindows.SupportComponents.IngredientButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class IngredientChooser extends JFrame{
+public class IngredientChooser extends JFrame implements Serializable {
     private ArrayList<Item> uniqueInventory = new ArrayList<>();
 
-    public IngredientChooser(Player player, Ingredient[] ingredients, int i, JButton buttonParent){
+    public IngredientChooser(Player player, Ingredient[] ingredients, int i, IngredientButton buttonParent){
         setAlwaysOnTop(true);
         JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        GridBagConstraints constraints;
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -43,14 +45,12 @@ public class IngredientChooser extends JFrame{
                 continue;
 
             int count = player.countOfItemInInventory(item);
-            JLabel ccunt = new JLabel();
-            if(count > 1){
-                ccunt = new JLabel("Количество: " + count);
-            }
             JButton button = new JButton(item.getName() + " Количество: " + count);
             button.addActionListener(e -> {
                 ingredients[i] = (Ingredient) item;
-                buttonParent.setText(item.getName());
+                buttonParent.setIngredient((Ingredient)item);
+                buttonParent.setCountOfIngredients(count);
+                buttonParent.writeText();
                 close();
             });
             panel.add(button,constraints);

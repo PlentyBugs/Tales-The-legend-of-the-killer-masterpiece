@@ -1,6 +1,7 @@
 import Abilities.Passive.LittleFool;
 import Abilities.Passive.Professions.Alchemist;
 import Items.Armors.Helmet;
+import Items.Armors.Ring;
 import Items.Armors.Torso;
 import Items.Grade;
 import Items.Item;
@@ -58,7 +59,8 @@ public class Game {
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.TWOHANDED),
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.LONGRANGE),
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
-                    new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1)
+                    new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
+                    new Ring(Material.IRON, Rarity.COMMON, Grade.COMMON, -23)
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();
@@ -92,7 +94,7 @@ public class Game {
 
             FindFile ff = new FindFile();
 
-            ff.findFile("save*.txt", new File("./Saves/"));
+            ff.findFile("*.txt", new File("./Saves/"));
 
             LoadGameWindow loadGameWindow = new LoadGameWindow(ff.getFiles());
 
@@ -104,7 +106,6 @@ public class Game {
                     break;
                 }
             }
-
             loadGameWindow.close();
 
             try {
@@ -137,6 +138,7 @@ public class Game {
             Player player = fieldWindow.getPlayer();
             fieldWindow.drawMap();
             player.initWindoows();
+            fieldWindow.drawAllPlayerWindow();
             while (player.getHp() > 0) {
                 break;
             }

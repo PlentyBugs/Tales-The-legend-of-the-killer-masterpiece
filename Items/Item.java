@@ -9,10 +9,13 @@ public class Item implements Serializable, Cloneable, Comparable {
     protected Rarity rarity;
     protected Material material;
     protected String stockName;
+    protected boolean stackable;
+    private int id;
 
     public Item(){
         grade = Grade.COMMON;
         rarity = Rarity.COMMON;
+        stackable = false;
     }
 
     public Grade getGrade() {
@@ -61,9 +64,25 @@ public class Item implements Serializable, Cloneable, Comparable {
 
     @Override
     public int compareTo(Object o) {
-        if(getName() == ((Item) o).getName() && getGrade() == ((Item) o).getGrade() && getQuality() == ((Item) o).getQuality() && getRarity() == ((Item) o).getRarity()){
+        if(getName().equals(((Item) o).getName()) && getGrade() == ((Item) o).getGrade() && getQuality() == ((Item) o).getQuality() && getRarity() == ((Item) o).getRarity()){
             return 0;
         }
         return -1;
+    }
+
+    public boolean getStackable(){
+        return stackable;
+    }
+
+    public void setStackable(boolean stackable) {
+        this.stackable = stackable;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

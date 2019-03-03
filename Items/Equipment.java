@@ -17,13 +17,22 @@ public class Equipment implements Serializable {
     private Weapon twoHandedWeapon;
 
     public void setRings(Ring ring){
-        Ring[] ringsCopy = new Ring[10];
-        for (int s = 1; s < 10; s++){
-            ringsCopy[s] = rings[s-1];
+        boolean unique = true;
+        for(Ring ring1 : rings){
+            if(ring1 != null && ring1.getId() == ring.getId()){
+                unique = false;
+                break;
+            }
         }
-        ringsCopy[0] = ring;
+        if(unique){
+            Ring[] ringsCopy = new Ring[10];
+            for (int s = 1; s < 10; s++){
+                ringsCopy[s] = rings[s-1];
+            }
+            ringsCopy[0] = ring;
 
-        rings = ringsCopy;
+            rings = ringsCopy;
+        }
     }
 
     public void setHelmet(Helmet helmet) {

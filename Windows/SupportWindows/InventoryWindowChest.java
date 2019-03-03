@@ -9,6 +9,7 @@ import Things.ChestLike.Chest;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class InventoryWindowChest extends JFrame {
 
@@ -19,6 +20,7 @@ public class InventoryWindowChest extends JFrame {
     private GridBagConstraints constraints;
     private int width = 600;
     private int height = 480;
+    private ArrayList<Item> uniqueInventory = new ArrayList<>();
     private static final long serialVersionUID = -3364742123084557236L;
 
     public InventoryWindowChest(Chest chest){
@@ -69,6 +71,11 @@ public class InventoryWindowChest extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
         for (Item item : chest.getInventory()){
+            if(!uniqueInventoryContains(item)){
+                uniqueInventory.add(item);
+            } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()){
+                continue;
+            }
 
             JPanel itemPanel = new JPanel();
             itemPanel.setPreferredSize(new Dimension(width, 40));
@@ -163,5 +170,14 @@ public class InventoryWindowChest extends JFrame {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    private boolean uniqueInventoryContains(Item item){
+        for(Item itm : uniqueInventory){
+            if(itm.compareTo(item) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }
