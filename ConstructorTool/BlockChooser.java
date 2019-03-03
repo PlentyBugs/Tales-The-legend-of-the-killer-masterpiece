@@ -3,6 +3,7 @@ package ConstructorTool;
 import Creatures.*;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Goblin;
+import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.AggressiveNPC.Knight;
 import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
@@ -22,11 +23,11 @@ import java.io.ObjectOutputStream;
 
 public class BlockChooser extends JFrame {
 
-    private int width = 360;
+    private int width = 300;
     private int height = 720;
     private Block block;
     private GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
-    private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight(), new Inhabitant(0,0, "", 0,0)};
+    private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight(), new Inhabitant(0,0, "", 0,0), new GoblinKing()};
 
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
@@ -61,12 +62,21 @@ public class BlockChooser extends JFrame {
 
 
         JButton build = new JButton("Строить");
+        build.setPreferredSize(new Dimension(width, 20));
+        build.setMinimumSize(new Dimension(width, 20));
+        build.setMaximumSize(new Dimension(width, 20));
         panel.add(build, constraints);
-        constraints.gridx ++;
+        constraints.gridy ++;
         JButton areaBuilder = new JButton("Строить по площади");
+        areaBuilder.setPreferredSize(new Dimension(width, 20));
+        areaBuilder.setMinimumSize(new Dimension(width, 20));
+        areaBuilder.setMaximumSize(new Dimension(width, 20));
         panel.add(areaBuilder, constraints);
         constraints.gridy ++;
         JButton edit = new JButton("Редактировать");
+        edit.setPreferredSize(new Dimension(width, 20));
+        edit.setMinimumSize(new Dimension(width, 20));
+        edit.setMaximumSize(new Dimension(width, 20));
         panel.add(edit, constraints);
         constraints.gridy ++;
 
@@ -107,6 +117,9 @@ public class BlockChooser extends JFrame {
 
         for (GodCreature creature : blockListNotLive){
             JPanel blockPanel = new JPanel(new BorderLayout());
+            blockPanel.setPreferredSize(new Dimension(width, 20));
+            blockPanel.setMinimumSize(new Dimension(width, 20));
+            blockPanel.setMaximumSize(new Dimension(width, 20));
 
             JLabel blockName = new JLabel(creature.getName());
 
@@ -145,6 +158,9 @@ public class BlockChooser extends JFrame {
 
         for (GodCreature creature : blockListLive){
             JPanel blockPanel = new JPanel(new BorderLayout());
+            blockPanel.setPreferredSize(new Dimension(width, 20));
+            blockPanel.setMinimumSize(new Dimension(width, 20));
+            blockPanel.setMaximumSize(new Dimension(width, 20));
 
             JLabel blockName = new JLabel(creature.getName());
 
@@ -178,14 +194,33 @@ public class BlockChooser extends JFrame {
             constraints.gridy ++;
         }
 
+        JLabel fileNameLabel = new JLabel("Название файла:");
+        fileNameLabel.setPreferredSize(new Dimension(width, 20));
+        fileNameLabel.setMinimumSize(new Dimension(width, 20));
+        fileNameLabel.setMaximumSize(new Dimension(width, 20));
+
+        panel.add(fileNameLabel, constraints);
+        constraints.gridy ++;
+
+        JTextArea fileNameTextArea = new JTextArea();
+        fileNameTextArea.setPreferredSize(new Dimension(width, 20));
+        fileNameTextArea.setMinimumSize(new Dimension(width, 20));
+        fileNameTextArea.setMaximumSize(new Dimension(width, 20));
+
+        panel.add(fileNameTextArea, constraints);
+        constraints.gridy ++;
+
         JButton saveButton = new JButton("Сохранить");
+        saveButton.setPreferredSize(new Dimension(width, 20));
+        saveButton.setMinimumSize(new Dimension(width, 20));
+        saveButton.setMaximumSize(new Dimension(width, 20));
 
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try{
                     Map newMap = new Map(new Player(0,0,"",0,0), 20,20);
                     newMap.setMap(constructorField.getMap());
-                    FileOutputStream fos = new FileOutputStream("./temp.txt");
+                    FileOutputStream fos = new FileOutputStream("./" + fileNameTextArea.getText() + ".txt");
                     ObjectOutputStream outStream = new ObjectOutputStream(fos);
                     outStream.writeObject(newMap);
                     outStream.flush();

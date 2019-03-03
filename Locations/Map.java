@@ -49,7 +49,12 @@ public class Map implements Serializable {
 
     private static final long serialVersionUID = 5350390037103737479L;
 
+    public Map(){
+        this(null, 0, 0);
+    }
+
     public Map(Player player, int mapWidth, int mapHeight){
+
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
 
@@ -102,6 +107,18 @@ public class Map implements Serializable {
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
             map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+        }
+
+        GoblinCamp goblinCamp = new GoblinCamp();
+        GodCreature[][] goblinCampPart = goblinCamp.getMap().getMap();
+
+        System.out.println(goblinCampPart.length);
+        for (int i = 0; i < goblinCampPart.length; i++){
+            for (int j = 0; j < goblinCampPart[0].length; j++){
+                goblinCampPart[i][j].setX(j+15);
+                goblinCampPart[i][j].setY(i+15);
+                map[i+15][j+15] = goblinCampPart[i][j];
+            }
         }
 
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
@@ -210,6 +227,10 @@ public class Map implements Serializable {
         goblinKing.setX(GoblinKingX);
         goblinKing.setY(GoblinKingY);
         map[GoblinKingY][GoblinKingX] = goblinKing;
+    }
+
+    public GodCreature[][] getMap() {
+        return map;
     }
 
     public GodCreature[][] getMap(int x, int y){
