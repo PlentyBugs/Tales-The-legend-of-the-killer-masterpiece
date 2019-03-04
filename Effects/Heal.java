@@ -3,6 +3,11 @@ package Effects;
 import Creatures.LiveCreature;
 
 public class Heal extends Effect {
+    private static final long serialVersionUID = -2237990859028001672L;
+
+    public Heal(){
+        this(EffectType.MOMENT);
+    }
 
     public Heal(EffectType type){
         this.type = type;
@@ -20,5 +25,9 @@ public class Heal extends Effect {
     @Override
     public void setPowerAlchemy(int alchemyPower){
         power += alchemyPower*30;
+    }
+
+    public Heal getClearCopy(){
+        return new Heal();
     }
 }

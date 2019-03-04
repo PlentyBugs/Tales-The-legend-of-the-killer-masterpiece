@@ -96,4 +96,14 @@ public class Chest extends Thing {
         String[] str = name.split("()");
         name = str[0] + "(" + inventory.length + ")";
     }
+
+    public int countOfItemInInventory(Item item){
+        int counter = 0;
+        for(Item itm : inventory){
+            if(item.compareTo(itm) == 0){
+                counter ++;
+            }
+        }
+        return counter;
+    }
 }

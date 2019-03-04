@@ -3,6 +3,11 @@ package Effects;
 import Creatures.LiveCreature;
 
 public class Poison extends Effect {
+    private static final long serialVersionUID = 3324013978376654430L;
+
+    public Poison(){
+        this(EffectType.MOMENT);
+    }
 
     public Poison(EffectType type){
         this.type = type;
@@ -19,5 +24,9 @@ public class Poison extends Effect {
     @Override
     public void setPowerAlchemy(int alchemyPower){
         power += alchemyPower*20;
+    }
+
+    public Poison getClearCopy(){
+        return new Poison();
     }
 }

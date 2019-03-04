@@ -1,6 +1,7 @@
-import Abilities.Auras.Vision;
 import Abilities.Passive.LittleFool;
 import Abilities.Passive.Professions.Alchemist;
+import Creatures.Difficulty;
+import Creatures.Player;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
@@ -11,8 +12,6 @@ import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
-import Creatures.Difficulty;
-import Creatures.Player;
 import Locations.Map;
 import Windows.FieldWindow;
 import Windows.SupportWindows.ChooseDifficultyWindow;
@@ -40,7 +39,7 @@ public class Game {
         startWindow.close();
         if(game.equals("new")) {
             Player player = new Player(0, 0, "Вы", 1, 250);
-            player.addAbility(new LittleFool(), new Alchemist(), new Vision(3));
+            player.addAbility(new LittleFool(), new Alchemist());
             Map map = new Map(player, 75, 75);
             try {
                 FileInputStream fis = new FileInputStream("./Maps/temp.txt");

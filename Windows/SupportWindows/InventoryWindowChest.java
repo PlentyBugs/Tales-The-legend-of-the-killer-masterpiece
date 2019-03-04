@@ -73,7 +73,7 @@ public class InventoryWindowChest extends JFrame {
         for (Item item : chest.getInventory()){
             if(!uniqueInventoryContains(item)){
                 uniqueInventory.add(item);
-            } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()){
+            } else if(chest.countOfItemInInventory(item) > 1 && item.getStackable()){
                 continue;
             }
 

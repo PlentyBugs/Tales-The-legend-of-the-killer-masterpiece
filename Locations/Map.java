@@ -11,7 +11,6 @@ import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Goblin;
-import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.GodCreature;
 import Creatures.Human;
 import Creatures.LiveCreature;
@@ -19,23 +18,23 @@ import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.*;
+import Items.Alchemy.Potions.HealPotion;
+import Items.Alchemy.Potions.PoisonPotion;
 import Items.Armors.Helmet;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
-import Items.Alchemy.Potions.HealPotion;
-import Items.Alchemy.Potions.PoisonPotion;
 import Items.QuestItems.KingGoblinRing;
 import Items.Rarity;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
-import Things.*;
 import Things.AlchemyThings.Berry;
+import Things.AlchemyThings.Herb;
 import Things.AlchemyThings.Mushroom;
 import Things.Craft.AlchemyTable;
-import Things.AlchemyThings.Herb;
+import Things.*;
 
 import java.io.Serializable;
 
@@ -110,14 +109,16 @@ public class Map implements Serializable {
         }
 
         GoblinCamp goblinCamp = new GoblinCamp();
-        GodCreature[][] goblinCampPart = goblinCamp.getMap().getMap();
+        if(goblinCamp.getMap() != null){
+            GodCreature[][] goblinCampPart = goblinCamp.getMap().getMap();
 
-        System.out.println(goblinCampPart.length);
-        for (int i = 0; i < goblinCampPart.length; i++){
-            for (int j = 0; j < goblinCampPart[0].length; j++){
-                goblinCampPart[i][j].setX(j+15);
-                goblinCampPart[i][j].setY(i+15);
-                map[i+15][j+15] = goblinCampPart[i][j];
+            System.out.println(goblinCampPart.length);
+            for (int i = 0; i < goblinCampPart.length; i++){
+                for (int j = 0; j < goblinCampPart[0].length; j++){
+                    goblinCampPart[i][j].setX(j+15);
+                    goblinCampPart[i][j].setY(i+15);
+                    map[i+15][j+15] = goblinCampPart[i][j];
+                }
             }
         }
 
@@ -219,14 +220,6 @@ public class Map implements Serializable {
         inhabitant.getConversationWindow().setPlayer(player);
         map[2][2] = inhabitant;
         map[2][3] = new AlchemyTable();
-
-
-        int GoblinKingY = (int)(Math.random()*(mapHeight-1));
-        int GoblinKingX = (int)(Math.random()*(mapWidth-1));
-        GoblinKing goblinKing = new GoblinKing();
-        goblinKing.setX(GoblinKingX);
-        goblinKing.setY(GoblinKingY);
-        map[GoblinKingY][GoblinKingX] = goblinKing;
     }
 
     public GodCreature[][] getMap() {

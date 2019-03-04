@@ -1,6 +1,7 @@
 package Locations;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class GoblinCamp{
@@ -25,7 +26,11 @@ public class GoblinCamp{
                 map.setMapHeight();
                 map.setMapWidth();
                 inputStream.close();
-            } catch (Exception ex){}
+            } catch (IOException ex){
+                ex.printStackTrace();
+            } catch (ClassNotFoundException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

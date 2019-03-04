@@ -65,7 +65,6 @@ public class AlchemyTableWindow extends CraftWindow {
 
     public void drawWindow(){
         getContentPane().remove(panel);
-        ingredients = new Ingredient[]{null, null, null, null, null, null};
 
         int alchemyLevel = 0;
         if(player != null && player.hasAbility(new Alchemist())){

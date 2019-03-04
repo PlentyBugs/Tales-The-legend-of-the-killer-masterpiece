@@ -6,6 +6,10 @@ import Creatures.StatsEnum;
 public class StatsUpEffect extends Effect {
     private StatsEnum stat;
 
+    public StatsUpEffect(){
+        this(EffectType.MOMENT, StatsEnum.STRENGTH);
+    }
+
     public StatsUpEffect(EffectType type, StatsEnum stat){
         this.type = type;
         power = 1;
@@ -36,5 +40,9 @@ public class StatsUpEffect extends Effect {
     @Override
     public void setPowerAlchemy(int alchemyPower){
         power += alchemyPower/10;
+    }
+
+    public StatsUpEffect getClearCopy(){
+        return new StatsUpEffect();
     }
 }
