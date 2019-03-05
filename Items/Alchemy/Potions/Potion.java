@@ -1,17 +1,19 @@
 package Items.Alchemy.Potions;
 
+import Creatures.LiveCreature;
 import Effects.Effect;
 import Effects.EffectType;
 import Effects.Poison;
+import Items.BattleItem;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
-import Creatures.LiveCreature;
 
-public class Potion extends Item {
+public class Potion extends Item implements BattleItem {
 
     protected PotionMaterial potionMaterial;
     protected Effect effect;
+    private static final long serialVersionUID = -1676624921038826829L;
 
     public Potion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
         this.name = "Зелье";
@@ -54,4 +56,39 @@ public class Potion extends Item {
         return -1;
     }
 
+    public void countProperty(){
+        int addPower = 0;
+        switch (potionMaterial){
+            case WATER: addPower += 150; break;
+            case AIR: addPower += 1500; break;
+            case BLOOD: addPower += 6000; break;
+            case DRAGONBLOOD: addPower += 45000; break;
+            case GODBLOOD: addPower += 230000; break;
+        }
+
+        switch (grade){
+            case COMMON: addPower += 300; break;
+            case MAGIC: addPower += 4800; break;
+            case CURSE: addPower += 13000; break;
+            case ARTIFACT: addPower += 51000; break;
+            case HEROIC: addPower += 230000; break;
+            case ABOVETHEGODS: addPower += 580000; break;
+        }
+        switch (rarity){
+            case COMMON: addPower += 120; break;
+            case UNCOMMON: addPower += 3500; break;
+            case RARE: addPower += 14200; break;
+            case MYSTICAL: addPower += 35400; break;
+            case LEGENDARY: addPower += 78000; break;
+            case DRAGON: addPower += 347000; break;
+            case DIVINE: addPower += 975000; break;
+        }
+
+        effect.setPower(effect.getPower() + addPower);
+    }
+
+    @Override
+    public void useItemInBattle() {
+
+    }
 }

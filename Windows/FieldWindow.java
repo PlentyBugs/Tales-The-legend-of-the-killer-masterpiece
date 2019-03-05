@@ -16,11 +16,11 @@ import Windows.SupportWindows.SupportComponents.Console;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.io.Serializable;
 
-public class FieldWindow extends JFrame implements Serializable {
+public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private int x, y;
     private int counter = -1;
     private int realVision;
@@ -48,7 +48,9 @@ public class FieldWindow extends JFrame implements Serializable {
 
     public FieldWindow(String name, int vision, Player player, GodCreature[][] information, Map map) {
         super(name);
-
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
         this.player = player;
 
         inventory = player.getInventoryWindow().getPanel();
@@ -210,7 +212,7 @@ public class FieldWindow extends JFrame implements Serializable {
                         }
                     });
                 }
-
+                panel.setFocusable(true);
                 panel.add(button, constraints);
             }
         }
@@ -337,4 +339,20 @@ public class FieldWindow extends JFrame implements Serializable {
         player.getPlayerQuestWindow().drawWindow();
         player.getSavePanel().drawWindow();
     }
+
+    public void keyPressed(KeyEvent event){
+        if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A){
+            System.out.println(currentMap.getMap(player.getX(),player.getY())[3][2].getClass());
+        } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D){
+            System.out.println(currentMap.getMap(player.getX(),player.getY())[3][4].getClass());
+        } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W){
+            System.out.println(currentMap.getMap(player.getX(),player.getY())[2][3].getClass());
+        } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S){
+            System.out.println(currentMap.getMap(player.getX(),player.getY())[4][3].getClass());
+        }
+    }
+
+    public void keyReleased(KeyEvent event){}
+
+    public void keyTyped(KeyEvent event){}
 }

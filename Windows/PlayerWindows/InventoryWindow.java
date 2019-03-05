@@ -24,7 +24,7 @@ public class InventoryWindow extends JFrame implements Serializable {
     private JPanel menuPanel = new JPanel();
     private int width = 720;
     private int height = 720;
-    private JPanel panelz = new JPanel();;
+    private JPanel panelz = new JPanel();
     private static final long serialVersionUID = -559721917387219997L;
     private String currentInventory = "All";
     private ArrayList<Item> uniqueInventory = new ArrayList<>();

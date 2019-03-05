@@ -108,16 +108,20 @@ public class Map implements Serializable {
             map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
         }
 
-        GoblinCamp goblinCamp = new GoblinCamp();
-        if(goblinCamp.getMap() != null){
-            GodCreature[][] goblinCampPart = goblinCamp.getMap().getMap();
-
-            System.out.println(goblinCampPart.length);
-            for (int i = 0; i < goblinCampPart.length; i++){
-                for (int j = 0; j < goblinCampPart[0].length; j++){
-                    goblinCampPart[i][j].setX(j+15);
-                    goblinCampPart[i][j].setY(i+15);
-                    map[i+15][j+15] = goblinCampPart[i][j];
+        for(int s = 0; s < 2; s++){
+            GoblinCamp goblinCamp = new GoblinCamp();
+            if(goblinCamp.getMap() != null && mapHeight >= 50 && mapWidth >= 50){
+                GodCreature[][] goblinCampPart = rotate(s+1, goblinCamp.getMap().getMap());
+                int randomCoordinate = (int)(Math.random()*(mapWidth-goblinCampPart.length));
+                while(!(randomCoordinate < mapWidth)){
+                    randomCoordinate = (int)(Math.random()*(mapWidth-goblinCampPart.length));
+                }
+                for (int i = 0; i < goblinCampPart.length; i++){
+                    for (int j = 0; j < goblinCampPart[0].length; j++){
+                        goblinCampPart[i][j].setX(j+randomCoordinate);
+                        goblinCampPart[i][j].setY(i+randomCoordinate);
+                        map[i+randomCoordinate][j+randomCoordinate] = goblinCampPart[i][j];
+                    }
                 }
             }
         }
@@ -270,5 +274,22 @@ public class Map implements Serializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public GodCreature[][] rotate(int countRotationsToNinetyDegr, GodCreature[][] oldMap){
+        if(oldMap.length != 0 & oldMap[0].length != 0){
+            GodCreature[][] newMap = new GodCreature[oldMap[0].length][oldMap.length];
+            for(int i = 0; i < oldMap.length; i++){
+                for(int j = 0; j < oldMap[i].length; j++){
+                    newMap[j][i] = oldMap[i][j];
+                }
+            }
+            if(countRotationsToNinetyDegr == 1){
+                return newMap;
+            } else {
+                return rotate(countRotationsToNinetyDegr - 1, newMap);
+            }
+        }
+        return oldMap;
     }
 }

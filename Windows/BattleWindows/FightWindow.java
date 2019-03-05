@@ -22,8 +22,6 @@ import Windows.SupportWindows.SupportComponents.Console;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,6 +43,7 @@ public class FightWindow extends JFrame implements Serializable {
 
     private JPanel panel = new JPanel(new BorderLayout());
     private PlayerAbilityWindow playerAbilityWindow;
+    private PlayerFightItemWindow playerFightItemWindow;
 
     public FightWindow(Player player, LiveCreature enemy, FieldWindow field) {
         super("Бой");
@@ -97,27 +96,32 @@ public class FightWindow extends JFrame implements Serializable {
         playerActions.setLayout(boxLayout);
 
         JButton playerAttackButton = new JButton("Атаковать");
+        playerAttackButton.setBackground(new Color(0,255,0));
         Dimension d = new Dimension(340,48);
         playerAttackButton.setMinimumSize(d);
         playerAttackButton.setPreferredSize(d);
         playerAttackButton.setMaximumSize(d);
 
         JButton playerAbilityButton = new JButton("Способность");
+        playerAttackButton.setBackground(new Color(0,255,0));
         playerAbilityButton.setMinimumSize(d);
         playerAbilityButton.setPreferredSize(d);
         playerAbilityButton.setMaximumSize(d);
 
         JButton playerDefendButton = new JButton("Защищаться");
+        playerAttackButton.setBackground(new Color(255,0,0));
         playerDefendButton.setMinimumSize(d);
         playerDefendButton.setPreferredSize(d);
         playerDefendButton.setMaximumSize(d);
 
         JButton playerUseItemButton = new JButton("Предметы");
+        playerAttackButton.setBackground(new Color(0,255,0));
         playerUseItemButton.setMinimumSize(d);
         playerUseItemButton.setPreferredSize(d);
         playerUseItemButton.setMaximumSize(d);
 
         JButton playerRunAwayButton = new JButton("Побег");
+        playerAttackButton.setBackground(new Color(0,255,0));
         playerRunAwayButton.setMinimumSize(d);
         playerRunAwayButton.setPreferredSize(d);
         playerRunAwayButton.setMaximumSize(d);
@@ -134,113 +138,106 @@ public class FightWindow extends JFrame implements Serializable {
         }
 
 
-        playerAttackButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
+        playerAttackButton.addActionListener(e -> {
+            double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
 
-                for(Weapon weapon : player.getEquipment().getWeaponList()){
-                    if(weapon != null){
-                        for(WeaponType weaponType : weapon.getWeaponType()){
-                            switch (weaponType){
-                                case ONEHANDED:{
-                                    if(player.getStats().one_handed_weapon != 0) {
-                                        damage *= 1 + player.getStats().one_handed_weapon/150.0;
-                                    }
+            for(Weapon weapon : player.getEquipment().getWeaponList()){
+                if(weapon != null){
+                    for(WeaponType weaponType : weapon.getWeaponType()){
+                        switch (weaponType){
+                            case ONEHANDED:{
+                                if(player.getStats().one_handed_weapon != 0) {
+                                    damage *= 1 + player.getStats().one_handed_weapon/150.0;
                                 }
-                                    break;
-                                case TWOHANDED:{
-                                    if(player.getStats().two_handed_weapon != 0) {
-                                        damage *= 1 + player.getStats().two_handed_weapon/150.0;
-                                    }
-                                } break;
-                                case LONGRANGE:{
-                                    if(player.getStats().long_range_weapon != 0) {
-                                        damage *= 1 + player.getStats().long_range_weapon/150.0;
-                                    }
-                                } break;
-                                case POLE:{
-                                    if(player.getStats().pole_weapon != 0) {
-                                        damage *= 1 + player.getStats().pole_weapon/150.0;
-                                    }
-                                } break;
-                                case CHOPPING:{
-                                    if(player.getStats().chopping_weapon != 0) {
-                                        damage *= 1 + player.getStats().chopping_weapon/150.0;
-                                    }
-                                } break;
                             }
+                                break;
+                            case TWOHANDED:{
+                                if(player.getStats().two_handed_weapon != 0) {
+                                    damage *= 1 + player.getStats().two_handed_weapon/150.0;
+                                }
+                            } break;
+                            case LONGRANGE:{
+                                if(player.getStats().long_range_weapon != 0) {
+                                    damage *= 1 + player.getStats().long_range_weapon/150.0;
+                                }
+                            } break;
+                            case POLE:{
+                                if(player.getStats().pole_weapon != 0) {
+                                    damage *= 1 + player.getStats().pole_weapon/150.0;
+                                }
+                            } break;
+                            case CHOPPING:{
+                                if(player.getStats().chopping_weapon != 0) {
+                                    damage *= 1 + player.getStats().chopping_weapon/150.0;
+                                }
+                            } break;
                         }
                     }
                 }
+            }
 
-                int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
-                if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
-                    writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
-                    writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
-                    damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
+            int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
+            if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
+                writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                damage *= player.getAbility(new CriticalStrike()).getPower()/100.0;
+            }
+
+            player.setCurrentDamage(damage);
+
+            if (player.getBuffs() != null){
+                for (Buff buff : player.getBuffs()){
+                    buff.use(player);
                 }
+            }
+            damage = player.getCurrentDamage();
 
-                player.setCurrentDamage(damage);
+            damage = Math.round(damage*100.0)/100.0;
+            enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
+            writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
+            writeToPlayerConsole("Вы нанесли " + Double.toString(damage) + " единиц урона");
+            if (enemy.getHp() > 0){
+                writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
+            } else {
+                writeToEnemyStatusConsole(enemy.getName() + " повержен!");
+            }
+            enemyTurn();
+        });
 
-                if (player.getBuffs() != null){
-                    for (Buff buff : player.getBuffs()){
-                        buff.use(player);
-                    }
-                }
-                damage = player.getCurrentDamage();
+        playerAbilityButton.addActionListener(e -> {
+            if (playerAbilityWindow == null){
+                playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
+            } else {
+                playerAbilityWindow.close();
+                playerAbilityWindow = null;
+            }
+        });
 
-                damage = Math.round(damage*100.0)/100.0;
-                enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
-                writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
-                writeToPlayerConsole("Вы нанесли " + Double.toString(damage) + " единиц урона");
-                if (enemy.getHp() > 0){
-                    writeToEnemyStatusConsole("Осталось жизней: " + enemy.getHp());
-                } else {
-                    writeToEnemyStatusConsole(enemy.getName() + " повержен!");
-                }
+        playerDefendButton.addActionListener(e -> enemyTurn());
+
+        playerUseItemButton.addActionListener(e -> {
+            if (playerFightItemWindow == null){
+                playerFightItemWindow = new PlayerFightItemWindow(player, enemy, FightWindow.this);
+            } else {
+                playerFightItemWindow.close();
+                playerFightItemWindow = null;
+            }
+        });
+
+        playerRunAwayButton.addActionListener(e -> {
+            int chance = (int)(Math.random()*(100-player.getStats().luck/2));
+            if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
+                dialogWindow.close();
+                dialogWindow = new DialogWindow("Вам удалось сбежать");
+
+                field.setIsVisible(true);
+                field.drawMap();
+
+                close();
+            } else {
+                dialogWindow.close();
+                dialogWindow = new DialogWindow("Вам не удалось сбежать");
                 enemyTurn();
-            }
-        });
-
-        playerAbilityButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (playerAbilityWindow == null){
-                    playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
-                } else {
-                    playerAbilityWindow.close();
-                    playerAbilityWindow = null;
-                }
-            }
-        });
-
-        playerDefendButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enemyTurn();
-            }
-        });
-
-        playerUseItemButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                enemyTurn();
-            }
-        });
-
-        playerRunAwayButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int chance = (int)(Math.random()*(100-player.getStats().luck/2));
-                if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
-                    dialogWindow.close();
-                    dialogWindow = new DialogWindow("Вам удалось сбежать");
-
-                    field.setIsVisible(true);
-                    field.drawMap();
-
-                    close();
-                } else {
-                    dialogWindow.close();
-                    dialogWindow = new DialogWindow("Вам не удалось сбежать");
-                    enemyTurn();
-                }
             }
         });
 
@@ -260,15 +257,15 @@ public class FightWindow extends JFrame implements Serializable {
         setVisible(true);
     }
 
-    public void writeToEnemyStatusConsole(String text){
+    void writeToEnemyStatusConsole(String text){
         enemyConsoleStatus.writeToConsole(text);
     }
 
-    public void writeToEnemyActionConsole(String text){
+    private void writeToEnemyActionConsole(String text){
         enemyConsoleActions.writeToConsole(text);
     }
 
-    public void writeToPlayerConsole(String text){
+    void writeToPlayerConsole(String text){
         playerConsole.writeToConsole(text);
     }
 
@@ -284,7 +281,7 @@ public class FightWindow extends JFrame implements Serializable {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void enemyTurn(){
+    void enemyTurn(){
 
         if (enemy.getHp() <= 0){
             getReward();
@@ -540,9 +537,10 @@ public class FightWindow extends JFrame implements Serializable {
         thread.run();
     }
 
-    public void loss(){
+    private void loss(){
         if (playerAbilityWindow != null){
             playerAbilityWindow.close();
+            playerFightItemWindow.close();
         }
         close();
         LossWindow loss = new LossWindow();
