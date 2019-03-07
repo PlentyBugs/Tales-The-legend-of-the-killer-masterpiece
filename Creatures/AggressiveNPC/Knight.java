@@ -36,25 +36,26 @@ public class Knight extends Human {
     }
 
     public void countStatsAfterBorn(){
-        stats.strength = 5 + (int)(Math.random()*(lvl+30) + lvl*27);
-        stats.speed = 5 + (int)(Math.random()*(lvl+14) + lvl);
-        stats.agility = 5 + (int)(Math.random()*(lvl+12) + lvl*12);
-        stats.intelligence = 5 + (int)(Math.random()*lvl + lvl*5);
-        stats.luck = 5 + (int)(Math.random()*(lvl+4) + lvl*6);
-        stats.eloquence = 5;
-        stats.blacksmith = 5;
-        stats.alchemy = 5;
-        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*10);
-        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+18));
-        stats.pole_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*3);
-        stats.chopping_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*3);
-        stats.long_range_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*3);
+        stats.setStrength(5 + (int)(Math.random()*(lvl+30) + lvl*27));
+        stats.setSpeed(5 + (int)(Math.random()*(lvl+14) + lvl));
+        stats.setAgility(5 + (int)(Math.random()*(lvl+12) + lvl*12));
+        stats.setIntelligence(5 + (int)(Math.random()*lvl + lvl*5));
+        stats.setLuck(5 + (int)(Math.random()*(lvl+4) + lvl*6));
+        stats.setEloquence(5);
+        stats.setBlacksmith(5);
+        stats.setTheft(5);
+        stats.setAlchemy(5);
+        stats.setOne_handed_weapon(5 + (int)(Math.random()*(lvl+2) + lvl*10));
+        stats.setTwo_handed_weapon(5 + (int)(Math.random()*(lvl+18)));
+        stats.setPole_weapon(5 + (int)(Math.random()*(lvl+2) + lvl*3));
+        stats.setChopping_weapon(5 + (int)(Math.random()*(lvl+2) + lvl*3));
+        stats.setLong_range_weapon(5 + (int)(Math.random()*(lvl+2) + lvl*3));
 
-        stats.knowledge = 0;
-        stats.energy = 0;
+        stats.setKnowledge(0);
+        stats.setEnergy(0);
 
-        stats.militarism = 0;
-        stats.pacifism = 0;
+        stats.setMilitarism(0);
+        stats.setPacifism(0);
     }
 
     @Override

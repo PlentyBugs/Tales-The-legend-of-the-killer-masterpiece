@@ -21,11 +21,26 @@ public class Dealer extends Peaceful {
         this.name = name;
         color = new Color(255, 100, 204);
 
-        stats.strength = 510;
-        stats.speed = 120;
-        stats.intelligence = 310;
-        stats.luck = 210;
-        stats.eloquence = 650;
+        stats.setStrength(510);
+        stats.setSpeed(120);
+        stats.setAgility(5);
+        stats.setIntelligence(310);
+        stats.setLuck(210);
+        stats.setEloquence(650);
+        stats.setBlacksmith(5);
+        stats.setTheft(5);
+        stats.setAlchemy(5);
+        stats.setOne_handed_weapon(5);
+        stats.setTwo_handed_weapon(5);
+        stats.setPole_weapon(5);
+        stats.setChopping_weapon(5);
+        stats.setLong_range_weapon(5);
+
+        stats.setKnowledge(0);
+        stats.setEnergy(0);
+
+        stats.setMilitarism(0);
+        stats.setPacifism(0);
 
         conversation = new Conversation();
 

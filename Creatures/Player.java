@@ -5,6 +5,7 @@ import Abilities.AbilityType;
 import Abilities.Auras.Aura;
 import Items.Armors.Armor;
 import Items.Item;
+import Items.StatItem;
 import Quests.Quest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
@@ -43,26 +44,26 @@ public class Player extends Human {
         this.hp = maxHp;
         this.lvl = lvl;
         this.name = name;
-        stats.strength = 5;
-        stats.speed = 5;
-        stats.agility = 5;
-        stats.intelligence = 5;
-        stats.luck = 5;
-        stats.eloquence = 5;
-        stats.blacksmith = 5;
-        stats.theft = 5;
-        stats.alchemy = 5;
-        stats.one_handed_weapon = 5;
-        stats.two_handed_weapon = 5;
-        stats.pole_weapon = 5;
-        stats.chopping_weapon = 5;
-        stats.long_range_weapon = 5;
+        stats.setStrength(5);
+        stats.setSpeed(5);
+        stats.setAgility(5);
+        stats.setIntelligence(5);
+        stats.setLuck(5);
+        stats.setEloquence(5);
+        stats.setBlacksmith(5);
+        stats.setTheft(5);
+        stats.setAlchemy(5);
+        stats.setOne_handed_weapon(5);
+        stats.setTwo_handed_weapon(5);
+        stats.setPole_weapon(5);
+        stats.setChopping_weapon(5);
+        stats.setLong_range_weapon(5);
 
-        stats.knowledge = 0;
-        stats.energy = 0;
+        stats.setKnowledge(0);
+        stats.setEnergy(0);
 
-        stats.militarism = 0;
-        stats.pacifism = 0;
+        stats.setMilitarism(0);
+        stats.setPacifism(0);
         vision = 3;
         levelpoints = 0;
 
@@ -147,19 +148,19 @@ public class Player extends Human {
 
     public void getStatusStats() throws InterruptedException {
         fieldWindow.writeToConsole("Статы:");
-        fieldWindow.writeToConsole("\tСила: " + stats.strength);
-        fieldWindow.writeToConsole("\tЛовкость: " + stats.agility);
-        fieldWindow.writeToConsole("\tСкорость: " + stats.speed);
-        fieldWindow.writeToConsole("\tИнтеллект: " + stats.intelligence);
-        fieldWindow.writeToConsole("\tУдача: " + stats.luck);
-        fieldWindow.writeToConsole("\tКрасноречие: " + stats.eloquence);
-        fieldWindow.writeToConsole("\tКузнечное дело: " + stats.blacksmith);
-        fieldWindow.writeToConsole("\tАлхимия: " + stats.alchemy);
-        fieldWindow.writeToConsole("\tОдноручное оружие: " + stats.one_handed_weapon);
-        fieldWindow.writeToConsole("\tДвуручное оружие: " + stats.two_handed_weapon);
-        fieldWindow.writeToConsole("\tДревковое оружие: " + stats.pole_weapon);
-        fieldWindow.writeToConsole("\tРубящее оружие: " + stats.chopping_weapon);
-        fieldWindow.writeToConsole("\tДальнобойное оружие: " + stats.long_range_weapon);
+        fieldWindow.writeToConsole("\tСила: " + stats.getStrength());
+        fieldWindow.writeToConsole("\tЛовкость: " + stats.getAgility());
+        fieldWindow.writeToConsole("\tСкорость: " + stats.getSpeed());
+        fieldWindow.writeToConsole("\tИнтеллект: " + stats.getIntelligence());
+        fieldWindow.writeToConsole("\tУдача: " + stats.getLuck());
+        fieldWindow.writeToConsole("\tКрасноречие: " + stats.getEloquence());
+        fieldWindow.writeToConsole("\tКузнечное дело: " + stats.getBlacksmith());
+        fieldWindow.writeToConsole("\tАлхимия: " + stats.getAlchemy());
+        fieldWindow.writeToConsole("\tОдноручное оружие: " + stats.getOne_handed_weapon());
+        fieldWindow.writeToConsole("\tДвуручное оружие: " + stats.getTwo_handed_weapon());
+        fieldWindow.writeToConsole("\tДревковое оружие: " + stats.getPole_weapon());
+        fieldWindow.writeToConsole("\tРубящее оружие: " + stats.getChopping_weapon());
+        fieldWindow.writeToConsole("\tДальнобойное оружие: " + stats.getLong_range_weapon());
     }
 
     public QuestsWindow getPlayerQuestWindow() {
@@ -238,7 +239,7 @@ public class Player extends Human {
                             break;
                     }
 
-                    chance += (int)(stats.luck/2);
+                    chance += (int)(stats.getLuck()/2);
                     while(chance > 0){
                         int isExtraPoint = (int) Math.ceil(Math.random() * 100);
                         if (isExtraPoint < chance){
@@ -263,7 +264,7 @@ public class Player extends Human {
     }
 
     private void addMaxHpByStats(){
-        maxHp += (int)(stats.strength*5 + (stats.luck*2)*Math.random());
+        maxHp += (int)(stats.getStrength()*5 + (stats.getLuck()*2)*Math.random());
     }
 
     public double absorbDamage(double damage){
@@ -281,6 +282,15 @@ public class Player extends Human {
         for (Ability ability : abilities){
             if (ability.getAbilityType().contains(AbilityType.AURA)){
                 ((Aura)ability).use(this);
+            }
+        }
+    }
+
+    public void countEquipmentBuffs(){
+        stats.getBonusStats().clear();
+        for(Item item : equipment.getListOfEquipment()){
+            if(item instanceof StatItem){
+                stats.getBonusStats().upStat(((StatItem)item).getStat(), ((StatItem)item).getStatPower());
             }
         }
     }

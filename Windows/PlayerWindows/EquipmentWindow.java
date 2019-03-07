@@ -2,6 +2,7 @@ package Windows.PlayerWindows;
 
 import Creatures.Player;
 import Items.Armors.Armor;
+import Items.Armors.Ring;
 import Items.Item;
 import Items.Weapons.Weapon;
 
@@ -94,9 +95,12 @@ public class EquipmentWindow extends JFrame implements Serializable {
             if (item.getClass().toString().contains("Weapon")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
+            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            } else if(item.getClass().toString().contains("Ring")){
+                property.setText(((Ring)item).getStat() + ": ");
+                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));

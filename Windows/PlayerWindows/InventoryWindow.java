@@ -3,6 +3,7 @@ package Windows.PlayerWindows;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Armors.Armor;
+import Items.Armors.Ring;
 import Items.Item;
 import Items.Alchemy.Potions.Potion;
 import Items.Weapons.Weapon;
@@ -168,9 +169,12 @@ public class InventoryWindow extends JFrame implements Serializable {
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
+            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            } else if(item.getClass().toString().contains("Ring")){
+                property.setText(((Ring)item).getStat() + ": ");
+                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
             } else if (item.getClass().toString().contains("Potions")){
                 property.setText("Мощность: ");
                 propertyCount.setText(Integer.toString(((Potion)item).getEffect().getPower()));

@@ -37,10 +37,10 @@ public class Evasion extends Ability {
     }
 
     public boolean check(Player player){
-        System.out.println(player.getStats().speed);
+        System.out.println(player.getStats().getSpeed());
         System.out.println(level);
-        System.out.println(player.getStats().agility);
-        if (player.getStats().speed >= (level - 1)*10 + 5 && player.getStats().agility >= (level - 1)*10 + 5){
+        System.out.println(player.getStats().getAgility());
+        if (player.getStats().getSpeed() >= (level - 1)*10 + 5 && player.getStats().getAgility() >= (level - 1)*10 + 5){
             return true;
         }
         return false;

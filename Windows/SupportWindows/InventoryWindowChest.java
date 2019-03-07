@@ -1,6 +1,7 @@
 package Windows.SupportWindows;
 
 import Items.Armors.Armor;
+import Items.Armors.Ring;
 import Items.Item;
 import Items.Weapons.Weapon;
 import Creatures.Player;
@@ -118,12 +119,15 @@ public class InventoryWindowChest extends JFrame {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
+            if (item.getClass().toString().contains("Sword")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
-            } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
+            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
+            } else if(item.getClass().toString().contains("Ring")){
+                property.setText(((Ring)item).getStat() + ": ");
+                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));

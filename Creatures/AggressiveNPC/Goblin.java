@@ -34,19 +34,26 @@ public class Goblin extends Human {
     }
 
     public void countStatsAfterBorn(){
-        stats.strength = 5 + (int)(Math.random()*(lvl+2) + lvl*6);
-        stats.speed = 5 + (int)(Math.random()*(lvl+2) + lvl*2);
-        stats.agility = 5 + (int)(Math.random()*(lvl+2) + lvl*4);
-        stats.intelligence = 5;
-        stats.luck = 5;
-        stats.eloquence = 5;
-        stats.blacksmith = 5;
-        stats.alchemy = 5;
-        stats.one_handed_weapon = 5 + (int)(Math.random()*(lvl+2) + lvl*5);
-        stats.two_handed_weapon = 5 + (int)(Math.random()*(lvl+8) + lvl*6);
-        stats.pole_weapon = 5;
-        stats.chopping_weapon = 5;
-        stats.long_range_weapon = 5;
+        stats.setStrength(5 + (int)(Math.random()*(lvl+2) + lvl*6));
+        stats.setSpeed(5 + (int)(Math.random()*(lvl+2) + lvl*2));
+        stats.setAgility(5 + (int)(Math.random()*(lvl+2) + lvl*4));
+        stats.setIntelligence(5);
+        stats.setLuck(5);
+        stats.setEloquence(5);
+        stats.setBlacksmith(5);
+        stats.setTheft(5);
+        stats.setAlchemy(5);
+        stats.setOne_handed_weapon(5 + (int)(Math.random()*(lvl+2) + lvl*5));
+        stats.setTwo_handed_weapon(5 + (int)(Math.random()*(lvl+8) + lvl*6));
+        stats.setPole_weapon(5);
+        stats.setChopping_weapon(5);
+        stats.setLong_range_weapon(5);
+
+        stats.setKnowledge(0);
+        stats.setEnergy(0);
+
+        stats.setMilitarism(0);
+        stats.setPacifism(0);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class Alchemist extends Ability {
     }
 
     public boolean check(Player player){
-        if (player.getStats().alchemy >= (level-1)*90 + 5){
+        if (player.getStats().getAlchemy() >= (level-1)*90 + 5){
             return true;
         }
         return false;

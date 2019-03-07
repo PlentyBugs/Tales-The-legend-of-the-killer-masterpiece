@@ -58,27 +58,27 @@ public class Narrator {
 
         if(player.getName().equals("TesteratorGun1479")){
             player.setLevelpoints(50);
-            player.setUpPointCount(60);
+            player.setUpPointCount(6000);
             player.setName("cheater");
-            player.setHp(2000);
-            player.setMaxHp(2000);
+            player.setHp(20000000);
+            player.setMaxHp(20000000);
         }
 
         if(player.getName().equals("IMN0TaDR1Nk3RiMAnA1c43m1st")){
             player.setLevelpoints(30);
-            player.getStats().strength = 1;
-            player.getStats().speed = 0;
-            player.getStats().agility = 0;
-            player.getStats().intelligence = 0;
-            player.getStats().luck = 0;
-            player.getStats().eloquence = 0;
-            player.getStats().blacksmith = 0;
-            player.getStats().alchemy = 250;
-            player.getStats().one_handed_weapon = 0;
-            player.getStats().two_handed_weapon = 0;
-            player.getStats().pole_weapon = 0;
-            player.getStats().chopping_weapon = 0;
-            player.getStats().long_range_weapon = 0;
+            player.getStats().setStrength(1);
+            player.getStats().setSpeed(0);
+            player.getStats().setAgility(0);
+            player.getStats().setIntelligence(0);
+            player.getStats().setLuck(0);
+            player.getStats().setEloquence(0);
+            player.getStats().setBlacksmith(0);
+            player.getStats().setAlchemy(250);
+            player.getStats().setOne_handed_weapon(0);
+            player.getStats().setTwo_handed_weapon(0);
+            player.getStats().setPole_weapon(0);
+            player.getStats().setChopping_weapon(0);
+            player.getStats().setLong_range_weapon(0);
             player.setName("cheater");
             player.setHp(1);
             player.setMaxHp(1);
@@ -86,19 +86,19 @@ public class Narrator {
 
         if(player.getName().equals("urMomGay512")){
 
-            player.getStats().strength = 1;
-            player.getStats().speed = 0;
-            player.getStats().agility = 0;
-            player.getStats().intelligence = 0;
-            player.getStats().luck = 250;
-            player.getStats().eloquence = 0;
-            player.getStats().blacksmith = 0;
-            player.getStats().alchemy = 0;
-            player.getStats().one_handed_weapon = 0;
-            player.getStats().two_handed_weapon = 0;
-            player.getStats().pole_weapon = 0;
-            player.getStats().chopping_weapon = 0;
-            player.getStats().long_range_weapon = 0;
+            player.getStats().setStrength(1);
+            player.getStats().setSpeed(0);
+            player.getStats().setAgility(0);
+            player.getStats().setIntelligence(0);
+            player.getStats().setLuck(250);
+            player.getStats().setEloquence(0);
+            player.getStats().setBlacksmith(0);
+            player.getStats().setAlchemy(0);
+            player.getStats().setOne_handed_weapon(0);
+            player.getStats().setTwo_handed_weapon(0);
+            player.getStats().setPole_weapon(0);
+            player.getStats().setChopping_weapon(0);
+            player.getStats().setLong_range_weapon(0);
 
             player.setLevelpoints(10);
             player.setUpPointCount(10);
@@ -109,8 +109,8 @@ public class Narrator {
 
         if(player.getName().equals("WenToThER0CkinGCha1r")){
 
-            player.getStats().strength = 200;
-            player.getStats().two_handed_weapon = 200;
+            player.getStats().setStrength(200);
+            player.getStats().setTwo_handed_weapon(200);
 
             player.setName("cheater");
             player.setHp(100);
@@ -119,8 +119,8 @@ public class Narrator {
 
         if(player.getName().equals("LiKeG0D")){
 
-            player.getStats().strength = 10000;
-            player.getStats().luck = 10000;
+            player.getStats().setStrength(10000);
+            player.getStats().setLuck(10000);
 
             player.setName("cheater");
             player.setHp(100);
@@ -129,7 +129,7 @@ public class Narrator {
 
         if(player.getName().equals("h0pelESSN3$S$33kУr")){
 
-            player.getStats().long_range_weapon = 150;
+            player.getStats().setLong_range_weapon(150);
             player.addAbility(new Vision(6));
 
             player.setName("cheater");
@@ -139,7 +139,7 @@ public class Narrator {
 
         if(player.getName().equals("Th3ftIsJust1f13d")){
 
-            player.getStats().theft = 200;
+            player.getStats().setTheft(200);
             player.addAbility(new Steal());
 
             player.setName("cheater");

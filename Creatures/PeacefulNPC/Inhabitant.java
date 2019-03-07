@@ -22,11 +22,11 @@ public class Inhabitant extends Peaceful {
         this.name = name;
         color = new Color(223, 196, 69);
 
-        stats.strength = 15;
-        stats.speed = 2;
-        stats.intelligence = 12;
-        stats.luck = 0;
-        stats.eloquence = 20;
+        stats.setStrength(15);
+        stats.setSpeed(2);
+        stats.setIntelligence(12);
+        stats.setLuck(0);
+        stats.setEloquence(20);
 
         conversation = new Conversation();
 

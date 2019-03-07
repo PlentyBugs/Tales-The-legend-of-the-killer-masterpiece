@@ -40,7 +40,7 @@ public class CriticalStrike extends Ability {
     }
 
     public boolean check(Player player){
-        if (player.getStats().strength >= (level-1)*10 + 5 && player.getStats().agility >= (level-1)*10 + 5){
+        if (player.getStats().getStrength() >= (level-1)*10 + 5 && player.getStats().getAgility() >= (level-1)*10 + 5){
             return true;
         }
         return false;

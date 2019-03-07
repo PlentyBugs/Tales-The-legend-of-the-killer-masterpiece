@@ -5,6 +5,8 @@ import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Creatures.StatsEnum;
+import Items.Armors.Ring;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
@@ -103,25 +105,25 @@ public class FightWindow extends JFrame implements Serializable {
         playerAttackButton.setMaximumSize(d);
 
         JButton playerAbilityButton = new JButton("Способность");
-        playerAttackButton.setBackground(new Color(0,255,0));
+        playerAbilityButton.setBackground(new Color(0,255,0));
         playerAbilityButton.setMinimumSize(d);
         playerAbilityButton.setPreferredSize(d);
         playerAbilityButton.setMaximumSize(d);
 
         JButton playerDefendButton = new JButton("Защищаться");
-        playerAttackButton.setBackground(new Color(255,0,0));
+        playerDefendButton.setBackground(new Color(255,0,0));
         playerDefendButton.setMinimumSize(d);
         playerDefendButton.setPreferredSize(d);
         playerDefendButton.setMaximumSize(d);
 
         JButton playerUseItemButton = new JButton("Предметы");
-        playerAttackButton.setBackground(new Color(0,255,0));
+        playerUseItemButton.setBackground(new Color(0,255,0));
         playerUseItemButton.setMinimumSize(d);
         playerUseItemButton.setPreferredSize(d);
         playerUseItemButton.setMaximumSize(d);
 
         JButton playerRunAwayButton = new JButton("Побег");
-        playerAttackButton.setBackground(new Color(0,255,0));
+        playerRunAwayButton.setBackground(new Color(0,255,0));
         playerRunAwayButton.setMinimumSize(d);
         playerRunAwayButton.setPreferredSize(d);
         playerRunAwayButton.setMaximumSize(d);
@@ -130,7 +132,7 @@ public class FightWindow extends JFrame implements Serializable {
         writeToEnemyActionConsole("Окно действий противника");
         writeToEnemyStatusConsole("Окно статуса противника");
         writeToPlayerConsole("Окно персонажа");
-        if(player.getStats().speed >= enemy.getStats().speed){
+        if(player.getStats().getSpeed() >= enemy.getStats().getSpeed()){
             writeToPlayerConsole("Ваш ход");
         } else {
             writeToPlayerConsole("Ход противника");
@@ -139,36 +141,36 @@ public class FightWindow extends JFrame implements Serializable {
 
 
         playerAttackButton.addActionListener(e -> {
-            double damage = (int)((player.getStats().strength + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200 + (200 - (enemy.getStats().strength-player.getStats().strength))/200))/3 + 1));
+            double damage = (int)((player.getStats().getStrength() + player.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().getStrength()-player.getStats().getStrength()))/200 + (200 - (enemy.getStats().getStrength()-player.getStats().getStrength()))/200 + (200 - (enemy.getStats().getStrength()-player.getStats().getStrength()))/200))/3 + 1));
 
             for(Weapon weapon : player.getEquipment().getWeaponList()){
                 if(weapon != null){
                     for(WeaponType weaponType : weapon.getWeaponType()){
                         switch (weaponType){
                             case ONEHANDED:{
-                                if(player.getStats().one_handed_weapon != 0) {
-                                    damage *= 1 + player.getStats().one_handed_weapon/150.0;
+                                if(player.getStats().getOne_handed_weapon() != 0) {
+                                    damage *= 1 + player.getStats().getOne_handed_weapon()/150.0;
                                 }
                             }
                                 break;
                             case TWOHANDED:{
-                                if(player.getStats().two_handed_weapon != 0) {
-                                    damage *= 1 + player.getStats().two_handed_weapon/150.0;
+                                if(player.getStats().getTwo_handed_weapon() != 0) {
+                                    damage *= 1 + player.getStats().getTwo_handed_weapon()/150.0;
                                 }
                             } break;
                             case LONGRANGE:{
-                                if(player.getStats().long_range_weapon != 0) {
-                                    damage *= 1 + player.getStats().long_range_weapon/150.0;
+                                if(player.getStats().getLong_range_weapon() != 0) {
+                                    damage *= 1 + player.getStats().getLong_range_weapon()/150.0;
                                 }
                             } break;
                             case POLE:{
-                                if(player.getStats().pole_weapon != 0) {
-                                    damage *= 1 + player.getStats().pole_weapon/150.0;
+                                if(player.getStats().getPole_weapon() != 0) {
+                                    damage *= 1 + player.getStats().getPole_weapon()/150.0;
                                 }
                             } break;
                             case CHOPPING:{
-                                if(player.getStats().chopping_weapon != 0) {
-                                    damage *= 1 + player.getStats().chopping_weapon/150.0;
+                                if(player.getStats().getChopping_weapon() != 0) {
+                                    damage *= 1 + player.getStats().getChopping_weapon()/150.0;
                                 }
                             } break;
                         }
@@ -176,7 +178,7 @@ public class FightWindow extends JFrame implements Serializable {
                 }
             }
 
-            int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
+            int chance = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*player.getLvl()/player.getStats().getLuck()));
             if(player.hasAbility(new CriticalStrike()) && chance <= player.getAbility(new CriticalStrike()).getChance()){
                 writeToPlayerConsole("Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
                 writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(player.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
@@ -225,7 +227,7 @@ public class FightWindow extends JFrame implements Serializable {
         });
 
         playerRunAwayButton.addActionListener(e -> {
-            int chance = (int)(Math.random()*(100-player.getStats().luck/2));
+            int chance = (int)(Math.random()*(100-player.getStats().getLuck()/2));
             if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
                 dialogWindow.close();
                 dialogWindow = new DialogWindow("Вам удалось сбежать");
@@ -288,12 +290,12 @@ public class FightWindow extends JFrame implements Serializable {
         }
         if(countMoves <= 0){
 
-            int chance = (int)Math.ceil(Math.random()*100 - player.getStats().luck/5);
+            int chance = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*player.getLvl()/player.getStats().getLuck()));
             if (player.hasAbility(new Evasion()) && chance <= player.getAbility(new Evasion()).getChance()){
                 writeToEnemyActionConsole(enemy.getName() + " промахнулся");
                 writeToPlayerConsole("Вы увернулись");
             } else {
-                double damage = enemy.getStats().strength*Math.min(1, Math.max(0, (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200 + (200 - (player.getStats().strength-enemy.getStats().strength))/200));
+                double damage = enemy.getStats().getStrength()*Math.min(1, Math.max(0, (200 - (player.getStats().getStrength()-enemy.getStats().getStrength()))/200 + (200 - (player.getStats().getStrength()-enemy.getStats().getStrength()))/200 + (200 - (player.getStats().getStrength()-enemy.getStats().getStrength()))/200));
                 damage = Math.round((player.absorbDamage(damage))*100.0)/100.0;
 
                 enemy.setCurrentDamage(damage);
@@ -372,6 +374,10 @@ public class FightWindow extends JFrame implements Serializable {
                         item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)].clone();
                     } catch (CloneNotSupportedException e) {
                         e.printStackTrace();
+                    }
+
+                    if(item.getClass().toString().contains("Ring")){
+                        ((Ring)item).setStat(StatsEnum.values()[(int)(Math.random()*StatsEnum.values().length)]);
                     }
 
                     int chanceDropItem = (int)Math.ceil(Math.random()*1000);

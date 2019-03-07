@@ -1,41 +1,48 @@
 package Items.Armors;
 
+import Creatures.StatsEnum;
 import Items.Grade;
 import Items.Material;
 import Items.Rarity;
+import Items.StatItem;
 
-public class Ring extends Armor {
-    public Ring(Material material, Rarity rarity, Grade grade, int protection){
+public class Ring extends Armor implements StatItem {
+    private StatsEnum stat;
+    private int statPower;
+    private static final long serialVersionUID = 4946412995122385646L;
+
+    public Ring(Material material, Rarity rarity, Grade grade, StatsEnum statsEnum){
         stockName = "кольцо";
         this.material = material;
         this.rarity = rarity;
         this.grade = grade;
-        this.protection = protection;
+        this.stat = statsEnum;
         quality = 100;
+        this.protection = 0;
     }
 
     public Ring(){
-        this(Material.IRON, Rarity.COMMON, Grade.COMMON, 0);
+        this(Material.IRON, Rarity.COMMON, Grade.COMMON, StatsEnum.STRENGTH);
         name = "кольцо";
     }
 
     public void countProperty(){
-        int addProtection = 0;
+        statPower = 0;
         switch (material){
-            case LEATHER: addProtection += 1; break;
-            case STUDDEDLEATHER: addProtection += 4; break;
-            case CHAIN: addProtection += 7; break;
-            case COPPER: addProtection += 15; break;
-            case IRON: addProtection += 23; break;
-            case BRONZE: addProtection += 35; break;
-            case STEEL: addProtection += 47; break;
-            case MYTHRIL: addProtection += 56; break;
-            case ADAMANTINE: addProtection += 86; break;
-            case ELVENMYTHRIL: addProtection += 153; break;
-            case CRYSTAL: addProtection += 196; break;
-            case DEEP: addProtection += 215; break;
-            case GODSHEART: addProtection += 321; break;
-            case ABSOLUTEZERO: addProtection += 422; break;
+            case LEATHER: statPower += 1; break;
+            case STUDDEDLEATHER: statPower += 3; break;
+            case CHAIN: statPower += 6; break;
+            case COPPER: statPower += 11; break;
+            case IRON: statPower += 16; break;
+            case BRONZE: statPower += 23; break;
+            case STEEL: statPower += 36; break;
+            case MYTHRIL: statPower += 41; break;
+            case ADAMANTINE: statPower += 56; break;
+            case ELVENMYTHRIL: statPower += 87; break;
+            case CRYSTAL: statPower += 122; break;
+            case DEEP: statPower += 167; break;
+            case GODSHEART: statPower += 243; break;
+            case ABSOLUTEZERO: statPower += 312; break;
         }
         switch (material){
             case LEATHER: name = "Кожаное " + stockName; break;
@@ -55,23 +62,36 @@ public class Ring extends Armor {
         }
 
         switch (grade){
-            case COMMON: addProtection += 1; break;
-            case MAGIC: addProtection += 12; break;
-            case CURSE: addProtection += 34; break;
-            case ARTIFACT: addProtection += 68; break;
-            case HEROIC: addProtection += 103; break;
-            case ABOVETHEGODS: addProtection += 203; break;
+            case COMMON: statPower += 1; break;
+            case MAGIC: statPower += 9; break;
+            case CURSE: statPower += 24; break;
+            case ARTIFACT: statPower += 36; break;
+            case HEROIC: statPower += 62; break;
+            case ABOVETHEGODS: statPower += 122; break;
         }
         switch (rarity){
-            case COMMON: addProtection += 1; break;
-            case UNCOMMON: addProtection += 5; break;
-            case RARE: addProtection += 12; break;
-            case MYSTICAL: addProtection += 35; break;
-            case LEGENDARY: addProtection += 56; break;
-            case DRAGON: addProtection += 78; break;
-            case DIVINE: addProtection += 120; break;
+            case COMMON: statPower += 1; break;
+            case UNCOMMON: statPower += 5; break;
+            case RARE: statPower += 21; break;
+            case MYSTICAL: statPower += 35; break;
+            case LEGENDARY: statPower += 56; break;
+            case DRAGON: statPower += 78; break;
+            case DIVINE: statPower += 120; break;
         }
+    }
 
-        protection += addProtection;
+    @Override
+    public StatsEnum getStat() {
+        return stat;
+    }
+
+    public void setStat(StatsEnum stat) {
+        this.stat = stat;
+    }
+
+    @Override
+    public int getStatPower(){
+        countProperty();
+        return statPower;
     }
 }

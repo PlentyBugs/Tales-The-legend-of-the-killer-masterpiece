@@ -244,64 +244,79 @@ public class EditorWindow extends JFrame {
             panel.add(countStats, constraints);
             constraints.gridy ++;
 
-            countStats.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    try{
-                        ((LiveCreature)godCreature).setLvl(Integer.parseInt(levelValue.getText()));
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).setLvl(1);
-                    }
-                    ((LiveCreature)godCreature).countStatsAfterBorn();
-                    try{
-                        ((LiveCreature)godCreature).setHp(Integer.parseInt(hpValue.getText()));
-                        ((LiveCreature)godCreature).setMaxHp(Integer.parseInt(hpValue.getText()));
-                    } catch (Exception ex){
-                        ((LiveCreature)godCreature).setHp(200);
-                        ((LiveCreature)godCreature).setMaxHp(200);
-                    }
-                    try{
-                        ((LiveCreature)godCreature).getStats().strength = Integer.parseInt(strengthValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().speed = Integer.parseInt(speedValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().agility = Integer.parseInt(strengthValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().intelligence = Integer.parseInt(intelligenceValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().luck = Integer.parseInt(luckValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().eloquence = Integer.parseInt(eloquenceValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().blacksmith = Integer.parseInt(blacksmithValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().theft = Integer.parseInt(theftValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().alchemy = Integer.parseInt(alchemyValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().one_handed_weapon = Integer.parseInt(one_handed_weaponValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().two_handed_weapon = Integer.parseInt(two_handed_weaponValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().pole_weapon = Integer.parseInt(pole_weaponValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().chopping_weapon = Integer.parseInt(chopping_weaponValue.getText());
-                    } catch (Exception ex){}
-                    try{
-                        ((LiveCreature)godCreature).getStats().long_range_weapon = Integer.parseInt(long_range_weaponValue.getText());
-                    } catch (Exception ex){}
+            countStats.addActionListener(e -> {
+                try{
+                    ((LiveCreature)godCreature).setLvl(Integer.parseInt(levelValue.getText()));
+                } catch (Exception ex){
+                    ((LiveCreature)godCreature).setLvl(1);
                 }
+                ((LiveCreature)godCreature).countStatsAfterBorn();
+                try{
+                    ((LiveCreature)godCreature).getStats().setStrength(Integer.parseInt(strengthValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).setHp(Integer.parseInt(hpValue.getText()));
+                    ((LiveCreature)godCreature).setMaxHp(Integer.parseInt(hpValue.getText()));
+                } catch (Exception ex){
+                    ((LiveCreature)godCreature).setHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.2, ((LiveCreature) godCreature).getLvl())));
+                    ((LiveCreature)godCreature).setMaxHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.2, ((LiveCreature) godCreature).getLvl())));
+                }
+                try{
+                    ((LiveCreature)godCreature).getStats().setSpeed(Integer.parseInt(speedValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setAgility(Integer.parseInt(strengthValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setIntelligence(Integer.parseInt(intelligenceValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setLuck(Integer.parseInt(luckValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setEloquence(Integer.parseInt(eloquenceValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setBlacksmith(Integer.parseInt(blacksmithValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setTheft(Integer.parseInt(theftValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setAlchemy(Integer.parseInt(alchemyValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setOne_handed_weapon(Integer.parseInt(one_handed_weaponValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setTwo_handed_weapon(Integer.parseInt(two_handed_weaponValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setPole_weapon(Integer.parseInt(pole_weaponValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setChopping_weapon(Integer.parseInt(chopping_weaponValue.getText()));
+                } catch (Exception ex){}
+                try{
+                    ((LiveCreature)godCreature).getStats().setLong_range_weapon(Integer.parseInt(long_range_weaponValue.getText()));
+                } catch (Exception ex){}
+
+                hpValue.setText(Double.toString(((LiveCreature)godCreature).getHp()));
+                strengthValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getStrength()));
+                speedValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getSpeed()));
+                agilityValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getAgility()));
+                intelligenceValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getIntelligence()));
+                luckValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getLuck()));
+                eloquenceValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getEloquence()));
+                blacksmithValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getBlacksmith()));
+                theftValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getTheft()));
+                alchemyValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getAlchemy()));
+                one_handed_weaponValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getOne_handed_weapon()));
+                two_handed_weaponValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getTwo_handed_weapon()));
+                pole_weaponValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getPole_weapon()));
+                chopping_weaponValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getChopping_weapon()));
+                long_range_weaponValue.setText(Integer.toString(((LiveCreature)godCreature).getStats().getLong_range_weapon()));
+
             });
 
         }

@@ -243,6 +243,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
         player.countPassiveBuffs();
         player.checkQuests();
+        player.countEquipmentBuffs();
         realVision = player.getVision()*2+1;
     }
 

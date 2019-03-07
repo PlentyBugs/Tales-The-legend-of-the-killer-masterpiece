@@ -15,6 +15,7 @@ public class Equipment implements Serializable {
     private Weapon oneHandedWeaponLeft;
     private Weapon oneHandedWeaponRight;
     private Weapon twoHandedWeapon;
+    private static final long serialVersionUID = -1882217856036727082L;
 
     public void setRings(Ring ring){
         boolean unique = true;
@@ -99,7 +100,11 @@ public class Equipment implements Serializable {
     }
 
     public Item[] getArmor(){
-        Item[] armor = {torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9]};
+        Item[] armor = {torso, helmet};
         return armor;
+    }
+
+    public Ring[] getRings(){
+        return new Ring[]{rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9]};
     }
 }

@@ -44,7 +44,7 @@ public class DecreaseDamage extends AbilityActive {
     }
 
     public boolean check(Player player){
-        if (player.getStats().strength >= (level-1)*30 + 5){
+        if (player.getStats().getStrength() >= (level-1)*30 + 5){
             return true;
         }
         return false;

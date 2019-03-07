@@ -119,7 +119,7 @@ public class ThiefWindow extends JFrame implements Serializable {
             property.setForeground(colorForeground);
             propertyCount.setForeground(colorForeground);
 
-            double chance = thief.getStats().theft*47.87/(cost);
+            double chance = thief.getStats().getTheft()*47.87/(cost);
 
             if(chance > 100.0){
                 chance = 100.0;

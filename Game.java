@@ -2,6 +2,7 @@ import Abilities.Passive.LittleFool;
 import Abilities.Passive.Professions.Alchemist;
 import Creatures.Difficulty;
 import Creatures.Player;
+import Creatures.StatsEnum;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
@@ -40,7 +41,7 @@ public class Game {
         if(game.equals("new")) {
             Player player = new Player(0, 0, "Вы", 1, 250);
             player.addAbility(new LittleFool(), new Alchemist());
-            Map map = new Map(player, 75, 75);
+            Map map = new Map(player, 100, 100);
             try {
                 FileInputStream fis = new FileInputStream("./Maps/temp.txt");
                 ObjectInputStream inputStream = new ObjectInputStream(fis);
@@ -60,7 +61,7 @@ public class Game {
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.LONGRANGE),
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                     new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
-                    new Ring(Material.IRON, Rarity.COMMON, Grade.COMMON, -23)
+                    new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();

@@ -73,7 +73,7 @@ public class Map implements Serializable {
                     randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
                     ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
                     ((LiveCreature)randomGodCreature).countStatsAfterBorn();
-                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl() + ((Human)randomGodCreature).getStats().strength*12);
+                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl() + ((Human)randomGodCreature).getStats().getStrength()*12);
                 } else {
                     randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
                     if (randomGodCreature.getClass().toString().contains("Grass")){
@@ -110,7 +110,7 @@ public class Map implements Serializable {
 
         for(int s = 0; s < 2; s++){
             GoblinCamp goblinCamp = new GoblinCamp();
-            if(goblinCamp.getMap() != null && mapHeight >= 50 && mapWidth >= 50){
+            if(goblinCamp.getMap() != null && mapHeight >= 100 && mapWidth >= 100){
                 GodCreature[][] goblinCampPart = rotate(s+1, goblinCamp.getMap().getMap());
                 int randomCoordinate = (int)(Math.random()*(mapWidth-goblinCampPart.length));
                 while(!(randomCoordinate < mapWidth)){
@@ -120,7 +120,9 @@ public class Map implements Serializable {
                     for (int j = 0; j < goblinCampPart[0].length; j++){
                         goblinCampPart[i][j].setX(j+randomCoordinate);
                         goblinCampPart[i][j].setY(i+randomCoordinate);
-                        map[i+randomCoordinate][j+randomCoordinate] = goblinCampPart[i][j];
+                        if(i+randomCoordinate < map.length && map[i+randomCoordinate].length > j+randomCoordinate){
+                            map[i+randomCoordinate][j+randomCoordinate] = goblinCampPart[i][j];
+                        }
                     }
                 }
             }

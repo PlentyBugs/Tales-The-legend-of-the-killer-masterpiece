@@ -76,20 +76,20 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel longRangeWeaponLabel = new JLabel("Дальнобойное оружие");
         JLabel upPointsLeft = new JLabel(Integer.toString(player.getUpPointCount()));
 
-        JLabel strengthLabelCount = new JLabel("   " + Integer.toString(player.getStats().strength) + "   ");
-        JLabel speedLabelCount = new JLabel("   " + Integer.toString(player.getStats().speed) + "   ");
-        JLabel agilityLabelCount = new JLabel("   " + Integer.toString(player.getStats().agility) + "   ");
-        JLabel intelligenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().intelligence) + "   ");
-        JLabel luckLabelCount = new JLabel("   " + Integer.toString(player.getStats().luck) + "   ");
-        JLabel eloquenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().eloquence) + "   ");
-        JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.getStats().blacksmith) + "   ");
-        JLabel theftLabelCount = new JLabel("   " + Integer.toString(player.getStats().theft) + "   ");
-        JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.getStats().alchemy) + "   ");
-        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().one_handed_weapon) + "   ");
-        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().two_handed_weapon) + "   ");
-        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().pole_weapon) + "   ");
-        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().chopping_weapon) + "   ");
-        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().long_range_weapon) + "   ");
+        JLabel strengthLabelCount = new JLabel("   " + Integer.toString(player.getStats().getStrength()) + "   ");
+        JLabel speedLabelCount = new JLabel("   " + Integer.toString(player.getStats().getSpeed()) + "   ");
+        JLabel agilityLabelCount = new JLabel("   " + Integer.toString(player.getStats().getAgility()) + "   ");
+        JLabel intelligenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().getIntelligence()) + "   ");
+        JLabel luckLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLuck()) + "   ");
+        JLabel eloquenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().getEloquence()) + "   ");
+        JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.getStats().getBlacksmith()) + "   ");
+        JLabel theftLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTheft()) + "   ");
+        JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.getStats().getAlchemy()) + "   ");
+        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getOne_handed_weapon()) + "   ");
+        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTwo_handed_weapon()) + "   ");
+        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getPole_weapon()) + "   ");
+        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getChopping_weapon()) + "   ");
+        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLong_range_weapon()) + "   ");
 
         panel.add(upPointsLeftLabel, constraints);
         constraints.gridy ++;
@@ -177,7 +177,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.STRENGTH);
                         player.setUpPointCount(player.getUpPointCount() - 1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        strengthLabelCount.setText("   " + Integer.toString(player.getStats().strength) + "   ");
+                        strengthLabelCount.setText("   " + Integer.toString(player.getStats().getStrength()) + "   ");
                     }
                 }
             });
@@ -187,7 +187,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.SPEED);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        speedLabelCount.setText("   " + Integer.toString(player.getStats().speed) + "   ");
+                        speedLabelCount.setText("   " + Integer.toString(player.getStats().getSpeed()) + "   ");
                     }
                 }
             });
@@ -197,7 +197,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.AGILITY);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        agilityLabelCount.setText("   " + Integer.toString(player.getStats().agility) + "   ");
+                        agilityLabelCount.setText("   " + Integer.toString(player.getStats().getAgility()) + "   ");
                     }
                 }
             });
@@ -207,7 +207,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.INTELLIGENCE);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        intelligenceLabelCount.setText("   " + Integer.toString(player.getStats().intelligence) + "   ");
+                        intelligenceLabelCount.setText("   " + Integer.toString(player.getStats().getIntelligence()) + "   ");
                     }
                 }
             });
@@ -217,7 +217,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.LUCK);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        luckLabelCount.setText("   " + Integer.toString(player.getStats().luck) + "   ");
+                        luckLabelCount.setText("   " + Integer.toString(player.getStats().getLuck()) + "   ");
                     }
                 }
             });
@@ -227,7 +227,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.ELOQUENCE);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        eloquenceLabelCount.setText("   " + Integer.toString(player.getStats().eloquence) + "   ");
+                        eloquenceLabelCount.setText("   " + Integer.toString(player.getStats().getEloquence()) + "   ");
                     }
                 }
             });
@@ -237,7 +237,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.BLACKSMITH);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().blacksmith) + "   ");
+                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().getBlacksmith()) + "   ");
                     }
                 }
             });
@@ -247,7 +247,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.THEFT);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().theft) + "   ");
+                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().getTheft()) + "   ");
                     }
                 }
             });
@@ -257,7 +257,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.ALCHEMY);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        alchemyLabelCount.setText("   " + Integer.toString(player.getStats().alchemy) + "   ");
+                        alchemyLabelCount.setText("   " + Integer.toString(player.getStats().getAlchemy()) + "   ");
                     }
                 }
             });
@@ -267,7 +267,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.ONEHANDEDWEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().one_handed_weapon) + "   ");
+                        oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getOne_handed_weapon()) + "   ");
                     }
                 }
             });
@@ -277,7 +277,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.TWOHANDEDWEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().two_handed_weapon) + "   ");
+                        twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getTwo_handed_weapon()) + "   ");
                     }
                 }
             });
@@ -287,7 +287,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.POLEWEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        poleWeaponLabelCount.setText("   " + Integer.toString(player.getStats().pole_weapon) + "   ");
+                        poleWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getPole_weapon()) + "   ");
                     }
                 }
             });
@@ -297,7 +297,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.CHOPPINGWEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        choppingWeaponLabelCount.setText("   " + Integer.toString(player.getStats().chopping_weapon) + "   ");
+                        choppingWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getChopping_weapon()) + "   ");
                     }
                 }
             });
@@ -307,7 +307,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
                         player.getStats().upStat(StatsEnum.LONGRANGEWEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        longRangeWeaponLabelCount.setText("   " + Integer.toString(player.getStats().long_range_weapon) + "   ");
+                        longRangeWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getLong_range_weapon()) + "   ");
                     }
                 }
             });

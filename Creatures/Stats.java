@@ -2,49 +2,106 @@ package Creatures;
 
 import java.io.Serializable;
 
-public class Stats implements Serializable {
+public class Stats extends StatsBonus implements Serializable {
 
-    public int strength;
-    public int speed;
-    public int agility;
-    public int intelligence;
-    public int luck;
-    public int eloquence;
-    public int blacksmith;
-    public int theft;
-    public int alchemy;
-    public int one_handed_weapon;
-    public int two_handed_weapon;
-    public int pole_weapon;
-    public int chopping_weapon;
-    public int long_range_weapon;
+    private StatsBonus bonusStats;
+    private static final long serialVersionUID = 5122589181835788912L;
 
-    public int knowledge;
-    public int energy;
+    public Stats(){
+        bonusStats = new StatsBonus();
+        strength = 0;
+        speed = 0;
+        agility = 0;
+        intelligence = 0;
+        luck = 0;
+        eloquence = 0;
+        blacksmith = 0;
+        theft = 0;
+        alchemy = 0;
+        one_handed_weapon = 0;
+        two_handed_weapon = 0;
+        pole_weapon = 0;
+        chopping_weapon = 0;
+        long_range_weapon = 0;
+        knowledge = 0;
+        energy = 0;
+        militarism = 0;
+        pacifism = 0;
+    }
 
-    public int militarism;
-    public int pacifism;
+    public int getAgility() {
+        return agility + bonusStats.getAgility();
+    }
 
-    public void upStat(StatsEnum stat){
-        switch (stat){
-            case STRENGTH: strength += 1; break;
-            case SPEED: speed += 1; break;
-            case AGILITY: agility += 1; break;
-            case INTELLIGENCE: intelligence += 1; break;
-            case LUCK: luck += 1; break;
-            case ELOQUENCE: eloquence += 1; break;
-            case BLACKSMITH: blacksmith += 1; break;
-            case THEFT: theft += 1; break;
-            case ALCHEMY: alchemy += 1; break;
-            case ONEHANDEDWEAPON: one_handed_weapon += 1; break;
-            case TWOHANDEDWEAPON: two_handed_weapon += 1; break;
-            case POLEWEAPON: pole_weapon += 1; break;
-            case CHOPPINGWEAPON: chopping_weapon += 1; break;
-            case LONGRANGEWEAPON: long_range_weapon += 1; break;
-            case KNOWLEDGE: knowledge += 1; break;
-            case ENERGY: energy += 1; break;
-            case MILITARISM: militarism += 1; break;
-            case PACIFISM: pacifism += 1; break;
-        }
+    public int getAlchemy() {
+        return alchemy + bonusStats.getAlchemy();
+    }
+
+    public int getBlacksmith() {
+        return blacksmith + bonusStats.getBlacksmith();
+    }
+
+    public int getChopping_weapon() {
+        return chopping_weapon + bonusStats.getChopping_weapon();
+    }
+
+    public int getEloquence() {
+        return eloquence + bonusStats.getEloquence();
+    }
+
+    public int getEnergy() {
+        return energy + bonusStats.getEnergy();
+    }
+
+    public int getIntelligence() {
+        return intelligence + bonusStats.getAgility();
+    }
+
+    public int getKnowledge() {
+        return knowledge + bonusStats.getKnowledge();
+    }
+
+    public int getLong_range_weapon() {
+        return long_range_weapon + bonusStats.getLong_range_weapon();
+    }
+
+    public int getLuck() {
+        return luck + bonusStats.getLuck();
+    }
+
+    public int getMilitarism() {
+        return militarism + bonusStats.getMilitarism();
+    }
+
+    public int getOne_handed_weapon() {
+        return one_handed_weapon + bonusStats.getOne_handed_weapon();
+    }
+
+    public int getPacifism() {
+        return pacifism + bonusStats.getPacifism();
+    }
+
+    public int getPole_weapon() {
+        return pole_weapon + bonusStats.getPole_weapon();
+    }
+
+    public int getSpeed() {
+        return speed + bonusStats.getSpeed();
+    }
+
+    public int getStrength() {
+        return strength + bonusStats.getStrength();
+    }
+
+    public int getTheft() {
+        return theft + bonusStats.getTheft();
+    }
+
+    public int getTwo_handed_weapon() {
+        return two_handed_weapon + bonusStats.getTwo_handed_weapon();
+    }
+
+    public StatsBonus getBonusStats() {
+        return bonusStats;
     }
 }

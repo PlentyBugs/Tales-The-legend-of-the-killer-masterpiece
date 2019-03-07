@@ -59,11 +59,11 @@ public class Potion extends Item implements BattleItem {
     public void countProperty(){
         int addPower = 0;
         switch (potionMaterial){
-            case WATER: addPower += 150; break;
-            case AIR: addPower += 1500; break;
-            case BLOOD: addPower += 6000; break;
-            case DRAGONBLOOD: addPower += 45000; break;
-            case GODBLOOD: addPower += 230000; break;
+            case WATER: addPower += 30; break;
+            case AIR: addPower += 800; break;
+            case BLOOD: addPower += 4500; break;
+            case DRAGONBLOOD: addPower += 33000; break;
+            case GODBLOOD: addPower += 178000; break;
         }
 
         switch (grade){
