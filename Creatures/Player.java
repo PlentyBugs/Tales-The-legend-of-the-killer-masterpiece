@@ -3,7 +3,6 @@ package Creatures;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Abilities.Auras.Aura;
-import Items.Armors.Armor;
 import Items.Item;
 import Items.StatItem;
 import Quests.Quest;
@@ -265,17 +264,6 @@ public class Player extends Human {
 
     private void addMaxHpByStats(){
         maxHp += (int)(stats.getStrength()*5 + (stats.getLuck()*2)*Math.random());
-    }
-
-    public double absorbDamage(double damage){
-        int countProtection = 1;
-        for (Item item : equipment.getArmor()){
-            if (item != null){
-                countProtection += ((Armor)item).getProtection();
-            }
-        }
-        double absorbedDamage = damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
-        return absorbedDamage;
     }
 
     public void countPassiveBuffs(){

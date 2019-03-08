@@ -24,24 +24,24 @@ public class DecreaseDamage extends AbilityActive {
     public void setLevel(int level){
         this.level = level;
         if (level == 1){
-            useCost = 5;
+            useCost = 2;
             power = 100;
             buff = new DecreaseDamageBuff(power);
         } else if(level == 2){
             power = 150;
-            useCost = 5;
+            useCost = 3;
             buff = new DecreaseDamageBuff(power);
         } else if(level == 3){
             power = 250;
-            useCost = 5;
+            useCost = 3;
             buff = new DecreaseDamageBuff(power);
         } else if(level == 4){
             power = 400;
-            useCost = 7;
+            useCost = 3;
             buff = new DecreaseDamageBuff(power, 2);
         } else if(level == 5){
             power = 900;
-            useCost = 10;
+            useCost = 5;
             buff = new DecreaseDamageBuff(power, 2);
         }
 

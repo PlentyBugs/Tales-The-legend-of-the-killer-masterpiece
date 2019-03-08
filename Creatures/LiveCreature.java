@@ -6,6 +6,7 @@ import Abilities.Buffs.Buff;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.Conversation;
 import Effects.Effect;
+import Items.Armors.Armor;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
@@ -279,5 +280,16 @@ public abstract class LiveCreature extends GodCreature {
             }
         }
         return counter;
+    }
+
+    public double absorbDamage(double damage){
+        int countProtection = 1;
+        for (Item item : equipment.getArmor()){
+            if (item != null){
+                countProtection += ((Armor)item).getProtection();
+            }
+        }
+        double absorbedDamage = damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
+        return absorbedDamage;
     }
 }

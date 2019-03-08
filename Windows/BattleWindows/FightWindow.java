@@ -559,7 +559,7 @@ public class FightWindow extends JFrame implements Serializable {
             }
             damage = attacker.getCurrentDamage();
 
-            damage = Math.round(damage*100.0)/100.0;
+            damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
 
             enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
 

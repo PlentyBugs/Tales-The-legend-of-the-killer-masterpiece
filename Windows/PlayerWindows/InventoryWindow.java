@@ -60,11 +60,13 @@ public class InventoryWindow extends JFrame implements Serializable {
         JButton weaponInventory = new JButton("Оружие");
         JButton armorInventory = new JButton("Броня");
         JButton potionInventory = new JButton("Зелья");
+        JButton ingredientInventory = new JButton("Ингредиенты");
 
         menuPanel.add(allInventory);
         menuPanel.add(weaponInventory);
         menuPanel.add(armorInventory);
         menuPanel.add(potionInventory);
+        menuPanel.add(ingredientInventory);
 
         allInventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -101,7 +103,18 @@ public class InventoryWindow extends JFrame implements Serializable {
 
         potionInventory.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                currentInventory = "Alchemy";
+                currentInventory = "Potion";
+                drawInventory();
+                if(player.getClass().toString().contains("Player")){
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                }
+            }
+        });
+
+        ingredientInventory.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                currentInventory = "Ingredient";
                 drawInventory();
                 if(player.getClass().toString().contains("Player")){
                     if(isDrawMap)
@@ -196,36 +209,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             property.setForeground(colorForeground);
             propertyCount.setForeground(colorForeground);
 
-            JButton useButton = new JButton("Экипировать");
 
-            if(item.getClass().toString().contains("Alchemy")){
-                itemQuality.setText("");
-                useButton.setText("Использовать");
-            }
-            useButton.setSize(100,40);
-
-            if(!item.getClass().toString().contains("Alchemy")){
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        player.equip(item);
-                        if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
-                            ((Player)player).getEquipmentWindow().drawEquipment();
-                            if(isDrawMap)
-                                ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                        }
-                    }
-                });
-            } else {
-                useButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        ((Potion)item).use(player);
-                        player.removeItem(item);
-                        drawInventory();
-                        if(isDrawMap)
-                            ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                    }
-                });
-            }
             itemPanel.add(itemName, itemConstraints);
             itemConstraints.gridx ++;
             itemPanel.add(itemQuality, itemConstraints);
@@ -235,7 +219,35 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemPanel.add(propertyCount, itemConstraints);
             itemConstraints.gridx ++;
             itemPanel.add(ccunt, itemConstraints);
-            itemConstraints.gridx ++;
+            itemConstraints.gridx = 0;
+            itemConstraints.gridy ++;
+
+            JButton useButton = new JButton("Экипировать");
+
+            if(item.getClass().toString().contains("Alchemy")){
+                itemQuality.setText("");
+                useButton.setText("Использовать");
+            }
+            useButton.setSize(width/2,40);
+
+            if(!item.getClass().toString().contains("Alchemy")){
+                useButton.addActionListener(e -> {
+                    player.equip(item);
+                    if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
+                        ((Player)player).getEquipmentWindow().drawEquipment();
+                        if(isDrawMap)
+                            ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                    }
+                });
+            } else {
+                useButton.addActionListener(e -> {
+                    ((Potion)item).use(player);
+                    player.removeItem(item);
+                    drawInventory();
+                    if(isDrawMap)
+                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                });
+            }
             itemPanel.add(useButton, itemConstraints);
             itemConstraints.gridx ++;
 

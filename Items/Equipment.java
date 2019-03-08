@@ -9,6 +9,7 @@ import Items.Weapons.Weapon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Equipment implements Serializable {
 
@@ -79,8 +80,8 @@ public class Equipment implements Serializable {
         return twoHandedWeapon;
     }
 
-    public Item[] getListOfEquipment(){
-        Item[] itemList = {torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9], oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
+    public ArrayList<Item> getListOfEquipment(){
+        ArrayList<Item> itemList = new ArrayList<>(Arrays.asList(torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9], oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon));
 
         return itemList;
     }
