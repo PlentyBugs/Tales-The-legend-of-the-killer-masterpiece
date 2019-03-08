@@ -1,12 +1,15 @@
 package Items.Weapons;
 
+import Creatures.LiveCreature;
 import Items.Item;
+import Windows.BattleWindows.FightWindow;
 
 import java.util.ArrayList;
 
 public class Weapon extends Item {
     protected int damage;
     protected ArrayList<WeaponType> weaponType = new ArrayList<>();
+    private static final long serialVersionUID = -704955292525306190L;
 
     public ArrayList<WeaponType> getWeaponType() {
         return weaponType;
@@ -84,5 +87,9 @@ public class Weapon extends Item {
         }
 
         damage += addDamage;
+    }
+
+    public void weaponSkill(LiveCreature enemy, FightWindow fightWindow){
+
     }
 }

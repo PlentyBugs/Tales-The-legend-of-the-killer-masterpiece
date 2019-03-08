@@ -258,8 +258,8 @@ public class EditorWindow extends JFrame {
                     ((LiveCreature)godCreature).setHp(Integer.parseInt(hpValue.getText()));
                     ((LiveCreature)godCreature).setMaxHp(Integer.parseInt(hpValue.getText()));
                 } catch (Exception ex){
-                    ((LiveCreature)godCreature).setHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.2, ((LiveCreature) godCreature).getLvl())));
-                    ((LiveCreature)godCreature).setMaxHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.2, ((LiveCreature) godCreature).getLvl())));
+                    ((LiveCreature)godCreature).setHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.01, ((LiveCreature) godCreature).getLvl())));
+                    ((LiveCreature)godCreature).setMaxHp((int)(((LiveCreature) godCreature).getLvl()*((LiveCreature)godCreature).getStats().getStrength()*5*Math.pow(1.01, ((LiveCreature) godCreature).getLvl())));
                 }
                 try{
                     ((LiveCreature)godCreature).getStats().setSpeed(Integer.parseInt(speedValue.getText()));

@@ -13,6 +13,7 @@ public class Ability implements Serializable {
     protected int maxLevel;
     protected int cost = 1;
     protected String name;
+    protected CostType costType;
 
     public void addAbilityType(AbilityType abilityTypes) {
         abilityType.add(abilityTypes);
@@ -72,5 +73,9 @@ public class Ability implements Serializable {
         if(check(player)){
             setLevel(getLevel()+1);
         }
+    }
+
+    public CostType getCostType() {
+        return costType;
     }
 }

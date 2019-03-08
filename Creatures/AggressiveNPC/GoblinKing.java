@@ -1,9 +1,13 @@
 package Creatures.AggressiveNPC;
 
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
 import Items.Item;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.QuestItems.KingGoblinRing;
+import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 
 import java.awt.*;
@@ -18,7 +22,8 @@ public class GoblinKing extends Goblin {
         this.name = name;
 
         color = new Color(123, 150, 12);
-        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion(), new KingGoblinRing()};
+        addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/15, (new CriticalStrike()).getMaxLevel()))), new Evasion(Math.max(0, Math.min(lvl/15, (new Evasion()).getMaxLevel()))));
+        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion(), new KingGoblinRing(), new Axe(), new Staff()};
         countStatsAfterBorn();
     }
 

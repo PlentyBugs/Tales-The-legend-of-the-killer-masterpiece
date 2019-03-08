@@ -1,6 +1,8 @@
 package Creatures;
 
-public class StatsBonus {
+import java.io.Serializable;
+
+public class StatsBonus implements Serializable {
 
     protected int strength;
     protected int speed;
@@ -45,8 +47,6 @@ public class StatsBonus {
             case LONGRANGEWEAPON: long_range_weapon += 1; break;
             case KNOWLEDGE: knowledge += 1; break;
             case ENERGY: energy += 1; break;
-            case MILITARISM: militarism += 1; break;
-            case PACIFISM: pacifism += 1; break;
         }
     }
 
@@ -68,8 +68,6 @@ public class StatsBonus {
             case LONGRANGEWEAPON: long_range_weapon += count; break;
             case KNOWLEDGE: knowledge += count; break;
             case ENERGY: energy += count; break;
-            case MILITARISM: militarism += count; break;
-            case PACIFISM: pacifism += count; break;
         }
     }
 

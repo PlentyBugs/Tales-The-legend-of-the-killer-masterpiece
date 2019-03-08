@@ -16,9 +16,10 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
     private Player player;
     private LiveCreature enemy;
     private JPanel panel = new JPanel(new GridBagLayout());
+    private JScrollPane scroll = new JScrollPane(panel);
     private GridBagConstraints constraints;
     private FightWindow fightWindow;
-    private int width = 360;
+    private int width = 720;
     private int height = 720;
 
 
@@ -27,14 +28,18 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
         this.player = player;
         this.enemy = enemy;
         this.fightWindow = fightWindow;
+        setPreferredSize(new Dimension(width, height));
+        setMaximumSize(new Dimension(width, height));
+        setMinimumSize(new Dimension(width, height));
 
         drawWindow();
     }
 
     public void drawWindow(){
-        getContentPane().remove(panel);
+        getContentPane().remove(scroll);
 
         panel = new JPanel(new GridBagLayout());
+        scroll = new JScrollPane(panel);
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -143,7 +148,7 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
             }
         }
 
-        getContentPane().add(panel);
+        getContentPane().add(scroll);
         pack();
         setVisible(true);
     }

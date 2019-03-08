@@ -11,6 +11,8 @@ import Items.Item;
 import Items.Material;
 import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
+import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import Locations.Map;
@@ -39,7 +41,7 @@ public class Game {
         String game = startWindow.getGame();
         startWindow.close();
         if(game.equals("new")) {
-            Player player = new Player(0, 0, "Вы", 1, 250);
+            Player player = new Player(0, 0, "Вы", 1, 2500000);
             player.addAbility(new LittleFool(), new Alchemist());
             Map map = new Map(player, 100, 100);
             try {
@@ -55,10 +57,11 @@ public class Game {
             }
 
             player.addItemToInventory(
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.ONEHANDED),
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.TWOHANDED),
-                    new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 3, WeaponType.LONGRANGE),
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWOHANDED),
+                    new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONGRANGE),
+                    new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
+                    new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                     new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
                     new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)

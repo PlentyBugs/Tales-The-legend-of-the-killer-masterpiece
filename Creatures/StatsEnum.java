@@ -16,7 +16,5 @@ public enum StatsEnum {
     CHOPPINGWEAPON,
     LONGRANGEWEAPON,
     KNOWLEDGE,
-    ENERGY,
-    MILITARISM,
-    PACIFISM
+    ENERGY
 }

@@ -68,8 +68,5 @@ public class Console extends JPanel implements Serializable {
         vertical.setPreferredSize(new Dimension(width, height));
         vertical.setMinimumSize(new Dimension(width, height));
         vertical.setMaximumSize(new Dimension(width, height));
-        console.setPreferredSize(new Dimension(width, height));
-        console.setMinimumSize(new Dimension(width, height));
-        console.setMaximumSize(new Dimension(width, height));
     }
 }

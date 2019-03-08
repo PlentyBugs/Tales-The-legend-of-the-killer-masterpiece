@@ -2,6 +2,7 @@ package Abilities.Buffs;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Weapons.Weapon;
 
 import java.io.Serializable;
 
@@ -33,6 +34,15 @@ public class Buff implements Cloneable, Serializable {
     public void use(Player player){}
 
     public void use(LiveCreature liveCreature){}
+
+    public void upgrade(LiveCreature liveCreature){
+        int bonusPower = 0;
+        for(Weapon staff : liveCreature.getEquipment().getStaffs()){
+            bonusPower += staff.getDamage();
+        }
+        bonusPower += liveCreature.getStats().getIntelligence()/60;
+        power += (int)(power*bonusPower/18);
+    }
 
     @Override
     public Object clone() throws CloneNotSupportedException

@@ -1,9 +1,9 @@
 package Windows.BattleWindows;
 
 import Abilities.Ability;
-import Abilities.AbilityTarget;
 import Abilities.AbilityType;
 import Abilities.Active.AbilityActive;
+import Abilities.CostType;
 import Creatures.LiveCreature;
 import Creatures.Player;
 
@@ -62,6 +62,23 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
                 abilityConstraints.gridx ++;
             }
 
+            if (ability.getAbilityType().contains(AbilityType.ACTIVE)){
+                JLabel abilityCost = new JLabel();
+                int cost = ((AbilityActive)ability).getUseCost();
+                if(player.getEquipment().staffEquip()){
+                    cost = 0;
+                }
+                if(ability.getCostType() == CostType.HEALTH){
+                    abilityCost = new JLabel("Стоит " + cost + "% ХП");
+                } else if(ability.getCostType() == CostType.ENERGY){
+                    abilityCost = new JLabel("Стоит " + cost + "% Энергии");
+                } else if(ability.getCostType() == CostType.MONEY){
+                    abilityCost = new JLabel("Стоит " + cost + " золотых");
+                }
+                abilityPanel.add(abilityCost, abilityConstraints);
+                abilityConstraints.gridx ++;
+            }
+
             JLabel abilityTarget = new JLabel("Цель: " + ((AbilityActive)ability).getAbilityTarget());
             abilityPanel.add(abilityTarget, abilityConstraints);
             abilityConstraints.gridx ++;
@@ -72,19 +89,7 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
 
             abilityUseButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    fightWindow.writeToPlayerConsole(player.getName() + " использовал " + ability.getName());
-                    if (ability.getAbilityType().contains(AbilityType.BUFF)){
-                        if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.PLAYER){
-                            fightWindow.writeToPlayerConsole("На " + player.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
-                            player.addBuffs(((AbilityActive) ability).getBuff());
-                        } else if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
-                            fightWindow.writeToPlayerConsole("На " + enemy.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
-                            enemy.addBuffs(((AbilityActive) ability).getBuff());
-                        }
-                    } else if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
-                        ((AbilityActive)ability).use(enemy);
-                    }
-                    fightWindow.enemyTurn();
+                    fightWindow.attackBySpell(player, enemy, ability);
                 }
             });
             panel.add(abilityPanel, constraints);

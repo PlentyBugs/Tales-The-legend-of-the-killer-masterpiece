@@ -3,9 +3,12 @@ package Items;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
+import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Weapon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Equipment implements Serializable {
 
@@ -95,16 +98,52 @@ public class Equipment implements Serializable {
     }
 
     public Weapon[] getWeaponList(){
-        Weapon[] weaponList = {oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
-        return weaponList;
+        return new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
     }
 
     public Item[] getArmor(){
-        Item[] armor = {torso, helmet};
-        return armor;
+        return new Item[]{torso, helmet};
     }
 
     public Ring[] getRings(){
         return new Ring[]{rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9]};
+    }
+
+    public boolean staffEquip(){
+        for(Weapon weapon : new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon}){
+            if(weapon instanceof Staff){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean choppEquip(){
+        for(Weapon weapon : new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon}){
+            if(weapon instanceof Axe){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<Weapon> getStaffs(){
+        ArrayList<Weapon> staffs = new ArrayList<>();
+        for(Weapon weapon : new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon}){
+            if(weapon instanceof Staff){
+                staffs.add(weapon);
+            }
+        }
+        return staffs;
+    }
+
+    public ArrayList<Weapon> getChopps(){
+        ArrayList<Weapon> chopps = new ArrayList<>();
+        for(Weapon weapon : new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon}){
+            if(weapon instanceof Axe){
+                chopps.add(weapon);
+            }
+        }
+        return chopps;
     }
 }

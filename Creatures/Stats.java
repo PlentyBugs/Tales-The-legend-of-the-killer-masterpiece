@@ -1,8 +1,6 @@
 package Creatures;
 
-import java.io.Serializable;
-
-public class Stats extends StatsBonus implements Serializable {
+public class Stats extends StatsBonus {
 
     private StatsBonus bonusStats;
     private static final long serialVersionUID = 5122589181835788912L;
@@ -54,7 +52,7 @@ public class Stats extends StatsBonus implements Serializable {
     }
 
     public int getIntelligence() {
-        return intelligence + bonusStats.getAgility();
+        return intelligence + bonusStats.getIntelligence();
     }
 
     public int getKnowledge() {

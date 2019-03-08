@@ -1,9 +1,13 @@
 package Creatures.AggressiveNPC;
 
+import Abilities.Passive.CriticalStrike;
+import Abilities.Passive.Evasion;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Item;
 import Items.Alchemy.Potions.HealPotion;
+import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Armors.Torso;
 import Creatures.Human;
@@ -21,8 +25,8 @@ public class Knight extends Human {
 
         this.name = name;
         color = new Color(131, 131, 131);
-
-        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion(), new Ring()};
+        addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/15, (new CriticalStrike()).getMaxLevel()))), new Evasion(Math.max(0, Math.min(lvl/15, (new Evasion()).getMaxLevel()))));
+        uniqueDropItems = new Item[]{new Sword(), new Torso(), new Helmet(), new HealPotion(), new Ring(), new Axe(), new Staff()};
     }
 
     public Knight(){
