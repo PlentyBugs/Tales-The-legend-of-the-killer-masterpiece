@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Weapon extends Item {
     protected int damage;
+    protected int bonusDamage = 1;
     protected ArrayList<WeaponType> weaponType = new ArrayList<>();
     private static final long serialVersionUID = -704955292525306190L;
 
@@ -20,7 +21,7 @@ public class Weapon extends Item {
     }
 
     public int getDamage() {
-        return damage;
+        return damage*bonusDamage;
     }
 
     public void countProperty(){
@@ -91,5 +92,17 @@ public class Weapon extends Item {
 
     public void weaponSkill(LiveCreature enemy, FightWindow fightWindow){
 
+    }
+
+    public void addBonusDamage(double bonusDamage){
+        this.bonusDamage += bonusDamage;
+    }
+
+    public void setBonusDamage(int bonusDamage) {
+        this.bonusDamage = bonusDamage;
+    }
+
+    public int getBonusDamage() {
+        return bonusDamage;
     }
 }
