@@ -41,7 +41,7 @@ public class Game {
         String game = startWindow.getGame();
         startWindow.close();
         if(game.equals("new")) {
-            Player player = new Player(0, 0, "Вы", 1, 2500000);
+            Player player = new Player(0, 0, "Вы", 1, 250);
             player.addAbility(new LittleFool(), new Alchemist());
             Map map = new Map(player, 100, 100);
             try {
