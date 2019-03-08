@@ -1,6 +1,7 @@
 package Windows.BattleWindows;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.Serializable;
 
 public class LossWindow extends JFrame implements Serializable {
@@ -13,6 +14,7 @@ public class LossWindow extends JFrame implements Serializable {
         setAlwaysOnTop(true);
 
         JLabel label = new JLabel("Вы проиграли");
+        label.setFont(new Font("Default", Font.BOLD, 150));
 
         getContentPane().add(label);
         pack();

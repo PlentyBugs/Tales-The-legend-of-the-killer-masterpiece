@@ -62,6 +62,7 @@ public class Game {
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONGRANGE),
                     new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
                     new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
+                    new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 2),
                     new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 1),
                     new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)

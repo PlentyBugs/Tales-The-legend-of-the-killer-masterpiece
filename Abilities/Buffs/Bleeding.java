@@ -19,13 +19,13 @@ public class Bleeding extends Buff {
     }
 
     public void use(Player player){
-        fightWindow.writeToPlayerConsole(player.getName() + " истекает кровью и теряет " + power*(7-stepCount) + " хп");
-        player.setHp(player.getHp() - power*(7-stepCount));
+        fightWindow.writeToPlayerConsole(player.getName() + " истекает кровью и теряет " + power*(8-stepCount) + " хп");
+        player.setHp(player.getHp() - power*(8-stepCount));
     }
 
     public void use(LiveCreature liveCreature){
-        fightWindow.writeToEnemyStatusConsole(liveCreature.getName() + " истекает кровью и теряет " + power*(7-stepCount) + " хп");
-        liveCreature.setHp(liveCreature.getHp() - power*(7-stepCount));
+        fightWindow.writeToEnemyStatusConsole(liveCreature.getName() + " истекает кровью и теряет " + power*(8-stepCount) + " хп");
+        liveCreature.setHp(liveCreature.getHp() - power*(8-stepCount));
     }
 
     public void setFightWindow(FightWindow fightWindow) {

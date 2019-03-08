@@ -11,6 +11,7 @@ import Things.ChestLike.Chest;
 import Things.Craft.CraftTable;
 import Things.Grass;
 import Things.HealBlock;
+import Windows.BattleWindows.LossWindow;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
@@ -245,6 +246,10 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         player.checkQuests();
         player.countEquipmentBuffs();
         realVision = player.getVision()*2+1;
+        if(player.getHp() <= 0){
+            setVisible(false);
+            LossWindow loss = new LossWindow();
+        }
     }
 
     private void fillContentPanel(){
