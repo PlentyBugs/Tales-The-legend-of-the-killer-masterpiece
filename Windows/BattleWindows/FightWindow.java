@@ -427,6 +427,13 @@ public class FightWindow extends JFrame implements Serializable {
                 dropItems.add(item);
             }
 
+            for(Item item : enemy.getInventory()){
+                int chanceDropItem = (int)Math.ceil(Math.random()*100);
+                if(chanceDropItem < 5){
+                    dropItems.add(item);
+                }
+            }
+
             dialogWindow.close();
 
             player.addMoney(rewardMoney);
@@ -539,7 +546,7 @@ public class FightWindow extends JFrame implements Serializable {
                 }
             }
 
-            double damage = (int)((attacker.getStats().getStrength() + attacker.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().getStrength()-attacker.getStats().getStrength()))/200 + (200 - (enemy.getStats().getStrength()-attacker.getStats().getStrength()))/200 + (200 - (enemy.getStats().getStrength()-attacker.getStats().getStrength()))/200))/3 + 1));
+            double damage = (int)((attacker.getStats().getStrength() + attacker.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().getStrength()-attacker.getStats().getStrength()))/200 + (200 - (enemy.getStats().getAgility()-attacker.getStats().getAgility()))/200 + (200 - (enemy.getStats().getSpeed()-attacker.getStats().getSpeed()))/200))/3 + 1));
 
             int chanceToCrit = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*attacker.getLvl()/attacker.getStats().getLuck()));
             if(attacker.hasAbility(new CriticalStrike()) && chanceToCrit <= attacker.getAbility(new CriticalStrike()).getChance()){
@@ -565,7 +572,7 @@ public class FightWindow extends JFrame implements Serializable {
 
             for(Weapon weapon : attacker.getEquipment().getWeaponList()){
                 if(weapon != null){
-                    weapon.weaponSkill(enemy, FightWindow.this);
+                    weapon.weaponSkill(enemy, FightWindow.this, attacker);
                 }
             }
             if (attacker instanceof Player){

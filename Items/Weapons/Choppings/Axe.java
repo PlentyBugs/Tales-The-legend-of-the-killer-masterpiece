@@ -10,6 +10,7 @@ import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
 
 public class Axe extends Weapon {
+    private static final long serialVersionUID = 5336683018159383002L;
 
     public Axe(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){
         stockName = "топор";
@@ -82,7 +83,7 @@ public class Axe extends Weapon {
         damage += addDamage;
     }
     @Override
-    public void weaponSkill(LiveCreature enemy, FightWindow fightWindow){
+    public void weaponSkill(LiveCreature enemy, FightWindow fightWindow, LiveCreature attacker){
         cut(enemy, fightWindow);
     }
 

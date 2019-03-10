@@ -60,6 +60,7 @@ public class Knight extends Human {
 
         stats.setMilitarism(0);
         stats.setPacifism(0);
+        addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/15, (new CriticalStrike()).getMaxLevel()))), new Evasion(Math.max(0, Math.min(lvl/15, (new Evasion()).getMaxLevel()))));
     }
 
     @Override

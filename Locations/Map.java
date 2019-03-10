@@ -10,6 +10,7 @@ import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
 import Conversations.QuestDialogConversation;
 import Creatures.AggressiveNPC.Bandit;
+import Creatures.AggressiveNPC.Ent;
 import Creatures.AggressiveNPC.Goblin;
 import Creatures.GodCreature;
 import Creatures.Human;
@@ -64,7 +65,7 @@ public class Map implements Serializable {
         for(int i = 0; i < mapHeight; i++){
             for(int j = 0; j < mapWidth; j++){
                 Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
-                Human[] randomHumanList = {new Bandit(), new Goblin()};
+                Human[] randomHumanList = {new Bandit(), new Goblin(), new Ent()};
 
                 int chance = (int) Math.ceil(Math.random() * 100);
 

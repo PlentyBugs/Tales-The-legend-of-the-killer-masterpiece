@@ -90,7 +90,7 @@ public class Weapon extends Item {
         damage += addDamage;
     }
 
-    public void weaponSkill(LiveCreature enemy, FightWindow fightWindow){
+    public void weaponSkill(LiveCreature enemy, FightWindow fightWindow, LiveCreature attacker){
 
     }
 
