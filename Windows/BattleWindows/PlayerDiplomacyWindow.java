@@ -3,7 +3,7 @@ package Windows.BattleWindows;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Alchemy.Potions.Potion;
-import Items.BattleItem;
+import Items.DiplomacyItem;
 import Items.Item;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class PlayerFightItemWindow extends JFrame implements Serializable {
+public class PlayerDiplomacyWindow extends JFrame implements Serializable {
 
     private Player player;
     private LiveCreature enemy;
@@ -23,8 +23,8 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
     private int height = 720;
 
 
-    public PlayerFightItemWindow(Player player, LiveCreature enemy, FightWindow fightWindow){
-        super("Предметы");
+    public PlayerDiplomacyWindow(Player player, LiveCreature enemy, FightWindow fightWindow){
+        super("Способности");
         this.player = player;
         this.enemy = enemy;
         this.fightWindow = fightWindow;
@@ -48,7 +48,7 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
         constraints.gridy = 0;
 
         for(Item item : player.getInventory()){
-            if(item instanceof BattleItem){
+            if(item instanceof DiplomacyItem){
                 JPanel itemPanel = new JPanel();
                 itemPanel.setPreferredSize(new Dimension(width, 40));
                 GridBagConstraints itemConstraints = new GridBagConstraints();
@@ -58,8 +58,8 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
                 itemConstraints.gridy = 0;
                 JLabel propertyCount = new JLabel();
 
-                Color colorBackground = new Color(255,255,255,255);
-                Color colorForeground = new Color(0,0,0);
+                Color colorBackground;
+                Color colorForeground;
 
                 switch(item.getGrade()){
                     case COMMON: colorForeground = new Color(0,0,0); break;
@@ -83,7 +83,6 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
                 }
 
                 JLabel itemName = new JLabel(item.getName());
-                JLabel itemQuality = new JLabel("Прочность: " + Double.toString(item.getQuality()));
                 JLabel property = new JLabel();
 
                 if (item.getClass().toString().contains("Potions")){
@@ -98,29 +97,22 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
                 }
 
                 itemName.setFont(new Font("Serif", Font.PLAIN, 12));
-                itemQuality.setFont(new Font("Serif", Font.PLAIN, 12));
                 property.setFont(new Font("Serif", Font.PLAIN, 12));
                 propertyCount.setFont(new Font("Serif", Font.PLAIN, 12));
 
                 itemName.setForeground(colorForeground);
-                itemQuality.setForeground(colorForeground);
                 property.setForeground(colorForeground);
                 propertyCount.setForeground(colorForeground);
 
                 JButton useButton = new JButton("Использовать");
 
                 useButton.addActionListener(e -> {
-                    if(item.getClass().toString().contains("Heal") || item.getClass().toString().contains("Power") || item.getClass().toString().contains("StatsUp")){
-                        ((Potion)item).use(player);
-                        fightWindow.enemyTurn();
-                        player.removeItem(item);
-                        fightWindow.writeToPlayerConsole(player.getName() + " использовал " + item.getName());
-                    } else if(item.getClass().toString().contains("Poison")){
+                    if(item.getClass().toString().contains("Alcohol")){
+                        System.out.println(((Potion)item).getEffect().getPower());
                         ((Potion)item).use(enemy);
                         fightWindow.enemyTurn();
                         player.removeItem(item);
                         fightWindow.writeToPlayerConsole(player.getName() + " использовал " + item.getName());
-                        fightWindow.writeToEnemyStatusConsole("У " + enemy.getName() + " осталось " + enemy.getHp());
                     }
                     drawWindow();
                 });
@@ -128,8 +120,6 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
                 useButton.setSize(100,40);
 
                 itemPanel.add(itemName, itemConstraints);
-                itemConstraints.gridx ++;
-                itemPanel.add(itemQuality, itemConstraints);
                 itemConstraints.gridx ++;
                 itemPanel.add(property, itemConstraints);
                 itemConstraints.gridx ++;

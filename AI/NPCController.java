@@ -18,7 +18,6 @@ public class NPCController extends Thread{
 
     public void run(){
         while (true){
-            System.out.println(waiting);
             if(!waiting){
                 move();
                 try {
@@ -57,6 +56,7 @@ public class NPCController extends Thread{
                         )){
                 FightWindow fightWindow = new FightWindow(fieldWindow.getPlayer(), liveCreature, fieldWindow);
                 waiting = true;
+                break;
             } else {int chance = (int)(Math.random()*100); // Primitive. Better price-system will be added later
                 if(chance < 25){
                     if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1) != null && fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1).getIsStep()){
@@ -83,7 +83,7 @@ public class NPCController extends Thread{
                         liveCreature.setX(liveCreature.getX()-1);
                     }
                 }
-                fieldWindow.drawAllPlayerWindow();
+                fieldWindow.drawMap(true);
             }
         }
     }

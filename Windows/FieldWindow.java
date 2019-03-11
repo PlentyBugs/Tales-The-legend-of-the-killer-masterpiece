@@ -234,6 +234,35 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         console.writeToConsole(text);
     }
 
+    public void drawMap(boolean controlledByController){
+        getContentPane().removeAll();
+        mainPanel = new JPanel(new GridBagLayout());
+        mainConstraints = new GridBagConstraints();
+        mainConstraints.anchor = GridBagConstraints.WEST;
+        mainConstraints.insets = new Insets(0, 5, 0, 5);
+        mainConstraints.gridx = 0;
+        mainConstraints.gridy = 0;
+
+        panel = new JPanel(new GridBagLayout());
+        drawField(currentMap.getMap(player.getX(),player.getY()));
+        mainPanel.add(panel, mainConstraints);
+
+        fillContentPanel();
+
+        getContentPane().add(mainPanel, BorderLayout.NORTH);
+        getContentPane().add(console, BorderLayout.SOUTH);
+        setVisible(true);
+
+        player.countPassiveBuffs();
+        player.checkQuests();
+        player.countEquipmentBuffs();
+        realVision = player.getVision()*2+1;
+        if(player.getHp() <= 0){
+            setVisible(false);
+            LossWindow loss = new LossWindow();
+        }
+    }
+
     public void drawMap(){
         getContentPane().removeAll();
         mainPanel = new JPanel(new GridBagLayout());
@@ -295,13 +324,24 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         save = player.getSavePanel().getPanel();
 
         if(menu.getComponents().length != 0){
-            menu.setComponentAt(0, inventory);
-            menu.setComponentAt(1, upgrade);
-            menu.setComponentAt(2, equipment);
-            menu.setComponentAt(3, info);
-            menu.setComponentAt(4, abilities);
-            menu.setComponentAt(5, quests);
-            menu.setComponentAt(6, save);
+            try{
+                menu.setComponentAt(0, inventory);
+                menu.setComponentAt(1, upgrade);
+                menu.setComponentAt(2, equipment);
+                menu.setComponentAt(3, info);
+                menu.setComponentAt(4, abilities);
+                menu.setComponentAt(5, quests);
+                menu.setComponentAt(6, save);
+            } catch (Exception ex){
+                menu.removeAll();
+                menu.addTab("Инвентарь", inventory);
+                menu.addTab("Прокачка", upgrade);
+                menu.addTab("Экипировка", equipment);
+                menu.addTab("Информация", info);
+                menu.addTab("Умения", abilities);
+                menu.addTab("Квесты", quests);
+                menu.addTab("Сохранить", save);
+            }
         } else {
             menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-404, y));
             menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-404, y));

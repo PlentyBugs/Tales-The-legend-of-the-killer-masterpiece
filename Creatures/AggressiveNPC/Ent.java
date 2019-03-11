@@ -4,6 +4,8 @@ import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
 import Abilities.Passive.CriticalStrike;
 import Creatures.Human;
+import Items.Alchemy.Ingredients.EntBranch;
+import Items.Alchemy.Ingredients.Leaf;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Item;
@@ -21,7 +23,7 @@ public class Ent extends Human {
         this.name = name;
 
         color = new Color(22,200, 116);
-        uniqueDropItems = new Item[]{new HealPotion(), new PoisonPotion()};
+        uniqueDropItems = new Item[]{new HealPotion(), new PoisonPotion(), new EntBranch(), new Leaf(), new Leaf(), new Leaf()};
     }
 
     public Ent(){

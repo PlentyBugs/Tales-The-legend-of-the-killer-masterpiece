@@ -72,7 +72,7 @@ public class Map implements Serializable {
                 randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
                 if (randomGodCreature.getClass().toString().contains("Grass")){
                     int chanceHerb = (int) Math.ceil(Math.random() * 100);
-                    Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
+                    Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb(), new Hop(), new Grapes()};
                     Ingredient[] berry = {new BlueBerry(), new DrunkenBerry(), new GoblinBerry(), new WildBerry()};
                     Ingredient[] mushroom = {new HellMushroom(), new WhiteMushroom()};
                     if(chanceHerb < 2){

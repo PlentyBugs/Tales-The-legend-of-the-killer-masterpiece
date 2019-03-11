@@ -16,10 +16,7 @@ import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.ConversationWindows.ConversationWindow;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class LiveCreature extends GodCreature {
@@ -29,6 +26,7 @@ public abstract class LiveCreature extends GodCreature {
     protected int maxHp;
     protected int lvl;
     protected int money = 0;
+    protected HashMap<LiveCreature, Integer> loyalty = new HashMap<>();
     protected Set<Effect> effects = Collections.newSetFromMap(new ConcurrentHashMap<>());
     protected Set<Buff> buffs = Collections.newSetFromMap(new ConcurrentHashMap<>());
     protected Stats stats = new Stats();
@@ -293,5 +291,37 @@ public abstract class LiveCreature extends GodCreature {
         }
         double absorbedDamage = damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
         return absorbedDamage;
+    }
+
+    public int getLoyaltyByIndex(LiveCreature index){
+        if(loyalty.containsKey(index)){
+            return loyalty.get(index);
+        } else {
+            loyalty.put(index, 0);
+            return 0;
+        }
+    }
+
+    public void addCreatureToLoyalty(LiveCreature index){
+        loyalty.put(index, 0);
+    }
+
+    public void addLoyaltyToCreature(LiveCreature index, int count){
+        if(loyalty.containsKey(index)){
+            if(count + loyalty.get(index) > 100)
+                loyalty.put(index, 100);
+            else
+                loyalty.put(index, count + loyalty.get(index));
+        } else {
+            loyalty.put(index, count);
+        }
+    }
+
+    public void addLoyalityByClassName(String className, int count){
+        for(LiveCreature key : loyalty.keySet()){
+            if(key.getClass().toString().equals(className)){
+                addLoyaltyToCreature(key, count);
+            }
+        }
     }
 }

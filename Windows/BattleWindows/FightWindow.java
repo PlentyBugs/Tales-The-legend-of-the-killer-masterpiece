@@ -20,6 +20,7 @@ import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
 import Quests.KillQuest;
 import Quests.Quest;
+import Things.ChestLike.Chest;
 import Things.ChestLike.Corpse;
 import Windows.FieldWindow;
 import Windows.SupportWindows.DialogWindow;
@@ -40,20 +41,22 @@ public class FightWindow extends JFrame implements Serializable {
 
     private JProgressBar playerHp;
     private JProgressBar enemyHp;
+    private JProgressBar loyalty;
     private boolean battleInProgress;
 
     private int width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()-20;
     private int height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private int countMoves = 1;
 
-    private Console enemyConsoleActions = new Console();
-    private Console enemyConsoleStatus = new Console();
-    private Console playerConsole = new Console();
+    private Console enemyConsoleActions;
+    private Console enemyConsoleStatus;
+    private Console playerConsole;
     private DialogWindow dialogWindow = new DialogWindow("");
 
-    private JPanel panel = new JPanel(new BorderLayout());
+    private JPanel panel;
     private PlayerAbilityWindow playerAbilityWindow;
     private PlayerFightItemWindow playerFightItemWindow;
+    private PlayerDiplomacyWindow playerDiplomacyWindow;
 
     public FightWindow(Player player, LiveCreature enemy, FieldWindow field) {
         super("Бой");
@@ -65,12 +68,24 @@ public class FightWindow extends JFrame implements Serializable {
         this.enemy = enemy;
         this.field = field;
 
+        enemy.addCreatureToLoyalty(player);
+        player.addCreatureToLoyalty(enemy);
+
         playerHp = new JProgressBar(0, player.getMaxHp());
         playerHp.setBackground(new Color(255,0,0));
         playerHp.setForeground(new Color(0,255,0));
         playerHp.setValue((int)player.getHp());
         playerHp.setStringPainted(true);
         playerHp.setString(Double.toString(player.getHp()) + "/" + Integer.toString(player.getMaxHp()));
+
+
+        loyalty = new JProgressBar(-100, 100);
+        loyalty.setBackground(new Color(255,0,0));
+        loyalty.setForeground(new Color(0,255,0));
+        loyalty.setValue((int)player.getHp());
+        loyalty.setStringPainted(true);
+        loyalty.setString("Отношения");
+        loyalty.setValue(enemy.getLoyaltyByIndex(player));
 
         enemyHp = new JProgressBar(0, (int)enemy.getHp());
         enemyHp.setBackground(new Color(255,0,0));
@@ -80,7 +95,6 @@ public class FightWindow extends JFrame implements Serializable {
         enemyHp.setString(Double.toString(enemy.getHp()));
 
         dialogWindow.setVisible(false);
-        field.setIsVisible(false);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         panel = new JPanel(new BorderLayout());
@@ -95,7 +109,11 @@ public class FightWindow extends JFrame implements Serializable {
         enemyConsoleStatus.setSizeArea(width/2,height/2-80);
         enemyConsoleStatus.setSpeed(0);
 
-        enemyPanel.add(enemyHp, BorderLayout.NORTH);
+        JPanel enemyBars = new JPanel(new BorderLayout());
+
+        enemyBars.add(enemyHp, BorderLayout.NORTH);
+        enemyBars.add(loyalty, BorderLayout.SOUTH);
+        enemyPanel.add(enemyBars, BorderLayout.NORTH);
         enemyPanel.add(enemyConsoleActions, BorderLayout.WEST);
         enemyPanel.add(enemyConsoleStatus, BorderLayout.EAST);
 
@@ -129,11 +147,11 @@ public class FightWindow extends JFrame implements Serializable {
         playerAbilityButton.setPreferredSize(d);
         playerAbilityButton.setMaximumSize(d);
 
-        JButton playerDefendButton = new JButton("Защищаться");
-        playerDefendButton.setBackground(new Color(255,0,0));
-        playerDefendButton.setMinimumSize(d);
-        playerDefendButton.setPreferredSize(d);
-        playerDefendButton.setMaximumSize(d);
+        JButton playerDiplomacyButton = new JButton("Дипломатия");
+        playerDiplomacyButton.setBackground(new Color(255,255,0));
+        playerDiplomacyButton.setMinimumSize(d);
+        playerDiplomacyButton.setPreferredSize(d);
+        playerDiplomacyButton.setMaximumSize(d);
 
         JButton playerUseItemButton = new JButton("Предметы");
         playerUseItemButton.setBackground(new Color(0,255,0));
@@ -173,7 +191,14 @@ public class FightWindow extends JFrame implements Serializable {
             }
         });
 
-        playerDefendButton.addActionListener(e -> enemyTurn());
+        playerDiplomacyButton.addActionListener(e -> {
+            if (playerDiplomacyWindow == null){
+                playerDiplomacyWindow = new PlayerDiplomacyWindow(player, enemy, FightWindow.this);
+            } else {
+                playerDiplomacyWindow.close();
+                playerDiplomacyWindow = null;
+            }
+        });
 
         playerUseItemButton.addActionListener(e -> {
             if (playerFightItemWindow == null){
@@ -204,7 +229,7 @@ public class FightWindow extends JFrame implements Serializable {
 
         playerActions.add(playerAttackButton, BorderLayout.LINE_START);
         playerActions.add(playerAbilityButton, BorderLayout.AFTER_LAST_LINE);
-        playerActions.add(playerDefendButton, BorderLayout.LINE_START);
+        playerActions.add(playerDiplomacyButton, BorderLayout.LINE_START);
         playerActions.add(playerUseItemButton, BorderLayout.AFTER_LAST_LINE);
         playerActions.add(playerRunAwayButton, BorderLayout.LINE_START);
 
@@ -216,6 +241,7 @@ public class FightWindow extends JFrame implements Serializable {
         getContentPane().add(panel);
         pack();
         setVisible(true);
+        field.setIsVisible(false);
         Thread printHp = new Thread(() -> printHp());
         printHp.start();
     }
@@ -301,6 +327,11 @@ public class FightWindow extends JFrame implements Serializable {
                     item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)].clone();
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();
+                }
+
+                if(item.getClass().toString().contains("Ingredient")){
+                    dropItems.add(item);
+                    continue;
                 }
 
                 if(item.getClass().toString().contains("Ring")){
@@ -440,11 +471,16 @@ public class FightWindow extends JFrame implements Serializable {
             player.addExp(rewardExp);
 
             field.setIsVisible(true);
-            Corpse corpse = new Corpse(enemy.getX(), enemy.getY());
+            Chest chest = null;
+            if(enemy.getHp() <= 0)
+                chest = new Corpse(enemy.getX(), enemy.getY());
+            if(enemy.getLoyaltyByIndex(player) == 100)
+                chest = new Chest(enemy.getX(), enemy.getY());
+
             for(Item item : dropItems){
-                corpse.addItemToInventory(item);
+                chest.addItemToInventory(item);
             }
-            field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), corpse);
+            field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
             field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
             field.getNpcController().setWaiting(false);
             field.drawMap();
@@ -476,6 +512,9 @@ public class FightWindow extends JFrame implements Serializable {
             if (playerFightItemWindow != null){
                 playerFightItemWindow.close();
             }
+            if(playerDiplomacyWindow != null){
+                playerDiplomacyWindow.close();
+            }
             close();
         });
         thread.run();
@@ -487,6 +526,9 @@ public class FightWindow extends JFrame implements Serializable {
         }
         if(playerFightItemWindow != null){
             playerFightItemWindow.close();
+        }
+        if(playerDiplomacyWindow != null){
+            playerDiplomacyWindow.close();
         }
         close();
         LossWindow loss = new LossWindow();
@@ -568,6 +610,8 @@ public class FightWindow extends JFrame implements Serializable {
             }
             damage = attacker.getCurrentDamage();
 
+            damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
+
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
 
             enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
@@ -648,8 +692,13 @@ public class FightWindow extends JFrame implements Serializable {
                 getReward();
                 break;
             }
+            if(enemy.getLoyaltyByIndex(player) == 100){
+                getReward();
+                break;
+            }
             playerHp.setValue((int)player.getHp());
             enemyHp.setValue((int)enemy.getHp());
+            loyalty.setValue((int)enemy.getLoyaltyByIndex(player));
             playerHp.setString(Double.toString(player.getHp()) + "/" + Integer.toString(player.getMaxHp()));
             enemyHp.setString(Double.toString(enemy.getHp()));
         }
