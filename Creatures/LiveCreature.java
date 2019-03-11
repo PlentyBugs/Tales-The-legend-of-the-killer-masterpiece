@@ -58,6 +58,8 @@ public abstract class LiveCreature extends GodCreature {
         this.maxHp = hp;
         this.hp = maxHp;
         this.lvl = lvl;
+
+        isStep = false;
     }
 
     public void initializeWindowConv(){

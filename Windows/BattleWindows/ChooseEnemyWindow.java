@@ -6,8 +6,6 @@ import Windows.FieldWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -71,11 +69,10 @@ public class ChooseEnemyWindow extends JFrame implements Serializable {
             liveCreatureConstraints.gridx = 3;
             JButton fight = new JButton("В Бой");
 
-            fight.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    FightWindow fightWindow = new FightWindow(player, liveCreature, field);
-                    close();
-                }
+            fight.addActionListener(e -> {
+                FightWindow fightWindow = new FightWindow(player, liveCreature, field);
+                player.getFieldWindow().getNpcController().setWaiting(true);
+                close();
             });
 
             liveCreaturePanel.add(enemyName, liveCreatureConstraints);

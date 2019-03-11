@@ -42,9 +42,10 @@ import java.io.Serializable;
 public class Map implements Serializable {
 
     private int playerVision;
-    private GodCreature[][] map;
-    protected int mapWidth;
-    protected int mapHeight;
+    private GodCreature[][] mapLowerObjects;
+    private GodCreature[][] mapUpperObjects;
+    private int mapWidth;
+    private int mapHeight;
     private Player player;
 
     private static final long serialVersionUID = 5350390037103737479L;
@@ -61,58 +62,70 @@ public class Map implements Serializable {
         this.player = player;
 
         playerVision = player.getVision()*2+1;
-        map = new GodCreature[mapHeight][mapWidth];
+        mapLowerObjects = new GodCreature[mapHeight][mapWidth];
+        mapUpperObjects = new GodCreature[mapHeight][mapWidth];
         for(int i = 0; i < mapHeight; i++){
             for(int j = 0; j < mapWidth; j++){
                 Thing[] randomThingList = {new Grass(), new Stone(), new Tree()};
-                Human[] randomHumanList = {new Bandit(), new Goblin(), new Ent()};
 
-                int chance = (int) Math.ceil(Math.random() * 100);
-
-                GodCreature randomGodCreature = new GodCreature();
-                if (chance >= 1 && chance <= 5){
-                    randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
-                    ((LiveCreature)randomGodCreature).setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
-                    ((LiveCreature)randomGodCreature).countStatsAfterBorn();
-                    ((LiveCreature)randomGodCreature).setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70*((Human) randomGodCreature).getLvl() + ((Human)randomGodCreature).getStats().getStrength()*12);
-                } else {
-                    randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
-                    if (randomGodCreature.getClass().toString().contains("Grass")){
-                        int chanceHerb = (int) Math.ceil(Math.random() * 100);
-                        Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
-                        Ingredient[] berry = {new BlueBerry(), new DrunkenBerry(), new GoblinBerry(), new WildBerry()};
-                        Ingredient[] mushroom = {new HellMushroom(), new WhiteMushroom()};
-                        if(chanceHerb < 2){
-                            randomGodCreature = new Herb(herb[(int) (herb.length * Math.random())]);
-                        } else if (chanceHerb < 4){
-                            randomGodCreature = new Berry(berry[(int) (berry.length * Math.random())]);
-                        } else if (chanceHerb < 6){
-                            randomGodCreature = new Mushroom(mushroom[(int) (mushroom.length * Math.random())]);
-                        }
+                GodCreature randomGodCreature;
+                randomGodCreature = randomThingList[(int)(randomThingList.length*Math.random())];
+                if (randomGodCreature.getClass().toString().contains("Grass")){
+                    int chanceHerb = (int) Math.ceil(Math.random() * 100);
+                    Ingredient[] herb = {new RedHerb(), new BlueHerb(), new GreenHerb()};
+                    Ingredient[] berry = {new BlueBerry(), new DrunkenBerry(), new GoblinBerry(), new WildBerry()};
+                    Ingredient[] mushroom = {new HellMushroom(), new WhiteMushroom()};
+                    if(chanceHerb < 2){
+                        randomGodCreature = new Herb(herb[(int) (herb.length * Math.random())]);
+                    } else if (chanceHerb < 4){
+                        randomGodCreature = new Berry(berry[(int) (berry.length * Math.random())]);
+                    } else if (chanceHerb < 6){
+                        randomGodCreature = new Mushroom(mushroom[(int) (mushroom.length * Math.random())]);
                     }
                 }
                 randomGodCreature.setX(j);
                 randomGodCreature.setY(i);
 
-                map[i][j] = randomGodCreature;
+                mapLowerObjects[i][j] = randomGodCreature;
 
             }
         }
+
+        for(int i = 0; i < mapHeight; i++){
+            for(int j = 0; j < mapWidth; j++) {
+                Human[] randomHumanList = {new Bandit(), new Goblin(), new Ent()};
+                int chance = (int) Math.ceil(Math.random() * 100);
+
+                if (chance <= 5){
+                    LiveCreature randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
+                    randomGodCreature.setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
+                    randomGodCreature.countStatsAfterBorn();
+                    randomGodCreature.setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70* randomGodCreature.getLvl() + randomGodCreature.getStats().getStrength()*12);
+
+                    randomGodCreature.setX(j);
+                    randomGodCreature.setY(i);
+
+                    mapUpperObjects[i][j] = randomGodCreature;
+                } else
+                    mapUpperObjects[i][j] = null;
+            }
+        }
+
         for (int i = 0; i < 7; i++){
             int healBlockY = (int)(Math.random()*(mapHeight-1));
             int healBlockX = (int)(Math.random()*(mapWidth-1));
-            map[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
+            mapLowerObjects[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
         }
         for (int i = 0; i < 6; i++){
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
-            map[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
         }
-
+/*
         for(int s = 0; s < 2; s++){
             GoblinCamp goblinCamp = new GoblinCamp();
             if(goblinCamp.getMap() != null && mapHeight >= 100 && mapWidth >= 100){
-                GodCreature[][] goblinCampPart = rotate(s+1, goblinCamp.getMap().getMap());
+                GodCreature[][] goblinCampPart = rotate(s+1, goblinCamp.getMap().getMapLowerObjects());
                 int randomCoordinate = (int)(Math.random()*(mapWidth-goblinCampPart.length));
                 while(!(randomCoordinate < mapWidth)){
                     randomCoordinate = (int)(Math.random()*(mapWidth-goblinCampPart.length));
@@ -121,13 +134,14 @@ public class Map implements Serializable {
                     for (int j = 0; j < goblinCampPart[0].length; j++){
                         goblinCampPart[i][j].setX(j+randomCoordinate);
                         goblinCampPart[i][j].setY(i+randomCoordinate);
-                        if(i+randomCoordinate < map.length && map[i+randomCoordinate].length > j+randomCoordinate){
-                            map[i+randomCoordinate][j+randomCoordinate] = goblinCampPart[i][j];
+                        if(i+randomCoordinate < mapLowerObjects.length && mapLowerObjects[i+randomCoordinate].length > j+randomCoordinate){
+                            mapLowerObjects[i+randomCoordinate][j+randomCoordinate] = goblinCampPart[i][j];
                         }
                     }
                 }
             }
         }
+*/
 
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.");
@@ -176,16 +190,20 @@ public class Map implements Serializable {
         for (Item item : dealer.getInventory()) {
             item.countProperty();
         }
-        map[1][1] = dealer;
+        dealer.setX(1);
+        dealer.setY(1);
+        mapUpperObjects[1][1] = dealer;
 
 
         Dealer shutep = new Dealer(3,3,"Шутеп", 15623, 8461315);
+        shutep.setX(3);
+        shutep.setY(3);
         Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
         shutepSwordForSale.countProperty();
         shutep.addConversationShop(1, "Магазин", new Object[] {shutepSwordForSale, 265000, 20});
         shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1});
         shutep.getConversationWindow().setPlayer(player);
-        map[3][3] = shutep;
+        mapUpperObjects[3][3] = shutep;
 
         Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
         inhabitant.setStarterPhrase("Привет!");
@@ -225,12 +243,10 @@ public class Map implements Serializable {
         inhabitant.addConversationDialog(3, hello);
 
         inhabitant.getConversationWindow().setPlayer(player);
-        map[2][2] = inhabitant;
-        map[2][3] = new AlchemyTable();
-    }
-
-    public GodCreature[][] getMap() {
-        return map;
+        inhabitant.setX(2);
+        inhabitant.setY(2);
+        mapUpperObjects[2][2] = inhabitant;
+        mapUpperObjects[2][3] = new AlchemyTable();
     }
 
     public GodCreature[][] getMap(int x, int y){
@@ -240,7 +256,11 @@ public class Map implements Serializable {
         for (int i = 0; i < playerVision; i++){
             for (int j = 0; j < playerVision; j++){
                 if (i + y-vision >= 0 && j + x-vision >= 0 && i + y-vision < mapHeight && j + x-vision < mapWidth) {
-                    currentMap[i][j] = map[i + y-vision][j + x-vision];
+                    if(mapUpperObjects[i + y-vision][j + x-vision] != null){
+                        currentMap[i][j] = mapUpperObjects[i + y-vision][j + x-vision];
+                    } else {
+                        currentMap[i][j] = mapLowerObjects[i + y-vision][j + x-vision];
+                    }
                     if (i == j && i == player.getVision()){
                         currentMap[i][j] = player;
                     }
@@ -252,12 +272,28 @@ public class Map implements Serializable {
         return currentMap;
     }
 
-    public void setMap(GodCreature[][] map) {
-        this.map = map;
+    public void setMapLowerObjects(GodCreature[][] mapLowerObjects) {
+        this.mapLowerObjects = mapLowerObjects;
     }
 
     public void setElementByCoordinates(int x, int y, GodCreature godCreature){
-        map[y][x] = godCreature;
+        mapLowerObjects[y][x] = godCreature;
+    }
+
+    public void setElementByCoordinatesUpper(int x, int y, GodCreature godCreature){
+        if(y >= 0 && y < mapHeight && x >= 0 && x < mapWidth){
+            mapUpperObjects[y][x] = godCreature;
+        }
+    }
+
+    public GodCreature getElementByCoordinates(int x, int y){
+        if(y >= 0 && y < mapHeight && x >= 0 && x < mapWidth){
+            if(mapUpperObjects[y][x] != null){
+                return mapUpperObjects[y][x];
+            }
+            return mapLowerObjects[y][x];
+        }
+        return null;
     }
 
     public int getMapHeight() {
@@ -268,18 +304,18 @@ public class Map implements Serializable {
     }
 
     public void setMapHeight() {
-        this.mapHeight = map.length;
+        this.mapHeight = mapLowerObjects.length;
     }
 
     public void setMapWidth() {
-        this.mapWidth = map[0].length;
+        this.mapWidth = mapLowerObjects[0].length;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-    public GodCreature[][] rotate(int countRotationsToNinetyDegr, GodCreature[][] oldMap){
+    private GodCreature[][] rotate(int countRotationsToNinetyDegr, GodCreature[][] oldMap){
         if(oldMap.length != 0 & oldMap[0].length != 0){
             GodCreature[][] newMap = new GodCreature[oldMap[0].length][oldMap.length];
             for(int i = 0; i < oldMap.length; i++){

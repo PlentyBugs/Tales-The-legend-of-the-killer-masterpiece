@@ -219,7 +219,7 @@ public class BlockChooser extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try{
                     Map newMap = new Map(new Player(0,0,"",0,0), 20,20);
-                    newMap.setMap(constructorField.getMap());
+                    newMap.setMapLowerObjects(constructorField.getMap());
                     FileOutputStream fos = new FileOutputStream("./" + fileNameTextArea.getText() + ".txt");
                     ObjectOutputStream outStream = new ObjectOutputStream(fos);
                     outStream.writeObject(newMap);

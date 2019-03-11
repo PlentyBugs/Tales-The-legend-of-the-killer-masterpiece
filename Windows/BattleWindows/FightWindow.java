@@ -445,6 +445,8 @@ public class FightWindow extends JFrame implements Serializable {
                 corpse.addItemToInventory(item);
             }
             field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), corpse);
+            field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
+            field.getNpcController().setWaiting(false);
             field.drawMap();
 
             if (player.getQuests() != null){

@@ -1,5 +1,6 @@
 package Windows;
 
+import AI.NPCController;
 import Abilities.Passive.LittleFool;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
@@ -34,7 +35,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private JPanel contentPanel = new JPanel(new GridBagLayout());
     private GridBagConstraints contentConstraints = new GridBagConstraints();
     private Component selectedTab;
-    private JTabbedPane menu = new JTabbedPane();;
+    private JTabbedPane menu = new JTabbedPane();
     private JPanel inventory;
     private JPanel upgrade;
     private JPanel equipment;
@@ -43,6 +44,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private JPanel quests;
     private JPanel save;
     private Map currentMap;
+    private NPCController npcController;
     private static final long serialVersionUID = -5963455665311017981L;
 
     private Console console;
@@ -75,11 +77,16 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
         currentMap = map;
 
+        npcController = new NPCController();
+        npcController.start();
+
         drawMap();
     }
 
     public void drawField(GodCreature[][] information){
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        npcController.clear();
+        npcController.setFieldWindow(this);
 
         realVision = player.getVision()*2+1;
         int width = (int)(x*0.95)/realVision;
@@ -112,6 +119,10 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 boolean isDoorToUpperLevel = information[i][j].getClass().toString().contains("DoorToUpperLevelLocation");
                 boolean isChest = information[i][j].getClass().toString().contains("Chest");
                 boolean isCraft = information[i][j].getClass().toString().contains("Craft");
+
+                if(!(information[i][j] instanceof Player) && information[i][j].getClass().toString().contains("Creature")){
+                    npcController.addNPC((LiveCreature)information[i][j]);
+                }
 
                 GodCreature liveCreature = information[i][j];
                 if(player.hasAbility(new LittleFool()) && liveCreature.getClass().toString().contains("Tree")){
@@ -274,17 +285,6 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     }
 
     private void updateTabs(){
-        int i;
-        for(i = 0; i < menu.getComponents().length; i++){
-            if(menu.getSelectedComponent() == menu.getComponent(i)){
-                break;
-            }
-        }
-        menu.removeAll();
-
-        menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-404, y));
-        menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-404, y));
-        menu.setPreferredSize(new Dimension(x - (int)(x/realVision)-404, y));
 
         inventory = player.getInventoryWindow().getPanel();
         upgrade = player.getUpStatsWindow().getPanel();
@@ -294,21 +294,26 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         quests = player.getPlayerQuestWindow().getPanel();
         save = player.getSavePanel().getPanel();
 
-        menu.addTab("Инвентарь", inventory);
-        menu.setMnemonicAt(0, KeyEvent.VK_I);
-        menu.addTab("Прокачка", upgrade);
-        menu.setMnemonicAt(1, KeyEvent.VK_C);
-        menu.addTab("Экипировка", equipment);
-        menu.setMnemonicAt(2, KeyEvent.VK_E);
-        menu.addTab("Информация", info);
-        menu.setMnemonicAt(3, KeyEvent.VK_O);
-        menu.addTab("Умения", abilities);
-        menu.setMnemonicAt(4, KeyEvent.VK_K);
-        menu.addTab("Квесты", quests);
-        menu.setMnemonicAt(5, KeyEvent.VK_Q);
-        menu.addTab("Сохранить", save);
-        menu.setMnemonicAt(6, KeyEvent.VK_F5);
-        menu.setSelectedComponent(menu.getComponentAt(i));
+        if(menu.getComponents().length != 0){
+            menu.setComponentAt(0, inventory);
+            menu.setComponentAt(1, upgrade);
+            menu.setComponentAt(2, equipment);
+            menu.setComponentAt(3, info);
+            menu.setComponentAt(4, abilities);
+            menu.setComponentAt(5, quests);
+            menu.setComponentAt(6, save);
+        } else {
+            menu.setMinimumSize(new Dimension(x - (int)(x/realVision)-404, y));
+            menu.setMaximumSize(new Dimension(x - (int)(x/realVision)-404, y));
+            menu.setPreferredSize(new Dimension(x - (int)(x/realVision)-404, y));
+            menu.addTab("Инвентарь", inventory);
+            menu.addTab("Прокачка", upgrade);
+            menu.addTab("Экипировка", equipment);
+            menu.addTab("Информация", info);
+            menu.addTab("Умения", abilities);
+            menu.addTab("Квесты", quests);
+            menu.addTab("Сохранить", save);
+        }
 
     }
 
@@ -361,4 +366,8 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     public void keyReleased(KeyEvent event){}
 
     public void keyTyped(KeyEvent event){}
+
+    public NPCController getNpcController() {
+        return npcController;
+    }
 }
