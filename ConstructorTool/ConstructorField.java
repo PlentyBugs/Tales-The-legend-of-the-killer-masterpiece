@@ -128,43 +128,39 @@ public class ConstructorField extends JFrame {
                         } else if(toolMode.getToolModeEnum() == ToolModeEnum.EDITOR && isEditableMap[finalI][finalJ]){
                             EditorWindow editorWindow = new EditorWindow(map[finalI][finalJ]);
                         }else if(toolMode.getToolModeEnum() == ToolModeEnum.AREABUILDER){
-                            Thread myThready = new Thread(new Runnable()
-                            {
-                                public void run()
-                                {
+                            Thread myThready = new Thread(() -> {
 
-                                    if (!ClickAreaBuilderCheck){
-                                        ClickAreaBuilderCheck = true;
-                                        firstClickAreaBuilderIdX = finalJ;
-                                        firstClickAreaBuilderIdY = finalI;
-                                    } else {
-                                        ClickAreaBuilderCheck = false;
-                                        secondClickAreaBuilderIdX = finalJ;
-                                        secondClickAreaBuilderIdY = finalI;
+                                if (!ClickAreaBuilderCheck){
+                                    ClickAreaBuilderCheck = true;
+                                    firstClickAreaBuilderIdX = finalJ;
+                                    firstClickAreaBuilderIdY = finalI;
+                                } else {
+                                    ClickAreaBuilderCheck = false;
+                                    secondClickAreaBuilderIdX = finalJ;
+                                    secondClickAreaBuilderIdY = finalI;
 
-                                        if (firstClickAreaBuilderIdX > secondClickAreaBuilderIdX){
-                                            firstClickAreaBuilderIdX = firstClickAreaBuilderIdX + secondClickAreaBuilderIdX;
-                                            secondClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
-                                            firstClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
-                                        }
-
-                                        if (firstClickAreaBuilderIdY > secondClickAreaBuilderIdY){
-                                            firstClickAreaBuilderIdY = firstClickAreaBuilderIdY + secondClickAreaBuilderIdY;
-                                            secondClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
-                                            firstClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
-                                        }
-
-                                        for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
-                                            for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
-                                                GodCreature godCreature = block.getBlock().getClearCopy();
-                                                godCreature.setX(k);
-                                                godCreature.setY(z);
-                                                map[z][k] = godCreature;
-                                                isEditableMap[z][k] = block.getEditable();
-                                            }
-                                        }
-                                        drawWindow();
+                                    if (firstClickAreaBuilderIdX > secondClickAreaBuilderIdX){
+                                        firstClickAreaBuilderIdX = firstClickAreaBuilderIdX + secondClickAreaBuilderIdX;
+                                        secondClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
+                                        firstClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
                                     }
+
+                                    if (firstClickAreaBuilderIdY > secondClickAreaBuilderIdY){
+                                        firstClickAreaBuilderIdY = firstClickAreaBuilderIdY + secondClickAreaBuilderIdY;
+                                        secondClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                        firstClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                    }
+
+                                    for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
+                                        for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
+                                            GodCreature godCreature = block.getBlock().getClearCopy();
+                                            godCreature.setX(k);
+                                            godCreature.setY(z);
+                                            map[z][k] = godCreature;
+                                            isEditableMap[z][k] = block.getEditable();
+                                        }
+                                    }
+                                    drawWindow();
                                 }
                             });
                             myThready.start();

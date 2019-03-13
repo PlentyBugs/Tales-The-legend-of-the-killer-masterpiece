@@ -1,26 +1,26 @@
 package ConstructorTool;
 
+import Creatures.GodCreature;
+import Creatures.LiveCreature;
+import Creatures.PeacefulNPC.Peaceful;
+import Items.Alchemy.Potions.HealPotion;
+import Items.Alchemy.Potions.PoisonPotion;
 import Items.Armors.Helmet;
 import Items.Armors.Torso;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
-import Items.Alchemy.Potions.HealPotion;
-import Items.Alchemy.Potions.PoisonPotion;
 import Items.Rarity;
 import Items.Weapons.Bows.Bow;
 import Items.Weapons.Bows.LongBow;
 import Items.Weapons.Bows.ShortBow;
+import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
-import Creatures.GodCreature;
-import Creatures.LiveCreature;
-import Creatures.PeacefulNPC.Peaceful;
 import Things.ChestLike.Chest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EditorWindow extends JFrame {
 
@@ -324,7 +324,7 @@ public class EditorWindow extends JFrame {
         JLabel itemTypeName = new JLabel("Оружие: ");
         panel.add(itemTypeName, constraints);
         constraints.gridx ++;
-        JComboBox itemType = new JComboBox(new String[]{new Sword().getName(), new Torso().getName(), new Helmet().getName(), new HealPotion().getName(), new PoisonPotion().getName(), new Bow().getName(), new LongBow().getName(), new ShortBow().getName()});
+        JComboBox itemType = new JComboBox(new String[]{new Sword().getName(), new Torso().getName(), new Helmet().getName(), new HealPotion().getName(), new PoisonPotion().getName(), new Bow().getName(), new LongBow().getName(), new ShortBow().getName(), new Axe().getName(), new Staff().getName()});
         panel.add(itemType, constraints);
         constraints.gridy ++;
 
@@ -356,35 +356,38 @@ public class EditorWindow extends JFrame {
         JButton addItem = new JButton("Добавить в инвентарь");
         panel.add(addItem, constraints);
 
-        addItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Item item = new Item();
-                if (itemType.getSelectedIndex() == 0){
-                    item = new Sword();
-                } else if (itemType.getSelectedIndex() == 1){
-                    item = new Torso();
-                } else if (itemType.getSelectedIndex() == 2){
-                    item = new Helmet();
-                } else if (itemType.getSelectedIndex() == 3){
-                    item = new HealPotion();
-                } else if (itemType.getSelectedIndex() == 4){
-                    item = new PoisonPotion();
-                } else if (itemType.getSelectedIndex() == 5){
-                    item = new Bow();
-                } else if (itemType.getSelectedIndex() == 6){
-                    item = new LongBow();
-                } else if (itemType.getSelectedIndex() == 7){
-                    item = new ShortBow();
-                }
-                item.setMaterial(Material.values()[itemMaterial.getSelectedIndex()]);
-                item.setRarity(Rarity.values()[itemRarity.getSelectedIndex()]);
-                item.setGrade(Grade.values()[itemGrade.getSelectedIndex()]);
-                item.countProperty();
-                if (godCreature.getClass().toString().contains("Chest")){
-                    ((Chest)godCreature).addItemToInventory(item);
-                } else {
-                    ((LiveCreature)godCreature).addItemToInventory(item);
-                }
+        addItem.addActionListener(e -> {
+            Item item = new Item();
+            if (itemType.getSelectedIndex() == 0){
+                item = new Sword();
+            } else if (itemType.getSelectedIndex() == 1){
+                item = new Torso();
+            } else if (itemType.getSelectedIndex() == 2){
+                item = new Helmet();
+            } else if (itemType.getSelectedIndex() == 3){
+                item = new HealPotion();
+            } else if (itemType.getSelectedIndex() == 4){
+                item = new PoisonPotion();
+            } else if (itemType.getSelectedIndex() == 5){
+                item = new Bow();
+            } else if (itemType.getSelectedIndex() == 6){
+                item = new LongBow();
+            } else if (itemType.getSelectedIndex() == 7){
+                item = new ShortBow();
+            } else if (itemType.getSelectedIndex() == 8){
+                item = new Axe();
+            } else if (itemType.getSelectedIndex() == 9){
+                item = new Staff();
+            }
+
+            item.setMaterial(Material.values()[itemMaterial.getSelectedIndex()]);
+            item.setRarity(Rarity.values()[itemRarity.getSelectedIndex()]);
+            item.setGrade(Grade.values()[itemGrade.getSelectedIndex()]);
+            item.countProperty();
+            if (godCreature.getClass().toString().contains("Chest")){
+                ((Chest)godCreature).addItemToInventory(item);
+            } else {
+                ((LiveCreature)godCreature).addItemToInventory(item);
             }
         });
         if(godCreature.getClass().toString().contains("Peaceful")){

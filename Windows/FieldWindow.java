@@ -6,6 +6,7 @@ import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
+import Locations.Dungeon.Dungeon;
 import Locations.Map;
 import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
@@ -93,7 +94,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         int height = (int)(y*0.7)/realVision;
 
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(2, 2, 2, 2);
+        constraints.insets = new Insets(0, 0, 0, 0);
 
         for (int i = 0; i < realVision; i++){
             for (int j = 0; j < realVision; j++) {
@@ -144,10 +145,19 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 } else if (isDoorToUpperLevel) {
                     button.addActionListener(e -> {
                         drawAllPlayerWindow();
+                        Dungeon dungeon = new Dungeon(player);
+                        GodCreature[][][] zxc = dungeon.getMap();
+                        Map map = new Map();
+                        map.setMapLowerObjects(zxc[0]);
+                        map.setMapUpperObjects(zxc[1]);
+                        map.setMapHeight();
+                        map.setMapWidth();
+                        map.setPlayer(player);
+                        currentMap = map;
+                        System.gc();
+                        player.setX(dungeon.getPlayerXSafety());
+                        player.setY(dungeon.getPlayerYSafety());
                         player.setFieldWindow(FieldWindow.this);
-                        currentMap = new Map(player, player.getLvl()*10, player.getLvl()*10);
-                        player.setX(0);
-                        player.setY(0);
                         drawMap();
                     });
                 } else if(isCraft){
@@ -251,7 +261,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
         getContentPane().add(mainPanel, BorderLayout.NORTH);
         getContentPane().add(console, BorderLayout.SOUTH);
-        setVisible(true);
+        setVisible(!player.getInFight());
 
         player.countPassiveBuffs();
         player.checkQuests();

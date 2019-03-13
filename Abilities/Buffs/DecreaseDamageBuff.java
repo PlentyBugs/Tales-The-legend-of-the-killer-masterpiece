@@ -3,7 +3,7 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Creatures.Player;
 
-public class DecreaseDamageBuff extends Buff {
+public class DecreaseDamageBuff extends Buff implements StackableBuff {
 
     public DecreaseDamageBuff(int power){
         name = "Уменьшение урона";
@@ -17,10 +17,18 @@ public class DecreaseDamageBuff extends Buff {
     }
 
     public void use(Player player){
-        player.setCurrentDamage(player.getCurrentDamage()*(100.0/(100.0 + power)));
+        if(getStack(player)){
+            player.setCurrentDamage(player.getCurrentDamage()*(100.0/(100.0 + power)));
+        }
     }
 
     public void use(LiveCreature liveCreature){
-        liveCreature.setCurrentDamage(liveCreature.getCurrentDamage()*(100.0/(100.0 + power)));
+        if(getStack(liveCreature)){
+            liveCreature.setCurrentDamage(liveCreature.getCurrentDamage()*(100.0/(100.0 + power)));
+        }
+    }
+    @Override
+    public boolean getStack(LiveCreature liveCreature) {
+        return liveCreature.getCountBuffs(this) < 2;
     }
 }

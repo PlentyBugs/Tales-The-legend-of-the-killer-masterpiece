@@ -1,5 +1,6 @@
 package Abilities;
 
+import Creatures.LiveCreature;
 import Creatures.Player;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ public class Ability implements Serializable {
     protected int level;
     protected int maxLevel;
     protected int cost = 1;
+    protected LiveCreature liveCreature;
     protected String name;
     protected CostType costType;
 
@@ -73,6 +75,14 @@ public class Ability implements Serializable {
         if(check(player)){
             setLevel(getLevel()+1);
         }
+    }
+
+    public LiveCreature getLiveCreature() {
+        return liveCreature;
+    }
+
+    public void setLiveCreature(LiveCreature liveCreature) {
+        this.liveCreature = liveCreature;
     }
 
     public CostType getCostType() {

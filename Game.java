@@ -1,5 +1,4 @@
 import Abilities.Passive.LittleFool;
-import Abilities.Passive.Professions.Alchemist;
 import Creatures.Difficulty;
 import Creatures.Player;
 import Creatures.StatsEnum;
@@ -42,20 +41,22 @@ public class Game {
         startWindow.close();
         if(game.equals("new")) {
             Player player = new Player(0, 0, "Вы", 1, 250);
-            player.addAbility(new LittleFool(), new Alchemist());
+            player.addAbility(new LittleFool());
             Map map = new Map(player, 100, 100);
+            /*
             try {
                 FileInputStream fis = new FileInputStream("./Maps/temp.txt");
                 ObjectInputStream inputStream = new ObjectInputStream(fis);
                 map = (Map) inputStream.readObject();
-                map.setMapHeight();
-                map.setMapWidth();
                 map.setPlayer(player);
                 inputStream.close();
             } catch (Exception e) {
                 System.out.println("Error" + e.getMessage());
             }
-
+*/
+            map.setMapHeight();
+            map.setMapWidth();
+            map.setPlayer(player);
             player.addItemToInventory(
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWOHANDED),

@@ -132,17 +132,15 @@ public class BlockChooser extends JFrame {
                 blockButton.setBackground(new Color(255,255,255));
             }
 
-            blockButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (creature.getClass().toString().split("\\.")[1].split(" ")[0].equals("Chest")){
-                        block.setEditable(true);
-                    } else {
-                        block.setEditable(false);
-                    }
-                    block.setBlock(creature);
-                    block.setBlockType(BlockType.THING);
-                    drawWindow();
+            blockButton.addActionListener(e -> {
+                if (creature.getClass().toString().contains("Chest")){
+                    block.setEditable(true);
+                } else {
+                    block.setEditable(false);
                 }
+                block.setBlock(creature);
+                block.setBlockType(BlockType.THING);
+                drawWindow();
             });
 
             blockPanel.add(blockName, BorderLayout.LINE_START);

@@ -31,6 +31,7 @@ public class Player extends Human {
     private QuestsWindow playerQuestWindow;
     private FieldWindow fieldWindow;
     private SavePanel savePanel;
+    private boolean inFight;
 
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
@@ -309,5 +310,13 @@ public class Player extends Human {
 
     public UpStatsWindow getUpStatsWindow() {
         return upStatsWindow;
+    }
+
+    public void setInFight(boolean inFight) {
+        this.inFight = inFight;
+    }
+
+    public boolean getInFight(){
+        return inFight;
     }
 }

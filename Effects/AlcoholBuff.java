@@ -27,7 +27,7 @@ public class AlcoholBuff extends Effect {
 
     @Override
     public void setPowerAlchemy(int alchemyPower){
-        power += alchemyPower/2;
+        power += Math.pow(Math.E, Math.log(alchemyPower)/Math.log(7));
     }
 
     public AlcoholBuff getClearCopy(){

@@ -15,6 +15,7 @@ public class ChooseNameWindow extends JFrame implements Serializable {
 
     public ChooseNameWindow(){
         super("Назовите себя");
+        setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(300,100));
 

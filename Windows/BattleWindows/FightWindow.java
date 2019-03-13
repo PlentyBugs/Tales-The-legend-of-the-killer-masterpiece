@@ -67,6 +67,7 @@ public class FightWindow extends JFrame implements Serializable {
         this.player = player;
         this.enemy = enemy;
         this.field = field;
+        player.setInFight(true);
 
         enemy.addCreatureToLoyalty(player);
         player.addCreatureToLoyalty(enemy);
@@ -483,7 +484,8 @@ public class FightWindow extends JFrame implements Serializable {
             field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
             field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
             field.getNpcController().setWaiting(false);
-            field.drawMap();
+            field.getNpcController().run();
+            field.drawAllPlayerWindow();
 
             if (player.getQuests() != null){
                 for (Quest quest : player.getQuests()){
@@ -553,7 +555,6 @@ public class FightWindow extends JFrame implements Serializable {
                 writeToPlayerConsole(enemy.getName() + " увернулся");
             }
         } else {
-
             for(Weapon weapon : attacker.getEquipment().getWeaponList()){
                 if(weapon != null){
                     weapon.setBonusDamage(1);
@@ -615,6 +616,8 @@ public class FightWindow extends JFrame implements Serializable {
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
 
             enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
+
+            enemy.addLoyaltyToCreature(attacker, -(int)(enemy.getHp()/damage));
 
             for(Weapon weapon : attacker.getEquipment().getWeaponList()){
                 if(weapon != null){

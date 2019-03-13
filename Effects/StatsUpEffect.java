@@ -22,7 +22,7 @@ public class StatsUpEffect extends Effect {
 
     @Override
     public void setPowerAlchemy(int alchemyPower){
-        power += alchemyPower/10;
+        power += Math.pow(Math.E, Math.log(alchemyPower)/Math.log(8));
     }
 
     public StatsUpEffect getClearCopy(){

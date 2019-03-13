@@ -24,6 +24,7 @@ public abstract class LiveCreature extends GodCreature {
     protected int y;
     protected double hp;
     protected int maxHp;
+    protected int stepCountBonus;
     protected int lvl;
     protected int money = 0;
     protected HashMap<LiveCreature, Integer> loyalty = new HashMap<>();
@@ -82,6 +83,7 @@ public abstract class LiveCreature extends GodCreature {
     public void addAbility(Ability ... abilities){
         for (Ability ability : abilities){
             if (!this.abilities.contains(ability)){
+                ability.setLiveCreature(this);
                 this.abilities.add(ability);
             }
         }
@@ -323,5 +325,23 @@ public abstract class LiveCreature extends GodCreature {
                 addLoyaltyToCreature(key, count);
             }
         }
+    }
+
+    public int getCountBuffs(Buff buff){
+        int counter = 0;
+        for(Buff bff : buffs){
+            if(bff.getClass().toString().equals(buff.getClass().toString())){
+                counter ++;
+            }
+        }
+        return counter;
+    }
+
+    public int getStepCountBonus() {
+        return stepCountBonus;
+    }
+
+    public void setStepCountBonus(int stepCountBonus) {
+        this.stepCountBonus = stepCountBonus;
     }
 }

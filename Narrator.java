@@ -25,10 +25,10 @@ public class Narrator {
     public void theBeginning(Player player) throws InterruptedException, IOException {
 
         switch (difficulty){
-            case EASY: skill_points_count = 20; break;
-            case NORMAL: skill_points_count = 15; break;
-            case HARD: skill_points_count = 10; break;
-            case VERYHARD: skill_points_count = 5; break;
+            case EASY: skill_points_count = 50; break;
+            case NORMAL: skill_points_count = 45; break;
+            case HARD: skill_points_count = 20; break;
+            case VERYHARD: skill_points_count = 15; break;
             case NIGHTMARE: skill_points_count = 5; break;
             case STOPIT: skill_points_count = 0; break;
         }

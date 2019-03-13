@@ -2,9 +2,11 @@ package Locations;
 
 import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
+import Abilities.Active.Rage;
 import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
+import Abilities.Passive.Professions.Alchemist;
 import Abilities.Passive.Professions.Steal;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
@@ -12,6 +14,7 @@ import Conversations.QuestDialogConversation;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Ent;
 import Creatures.AggressiveNPC.Goblin;
+import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.GodCreature;
 import Creatures.Human;
 import Creatures.LiveCreature;
@@ -41,18 +44,16 @@ import java.io.Serializable;
 
 public class Map implements Serializable {
 
-    private int playerVision;
-    private GodCreature[][] mapLowerObjects;
-    private GodCreature[][] mapUpperObjects;
-    private int mapWidth;
-    private int mapHeight;
-    private Player player;
+    protected int playerVision;
+    protected GodCreature[][] mapLowerObjects;
+    protected GodCreature[][] mapUpperObjects;
+    protected int mapWidth;
+    protected int mapHeight;
+    protected Player player;
 
     private static final long serialVersionUID = 5350390037103737479L;
 
-    public Map(){
-        this(null, 0, 0);
-    }
+    public Map(){}
 
     public Map(Player player, int mapWidth, int mapHeight){
 
@@ -111,11 +112,25 @@ public class Map implements Serializable {
             }
         }
 
+        for (int i = 0; i < 4; i++){
+            int GoblinKingY = (int)(Math.random()*(mapHeight-1));
+            int GoblinKingX = (int)(Math.random()*(mapWidth-1));
+            GoblinKing goblinKing = new GoblinKing();
+            goblinKing.setX(GoblinKingX);
+            goblinKing.setY(GoblinKingY);
+            goblinKing.setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
+            goblinKing.countStatsAfterBorn();
+            goblinKing.setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70* goblinKing.getLvl() + goblinKing.getStats().getStrength()*12);
+
+            mapUpperObjects[GoblinKingY][GoblinKingX] = goblinKing;
+        }
+
         for (int i = 0; i < 7; i++){
             int healBlockY = (int)(Math.random()*(mapHeight-1));
             int healBlockX = (int)(Math.random()*(mapWidth-1));
             mapLowerObjects[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
         }
+        mapLowerObjects[4][4] = new DoorToUpperLevelLocation(4, 4);
         for (int i = 0; i < 6; i++){
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
@@ -146,7 +161,7 @@ public class Map implements Serializable {
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.");
         dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
-        dealer.addConversationShop(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
+        dealer.addConversationShop(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1}, new Object[] {new Alchemist(), 235000, 1});
         dealer.getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
@@ -201,7 +216,7 @@ public class Map implements Serializable {
         Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
         shutepSwordForSale.countProperty();
         shutep.addConversationShop(1, "Магазин", new Object[] {shutepSwordForSale, 265000, 20});
-        shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1});
+        shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
         shutep.getConversationWindow().setPlayer(player);
         mapUpperObjects[3][3] = shutep;
 
@@ -256,7 +271,7 @@ public class Map implements Serializable {
         for (int i = 0; i < playerVision; i++){
             for (int j = 0; j < playerVision; j++){
                 if (i + y-vision >= 0 && j + x-vision >= 0 && i + y-vision < mapHeight && j + x-vision < mapWidth) {
-                    if(mapUpperObjects[i + y-vision][j + x-vision] != null){
+                    if(mapUpperObjects != null && mapUpperObjects[i + y-vision][j + x-vision] != null){
                         currentMap[i][j] = mapUpperObjects[i + y-vision][j + x-vision];
                     } else {
                         currentMap[i][j] = mapLowerObjects[i + y-vision][j + x-vision];
@@ -281,9 +296,7 @@ public class Map implements Serializable {
     }
 
     public void setElementByCoordinatesUpper(int x, int y, GodCreature godCreature){
-        if(y >= 0 && y < mapHeight && x >= 0 && x < mapWidth){
-            mapUpperObjects[y][x] = godCreature;
-        }
+        mapUpperObjects[y][x] = godCreature;
     }
 
     public GodCreature getElementByCoordinates(int x, int y){
@@ -330,5 +343,13 @@ public class Map implements Serializable {
             }
         }
         return oldMap;
+    }
+
+    public void setMapUpperObjects(GodCreature[][] mapUpperObjects) {
+        this.mapUpperObjects = mapUpperObjects;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

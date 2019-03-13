@@ -24,6 +24,7 @@ public class ChooseEnemyWindow extends JFrame implements Serializable {
 
     public ChooseEnemyWindow(Player player, FieldWindow field, LiveCreature ... liveCreatures){
         super("Выберите противника");
+        setAlwaysOnTop(true);
 
         this.player = player;
         this.field = field;
