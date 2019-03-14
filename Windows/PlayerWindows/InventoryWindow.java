@@ -143,6 +143,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
 
             JPanel itemPanel = new JPanel();
+            itemPanel.setToolTipText(item.getEnchantDescription());
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;

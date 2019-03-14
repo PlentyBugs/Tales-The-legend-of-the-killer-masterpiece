@@ -5,16 +5,19 @@ import Abilities.AbilityTarget;
 import Abilities.AbilityType;
 import Abilities.Active.AbilityActive;
 import Abilities.Buffs.Buff;
+import Abilities.Enchants.Armor.HigherPath;
+import Abilities.Enchants.Enchant;
+import Abilities.Enchants.EnchantType;
+import Abilities.Enchants.Armor.SpikeArmor;
+import Abilities.Enchants.ForAll.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Creatures.StatsEnum;
+import Items.*;
+import Items.Armors.Armor;
 import Items.Armors.Ring;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
@@ -337,6 +340,17 @@ public class FightWindow extends JFrame implements Serializable {
 
                 if(item.getClass().toString().contains("Ring")){
                     ((Ring)item).setStat(StatsEnum.values()[(int)(Math.random()*StatsEnum.values().length)]);
+                } else {
+                    int chanceEnchant = (int)Math.ceil(Math.random()*100);
+                    if(chanceEnchant < 3){
+                        if(item instanceof Armor){
+                            Enchant<Armor>[] armorEnchants = new Enchant[]{new SpikeArmor<>((Armor)item), new HigherPath<>((Armor)item)};
+                            item.addEnchant(armorEnchants[(int)(Math.random()*armorEnchants.length)]);
+                        } else if(item instanceof Weapon){
+                            Enchant<Weapon>[] weaponEnchants = new Enchant[]{new Vampirism((Weapon) item)};
+                            item.addEnchant(weaponEnchants[(int)(Math.random()*weaponEnchants.length)]);
+                        }
+                    }
                 }
 
                 int chanceDropItem = (int)Math.ceil(Math.random()*1000);
@@ -483,9 +497,6 @@ public class FightWindow extends JFrame implements Serializable {
             }
             field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
             field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
-            field.getNpcController().setWaiting(false);
-            field.getNpcController().run();
-            field.drawAllPlayerWindow();
 
             if (player.getQuests() != null){
                 for (Quest quest : player.getQuests()){
@@ -517,6 +528,9 @@ public class FightWindow extends JFrame implements Serializable {
             if(playerDiplomacyWindow != null){
                 playerDiplomacyWindow.close();
             }
+            field.getNpcController().setWaiting(false);
+            enemy = null;
+            field.drawMap();
             close();
         });
         thread.run();
@@ -614,6 +628,31 @@ public class FightWindow extends JFrame implements Serializable {
             damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
 
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
+
+            for(Item item : attacker.getEquipment().getListOfEquipment()){
+                if(item != null)
+                    for(Enchant enchant : item.getEnchants()){
+                        if(enchant.getEnchantType() == EnchantType.SELFUSE){
+                            enchant.use(attacker);
+                        }
+                        if(enchant.getEnchantType() == EnchantType.ATTACK){
+                            enchant.use(enemy);
+                        }
+                    }
+            }
+
+            for(Item item : enemy.getEquipment().getListOfEquipment()){
+                if(item != null)
+                    for(Enchant enchant : item.getEnchants()){
+                        enchant.setDamage(damage);
+                        if(enchant.getEnchantType() == EnchantType.COUNTERATTACK){
+                            enchant.use(attacker);
+                        }
+                        if(enchant.getEnchantType() == EnchantType.DEFEND){
+                            enchant.use(enemy);
+                        }
+                    }
+            }
 
             enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
 

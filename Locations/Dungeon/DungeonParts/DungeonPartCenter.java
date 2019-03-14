@@ -67,6 +67,8 @@ public class DungeonPartCenter extends PartDungeon implements DungeonPart {
                         randomGodCreature.countStatsAfterBorn();
                         randomGodCreature.setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70* randomGodCreature.getLvl() + randomGodCreature.getStats().getStrength()*12);
 
+                        randomGodCreature.setMaxHp((int) randomGodCreature.getHp());
+
                         randomGodCreature.setX(j);
                         randomGodCreature.setY(i);
 

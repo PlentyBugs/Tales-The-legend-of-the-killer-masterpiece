@@ -79,6 +79,7 @@ public class InventoryWindowChest extends JFrame {
             }
 
             JPanel itemPanel = new JPanel();
+            itemPanel.setToolTipText(item.getEnchantDescription());
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;

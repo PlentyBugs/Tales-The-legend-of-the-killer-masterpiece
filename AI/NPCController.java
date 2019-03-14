@@ -19,12 +19,12 @@ public class NPCController extends Thread{
     public void run(){
         while (true){
             if(!waiting){
+                move();
                 try {
                     sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                move();
             }
         }
     }

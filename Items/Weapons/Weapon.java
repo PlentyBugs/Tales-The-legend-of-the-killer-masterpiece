@@ -29,7 +29,7 @@ public class Weapon extends Item {
 
         for(WeaponType type : weaponType){
             switch (type){
-                case ONEHANDED: stockName = "Одноручный " + stockName; break;
+                case ONEHANDED: stockName = "Одноручный " + stockName;break;
                 case TWOHANDED: stockName = "Двуручный " + stockName; break;
             }
         }

@@ -1,6 +1,9 @@
 package Items;
 
+import Abilities.Enchants.Enchant;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Item implements Serializable, Cloneable, Comparable {
     protected String name;
@@ -10,12 +13,14 @@ public class Item implements Serializable, Cloneable, Comparable {
     protected Material material;
     protected String stockName;
     protected boolean stackable;
+    protected ArrayList<Enchant> enchants;
     private int id;
 
     public Item(){
         grade = Grade.COMMON;
         rarity = Rarity.COMMON;
         stackable = false;
+        enchants = new ArrayList<>();
     }
 
     public Grade getGrade() {
@@ -84,5 +89,22 @@ public class Item implements Serializable, Cloneable, Comparable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ArrayList<Enchant> getEnchants() {
+        return enchants;
+    }
+
+    public void addEnchant(Enchant enchant){
+        enchants.add(enchant);
+    }
+
+    public String getEnchantDescription(){
+        String desc = "<html>Зачарования:<br>";
+        for(Enchant enchant : enchants){
+            desc += "<b>Название:</b> " + enchant.getName() + "<br><b>Описание:</b> " + enchant.getDescription() + "<br><b>Мощность:</b> " + enchant.getPower() + "<br><br>";
+        }
+        desc += "</html>";
+        return desc;
     }
 }

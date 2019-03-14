@@ -69,7 +69,7 @@ public class Game {
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();
-            }
+            };
 
             ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
             Difficulty difficulty = Difficulty.STOPIT;

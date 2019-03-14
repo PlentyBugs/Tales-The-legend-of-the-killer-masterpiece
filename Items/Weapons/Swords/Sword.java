@@ -42,8 +42,8 @@ public class Sword extends Weapon {
     }
 
     private void battleTendency(LiveCreature attacker, FightWindow fightWindow){
-        if(Math.random()*100 < 20)
-            attacker.addBuffs(new DamageUpBuff(120, 1));
+        if(Math.random()*100 < 1)
+            attacker.addBuffs(new DamageUpBuff(150, 2));
     }
 
 }
