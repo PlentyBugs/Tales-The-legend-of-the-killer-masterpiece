@@ -52,6 +52,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
             }
 
             JPanel itemPanel = new JPanel();
+            itemPanel.setToolTipText(item.getEnchantDescription());
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;
@@ -94,7 +95,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
             if (item.getClass().toString().contains("Weapon")){
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));

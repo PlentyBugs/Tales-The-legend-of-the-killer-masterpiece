@@ -97,11 +97,11 @@ public class ThiefWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            int cost = 1;
+            double cost = 1;
 
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+                propertyCount.setText(Double.toString(((Weapon)item).getDamage()));
                 cost = ((Weapon)item).getDamage();
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
                 property.setText("Защита: ");

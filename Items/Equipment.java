@@ -86,8 +86,8 @@ public class Equipment implements Serializable {
         return itemList;
     }
 
-    public int getWeaponDamage(){
-        int damage = 0;
+    public double getWeaponDamage(){
+        double damage = 0;
         Weapon[] weaponList = {oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
 
         for(Weapon weapon : weaponList){

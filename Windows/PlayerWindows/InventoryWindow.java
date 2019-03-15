@@ -182,7 +182,7 @@ public class InventoryWindow extends JFrame implements Serializable {
 
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));

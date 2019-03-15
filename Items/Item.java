@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Item implements Serializable, Cloneable, Comparable {
     protected String name;
+    protected int cost;
     protected Grade grade;
     protected double quality;
     protected Rarity rarity;
@@ -21,6 +22,7 @@ public class Item implements Serializable, Cloneable, Comparable {
         rarity = Rarity.COMMON;
         stackable = false;
         enchants = new ArrayList<>();
+        cost = 0;
     }
 
     public Grade getGrade() {
@@ -106,5 +108,13 @@ public class Item implements Serializable, Cloneable, Comparable {
         }
         desc += "</html>";
         return desc;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getCost() {
+        return cost;
     }
 }

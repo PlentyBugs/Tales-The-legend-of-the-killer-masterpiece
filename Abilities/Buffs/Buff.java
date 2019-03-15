@@ -36,7 +36,7 @@ public class Buff implements Cloneable, Serializable {
     public void use(LiveCreature liveCreature){}
 
     public void upgrade(LiveCreature liveCreature){
-        int bonusPower = 0;
+        double bonusPower = 0;
         for(Weapon staff : liveCreature.getEquipment().getStaffs()){
             bonusPower += staff.getDamage();
         }

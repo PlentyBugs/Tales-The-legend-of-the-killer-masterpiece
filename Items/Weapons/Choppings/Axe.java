@@ -88,7 +88,7 @@ public class Axe extends Weapon {
     }
 
     public void cut(LiveCreature enemy, FightWindow fightWindow){
-        Bleeding bleeding = new Bleeding(getDamage()/5);
+        Bleeding bleeding = new Bleeding((int)(getDamage()/5));
         bleeding.setFightWindow(fightWindow);
         enemy.addBuffs(bleeding);
     }

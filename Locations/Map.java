@@ -25,6 +25,7 @@ import Items.Alchemy.Ingredients.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Armors.Helmet;
+import Items.Enchanting.EnchantStone;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
@@ -39,6 +40,7 @@ import Things.AlchemyThings.Herb;
 import Things.AlchemyThings.Mushroom;
 import Things.Craft.AlchemyTable;
 import Things.*;
+import Things.Craft.EnchantTable;
 
 import java.io.Serializable;
 
@@ -162,8 +164,19 @@ public class Map implements Serializable {
 
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.");
-        dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
-        dealer.addConversationShop(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1}, new Object[] {new Alchemist(), 235000, 1});
+        dealer.addConversationShop(1, "Магазин",
+                new Object[] {new HealPotion(), 4000, 300},
+                new Object[] {new PoisonPotion(), 6000, 300},
+                new Object[] {new EnchantStone(), new EnchantStone().getCost(), 20}
+                );
+
+        dealer.addConversationShop(2, "Тренировка",
+                new Object[] {new TwoOneHandedWeapon(), 188000, 1},
+                new Object[] {new CriticalStrike(), 45000, 1},
+                new Object[] {new Evasion(), 38000, 1},
+                new Object[] {new Steal(), 99000, 1},
+                new Object[] {new Alchemist(), 235000, 1}
+                );
         dealer.getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
@@ -264,6 +277,7 @@ public class Map implements Serializable {
         inhabitant.setY(2);
         mapUpperObjects[2][2] = inhabitant;
         mapUpperObjects[2][3] = new AlchemyTable();
+        mapUpperObjects[2][4] = new EnchantTable();
     }
 
     public GodCreature[][] getMap(int x, int y){

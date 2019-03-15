@@ -176,11 +176,11 @@ public abstract class LiveCreature extends GodCreature {
         return money;
     }
 
-    public void addMoney(int money) {
+    public void addMoney(double money) {
         this.money += money;
     }
 
-    public void reduceMoney(int money) {
+    public void reduceMoney(double money) {
         this.money -= money;
     }
 

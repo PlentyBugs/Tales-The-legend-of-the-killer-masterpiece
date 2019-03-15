@@ -31,7 +31,7 @@ public class Bow extends Weapon {
 
     public void steal(LiveCreature attacker, LiveCreature enemy, FightWindow fightWindow){
         if(Math.random()*100 < 5){
-            int count = 0;
+            double count = 0;
             if(getDamage()*7 > enemy.getMoney()){
                 attacker.addMoney(enemy.getMoney());
                 count = enemy.getMoney();

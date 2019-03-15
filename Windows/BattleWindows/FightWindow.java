@@ -9,7 +9,8 @@ import Abilities.Enchants.Armor.HigherPath;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Abilities.Enchants.Armor.SpikeArmor;
-import Abilities.Enchants.ForAll.Vampirism;
+import Abilities.Enchants.Weapon.KornelCurse;
+import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Creatures.LiveCreature;
@@ -347,7 +348,7 @@ public class FightWindow extends JFrame implements Serializable {
                             Enchant<Armor>[] armorEnchants = new Enchant[]{new SpikeArmor<>((Armor)item), new HigherPath<>((Armor)item)};
                             item.addEnchant(armorEnchants[(int)(Math.random()*armorEnchants.length)]);
                         } else if(item instanceof Weapon){
-                            Enchant<Weapon>[] weaponEnchants = new Enchant[]{new Vampirism((Weapon) item)};
+                            Enchant<Weapon>[] weaponEnchants = new Enchant[]{new Vampirism((Weapon) item), new KornelCurse((Weapon)item)};
                             item.addEnchant(weaponEnchants[(int)(Math.random()*weaponEnchants.length)]);
                         }
                     }
@@ -533,7 +534,7 @@ public class FightWindow extends JFrame implements Serializable {
             field.drawMap();
             close();
         });
-        thread.run();
+        thread.start();
     }
 
     private void loss(){
@@ -569,6 +570,17 @@ public class FightWindow extends JFrame implements Serializable {
                 writeToPlayerConsole(enemy.getName() + " увернулся");
             }
         } else {
+            for(Item item : attacker.getEquipment().getListOfEquipment()){
+                if(item != null)
+                    for(Enchant enchant : item.getEnchants()){
+                        if(enchant.getEnchantType() == EnchantType.SELFUSE){
+                            enchant.use(attacker);
+                        }
+                        if(enchant.getEnchantType() == EnchantType.ATTACK){
+                            enchant.use(enemy);
+                        }
+                    }
+            }
             for(Weapon weapon : attacker.getEquipment().getWeaponList()){
                 if(weapon != null){
                     weapon.setBonusDamage(1);
@@ -628,18 +640,6 @@ public class FightWindow extends JFrame implements Serializable {
             damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
 
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
-
-            for(Item item : attacker.getEquipment().getListOfEquipment()){
-                if(item != null)
-                    for(Enchant enchant : item.getEnchants()){
-                        if(enchant.getEnchantType() == EnchantType.SELFUSE){
-                            enchant.use(attacker);
-                        }
-                        if(enchant.getEnchantType() == EnchantType.ATTACK){
-                            enchant.use(enemy);
-                        }
-                    }
-            }
 
             for(Item item : enemy.getEquipment().getListOfEquipment()){
                 if(item != null)

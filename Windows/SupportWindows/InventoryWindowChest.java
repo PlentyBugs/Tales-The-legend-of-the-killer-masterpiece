@@ -122,7 +122,7 @@ public class InventoryWindowChest extends JFrame {
 
             if (item.getClass().toString().contains("Sword")){
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getDamage()));
+                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
                 property.setText("Защита: ");
                 propertyCount.setText(Integer.toString(((Armor)item).getProtection()));

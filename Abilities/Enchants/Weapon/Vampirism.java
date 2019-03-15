@@ -1,4 +1,4 @@
-package Abilities.Enchants.ForAll;
+package Abilities.Enchants.Weapon;
 
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
