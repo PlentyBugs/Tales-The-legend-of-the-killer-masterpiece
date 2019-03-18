@@ -41,27 +41,34 @@ public class Item implements Serializable, Cloneable, Comparable {
         return quality;
     }
 
-    public void setGrade(Grade grade) {
+    public Item setGrade(Grade grade) {
         this.grade = grade;
+        return this;
     }
 
-    public void setMaterial(Material material) {
+    public Item setMaterial(Material material) {
         this.material = material;
+        return this;
     }
 
-    public void setName(String name) {
+    public Item setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setQuality(double quality) {
+    public Item setQuality(double quality) {
         this.quality = quality;
+        return this;
     }
 
-    public void setRarity(Rarity rarity) {
+    public Item setRarity(Rarity rarity) {
         this.rarity = rarity;
+        return this;
     }
 
-    public void countProperty(){}
+    public Item countProperty(){
+        return this;
+    }
 
     @Override
     public Object clone() throws CloneNotSupportedException
@@ -97,8 +104,10 @@ public class Item implements Serializable, Cloneable, Comparable {
         return enchants;
     }
 
-    public void addEnchant(Enchant enchant){
+    public Item addEnchant(Enchant enchant){
+        enchant.setItem(this);
         enchants.add(enchant);
+        return this;
     }
 
     public String getEnchantDescription(){

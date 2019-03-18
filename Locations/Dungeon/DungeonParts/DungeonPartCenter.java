@@ -54,14 +54,14 @@ public class DungeonPartCenter extends PartDungeon implements DungeonPart {
                 {new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall()},
                 {new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall(), new DungeonWall()},
         };
-        int chancePeacefulRoom = (int) Math.ceil(Math.random() * 100);
+        int chancePeacefulRoom = (int) Math.ceil(Math.random() * 2000);
         for(int i = 0; i < 21; i++){
             for(int j = 0; j < 21; j++){
                 if(lower[i][j] instanceof DungeonStoneRoad){
                     Human[] randomHumanList = {new Bandit(), new Zombie(), new Skeleton(), new Knight()};
-                    int chance = (int) Math.ceil(Math.random() * 100);
+                    int chance = (int) Math.ceil(Math.random() * 2000);
 
-                    if (chance <= 5){
+                    if (chance <= 1){
                         LiveCreature randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
                         randomGodCreature.setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
                         randomGodCreature.countStatsAfterBorn();
@@ -80,7 +80,7 @@ public class DungeonPartCenter extends PartDungeon implements DungeonPart {
             }
         }
 
-        if (chancePeacefulRoom < 1){
+        if (chancePeacefulRoom < 4){
             lower[8][8] = new DoorToUpperLevelLocation(8, 8);
             Dealer dealer = new Dealer(9,9,"Петуш", 57, 59000);
             dealer.setStarterPhrase("Добрый день, путник.");

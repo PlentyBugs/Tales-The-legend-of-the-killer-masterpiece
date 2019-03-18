@@ -32,12 +32,14 @@ public class Conversation implements Serializable {
         return Title;
     }
 
-    public void setTitle(String title) {
+    public Conversation setTitle(String title) {
         Title = title;
+        return this;
     }
 
-    public void setIsVisible(boolean visible) {
+    public Conversation setIsVisible(boolean visible) {
         this.visible = visible;
+        return this;
     }
 
     public boolean getIsVisible(){
@@ -48,15 +50,17 @@ public class Conversation implements Serializable {
         return branchNumber;
     }
 
-    public void setBranchNumber(int branchNumber) {
+    public Conversation setBranchNumber(int branchNumber) {
         this.branchNumber = branchNumber;
+        return this;
     }
 
     public int getLayerNumber() {
         return layerNumber;
     }
 
-    public void setLayerNumber(int layerNumber) {
+    public Conversation setLayerNumber(int layerNumber) {
         this.layerNumber = layerNumber;
+        return this;
     }
 }

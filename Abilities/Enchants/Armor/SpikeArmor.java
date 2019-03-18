@@ -7,6 +7,13 @@ import Items.Armors.Armor;
 
 public class SpikeArmor<T extends Armor> extends Enchant {
 
+    public SpikeArmor() {
+        name = "Шипованная броня";
+        description = "Возвращает часть урона врагу";
+        enchantType = EnchantType.COUNTERATTACK;
+        power = 5;
+    }
+
     public SpikeArmor(T item) {
         super(item);
         name = "Шипованная броня";

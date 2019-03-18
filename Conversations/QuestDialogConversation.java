@@ -18,23 +18,26 @@ public class QuestDialogConversation extends DialogConversation {
         }
     }
 
-    public void setQuest(Quest quest) {
+    public QuestDialogConversation setQuest(Quest quest) {
         this.quest = quest;
+        return this;
     }
 
     public Quest getQuest() {
         return quest;
     }
 
-    public void setPlayer(Player player) {
+    public QuestDialogConversation setPlayer(Player player) {
         this.player = player;
+        return this;
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public void setPeaceful(Peaceful peaceful) {
+    public QuestDialogConversation setPeaceful(Peaceful peaceful) {
         this.peaceful = peaceful;
+        return this;
     }
 }

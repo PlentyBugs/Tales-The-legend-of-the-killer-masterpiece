@@ -29,87 +29,137 @@ public class Generator {
         while(!isEnded){
             Check: for(int i = 0; i < mapKeys.length; i++){
                 for(int j = 0; j < mapKeys[i].length; j++){
-                    if(i*j > 2*5){
+                    if(i*j > 10*5){
                         isEnded = true;
                     }
                     if(mapKeys[i][j] != 0){
+
+                        int n = mapKeys[i][j] - (mapKeys[i][j]/10)*10;
+
                         if(mapKeys[i][j] == 1){
                             if(i-1 < 0){
                                 addToUp();
                                 break Check;
                             } else {
-                                mapKeys[i-1][j] = new int[]{1,1,1,1, 0}[(int)(Math.random()*5)];
+                                mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*9)];
                             }
                             if(j-1 < 0){
                                 addToLeft();
                                 break Check;
                             } else {
-                                mapKeys[i][j-1] = new int[]{1,1,1,1, 0}[(int)(Math.random()*5)];
+                                mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*9)];
                             }
                             if(i+1 >= mapKeys.length){
                                 addToDown();
                                 break Check;
                             } else {
-                                mapKeys[i+1][j] = new int[]{1,1,1,1, 0}[(int)(Math.random()*5)];
+                                mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*9)];
                             }
                             if(j+1 >= mapKeys[i].length){
                                 addToRight();
                                 break Check;
                             } else {
-                                mapKeys[i][j+1] = new int[]{1,1,1,1, 0}[(int)(Math.random()*5)];
+                                mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*9)];
                             }
                         }
 
-                        if(mapKeys[i][j] == 2){
-                            if(j-1 < 0){
-                                addToLeft();
-                                break Check;
-                            } else {
-                                mapKeys[i][j-1] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                        if((mapKeys[i][j]/10)*10 == 2){
+                            if(n == 1 || n == 2){
+                                if(i-1 < 0){
+                                    addToUp();
+                                    break Check;
+                                } else {
+                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*9)];
+                                }
                             }
-                            if(i+1 >= mapKeys.length){
-                                addToDown();
-                                break Check;
-                            } else {
-                                mapKeys[i+1][j] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                            if(n == 1 || n == 0){
+                                if(j-1 < 0){
+                                    addToLeft();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*9)];
+                                }
                             }
-                        }
-
-                        if(mapKeys[i][j] == 3){
-                            //todo rotate
-                            if(i-1 < 0){
-                                addToUp();
-                                break Check;
-                            } else {
-                                mapKeys[i-1][j] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                            if(n == 0 || n == 3){
+                                if(i+1 >= mapKeys.length){
+                                    addToDown();
+                                    break Check;
+                                } else {
+                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*9)];
+                                }
                             }
-                            if(j-1 < 0){
-                                addToLeft();
-                                break Check;
-                            } else {
-                                mapKeys[i][j-1] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
-                            }
-                            if(i+1 >= mapKeys.length){
-                                addToDown();
-                                break Check;
-                            } else {
-                                mapKeys[i+1][j] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                            if(n == 3 || n == 2){
+                                if(j+1 >= mapKeys[i].length){
+                                    addToRight();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*9)];
+                                }
                             }
                         }
 
-                        if(mapKeys[i][j] == 5){
-                            //todo make corridor type vertical/horizontal
-                            if(j-1 < 0){
-                                addToLeft();
-                                break Check;
-                            } else {
-                                mapKeys[i][j-1] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                        if((mapKeys[i][j]/10)*10 == 3){
+                            if(n == 1 || n == 2 || n == 3){
+                                if(i-1 < 0){
+                                    addToUp();
+                                    break Check;
+                                } else {
+                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*9)];
+                                }
                             }
-                            if(j+1 >= mapKeys[i].length){
-                                addToRight();
-                                break Check;
-                            } else {
-                                mapKeys[i][j+1] = new int[]{(int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, (int)(Math.random()*5)+1, 0}[(int)(Math.random()*5)];
+                            if(n == 0 || n == 1 || n == 2){
+                                if(j-1 < 0){
+                                    addToLeft();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*9)];
+                                }
+                            }
+                            if(n == 0 || n == 1 || n == 3){
+                                if(i+1 >= mapKeys.length){
+                                    addToDown();
+                                    break Check;
+                                } else {
+                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*9)];
+                                }
+                            }
+                            if(n == 0 || n == 2 || n == 3){
+                                if(j+1 >= mapKeys[i].length){
+                                    addToRight();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*9)];
+                                }
+                            }
+                        }
+                        if((mapKeys[i][j]/10)*10 == 5){
+                            if(n == 0){
+                                if(j-1 < 0){
+                                    addToLeft();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*9)];
+                                }
+                                if(j+1 >= mapKeys[i].length){
+                                    addToRight();
+                                    break Check;
+                                } else {
+                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*9)];
+                                }
+                            }
+                            if(n == 1){
+                                if(i-1 < 0){
+                                    addToUp();
+                                    break Check;
+                                } else {
+                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*9)];
+                                }
+                                if(i+1 >= mapKeys.length){
+                                    addToDown();
+                                    break Check;
+                                } else {
+                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*9)];
+                                }
                             }
                         }
                     }
@@ -118,6 +168,12 @@ public class Generator {
                     }
                 }
             }
+        }
+        for(int i = 0; i < mapKeys.length; i++){
+            for(int j = 0; j < mapKeys[i].length; j++){
+                System.out.print(mapKeys[i][j] + " ");
+            }
+            System.out.println();
         }
     }
 

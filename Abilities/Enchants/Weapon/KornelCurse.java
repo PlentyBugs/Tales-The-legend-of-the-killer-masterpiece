@@ -7,6 +7,13 @@ import Items.Weapons.Weapon;
 
 public class KornelCurse<T extends Weapon> extends Enchant {
 
+    public KornelCurse() {
+        name = "Проклятье Корнела";
+        description = "Увеличивает урон оружия в 3 раза, но делает его полностью случайным";
+        enchantType = EnchantType.SELFUSE;
+        power = 3;
+    }
+
     public KornelCurse(T item) {
         super(item);
         name = "Проклятье Корнела";

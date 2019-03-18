@@ -26,7 +26,7 @@ public class Ring extends Armor implements StatItem {
         name = "кольцо";
     }
 
-    public void countProperty(){
+    public Ring countProperty(){
         statPower = 0;
         switch (material){
             case LEATHER: statPower += 1; break;
@@ -78,6 +78,7 @@ public class Ring extends Armor implements StatItem {
             case DRAGON: statPower += 78; break;
             case DIVINE: statPower += 120; break;
         }
+        return this;
     }
 
     @Override

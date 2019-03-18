@@ -7,6 +7,13 @@ import Items.Weapons.Weapon;
 
 public class Vampirism<T extends Weapon> extends Enchant {
 
+    public Vampirism() {
+        name = "Вампиризм";
+        description = "Переводит часть вашего урона в жизни";
+        enchantType = EnchantType.SELFUSE;
+        power = 10;
+    }
+
     public Vampirism(T item) {
         super(item);
         name = "Вампиризм";

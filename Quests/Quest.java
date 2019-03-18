@@ -42,7 +42,7 @@ public class Quest implements Serializable {
         return itemReward;
     }
 
-    public void getReward(Player player){
+    public Quest getReward(Player player){
         player.addExp(expReward);
         player.addMoney(goldReward);
         String rewardItemMessage = "";
@@ -64,36 +64,44 @@ public class Quest implements Serializable {
                 conversation.setIsVisible(true);
             }
         }
+        return this;
     }
 
-    public void setExpReward(int expReward) {
+    public Quest setExpReward(int expReward) {
         this.expReward = expReward;
+        return this;
     }
 
-    public void setGoldReward(int goldReward) {
+    public Quest setGoldReward(int goldReward) {
         this.goldReward = goldReward;
+        return this;
     }
 
-    public void setItemReward(Item[] itemReward) {
+    public Quest setItemReward(Item[] itemReward) {
         this.itemReward = itemReward;
+        return this;
     }
-    public void setTitle(String title) {
+    public Quest setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getEmployerName() {
         return employer;
     }
 
-    public void setEmployerName(String employer) {
+    public Quest setEmployerName(String employer) {
         this.employer = employer;
+        return this;
     }
 
-    public void setConversationEmployer(Conversation conversationEmployer) {
+    public Quest setConversationEmployer(Conversation conversationEmployer) {
         this.conversationEmployer = conversationEmployer;
+        return this;
     }
 
-    public void setEmployer(Peaceful employerPeaceful) {
+    public Quest setEmployer(Peaceful employerPeaceful) {
         this.employerPeaceful = employerPeaceful;
+        return this;
     }
 }

@@ -12,7 +12,7 @@ public class Alcohol extends Potion implements DiplomacyItem {
         super(potionMaterial, rarity, grade);
     }
 
-    public void countProperty() {
+    public Alcohol countProperty() {
         int addPower = 0;
         switch (potionMaterial) {
             case WATER:
@@ -75,5 +75,6 @@ public class Alcohol extends Potion implements DiplomacyItem {
                 addPower += 128;
                 break;
         }
+        return this;
     }
 }

@@ -21,16 +21,13 @@ import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
 import Creatures.Player;
+import Items.*;
 import Items.Alchemy.Ingredients.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Armors.Helmet;
 import Items.Enchanting.EnchantStone;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
 import Items.QuestItems.KingGoblinRing;
-import Items.Rarity;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
@@ -40,7 +37,6 @@ import Things.AlchemyThings.Herb;
 import Things.AlchemyThings.Mushroom;
 import Things.Craft.AlchemyTable;
 import Things.*;
-import Things.Craft.EnchantTable;
 
 import java.io.Serializable;
 
@@ -134,11 +130,11 @@ public class Map implements Serializable {
             int healBlockX = (int)(Math.random()*(mapWidth-1));
             mapLowerObjects[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
         }
-        mapLowerObjects[4][4] = new DoorToUpperLevelLocation(4, 4);
+        mapLowerObjects[4][4] = new DoorToUpperLevelLocation(4, 4).setKey(new Key());
         for (int i = 0; i < 6; i++){
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
-            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY).setKey(new Key());
         }
 /*
         for(int s = 0; s < 2; s++){
@@ -163,45 +159,45 @@ public class Map implements Serializable {
 */
 
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
-        dealer.setStarterPhrase("Добрый день, путник.");
-        dealer.addConversationShop(1, "Магазин",
-                new Object[] {new HealPotion(), 4000, 300},
-                new Object[] {new PoisonPotion(), 6000, 300},
-                new Object[] {new EnchantStone(), new EnchantStone().getCost(), 20}
-                );
-
-        dealer.addConversationShop(2, "Тренировка",
-                new Object[] {new TwoOneHandedWeapon(), 188000, 1},
-                new Object[] {new CriticalStrike(), 45000, 1},
-                new Object[] {new Evasion(), 38000, 1},
-                new Object[] {new Steal(), 99000, 1},
-                new Object[] {new Alchemist(), 235000, 1}
-                );
-        dealer.getConversationWindow().setPlayer(player);
+        dealer.setStarterPhrase("Добрый день, путник.")
+                .addConversationShop(1, "Магазин",
+                    new Object[] {new HealPotion(), 4000, 300},
+                    new Object[] {new PoisonPotion(), 6000, 300},
+                    new Object[] {new EnchantStone(), new EnchantStone().getCost(), 20}
+                )
+                .addConversationShop(2, "Тренировка",
+                    new Object[] {new TwoOneHandedWeapon(), 188000, 1},
+                    new Object[] {new CriticalStrike(), 45000, 1},
+                    new Object[] {new Evasion(), 38000, 1},
+                    new Object[] {new Steal(), 99000, 1},
+                    new Object[] {new Alchemist(), 235000, 1}
+                )
+                .getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
         KillQuest questDealer = new KillQuest();
-        questDealer.setExpReward(15000);
-        questDealer.setGoldReward(48000);
-        questDealer.setTitle("Зеленая опасность!");
-        questDealer.setEnemyCountToKill(16);
-        questDealer.setEnemyToKill(new Goblin());
-        questDealer.setEmployerName(dealer.getName());
-        questDealer.setEmployer(dealer);
-        questDealer.setConversationEmployer(questDialogConversationDealer);
+        questDealer.setExpReward(15000)
+                .setGoldReward(48000)
+                .setTitle("Зеленая опасность!");
+        questDealer.setEnemyCountToKill(16)
+                .setEnemyToKill(new Goblin())
+                .setEmployerName(dealer.getName())
+                .setEmployer(dealer)
+                .setConversationEmployer(questDialogConversationDealer);
+
         questDialogConversationDealer.setTitle(questDealer.getTitle());
         questDialogConversationDealer.setText("Иди убей 16 гоблинов");
         questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
         questDialogConversationDealer.setQuest(questDealer);
         QuestDialogConversation questDialogConversationDealer2 = new QuestDialogConversation();
         CollectItemQuest questDealer2 = new CollectItemQuest();
-        questDealer2.setExpReward(78120);
-        questDealer2.setGoldReward(253000);
+        questDealer2.setExpReward(78120)
+                .setGoldReward(253000);
         questDealer2.setItem(new KingGoblinRing());
         questDealer2.setPlayer(player);
-        questDealer2.setTitle("Король гоблинов");
-        questDealer2.setEmployerName(dealer.getName());
-        questDealer2.setEmployer(dealer);
+        questDealer2.setTitle("Король гоблинов")
+                .setEmployerName(dealer.getName())
+                .setEmployer(dealer);
         questDealer2.setItemCount(1);
         questDealer2.setConversationEmployer(questDialogConversationDealer2);
         questDialogConversationDealer2.setTitle(questDealer2.getTitle());
@@ -277,7 +273,7 @@ public class Map implements Serializable {
         inhabitant.setY(2);
         mapUpperObjects[2][2] = inhabitant;
         mapUpperObjects[2][3] = new AlchemyTable();
-        mapUpperObjects[2][4] = new EnchantTable();
+        //mapUpperObjects[2][4] = new EnchantTable();
     }
 
     public GodCreature[][] getMap(int x, int y){
@@ -303,16 +299,19 @@ public class Map implements Serializable {
         return currentMap;
     }
 
-    public void setMapLowerObjects(GodCreature[][] mapLowerObjects) {
+    public Map setMapLowerObjects(GodCreature[][] mapLowerObjects) {
         this.mapLowerObjects = mapLowerObjects;
+        return this;
     }
 
-    public void setElementByCoordinates(int x, int y, GodCreature godCreature){
+    public Map setElementByCoordinates(int x, int y, GodCreature godCreature){
         mapLowerObjects[y][x] = godCreature;
+        return this;
     }
 
-    public void setElementByCoordinatesUpper(int x, int y, GodCreature godCreature){
+    public Map setElementByCoordinatesUpper(int x, int y, GodCreature godCreature){
         mapUpperObjects[y][x] = godCreature;
+        return this;
     }
 
     public GodCreature getElementByCoordinates(int x, int y){
@@ -332,26 +331,27 @@ public class Map implements Serializable {
         return mapWidth;
     }
 
-    public void setMapHeight() {
+    public Map setMapHeight() {
         this.mapHeight = mapLowerObjects.length;
+        return this;
     }
 
-    public void setMapWidth() {
+    public Map setMapWidth() {
         this.mapWidth = mapLowerObjects[0].length;
+        return this;
     }
 
-    public void setPlayer(Player player) {
+    public Map setPlayer(Player player) {
         this.player = player;
+        return this;
     }
 
     private GodCreature[][] rotate(int countRotationsToNinetyDegr, GodCreature[][] oldMap){
         if(oldMap.length != 0 & oldMap[0].length != 0){
             GodCreature[][] newMap = new GodCreature[oldMap[0].length][oldMap.length];
-            for(int i = 0; i < oldMap.length; i++){
-                for(int j = 0; j < oldMap[i].length; j++){
-                    newMap[j][i] = oldMap[i][j];
-                }
-            }
+            for(int i = 0; i < oldMap.length; i++)
+                for(int j = 0; j < oldMap[i].length; j++)
+                    newMap[j][i] = oldMap[oldMap[i].length - 1 - j][i];
             if(countRotationsToNinetyDegr == 1){
                 return newMap;
             } else {
@@ -361,8 +361,9 @@ public class Map implements Serializable {
         return oldMap;
     }
 
-    public void setMapUpperObjects(GodCreature[][] mapUpperObjects) {
+    public Map setMapUpperObjects(GodCreature[][] mapUpperObjects) {
         this.mapUpperObjects = mapUpperObjects;
+        return this;
     }
 
     public Player getPlayer() {

@@ -2,12 +2,9 @@ package Creatures.AggressiveNPC;
 
 import Abilities.Passive.CriticalStrike;
 import Creatures.Human;
+import Items.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Swords.Sword;
@@ -26,7 +23,14 @@ public class Goblin extends Human {
         this.name = name;
 
         color = new Color(170,200,10);
-        uniqueDropItems = new Item[]{new Sword(), new HealPotion(), new PoisonPotion(), new ShortBow(), new Axe()};
+        uniqueDropItems = new Item[]{
+                new Sword(),
+                new HealPotion(),
+                new PoisonPotion(),
+                new ShortBow(),
+                new Axe(),
+                new Key()
+        };
     }
 
     public Goblin(){

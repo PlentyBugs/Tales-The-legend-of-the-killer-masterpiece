@@ -274,6 +274,15 @@ public abstract class LiveCreature extends GodCreature {
         }
     }
 
+    public boolean hasItem(Item item){
+        for(Item itm : inventory){
+            if(itm.compareTo(item) == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int countOfItemInInventory(Item item){
         int counter = 0;
         for(Item itm : inventory){

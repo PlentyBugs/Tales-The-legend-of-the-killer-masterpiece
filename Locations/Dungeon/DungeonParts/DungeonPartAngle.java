@@ -1,6 +1,9 @@
 package Locations.Dungeon.DungeonParts;
 
-import Creatures.AggressiveNPC.*;
+import Creatures.AggressiveNPC.Bandit;
+import Creatures.AggressiveNPC.Knight;
+import Creatures.AggressiveNPC.Skeleton;
+import Creatures.AggressiveNPC.Zombie;
 import Creatures.GodCreature;
 import Creatures.Human;
 import Creatures.LiveCreature;
@@ -42,9 +45,10 @@ public class DungeonPartAngle extends PartDungeon implements DungeonPart {
         for(int i = 0; i < 21; i++){
             for(int j = 0; j < 21; j++){
                 if(lower[i][j] instanceof DungeonStoneRoad){
-                    Human[] randomHumanList = {new Bandit(), new Zombie(), new Skeleton(), new Knight()};int chance = (int) Math.ceil(Math.random() * 100);
+                    Human[] randomHumanList = {new Bandit(), new Zombie(), new Skeleton(), new Knight()};
+                    int chance = (int) Math.ceil(Math.random() * 100);
 
-                    if (chance <= 5){
+                    if (chance <= 1){
                         LiveCreature randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
                         randomGodCreature.setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
                         randomGodCreature.countStatsAfterBorn();

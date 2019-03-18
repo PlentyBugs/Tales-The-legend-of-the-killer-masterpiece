@@ -56,7 +56,7 @@ public class Potion extends Item implements BattleItem {
         return -1;
     }
 
-    public void countProperty(){
+    public Potion countProperty(){
         int addPower = 0;
         switch (potionMaterial){
             case WATER: addPower += 30; break;
@@ -85,6 +85,7 @@ public class Potion extends Item implements BattleItem {
         }
 
         effect.setPower(effect.getPower() + addPower);
+        return this;
     }
 
     @Override

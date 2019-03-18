@@ -5,14 +5,11 @@ import Abilities.Active.DecreaseDamage;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Creatures.Human;
+import Items.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
 import Items.Weapons.Bows.Bow;
 import Items.Weapons.Bows.LongBow;
 import Items.Weapons.Choppings.Axe;
@@ -43,7 +40,9 @@ public class Bandit extends Human {
                 new Ring(),
                 new LongBow(),
                 new Axe(),
-                new Staff()};
+                new Staff(),
+                new Key()
+        };
     }
 
     public Bandit(){

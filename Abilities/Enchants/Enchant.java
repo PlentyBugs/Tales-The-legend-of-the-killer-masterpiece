@@ -12,6 +12,8 @@ public class Enchant<T extends Item> extends Ability {
     protected int power;
     protected String description;
 
+    public Enchant(){}
+
     public Enchant(T item){
         this.item = item;
     }

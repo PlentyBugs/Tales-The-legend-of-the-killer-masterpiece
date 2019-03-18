@@ -19,7 +19,7 @@ public class Peaceful extends Human {
         super(x, y, name, lvl, hp);
     }
 
-    public void addConversationShop(int branchNumber, String title, Object[] ... objects){
+    public Peaceful addConversationShop(int branchNumber, String title, Object[] ... objects){
         Shop shop = new Shop();
         shop.setTitle(title);
 
@@ -33,28 +33,32 @@ public class Peaceful extends Human {
         }
         shop.setCatalog(catalogStock);
         conversation.addConversationBranch(shop, branchNumber);
+        return this;
     }
 
-    public void addConversationDialog(int branchNumber, String title, String text, String playerText){
+    public Peaceful addConversationDialog(int branchNumber, String title, String text, String playerText){
         DialogConversation dialogConversation = new DialogConversation();
         dialogConversation.setTitle(title);
         dialogConversation.setText(text);
         dialogConversation.setPlayerText(playerText);
         dialogConversation.setConsole(getConversationWindow().getDialog());
         conversation.addConversationBranch(dialogConversation, branchNumber);
+        return this;
     }
 
-    public void addConversationDialog(int branchNumber, DialogConversation dialogConversation){
+    public Peaceful addConversationDialog(int branchNumber, DialogConversation dialogConversation){
         dialogConversation.setConsole(getConversationWindow().getDialog());
         conversation.addConversationBranch(dialogConversation, branchNumber);
+        return this;
     }
 
     public String getStarterPhrase() {
         return starterPhrase;
     }
 
-    public void setStarterPhrase(String starterPhrase) {
+    public Peaceful setStarterPhrase(String starterPhrase) {
         this.starterPhrase = starterPhrase;
+        return this;
     }
 
     @Override

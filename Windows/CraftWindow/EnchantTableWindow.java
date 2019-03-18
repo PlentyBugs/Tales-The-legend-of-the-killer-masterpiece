@@ -85,6 +85,9 @@ public class EnchantTableWindow extends CraftWindow {
         JPanel buttons = new JPanel(new BorderLayout());
 
         JButton itemEnchantRemoveButton = new JButton("Пусто(Предмет)");
+        itemEnchantRemoveButton.addActionListener(e -> {
+
+        });
         itemEnchantRemoveButton.setPreferredSize(new Dimension(width/2, height/2));
         itemEnchantRemoveButton.setMaximumSize(new Dimension(width/2, height/2));
         itemEnchantRemoveButton.setMinimumSize(new Dimension(width/2, height/2));

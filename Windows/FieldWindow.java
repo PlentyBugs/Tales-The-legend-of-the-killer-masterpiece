@@ -11,6 +11,7 @@ import Locations.Map;
 import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
 import Things.Craft.CraftTable;
+import Things.Door;
 import Things.Grass;
 import Things.HealBlock;
 import Windows.BattleWindows.LossWindow;
@@ -143,22 +144,30 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                         drawMap();
                     });
                 } else if (isDoorToUpperLevel) {
+                    int finalI1 = i;
+                    int finalJ1 = j;
                     button.addActionListener(e -> {
                         drawAllPlayerWindow();
-                        Dungeon dungeon = new Dungeon(player);
-                        GodCreature[][][] zxc = dungeon.getMap();
-                        Map map = new Map();
-                        map.setMapLowerObjects(zxc[0]);
-                        map.setMapUpperObjects(zxc[1]);
-                        map.setMapHeight();
-                        map.setMapWidth();
-                        map.setPlayer(player);
-                        currentMap = map;
-                        System.gc();
-                        player.setX(dungeon.getPlayerXSafety());
-                        player.setY(dungeon.getPlayerYSafety());
-                        player.setFieldWindow(FieldWindow.this);
-                        drawMap();
+                        //todo add function to the Door class to check the key
+                        if(!((Door)information[finalI1][finalJ1]).getIsLocked() || (((Door)information[finalI1][finalJ1]).getIsLocked() && player.hasItem(((Door)information[finalI1][finalJ1]).getKey()))){
+                            if(((Door)information[finalI1][finalJ1]).getIsLocked()){
+                                player.removeItem(((Door)information[finalI1][finalJ1]).getKey());
+                            }
+                            Dungeon dungeon = new Dungeon(player);
+                            GodCreature[][][] zxc = dungeon.getMap();
+                            Map map = new Map();
+                            map.setMapLowerObjects(zxc[0]);
+                            map.setMapUpperObjects(zxc[1]);
+                            map.setMapHeight();
+                            map.setMapWidth();
+                            map.setPlayer(player);
+                            currentMap = map;
+                            System.gc();
+                            player.setX(dungeon.getPlayerXSafety());
+                            player.setY(dungeon.getPlayerYSafety());
+                            player.setFieldWindow(FieldWindow.this);
+                            drawMap();
+                        }
                     });
                 } else if(isCraft){
                     button.addActionListener(e -> {

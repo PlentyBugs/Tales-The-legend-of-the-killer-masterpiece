@@ -69,4 +69,20 @@ public class PartDungeon implements DungeonPart{
     public GodCreature[][] getUpper() {
         return upper;
     }
+
+    public static GodCreature[][] rotate(int countRotationsToNinetyDegr, GodCreature[][] oldMap){
+        if(oldMap.length != 0 & oldMap[0].length != 0){
+            GodCreature[][] newMap = new GodCreature[oldMap[0].length][oldMap.length];
+            for(int i = 0; i < oldMap.length; i++)
+                for (int j = 0; j < oldMap[i].length; j++)
+                    newMap[i][j] = oldMap[oldMap[i].length - 1 - j][i];
+
+            if(countRotationsToNinetyDegr < 1){
+                return oldMap;
+            } else {
+                return rotate(countRotationsToNinetyDegr - 1, newMap);
+            }
+        }
+        return oldMap;
+    }
 }

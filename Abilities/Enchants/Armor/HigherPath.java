@@ -7,6 +7,13 @@ import Items.Armors.Armor;
 
 public class HigherPath<T extends Armor> extends Enchant {
 
+    public HigherPath() {
+        name = "Путь Высшего";
+        description = "Дает шанс избежать урона";
+        enchantType = EnchantType.DEFEND;
+        power = 1;
+    }
+
     public HigherPath(T item) {
         super(item);
         name = "Путь Высшего";

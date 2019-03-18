@@ -144,13 +144,11 @@ public class InventoryWindowChest extends JFrame {
             itemConstraints.gridx = 4;
             JButton useButton = new JButton("Взять");
 
-            useButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    player.addItemToInventory(item);
-                    chest.removeItemFromInventory(item);
-                    drawInventory();
-                    player.getFieldWindow().drawAllPlayerWindow();
-                }
+            useButton.addActionListener(e -> {
+                player.addItemToInventory(item);
+                chest.removeItemFromInventory(item);
+                drawInventory();
+                player.getFieldWindow().drawAllPlayerWindow();
             });
 
             itemPanel.add(itemName, itemConstraints);

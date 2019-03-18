@@ -22,7 +22,7 @@ public class LongBow extends Bow {
         stockName = "Длинный лук";
     }
 
-    public void countProperty(){
+    public LongBow countProperty(){
         int addDamage = 0;
 
 
@@ -81,5 +81,6 @@ public class LongBow extends Bow {
         }
 
         damage += addDamage;
+        return this;
     }
 }

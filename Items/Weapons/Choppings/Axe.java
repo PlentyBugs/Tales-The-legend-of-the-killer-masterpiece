@@ -28,7 +28,7 @@ public class Axe extends Weapon {
         name = "топор";
     }
 
-    public void countProperty(){
+    public Axe countProperty(){
         int addDamage = 0;
 
         for(WeaponType type : weaponType){
@@ -81,6 +81,7 @@ public class Axe extends Weapon {
             case DIVINE: addDamage += 497; break;
         }
         damage += addDamage;
+        return this;
     }
     @Override
     public void weaponSkill(LiveCreature enemy, FightWindow fightWindow, LiveCreature attacker){

@@ -24,7 +24,7 @@ public class Staff extends Weapon {
         name = "посох";
     }
 
-    public void countProperty(){
+    public Staff countProperty(){
         int addDamage = 0;
 
         for(WeaponType type : weaponType){
@@ -78,5 +78,6 @@ public class Staff extends Weapon {
         }
 
         damage += addDamage;
+        return this;
     }
 }

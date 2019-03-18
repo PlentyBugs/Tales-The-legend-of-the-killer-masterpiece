@@ -18,31 +18,36 @@ public class DialogConversation extends Conversation{
         return text;
     }
 
-    public void setText(String text) {
+    public DialogConversation setText(String text) {
         this.text = text;
+        return this;
     }
 
     public Console getConsole() {
         return console;
     }
 
-    public void setConsole(Console console) {
+    public DialogConversation setConsole(Console console) {
         this.console = console;
+        return this;
     }
 
-    public void setPlayerText(String playerText) {
+    public DialogConversation setPlayerText(String playerText) {
         this.playerText = playerText;
+        return this;
     }
 
     public String getPlayerText() {
         return playerText;
     }
 
-    public void setOpponentName(String opponentName) {
+    public DialogConversation setOpponentName(String opponentName) {
         this.opponentName = opponentName;
+        return this;
     }
 
-    public void setPlayerName(String playerName) {
+    public DialogConversation setPlayerName(String playerName) {
         this.playerName = playerName;
+        return this;
     }
 }

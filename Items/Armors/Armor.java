@@ -9,7 +9,7 @@ public class Armor extends Item {
         return protection;
     }
 
-    public void countProperty(){
+    public Armor countProperty(){
         int addProtection = 0;
         switch (material){
             case LEATHER: addProtection += 1; break;
@@ -63,5 +63,6 @@ public class Armor extends Item {
         }
 
         protection += addProtection;
+        return this;
     }
 }

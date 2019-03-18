@@ -1,14 +1,12 @@
+import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.LittleFool;
 import Creatures.Difficulty;
 import Creatures.Player;
 import Creatures.StatsEnum;
+import Items.*;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
@@ -42,7 +40,10 @@ public class Game {
         if(game.equals("new")) {
             Player player = new Player(0, 0, "Вы", 1, 250);
             player.addAbility(new LittleFool());
-            Map map = new Map(player, 100, 100);
+            Map map = new Map(player, 100, 100)
+                    .setMapHeight()
+                    .setMapWidth()
+                    .setPlayer(player);
             /*
             try {
                 FileInputStream fis = new FileInputStream("./Maps/temp.txt");
@@ -54,11 +55,9 @@ public class Game {
                 System.out.println("Error" + e.getMessage());
             }
 */
-            map.setMapHeight();
-            map.setMapWidth();
-            map.setPlayer(player);
             player.addItemToInventory(
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED)
+                            .addEnchant(new Vampirism()),
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWOHANDED),
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONGRANGE),
                     new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),

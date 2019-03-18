@@ -27,19 +27,22 @@ public class KillQuest extends Quest {
         return enemyCountToKill;
     }
 
-    public void setEnemyCountToKill(int enemyCountToKill) {
+    public KillQuest setEnemyCountToKill(int enemyCountToKill) {
         this.enemyCountToKill = enemyCountToKill;
+        return this;
     }
 
-    public void setEnemyToKill(LiveCreature enemyToKill) {
+    public KillQuest setEnemyToKill(LiveCreature enemyToKill) {
         this.enemyToKill = enemyToKill;
+        return this;
     }
 
     public int getEnemyCountToKillCurrent() {
         return enemyCountToKillCurrent;
     }
 
-    public void setEnemyCountToKillCurrent(int enemyCountToKillCurrent) {
+    public KillQuest setEnemyCountToKillCurrent(int enemyCountToKillCurrent) {
         this.enemyCountToKillCurrent = enemyCountToKillCurrent;
+        return this;
     }
 }

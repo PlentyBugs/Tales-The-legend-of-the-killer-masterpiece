@@ -25,7 +25,7 @@ public class Weapon extends Item {
         return damage*bonusDamage*enchantBonus;
     }
 
-    public void countProperty(){
+    public Weapon countProperty(){
         int addDamage = 0;
 
         for(WeaponType type : weaponType){
@@ -89,6 +89,7 @@ public class Weapon extends Item {
         }
 
         damage += addDamage;
+        return this;
     }
 
     public void weaponSkill(LiveCreature enemy, FightWindow fightWindow, LiveCreature attacker){

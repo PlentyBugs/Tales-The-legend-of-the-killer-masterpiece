@@ -9,6 +9,7 @@ import Items.Alchemy.Ingredients.Leaf;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Item;
+import Items.Key;
 
 import java.awt.*;
 
@@ -23,7 +24,15 @@ public class Ent extends Human {
         this.name = name;
 
         color = new Color(22,200, 116);
-        uniqueDropItems = new Item[]{new HealPotion(), new PoisonPotion(), new EntBranch(), new Leaf(), new Leaf(), new Leaf()};
+        uniqueDropItems = new Item[]{
+                new HealPotion(),
+                new PoisonPotion(),
+                new EntBranch(),
+                new Leaf(),
+                new Leaf(),
+                new Leaf(),
+                new Key()
+        };
     }
 
     public Ent(){
