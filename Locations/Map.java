@@ -43,6 +43,7 @@ import java.io.Serializable;
 public class Map implements Serializable {
 
     protected int playerVision;
+    private int playerX, playerY;
     protected GodCreature[][] mapLowerObjects;
     protected GodCreature[][] mapUpperObjects;
     protected int mapWidth;
@@ -379,5 +380,21 @@ public class Map implements Serializable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getPlayerX() {
+        return playerX;
+    }
+
+    public int getPlayerY() {
+        return playerY;
+    }
+
+    public void setPlayerY(int playerY) {
+        this.playerY = playerY;
+    }
+
+    public void setPlayerX(int playerX) {
+        this.playerX = playerX;
     }
 }

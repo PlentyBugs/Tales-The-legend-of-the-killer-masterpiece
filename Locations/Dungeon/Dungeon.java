@@ -11,11 +11,13 @@ public class Dungeon extends Map {
 
     private int playerXSafety;
     private int playerYSafety;
+    private boolean isBossHere;
 
     public Dungeon(Player player){
         this.player = player;
         playerXSafety = -1;
         playerYSafety = -1;
+        isBossHere = false;
     }
 
     public GodCreature[][][] getMap(){
@@ -27,6 +29,10 @@ public class Dungeon extends Map {
         GodCreature[][] mapUpper = new GodCreature[intMap.length*21][intMap[0].length*21];
         for(int i = 0; i < intMap.length; i++){
             for(int j = 0; j < intMap[i].length; j++){
+                if(!isBossHere && (intMap[i][j] == 40 || intMap[i][j] == 41 || intMap[i][j] == 42 || intMap[i][j] == 43)){
+                    isBossHere = true;
+                    intMap[i][j] = 60 + intMap[i][j] - (intMap[i][j]/10)*10;
+                }
                 if(intMap[i][j] == 0){
                     DungeonPartClear dungeonPartClear = new DungeonPartClear(player);
                     for(int s = 0; s < 21; s++){
@@ -129,6 +135,29 @@ public class Dungeon extends Map {
                     DungeonPartCorridor dungeonPartCorridor = new DungeonPartCorridor(player);
                     GodCreature[][] godCreatureArray = PartDungeon.rotate(intMap[i][j] - (intMap[i][j]/10)*10, dungeonPartCorridor.getWay());
                     GodCreature[][] liveCreatureArray = PartDungeon.rotate(intMap[i][j] - (intMap[i][j]/10)*10, dungeonPartCorridor.getUpper());
+                    for(int s = 0; s < 21; s++){
+                        for(int k = 0; k < 21; k++){
+                            GodCreature godCreature = godCreatureArray[s][k];
+                            GodCreature liveCreature = liveCreatureArray[s][k];
+                            if(playerXSafety == -1 && playerYSafety == -1 && godCreature instanceof DungeonStoneRoad){
+                                playerXSafety = j*21 + k;
+                                playerYSafety = i*21 + s;
+                            }
+                            godCreature.setX(j*21 + k);
+                            godCreature.setY(i*21 + s);
+                            if(liveCreature != null){
+                                liveCreature.setX(j*21 + k);
+                                liveCreature.setY(i*21 + s);
+                                mapUpper[i*21 + s][j*21 + k] = liveCreature;
+                            }
+                            mapLower[i*21 + s][j*21 + k] = godCreature;
+                        }
+                    }
+                } else if(intMap[i][j] == 60 || intMap[i][j] == 61 || intMap[i][j] == 62 || intMap[i][j] == 63){
+                    BossRoom dungeonPartDeadEnd = new BossRoom(player);
+
+                    GodCreature[][] godCreatureArray = PartDungeon.rotate(intMap[i][j] - (intMap[i][j]/10)*10, dungeonPartDeadEnd.getWay());
+                    GodCreature[][] liveCreatureArray = PartDungeon.rotate(intMap[i][j] - (intMap[i][j]/10)*10, dungeonPartDeadEnd.getUpper());
                     for(int s = 0; s < 21; s++){
                         for(int k = 0; k < 21; k++){
                             GodCreature godCreature = godCreatureArray[s][k];

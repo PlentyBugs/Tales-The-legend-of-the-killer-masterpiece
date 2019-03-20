@@ -12,6 +12,7 @@ import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
 import Things.Craft.CraftTable;
 import Things.Door;
+import Things.DoorToUpperLevelLocation;
 import Things.Grass;
 import Things.HealBlock;
 import Windows.BattleWindows.LossWindow;
@@ -153,19 +154,35 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                         if(!((Door)information[finalI1][finalJ1]).getIsLocked() || (((Door)information[finalI1][finalJ1]).getIsLocked() && player.hasItem(((Door)information[finalI1][finalJ1]).getKey()))){
                             if(((Door)information[finalI1][finalJ1]).getIsLocked()){
                                 player.removeItem(((Door)information[finalI1][finalJ1]).getKey());
+                                ((Door)information[finalI1][finalJ1]).setIsLocked(false);
                             }
-                            Dungeon dungeon = new Dungeon(player);
-                            GodCreature[][][] zxc = dungeon.getMap();
+                            currentMap.setPlayerX(player.getX());
+                            currentMap.setPlayerY(player.getY());
+                            ((Door)information[finalI1][finalJ1]).setIn(currentMap);
+                            Dungeon dungeon;
                             Map map = new Map();
-                            map.setMapLowerObjects(zxc[0]);
-                            map.setMapUpperObjects(zxc[1]);
-                            map.setMapHeight();
-                            map.setMapWidth();
+                            if(((Door)information[finalI1][finalJ1]).getOut() == null){
+                                dungeon = new Dungeon(player);
+                                GodCreature[][][] zxc = dungeon.getMap();
+                                map.setMapLowerObjects(zxc[0]);
+                                map.setMapUpperObjects(zxc[1]);
+                                map.setMapHeight();
+                                map.setMapWidth();
+                                ((Door)information[finalI1][finalJ1]).setOut(map);
+                                player.setX(dungeon.getPlayerXSafety());
+                                player.setY(dungeon.getPlayerYSafety());
+                                DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
+                                door.setOut(currentMap);
+                                door.setIsLocked(false);
+                                map.setElementByCoordinates(player.getX(), player.getY(), door);
+                            } else {
+                                map = ((Door)information[finalI1][finalJ1]).getOut();
+                                player.setX(map.getPlayerX());
+                                player.setY(map.getPlayerY());
+                            }
                             map.setPlayer(player);
                             currentMap = map;
                             System.gc();
-                            player.setX(dungeon.getPlayerXSafety());
-                            player.setY(dungeon.getPlayerYSafety());
                             player.setFieldWindow(FieldWindow.this);
                             drawMap();
                         }

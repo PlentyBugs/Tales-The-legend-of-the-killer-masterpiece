@@ -47,4 +47,22 @@ public class Door extends Thing {
         this.key = key;
         return this;
     }
+
+    public Map getIn() {
+        return in;
+    }
+
+    public Map getOut() {
+        return out;
+    }
+
+    public Door setIn(Map in) {
+        this.in = in;
+        return this;
+    }
+
+    public Door setOut(Map out) {
+        this.out = out;
+        return this;
+    }
 }

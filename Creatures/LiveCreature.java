@@ -274,7 +274,7 @@ public abstract class LiveCreature extends GodCreature {
 
     public void removeItem(Item item){
         for(Item itm : inventory){
-            if(itm.compareTo(item) == 0){
+            if(itm.compareTo(item) >= 0){
                 if(equipment.getListOfEquipment().contains(item)){
                     unequip(item);
                 }

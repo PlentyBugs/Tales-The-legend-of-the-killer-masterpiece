@@ -6,19 +6,23 @@ import Abilities.AbilityType;
 import Abilities.Active.AbilityActive;
 import Abilities.Buffs.Buff;
 import Abilities.Enchants.Armor.HigherPath;
+import Abilities.Enchants.Armor.SpikeArmor;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
-import Abilities.Enchants.Armor.SpikeArmor;
 import Abilities.Enchants.Weapon.KornelCurse;
 import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
+import Creatures.AggressiveNPC.Boss.Boss;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Creatures.StatsEnum;
-import Items.*;
 import Items.Armors.Armor;
 import Items.Armors.Ring;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
+import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Quests.CollectItemQuest;
@@ -326,6 +330,11 @@ public class FightWindow extends JFrame implements Serializable {
             }
             int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
             ArrayList<Item> dropItems = new ArrayList<>();
+            if(enemy instanceof Boss){
+                for(Item item : ((Boss)enemy).getDropItems()){
+                    dropItems.add(item);
+                }
+            }
             for (int i = 0; i < countItemsDrop; i++){
                 Item item = null;
                 try {

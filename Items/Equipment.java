@@ -159,7 +159,7 @@ public class Equipment implements Serializable {
         if (item instanceof Ring){
             int k = 0;
             for(int i = 0; i < rings.length-1; i++){
-                if(rings[i].getId() == item.getId()){
+                if(rings[i] != null && rings[i].getId() == item.getId()){
                     k = 1;
                 }
                 rings[i] = rings[i+k];
