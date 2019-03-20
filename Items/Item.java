@@ -126,4 +126,6 @@ public class Item implements Serializable, Cloneable, Comparable {
     public int getCost() {
         return cost;
     }
+
+    public void countCost(){}
 }

@@ -6,6 +6,7 @@ import Items.Armors.Torso;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Weapon;
+import Items.Weapons.WeaponType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -146,5 +147,38 @@ public class Equipment implements Serializable {
             }
         }
         return chopps;
+    }
+
+    public void unequip(Item item){
+        if(item instanceof Helmet){
+            helmet = null;
+        }
+        if(item instanceof Torso){
+            torso = null;
+        }
+        if (item instanceof Ring){
+            int k = 0;
+            for(int i = 0; i < rings.length-1; i++){
+                if(rings[i].getId() == item.getId()){
+                    k = 1;
+                }
+                rings[i] = rings[i+k];
+            }
+            if(k == 0){
+                rings[rings.length-1] = (Ring)item;
+            }
+        }
+        if(item instanceof Weapon){
+            if(((Weapon) item).getWeaponType().contains(WeaponType.ONEHANDED)){
+                if(item == oneHandedWeaponRight){
+                    oneHandedWeaponRight = oneHandedWeaponLeft;
+                    oneHandedWeaponLeft = null;
+                } else {
+                    oneHandedWeaponLeft = null;
+                }
+            } else {
+                twoHandedWeapon = null;
+            }
+        }
     }
 }

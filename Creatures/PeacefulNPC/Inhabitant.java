@@ -26,7 +26,7 @@ public class Inhabitant extends Peaceful {
         stats.setSpeed(2);
         stats.setIntelligence(12);
         stats.setLuck(0);
-        stats.setEloquence(20);
+        stats.setEloquence(70);
 
         conversation = new Conversation();
 

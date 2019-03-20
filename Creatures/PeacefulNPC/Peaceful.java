@@ -4,6 +4,7 @@ import Abilities.Ability;
 import Conversations.CatalogStock;
 import Conversations.DialogConversation;
 import Conversations.Shop;
+import Conversations.TrainShop;
 import Items.Item;
 import Creatures.Human;
 
@@ -19,8 +20,17 @@ public class Peaceful extends Human {
         super(x, y, name, lvl, hp);
     }
 
-    public Peaceful addConversationShop(int branchNumber, String title, Object[] ... objects){
+    public Peaceful addConversationShop(int branchNumber){
         Shop shop = new Shop();
+        shop.setSeller(this);
+        shop.setTitle("Магазин");
+
+        conversation.addConversationBranch(shop, branchNumber);
+        return this;
+    }
+
+    public Peaceful addConversationTrain(int branchNumber, String title, Object[] ... objects){
+        TrainShop shop = new TrainShop();
         shop.setTitle(title);
 
         CatalogStock catalogStock = new CatalogStock();

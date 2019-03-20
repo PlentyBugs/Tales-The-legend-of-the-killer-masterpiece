@@ -84,8 +84,8 @@ public class DungeonPartCenter extends PartDungeon implements DungeonPart {
             lower[8][8] = new DoorToUpperLevelLocation(8, 8);
             Dealer dealer = new Dealer(9,9,"Петуш", 57, 59000);
             dealer.setStarterPhrase("Добрый день, путник.");
-            dealer.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 4000, 300}, new Object[] {new PoisonPotion(), 6000, 300});
-            dealer.addConversationShop(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
+            dealer.addItemToInventory(new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion(), new PoisonPotion());
+            dealer.addConversationTrain(2, "Тренировка", new Object[] {new TwoOneHandedWeapon(), 188000, 1}, new Object[] {new CriticalStrike(), 45000, 1}, new Object[] {new Evasion(), 38000, 1}, new Object[] {new Steal(), 99000, 1});
             dealer.getConversationWindow().setPlayer(player);
 
             dealer.setX(9);
@@ -95,7 +95,7 @@ public class DungeonPartCenter extends PartDungeon implements DungeonPart {
             Dealer shutep = new Dealer(10,10,"Шутеп", 15623, 8461315);
             shutep.setX(10);
             shutep.setY(10);
-            shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1});
+            shutep.addConversationTrain(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1});
             shutep.getConversationWindow().setPlayer(player);
             upper[10][10] = shutep;
 

@@ -160,12 +160,21 @@ public class Map implements Serializable {
 
         Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
         dealer.setStarterPhrase("Добрый день, путник.")
-                .addConversationShop(1, "Магазин",
-                    new Object[] {new HealPotion(), 4000, 300},
-                    new Object[] {new PoisonPotion(), 6000, 300},
-                    new Object[] {new EnchantStone(), new EnchantStone().getCost(), 20}
-                )
-                .addConversationShop(2, "Тренировка",
+                .addItemToInventory(
+                        new HealPotion(),
+                        new HealPotion(),
+                        new HealPotion(),
+                        new PoisonPotion(),
+                        new PoisonPotion(),
+                        new PoisonPotion(),
+                        new PoisonPotion(),
+                        new PoisonPotion(),
+                        new EnchantStone(),
+                        new EnchantStone(),
+                        new EnchantStone()
+                );
+        dealer.addConversationShop(1);
+        dealer.addConversationTrain(2, "Тренировка",
                     new Object[] {new TwoOneHandedWeapon(), 188000, 1},
                     new Object[] {new CriticalStrike(), 45000, 1},
                     new Object[] {new Evasion(), 38000, 1},
@@ -226,14 +235,16 @@ public class Map implements Serializable {
         shutep.setY(3);
         Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
         shutepSwordForSale.countProperty();
-        shutep.addConversationShop(1, "Магазин", new Object[] {shutepSwordForSale, 265000, 20});
-        shutep.addConversationShop(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
+        shutep.addItemToInventory(new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty());
+        shutep.addConversationShop(1);
+        shutep.addConversationTrain(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
         shutep.getConversationWindow().setPlayer(player);
         mapUpperObjects[3][3] = shutep;
 
         Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
         inhabitant.setStarterPhrase("Привет!");
-        inhabitant.addConversationShop(1, "Магазин", new Object[] {new HealPotion(), 3000, 1000});
+        inhabitant.addItemToInventory(new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion());
+        inhabitant.addConversationShop(1);
         inhabitant.addConversationDialog(2, "Прощание", "Пока", "Прощай");
 
 

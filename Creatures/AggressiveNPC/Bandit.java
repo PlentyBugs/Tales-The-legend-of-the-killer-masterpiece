@@ -31,7 +31,8 @@ public class Bandit extends Human {
         this.name = name;
         color = Color.RED;
 
-        uniqueDropItems = new Item[]{new Sword(),
+        uniqueDropItems = new Item[]{
+                new Sword(),
                 new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
                 new Torso(),
                 new Helmet(),

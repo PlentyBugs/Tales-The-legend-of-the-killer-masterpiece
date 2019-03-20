@@ -20,4 +20,9 @@ public class NecrosisPotion extends Potion {
     public NecrosisPotion(){
         this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
     }
+
+    @Override
+    public void countCost(){
+        cost = effect.getPower()*21000;
+    }
 }

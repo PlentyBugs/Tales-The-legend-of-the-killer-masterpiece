@@ -26,7 +26,7 @@ public class Dealer extends Peaceful {
         stats.setAgility(5);
         stats.setIntelligence(310);
         stats.setLuck(210);
-        stats.setEloquence(650);
+        stats.setEloquence(240);
         stats.setBlacksmith(5);
         stats.setTheft(5);
         stats.setAlchemy(5);

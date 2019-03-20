@@ -77,4 +77,9 @@ public class Alcohol extends Potion implements DiplomacyItem {
         }
         return this;
     }
+
+    @Override
+    public void countCost(){
+        cost = effect.getPower()*1200;
+    }
 }

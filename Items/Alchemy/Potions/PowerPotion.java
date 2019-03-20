@@ -20,4 +20,9 @@ public class PowerPotion extends Potion {
     public PowerPotion(){
         this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
     }
+
+    @Override
+    public void countCost(){
+        cost = effect.getPower()*150;
+    }
 }

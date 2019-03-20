@@ -329,7 +329,7 @@ public class FightWindow extends JFrame implements Serializable {
             for (int i = 0; i < countItemsDrop; i++){
                 Item item = null;
                 try {
-                    item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length-1)].clone();
+                    item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length)].clone();
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();
                 }

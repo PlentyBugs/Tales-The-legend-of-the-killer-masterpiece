@@ -1,26 +1,24 @@
 package Conversations;
 
+import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.ConversationWindows.ShopWindow;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Shop extends Conversation {
 
     private ShopWindow shop;
-    private ArrayList<Object> catalog = new ArrayList<Object>();
+    private LiveCreature seller;
     private Player player;
 
     public void run(){
-        shop = new ShopWindow(player, catalog);
-    }
-
-    public void setCatalog(CatalogStock catalogStock){
-        catalog.addAll(Arrays.asList(catalogStock.getStock()));
+        shop = new ShopWindow(player, seller);
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void setSeller(LiveCreature seller){
+        this.seller = seller;
     }
 }

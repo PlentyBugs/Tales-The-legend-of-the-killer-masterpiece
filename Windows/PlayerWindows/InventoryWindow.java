@@ -142,12 +142,12 @@ public class InventoryWindow extends JFrame implements Serializable {
                 continue;
             }
 
-            JPanel itemPanel = new JPanel();
+            JPanel itemPanel = new JPanel(new GridBagLayout());
             itemPanel.setToolTipText(item.getEnchantDescription());
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;
-            itemConstraints.insets = new Insets(20, 10, 20, 10);
+            itemConstraints.insets = new Insets(0, 2, 0, 2);
             itemConstraints.gridx = 0;
             itemConstraints.gridy = 0;
             JLabel propertyCount = new JLabel();
@@ -229,7 +229,9 @@ public class InventoryWindow extends JFrame implements Serializable {
                 itemQuality.setText("");
                 useButton.setText("Использовать");
             }
-            useButton.setSize(width/2,40);
+            useButton.setPreferredSize(new Dimension(width/4,20));
+            useButton.setMaximumSize(new Dimension(width/4,20));
+            useButton.setMinimumSize(new Dimension(width/4,20));
 
             if(!item.getClass().toString().contains("Alchemy")){
                 useButton.addActionListener(e -> {
@@ -249,8 +251,20 @@ public class InventoryWindow extends JFrame implements Serializable {
                         ((Player)player).getFieldWindow().drawAllPlayerWindow();
                 });
             }
+
+            JButton removeButton = new JButton("Выбросить");
+            removeButton.addActionListener(e -> {
+                player.removeItem(item);
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
+            });
+            removeButton.setPreferredSize(new Dimension(width/4,20));
+            removeButton.setMaximumSize(new Dimension(width/4,20));
+            removeButton.setMinimumSize(new Dimension(width/4,20));
+;
             itemPanel.add(useButton, itemConstraints);
             itemConstraints.gridx ++;
+            itemPanel.add(removeButton, itemConstraints);
 
             itemPanel.setBackground(colorBackground);
 

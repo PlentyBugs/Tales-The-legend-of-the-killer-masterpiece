@@ -107,13 +107,14 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 String info = information[i][j].getName();
                 JButton button = new JButton(info);
                 button.setBackground(information[i][j].getColor());
-                button.setPreferredSize(new Dimension(width, height));
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
                 button.setFont(new Font("TimesRoman", Font.BOLD, (int)(80/Math.pow(realVision, 0.9))));
 
                 button.setPreferredSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
                 button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
                 button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
+
+                button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
                 boolean isLiveCreature = information[i][j].getClass().toString().contains("Creatures");
                 boolean isAlchemyThings = information[i][j].getClass().toString().contains("AlchemyThings");

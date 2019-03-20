@@ -226,11 +226,12 @@ public abstract class LiveCreature extends GodCreature {
         }
     }
 
-    public void addItemToInventory(Item ... itemList){
+    public LiveCreature addItemToInventory(Item ... itemList){
         for(Item item : itemList){
             item.setId(inventory.size());
             inventory.add(item);
         }
+        return this;
     }
 
     public ArrayList<Item> getInventory(){
@@ -265,9 +266,18 @@ public abstract class LiveCreature extends GodCreature {
         }
     }
 
+    public void unequip(Item item){
+        if (inventory.contains(item) && equipment.getListOfEquipment().contains(item)){
+            equipment.unequip(item);
+        }
+    }
+
     public void removeItem(Item item){
         for(Item itm : inventory){
             if(itm.compareTo(item) == 0){
+                if(equipment.getListOfEquipment().contains(item)){
+                    unequip(item);
+                }
                 inventory.remove(itm);
                 break;
             }

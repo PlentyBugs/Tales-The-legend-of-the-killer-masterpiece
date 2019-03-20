@@ -72,12 +72,6 @@ public class InventoryWindowChest extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
         for (Item item : chest.getInventory()){
-            if(!uniqueInventoryContains(item)){
-                uniqueInventory.add(item);
-            } else if(chest.countOfItemInInventory(item) > 1 && item.getStackable()){
-                continue;
-            }
-
             JPanel itemPanel = new JPanel();
             itemPanel.setToolTipText(item.getEnchantDescription());
             itemPanel.setPreferredSize(new Dimension(width, 40));
@@ -120,7 +114,7 @@ public class InventoryWindowChest extends JFrame {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().contains("Sword")){
+            if (item.getClass().toString().contains("Weapon")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
             } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){

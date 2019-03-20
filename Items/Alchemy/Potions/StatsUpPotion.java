@@ -25,4 +25,8 @@ public class StatsUpPotion extends Potion {
     public StatsUpPotion(){
         this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON, StatsEnum.STRENGTH);
     }
+    @Override
+    public void countCost(){
+        cost = effect.getPower()*1700;
+    }
 }

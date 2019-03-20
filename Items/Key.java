@@ -8,8 +8,16 @@ public class Key extends Item {
     private Door door;
 
     public Key(){
-        super();
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON);
         name = "Ключ";
+    }
+
+    public Key(Material material, Rarity rarity, Grade grade){
+        stockName = "Ключ";
+        this.material = material;
+        this.rarity = rarity;
+        this.grade = grade;
+        quality = 100;
     }
 
     public Key countProperty(){
@@ -17,16 +25,16 @@ public class Key extends Item {
 
         switch (material){
             case COPPER: levelAdd += 1; break;
-            case IRON: levelAdd += 15; break;
-            case BRONZE: levelAdd += 31; break;
-            case STEEL: levelAdd += 43; break;
-            case MYTHRIL: levelAdd += 57; break;
-            case ADAMANTINE: levelAdd += 76; break;
-            case ELVENMYTHRIL: levelAdd += 92; break;
-            case CRYSTAL: levelAdd += 143; break;
-            case DEEP: levelAdd += 276; break;
-            case GODSHEART: levelAdd += 434; break;
-            case ABSOLUTEZERO: levelAdd += 700; break;
+            case IRON: levelAdd += 2; break;
+            case BRONZE: levelAdd += 3; break;
+            case STEEL: levelAdd += 4; break;
+            case MYTHRIL: levelAdd += 5; break;
+            case ADAMANTINE: levelAdd += 6; break;
+            case ELVENMYTHRIL: levelAdd += 7; break;
+            case CRYSTAL: levelAdd += 8; break;
+            case DEEP: levelAdd += 9; break;
+            case GODSHEART: levelAdd += 10; break;
+            case ABSOLUTEZERO: levelAdd += 11; break;
         }
         switch (material){
             case COPPER: name = "Медный " + stockName; break;
@@ -43,20 +51,20 @@ public class Key extends Item {
         }
         switch (grade){
             case COMMON: levelAdd += 1; break;
-            case MAGIC: levelAdd += 32; break;
-            case CURSE: levelAdd += 73; break;
-            case ARTIFACT: levelAdd += 150; break;
-            case HEROIC: levelAdd += 360; break;
-            case ABOVETHEGODS: levelAdd += 700; break;
+            case MAGIC: levelAdd += 2; break;
+            case CURSE: levelAdd += 3; break;
+            case ARTIFACT: levelAdd += 4; break;
+            case HEROIC: levelAdd += 5; break;
+            case ABOVETHEGODS: levelAdd += 6; break;
         }
         switch (rarity){
             case COMMON: levelAdd += 1; break;
-            case UNCOMMON: levelAdd += 14; break;
-            case RARE: levelAdd += 45; break;
-            case MYSTICAL: levelAdd += 87; break;
-            case LEGENDARY: levelAdd += 160; break;
-            case DRAGON: levelAdd += 389; break;
-            case DIVINE: levelAdd += 587; break;
+            case UNCOMMON: levelAdd += 2; break;
+            case RARE: levelAdd += 3; break;
+            case MYSTICAL: levelAdd += 4; break;
+            case LEGENDARY: levelAdd += 5; break;
+            case DRAGON: levelAdd += 6; break;
+            case DIVINE: levelAdd += 7; break;
         }
 
         level += levelAdd;

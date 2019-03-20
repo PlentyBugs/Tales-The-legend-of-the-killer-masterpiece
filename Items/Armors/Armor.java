@@ -65,4 +65,45 @@ public class Armor extends Item {
         protection += addProtection;
         return this;
     }
+
+    @Override
+    public void countCost(){
+        int addCost = 0;
+
+        switch (material){
+            case LEATHER: addCost += 700; break;
+            case STUDDEDLEATHER: addCost += 1500; break;
+            case CHAIN: addCost += 4500; break;
+            case COPPER: addCost += 9800; break;
+            case IRON: addCost += 11200; break;
+            case BRONZE: addCost += 24000; break;
+            case STEEL: addCost += 38000; break;
+            case MYTHRIL: addCost += 87000; break;
+            case ADAMANTINE: addCost += 145000; break;
+            case ELVENMYTHRIL: addCost += 265000; break;
+            case CRYSTAL: addCost += 554000; break;
+            case DEEP: addCost += 870000; break;
+            case GODSHEART: addCost += 1120000; break;
+            case ABSOLUTEZERO: addCost += 1345000; break;
+        }
+        switch (grade){
+            case COMMON: addCost += 300; break;
+            case MAGIC: addCost += 5420; break;
+            case CURSE: addCost += 18450; break;
+            case ARTIFACT: addCost += 34500; break;
+            case HEROIC: addCost += 78540; break;
+            case ABOVETHEGODS: addCost += 1600000; break;
+        }
+        switch (rarity){
+            case COMMON: addCost += 900; break;
+            case UNCOMMON: addCost += 4550; break;
+            case RARE: addCost += 11500; break;
+            case MYSTICAL: addCost += 25000; break;
+            case LEGENDARY: addCost += 42000; break;
+            case DRAGON: addCost += 156000; break;
+            case DIVINE: addCost += 354000; break;
+        }
+
+        cost = addCost;
+    }
 }
