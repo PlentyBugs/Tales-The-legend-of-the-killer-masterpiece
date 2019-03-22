@@ -503,7 +503,8 @@ public class FightWindow extends JFrame implements Serializable {
                 chest = new Chest(enemy.getX(), enemy.getY());
 
             for(Item item : dropItems){
-                chest.addItemToInventory(item);
+                if(item != null && chest != null)
+                    chest.addItemToInventory(item);
             }
             field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
             field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
@@ -684,9 +685,9 @@ public class FightWindow extends JFrame implements Serializable {
 
     public void attackBySpell(LiveCreature attacker, LiveCreature enemy, Ability ability){
         if(attacker instanceof Player){
-            writeToPlayerConsole(attacker.getName() + " использовал " + ability.getName());
+            writeToPlayerConsole(attacker.getName() + " использовал " + ability.getName() + "(" + ability.getPower() + ")");
         } else {
-            writeToEnemyActionConsole(attacker.getName() + " использовал " + ability.getName());
+            writeToEnemyActionConsole(attacker.getName() + " использовал " + ability.getName() + "(" + ability.getPower() + ")");
         }
         if (ability.getAbilityType().contains(AbilityType.BUFF)){
             if(ability.getAbilityType().contains(AbilityType.ACTIVE) && !attacker.getEquipment().staffEquip()){

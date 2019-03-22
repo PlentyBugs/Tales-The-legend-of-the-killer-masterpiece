@@ -18,6 +18,7 @@ public class Dungeon extends Map {
         playerXSafety = -1;
         playerYSafety = -1;
         isBossHere = false;
+        locationName = "Подземелье";
     }
 
     public GodCreature[][][] getMap(){

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Quest implements Serializable {
 
     protected String title;
+    protected ArrayList<Quest> autoNextQuest;
     protected int expReward;
     protected int goldReward;
     protected Item[] itemReward;
@@ -22,6 +23,7 @@ public class Quest implements Serializable {
     public Quest(){
         expReward = 0;
         goldReward = 0;
+        autoNextQuest = new ArrayList<>();
     }
 
     public boolean check(){return false;}
@@ -64,6 +66,11 @@ public class Quest implements Serializable {
                 conversation.setIsVisible(true);
             }
         }
+
+        for(Quest quest : autoNextQuest){
+            player.addQuest(quest);
+        }
+
         return this;
     }
 
@@ -102,6 +109,11 @@ public class Quest implements Serializable {
 
     public Quest setEmployer(Peaceful employerPeaceful) {
         this.employerPeaceful = employerPeaceful;
+        return this;
+    }
+
+    public Quest addAutoNextQuest(Quest quest){
+        autoNextQuest.add(quest);
         return this;
     }
 }

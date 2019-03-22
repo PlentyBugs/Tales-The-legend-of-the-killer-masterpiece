@@ -17,7 +17,7 @@ public class BossRoom extends PartDungeon implements DungeonPart {
     @Override
     public GodCreature[][] getWay() {
         Boss boss = new Boss().getRandomBoss();
-        boss.setLvl((int)(player.getLvl()*1.4 + Math.random()*30));
+        boss.setLvl((int)(player.getLvl()*1.7 + Math.random()*30 + 15));
         boss.countStatsAfterBorn();
         boss.setHp(boss.getStats().getStrength()*5*boss.getLvl());
         lower = new GodCreature[][]{

@@ -3,10 +3,10 @@ import Abilities.Passive.LittleFool;
 import Creatures.Difficulty;
 import Creatures.Player;
 import Creatures.StatsEnum;
-import Items.*;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
+import Items.*;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
@@ -56,16 +56,15 @@ public class Game {
             }
 */
             player.addItemToInventory(
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 100000, WeaponType.ONEHANDED)
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED)
                             .addEnchant(new Vampirism()),
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWOHANDED),
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONGRANGE),
                     new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
                     new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
-                    new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 20000),
-                    new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 10000),
-                    new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY),
-                    new Key()
+                    new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0),
+                    new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0),
+                    new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();

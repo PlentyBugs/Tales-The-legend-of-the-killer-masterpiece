@@ -2,13 +2,14 @@ package Creatures.AggressiveNPC.Boss;
 
 import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
+import Abilities.Enchants.Armor.SpikeArmor;
 import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Items.*;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
+import Items.*;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
@@ -65,7 +66,9 @@ public class DeadGuardian extends Boss {
 
         Sword guardianSword = new Sword();
         Torso guardianArmorTorso = new Torso();
+        guardianArmorTorso.addEnchant(new SpikeArmor());
         Helmet guardianArmorHelmet = new Helmet();
+        guardianArmorHelmet.addEnchant(new SpikeArmor());
         if(lvl < 22){
             guardianSword.setMaterial(Material.MYTHRIL);
             guardianSword.setRarity(Rarity.MYSTICAL);
@@ -101,6 +104,7 @@ public class DeadGuardian extends Boss {
             guardianArmorHelmet.setGrade(Grade.ARTIFACT);
         }
         guardianSword.countProperty();
+        guardianSword.setName("Меч стража");
         guardianArmorTorso.countProperty();
         guardianArmorHelmet.countProperty();
         addItemToInventory(guardianSword);
@@ -109,6 +113,12 @@ public class DeadGuardian extends Boss {
         equip(guardianSword);
         equip(guardianArmorTorso);
         equip(guardianArmorHelmet);
+
+        Vampirism vampirism = new Vampirism();
+        vampirism.setPower(25);
+        guardianSword.addEnchant(vampirism);
+        guardianArmorTorso.setName("Броня Мертвого Стража");
+        guardianArmorHelmet.setName("Шлем Мертвого Стража");
 
         addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/7, (new CriticalStrike()).getMaxLevel()))),
                 new DamageUp(Math.max(0, Math.min(lvl/14, (new DecreaseDamage()).getMaxLevel()))),
@@ -122,10 +132,7 @@ public class DeadGuardian extends Boss {
 
         dropItems = new Item[]{
                 key,
-                new Sword(Material.MYTHRIL, Rarity.MYSTICAL, Grade.CURSE, 150, WeaponType.TWOHANDED)
-                        .addEnchant(new Vampirism())
-                        .setName("Меч стража")
-                        .countProperty()
+                guardianSword
         };
 
         uniqueDropItems = new Item[]{

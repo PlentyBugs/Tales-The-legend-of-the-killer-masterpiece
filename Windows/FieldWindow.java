@@ -168,6 +168,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                                 map.setMapUpperObjects(zxc[1]);
                                 map.setMapHeight();
                                 map.setMapWidth();
+                                map.setLocationName(dungeon.getLocationName());
                                 ((Door)information[finalI1][finalJ1]).setOut(map);
                                 player.setX(dungeon.getPlayerXSafety());
                                 player.setY(dungeon.getPlayerYSafety());
@@ -301,6 +302,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     }
 
     public void drawMap(){
+        player.setLocation(currentMap.getLocationName());
         getContentPane().removeAll();
         mainPanel = new JPanel(new GridBagLayout());
         mainConstraints = new GridBagConstraints();

@@ -2,6 +2,8 @@ package Creatures.AggressiveNPC.Boss;
 
 import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
+import Abilities.Enchants.Weapon.KornelCurse;
+import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Items.Armors.Helmet;
@@ -108,6 +110,11 @@ public class Frank extends Boss {
         equip(frankSword);
         equip(frankArmorTorso);
         equip(frankArmorHelmet);
+        frankSword.addEnchant(new Vampirism(4));
+        frankSword.addEnchant(new KornelCurse(6));
+        frankSword.setName("Меч Франка");
+        frankArmorTorso.setName("Броня Франка");
+        frankArmorHelmet.setName("Шлем Франка");
 
         addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/7, (new CriticalStrike()).getMaxLevel()))),
                 new DamageUp(Math.max(0, Math.min(lvl/14, (new DecreaseDamage()).getMaxLevel()))),
@@ -120,7 +127,8 @@ public class Frank extends Boss {
                 .countProperty();
 
         dropItems = new Item[]{
-                key
+                key,
+                frankSword
         };
 
         uniqueDropItems = new Item[]{

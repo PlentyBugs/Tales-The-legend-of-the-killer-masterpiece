@@ -2,6 +2,8 @@ package Creatures.AggressiveNPC.Boss;
 
 import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
+import Abilities.Enchants.Armor.HigherPath;
+import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Items.Armors.Helmet;
@@ -9,6 +11,7 @@ import Items.Armors.Ring;
 import Items.Armors.Torso;
 import Items.*;
 import Items.Weapons.Choppings.Axe;
+import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 
@@ -43,7 +46,7 @@ public class HigherGhost extends Boss {
         stats.setStrength(5 + (int)(Math.random()*(lvl*3) + lvl*9));
         stats.setSpeed(5 + (int)(Math.random()*(lvl*4) + lvl));
         stats.setAgility(5 + (int)(Math.random()*(lvl*3) + lvl*4));
-        stats.setIntelligence(5 + (int)(Math.random()*lvl + lvl*5));
+        stats.setIntelligence(5 + (int)(Math.random()*lvl + lvl*30));
         stats.setLuck(5 + (int)(Math.random()*(lvl*25) + lvl*6));
         stats.setEloquence(5);
         stats.setBlacksmith(5);
@@ -63,13 +66,19 @@ public class HigherGhost extends Boss {
 
 
         Sword higherGhostSword = new Sword();
+        Staff higherGhostStaff = new Staff();
+        higherGhostSword.addEnchant(new Vampirism());
         Torso higherGhostArmorTorso = new Torso();
+        higherGhostArmorTorso.addEnchant(new HigherPath());
         Helmet higherGhostArmorHelmet = new Helmet();
+        higherGhostArmorHelmet.addEnchant(new HigherPath());
         if(lvl < 22){
             higherGhostSword.setMaterial(Material.MYTHRIL);
             higherGhostSword.setRarity(Rarity.MYSTICAL);
             higherGhostSword.setGrade(Grade.CURSE);
-            higherGhostSword.setWeaponType(WeaponType.TWOHANDED);
+            higherGhostStaff.setMaterial(Material.MYTHRIL);
+            higherGhostStaff.setRarity(Rarity.MYSTICAL);
+            higherGhostStaff.setGrade(Grade.CURSE);
             higherGhostArmorTorso.setMaterial(Material.MYTHRIL);
             higherGhostArmorTorso.setRarity(Rarity.MYSTICAL);
             higherGhostArmorTorso.setGrade(Grade.CURSE);
@@ -80,7 +89,9 @@ public class HigherGhost extends Boss {
             higherGhostSword.setMaterial(Material.ADAMANTINE);
             higherGhostSword.setRarity(Rarity.LEGENDARY);
             higherGhostSword.setGrade(Grade.CURSE);
-            higherGhostSword.setWeaponType(WeaponType.TWOHANDED);
+            higherGhostStaff.setMaterial(Material.ADAMANTINE);
+            higherGhostStaff.setRarity(Rarity.LEGENDARY);
+            higherGhostStaff.setGrade(Grade.CURSE);
             higherGhostArmorTorso.setMaterial(Material.ADAMANTINE);
             higherGhostArmorTorso.setRarity(Rarity.LEGENDARY);
             higherGhostArmorTorso.setGrade(Grade.CURSE);
@@ -91,7 +102,9 @@ public class HigherGhost extends Boss {
             higherGhostSword.setMaterial(Material.DEEP);
             higherGhostSword.setRarity(Rarity.DRAGON);
             higherGhostSword.setGrade(Grade.ARTIFACT);
-            higherGhostSword.setWeaponType(WeaponType.TWOHANDED);
+            higherGhostStaff.setMaterial(Material.DEEP);
+            higherGhostStaff.setRarity(Rarity.DRAGON);
+            higherGhostStaff.setGrade(Grade.ARTIFACT);
             higherGhostArmorTorso.setMaterial(Material.DEEP);
             higherGhostArmorTorso.setRarity(Rarity.DRAGON);
             higherGhostArmorTorso.setGrade(Grade.ARTIFACT);
@@ -100,6 +113,8 @@ public class HigherGhost extends Boss {
             higherGhostArmorHelmet.setGrade(Grade.ARTIFACT);
         }
         higherGhostSword.countProperty();
+        higherGhostStaff.countProperty();
+        higherGhostStaff.setName("Посох Высшего призрака");
         higherGhostArmorTorso.countProperty();
         higherGhostArmorHelmet.countProperty();
         addItemToInventory(higherGhostSword);
@@ -108,6 +123,8 @@ public class HigherGhost extends Boss {
         equip(higherGhostSword);
         equip(higherGhostArmorTorso);
         equip(higherGhostArmorHelmet);
+        higherGhostArmorTorso.setName("Броня Высшего Призрака");
+        higherGhostArmorHelmet.setName("Шлем Высшего Призрака");
 
         addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/7, (new CriticalStrike()).getMaxLevel()))),
                 new DamageUp(Math.max(0, Math.min(lvl/14, (new DecreaseDamage()).getMaxLevel()))),
@@ -120,7 +137,8 @@ public class HigherGhost extends Boss {
                 .countProperty();
 
         dropItems = new Item[]{
-                key
+                key,
+                higherGhostStaff
         };
 
         uniqueDropItems = new Item[]{

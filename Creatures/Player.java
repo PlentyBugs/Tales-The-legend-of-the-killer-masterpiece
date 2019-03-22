@@ -3,9 +3,11 @@ package Creatures;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Abilities.Auras.Aura;
+import Creatures.PeacefulNPC.NPC;
 import Items.Item;
 import Items.StatItem;
 import Quests.Quest;
+import Quests.ReachQuest;
 import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
 import Windows.SupportWindows.SupportComponents.SavePanel;
@@ -76,6 +78,8 @@ public class Player extends Human {
         exp = 0;
         needExpToNextLvl = 500;
         money = 457000;
+
+        NPC npc = new NPC(this);
     }
 
     public void initWindoows(){
@@ -286,8 +290,12 @@ public class Player extends Human {
 
     public void checkQuests(){
         for(Quest quest : quests){
+            if(quest instanceof ReachQuest){
+                ((ReachQuest)quest).setCurrentLocation(location);
+            }
             if(quest.check()){
                 quest.getReward(this);
+                removeQuest(quest);
             }
         }
     }
@@ -318,5 +326,9 @@ public class Player extends Human {
 
     public boolean getInFight(){
         return inFight;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
     }
 }

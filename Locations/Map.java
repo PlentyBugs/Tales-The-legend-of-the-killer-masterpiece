@@ -1,16 +1,5 @@
 package Locations;
 
-import Abilities.Active.DamageUp;
-import Abilities.Active.DecreaseDamage;
-import Abilities.Active.Rage;
-import Abilities.Auras.Vision;
-import Abilities.Passive.CriticalStrike;
-import Abilities.Passive.Evasion;
-import Abilities.Passive.Professions.Alchemist;
-import Abilities.Passive.Professions.Steal;
-import Abilities.Passive.TwoOneHandedWeapon;
-import Conversations.DialogConversation;
-import Conversations.QuestDialogConversation;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Ent;
 import Creatures.AggressiveNPC.Goblin;
@@ -18,20 +7,10 @@ import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.GodCreature;
 import Creatures.Human;
 import Creatures.LiveCreature;
-import Creatures.PeacefulNPC.Dealer;
-import Creatures.PeacefulNPC.Inhabitant;
+import Creatures.PeacefulNPC.NPC;
 import Creatures.Player;
-import Items.*;
 import Items.Alchemy.Ingredients.*;
-import Items.Alchemy.Potions.HealPotion;
-import Items.Alchemy.Potions.PoisonPotion;
-import Items.Armors.Helmet;
-import Items.Enchanting.EnchantStone;
-import Items.QuestItems.KingGoblinRing;
-import Items.Weapons.Swords.Sword;
-import Items.Weapons.WeaponType;
-import Quests.CollectItemQuest;
-import Quests.KillQuest;
+import Items.Key;
 import Things.AlchemyThings.Berry;
 import Things.AlchemyThings.Herb;
 import Things.AlchemyThings.Mushroom;
@@ -49,12 +28,15 @@ public class Map implements Serializable {
     protected int mapWidth;
     protected int mapHeight;
     protected Player player;
+    protected String locationName;
 
     private static final long serialVersionUID = 5350390037103737479L;
 
     public Map(){}
 
     public Map(Player player, int mapWidth, int mapHeight){
+
+        locationName = "Лес";
 
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
@@ -159,131 +141,10 @@ public class Map implements Serializable {
         }
 */
 
-        Dealer dealer = new Dealer(1,1,"Петуш", 57, 59000);
-        dealer.setStarterPhrase("Добрый день, путник.")
-                .addItemToInventory(
-                        new HealPotion(),
-                        new HealPotion(),
-                        new HealPotion(),
-                        new PoisonPotion(),
-                        new PoisonPotion(),
-                        new PoisonPotion(),
-                        new PoisonPotion(),
-                        new PoisonPotion(),
-                        new EnchantStone(),
-                        new EnchantStone(),
-                        new EnchantStone()
-                );
-        dealer.addConversationShop(1);
-        dealer.addConversationTrain(2, "Тренировка",
-                    new Object[] {new TwoOneHandedWeapon(), 188000, 1},
-                    new Object[] {new CriticalStrike(), 45000, 1},
-                    new Object[] {new Evasion(), 38000, 1},
-                    new Object[] {new Steal(), 99000, 1},
-                    new Object[] {new Alchemist(), 235000, 1}
-                )
-                .getConversationWindow().setPlayer(player);
 
-        QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();
-        KillQuest questDealer = new KillQuest();
-        questDealer.setExpReward(15000)
-                .setGoldReward(48000)
-                .setTitle("Зеленая опасность!");
-        questDealer.setEnemyCountToKill(16)
-                .setEnemyToKill(new Goblin())
-                .setEmployerName(dealer.getName())
-                .setEmployer(dealer)
-                .setConversationEmployer(questDialogConversationDealer);
-
-        questDialogConversationDealer.setTitle(questDealer.getTitle());
-        questDialogConversationDealer.setText("Иди убей 16 гоблинов");
-        questDialogConversationDealer.setPlayerText("У тебя есть для меня задание?");
-        questDialogConversationDealer.setQuest(questDealer);
-        QuestDialogConversation questDialogConversationDealer2 = new QuestDialogConversation();
-        CollectItemQuest questDealer2 = new CollectItemQuest();
-        questDealer2.setExpReward(78120)
-                .setGoldReward(253000);
-        questDealer2.setItem(new KingGoblinRing());
-        questDealer2.setPlayer(player);
-        questDealer2.setTitle("Король гоблинов")
-                .setEmployerName(dealer.getName())
-                .setEmployer(dealer);
-        questDealer2.setItemCount(1);
-        questDealer2.setConversationEmployer(questDialogConversationDealer2);
-        questDialogConversationDealer2.setTitle(questDealer2.getTitle());
-        questDialogConversationDealer2.setText("Да, тут где-то находится Король гоблинов, крайне сильная тварь, мне нужно его кольцо, говорят, что оно стоит немалых денег!");
-        questDialogConversationDealer2.setPlayerText("У тебя есть еще что-нибудь для меня?");
-        questDialogConversationDealer2.setQuest(questDealer2);
-        questDialogConversationDealer2.setIsVisible(false);
-        questDialogConversationDealer.addConversationBranch(questDialogConversationDealer2, 1);
-        dealer.addConversationDialog(3, questDialogConversationDealer);
-
-        dealer.addItemToInventory(
-                new Sword(Material.ELVENMYTHRIL, Rarity.LEGENDARY, Grade.ARTIFACT, 3, WeaponType.TWOHANDED),
-                new Helmet(Material.ELVENMYTHRIL, Rarity.MYSTICAL, Grade.ARTIFACT, 1)
-        );
-
-        for (Item item : dealer.getInventory()) {
-            item.countProperty();
-        }
-        dealer.setX(1);
-        dealer.setY(1);
-        mapUpperObjects[1][1] = dealer;
-
-
-        Dealer shutep = new Dealer(3,3,"Шутеп", 15623, 8461315);
-        shutep.setX(3);
-        shutep.setY(3);
-        Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
-        shutepSwordForSale.countProperty();
-        shutep.addItemToInventory(new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty());
-        shutep.addConversationShop(1);
-        shutep.addConversationTrain(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
-        shutep.getConversationWindow().setPlayer(player);
-        mapUpperObjects[3][3] = shutep;
-
-        Inhabitant inhabitant = new Inhabitant(2,2,"Данил", 2, 140);
-        inhabitant.setStarterPhrase("Привет!");
-        inhabitant.addItemToInventory(new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion(), new HealPotion());
-        inhabitant.addConversationShop(1);
-        inhabitant.addConversationDialog(2, "Прощание", "Пока", "Прощай");
-
-
-        DialogConversation hello = new DialogConversation();
-        hello.setTitle("Приветствие");
-        hello.setText("Привет");
-        hello.setPlayerText("Привет");
-        DialogConversation dialogConversation = new DialogConversation();
-        dialogConversation.setTitle("Как дела?");
-        dialogConversation.setText("Хорошо");
-        dialogConversation.setPlayerText("Как дела?");
-        DialogConversation dialogConversation2 = new DialogConversation();
-        dialogConversation2.setTitle("Точно?");
-        dialogConversation2.setText("Да");
-        dialogConversation2.setPlayerText("Точно?");
-        dialogConversation.addConversationBranch(dialogConversation2, 1);
-        hello.addConversationBranch(dialogConversation, 3);
-        QuestDialogConversation questDialogConversation = new QuestDialogConversation();
-        KillQuest quest = new KillQuest();
-        quest.setExpReward(2000);
-        quest.setGoldReward(15000);
-        quest.setTitle("Бандиты атакуют!");
-        quest.setEnemyCountToKill(6);
-        quest.setEnemyToKill(new Bandit());
-        quest.setEmployerName(inhabitant.getName());
-        quest.setEmployer(inhabitant);
-        quest.setConversationEmployer(questDialogConversation);
-        questDialogConversation.setTitle(quest.getTitle());
-        questDialogConversation.setText("У нас проблемы с бандитами, иди убей для меня полдюжины");
-        questDialogConversation.setPlayerText("У тебя есть для меня задание?");
-        questDialogConversation.setQuest(quest);
-        dialogConversation2.addConversationBranch(questDialogConversation, 1);
-        inhabitant.addConversationDialog(3, hello);
-
-        inhabitant.getConversationWindow().setPlayer(player);
-        inhabitant.setX(2);
-        inhabitant.setY(2);
-        mapUpperObjects[2][2] = inhabitant;
+        mapUpperObjects[1][1] = NPC.dealerPetush;
+        mapUpperObjects[2][2] = NPC.inhabitantDanil;
+        mapUpperObjects[3][3] = NPC.dealerShutep;
         mapUpperObjects[2][3] = new AlchemyTable();
         //mapUpperObjects[2][4] = new EnchantTable();
     }
@@ -396,5 +257,13 @@ public class Map implements Serializable {
 
     public void setPlayerX(int playerX) {
         this.playerX = playerX;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

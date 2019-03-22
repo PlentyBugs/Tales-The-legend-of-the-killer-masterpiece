@@ -16,7 +16,7 @@ public class NPCController extends Thread{
     private FieldWindow fieldWindow;
     private boolean waiting = false;
 
-    public void run(){
+    public void run(){/*
         while (true){
             if(!waiting){
                 move();
@@ -26,7 +26,7 @@ public class NPCController extends Thread{
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
     }
 
 

@@ -8,10 +8,14 @@ import Items.Weapons.Weapon;
 public class Vampirism<T extends Weapon> extends Enchant {
 
     public Vampirism() {
+        this(10);
+    }
+
+    public Vampirism(int power) {
         name = "Вампиризм";
         description = "Переводит часть вашего урона в жизни";
         enchantType = EnchantType.SELFUSE;
-        power = 10;
+        this.power = power;
     }
 
     public Vampirism(T item) {
@@ -32,5 +36,9 @@ public class Vampirism<T extends Weapon> extends Enchant {
 
     public int getPower() {
         return power;
+    }
+
+    public void setPower(int power){
+        this.power = power;
     }
 }
