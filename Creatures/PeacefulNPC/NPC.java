@@ -28,9 +28,7 @@ import Items.QuestItems.KingGoblinRing;
 import Items.Rarity;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
-import Quests.CollectItemQuest;
-import Quests.KillQuest;
-import Quests.ReachQuest;
+import Quests.*;
 
 public class NPC {
     public static Inhabitant inhabitantDanil;
@@ -198,6 +196,17 @@ public class NPC {
         killQuestDeadGuardian.setEmployer(inhabitantDanil);
         killQuestDeadGuardian.setConversationEmployer(questDialogConversation2);
 
+
+        Quest reachTwentyLevel = new Quest()
+                .setCondition(() -> player.getLvl() >= 20)
+                .setConditionToBeVisible(() -> killQuestDeadGuardian.getIsFinished() && killQuestFrank.getIsFinished() && killQuestHigherGhost.getIsFinished())
+                .setGoldReward(345000)
+                .setExpReward(110000)
+                .setTitle("Достичь 20 уровня")
+                .setEmployer(inhabitantDanil)
+                .setEmployerName(inhabitantDanil.getName());
+
+        killQuestDeadGuardian.addAutoNextQuest(reachTwentyLevel);
 
         dungeonQuest
                 .addAutoNextQuest(killQuestFrank)

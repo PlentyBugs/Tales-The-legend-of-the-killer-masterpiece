@@ -5,6 +5,7 @@ public class ReachQuest extends Quest {
     private String currentLocation;
 
     public ReachQuest(String locationName) {
+        super();
         this.locationName = locationName;
     }
 

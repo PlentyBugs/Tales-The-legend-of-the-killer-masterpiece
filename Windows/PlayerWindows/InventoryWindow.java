@@ -211,16 +211,23 @@ public class InventoryWindow extends JFrame implements Serializable {
             propertyCount.setForeground(colorForeground);
 
 
-            itemPanel.add(itemName, itemConstraints);
-            itemConstraints.gridx ++;
-            itemPanel.add(itemQuality, itemConstraints);
-            itemConstraints.gridx ++;
-            itemPanel.add(property, itemConstraints);
-            itemConstraints.gridx ++;
-            itemPanel.add(propertyCount, itemConstraints);
-            itemConstraints.gridx ++;
-            itemPanel.add(ccunt, itemConstraints);
-            itemConstraints.gridx = 0;
+            JPanel labels = new JPanel(new GridBagLayout());
+            GridBagConstraints labelsConstraints = new GridBagConstraints();
+            labelsConstraints.anchor = GridBagConstraints.WEST;
+            labelsConstraints.insets = new Insets(0, 0, 0, 5);
+            labelsConstraints.gridx = 0;
+            labelsConstraints.gridy = 0;
+
+            labels.add(itemName, labelsConstraints);
+            labelsConstraints.gridx ++;
+            labels.add(itemQuality, labelsConstraints);
+            labelsConstraints.gridx ++;
+            labels.add(property, labelsConstraints);
+            labelsConstraints.gridx ++;
+            labels.add(propertyCount, labelsConstraints);
+            labelsConstraints.gridx ++;
+            labels.add(ccunt, labelsConstraints);
+            itemPanel.add(labels, itemConstraints);
             itemConstraints.gridy ++;
 
             JButton useButton = new JButton("Экипировать");
@@ -261,10 +268,18 @@ public class InventoryWindow extends JFrame implements Serializable {
             removeButton.setPreferredSize(new Dimension(width/4,20));
             removeButton.setMaximumSize(new Dimension(width/4,20));
             removeButton.setMinimumSize(new Dimension(width/4,20));
-;
-            itemPanel.add(useButton, itemConstraints);
-            itemConstraints.gridx ++;
-            itemPanel.add(removeButton, itemConstraints);
+
+            JPanel buttons = new JPanel(new GridBagLayout());
+            GridBagConstraints buttonsConstraints = new GridBagConstraints();
+            buttonsConstraints.anchor = GridBagConstraints.WEST;
+            buttonsConstraints.insets = new Insets(0, 0, 0, 5);
+            buttonsConstraints.gridx = 0;
+            buttonsConstraints.gridy = 0;
+
+            buttons.add(useButton, buttonsConstraints);
+            buttonsConstraints.gridx ++;
+            buttons.add(removeButton, buttonsConstraints);
+            itemPanel.add(buttons, itemConstraints);
 
             itemPanel.setBackground(colorBackground);
 

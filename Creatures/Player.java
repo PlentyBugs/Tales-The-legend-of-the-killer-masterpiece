@@ -293,7 +293,7 @@ public class Player extends Human {
             if(quest instanceof ReachQuest){
                 ((ReachQuest)quest).setCurrentLocation(location);
             }
-            if(quest.check()){
+            if(quest.getVisible() && quest.check()){
                 quest.getReward(this);
                 removeQuest(quest);
             }

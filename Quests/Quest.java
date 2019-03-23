@@ -19,14 +19,34 @@ public class Quest implements Serializable {
     protected String employer;
     protected Conversation conversationEmployer;
     protected Peaceful employerPeaceful;
+    protected boolean visible;
+    protected QuestCondition condition;
+    protected boolean isFinished;
 
     public Quest(){
         expReward = 0;
         goldReward = 0;
+        visible = true;
+        isFinished = false;
         autoNextQuest = new ArrayList<>();
     }
 
-    public boolean check(){return false;}
+    public boolean check(){
+        if(condition != null){
+            return condition.condition();
+        }
+        return false;
+    }
+
+    public Quest setCondition(QuestCondition condition){
+        this.condition = condition;
+        return this;
+    }
+
+    public Quest setConditionToBeVisible(VisibleCondition visibleCondition){
+        visible = visibleCondition.visibleCondition();
+        return this;
+    }
 
     public String getTitle() {
         return title;
@@ -71,6 +91,7 @@ public class Quest implements Serializable {
             player.addQuest(quest);
         }
 
+        isFinished = true;
         return this;
     }
 
@@ -114,6 +135,24 @@ public class Quest implements Serializable {
 
     public Quest addAutoNextQuest(Quest quest){
         autoNextQuest.add(quest);
+        return this;
+    }
+
+    public Quest setVisible(boolean visible){
+        this.visible = visible;
+        return this;
+    }
+
+    public boolean getVisible(){
+        return visible;
+    }
+
+    public boolean getIsFinished(){
+        return isFinished;
+    }
+
+    public Quest setIsFinished(boolean isFinished){
+        this.isFinished = isFinished;
         return this;
     }
 }

@@ -37,6 +37,9 @@ public class QuestsWindow extends JFrame {
         constraints.gridy = 0;
 
         for (Quest quest : player.getQuests()){
+            if(!quest.getVisible()){
+                continue;
+            }
 
             JPanel questPanel = new JPanel(new GridBagLayout());
             GridBagConstraints questConstraints = new GridBagConstraints();
