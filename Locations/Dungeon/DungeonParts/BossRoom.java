@@ -4,7 +4,7 @@ import Creatures.AggressiveNPC.Boss.Boss;
 import Creatures.GodCreature;
 import Creatures.Player;
 import Locations.Map;
-import Things.DoorToUpperLevelLocation;
+import Things.Doors.DoorToUpperLevelLocation;
 import Things.Dungeon.DungeonStoneRoad;
 import Things.Dungeon.DungeonWall;
 

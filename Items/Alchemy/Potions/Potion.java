@@ -36,8 +36,9 @@ public class Potion extends Item implements BattleItem {
         this.potionMaterial = potionMaterial;
     }
 
-    public void setEffect(Effect effect) {
+    public Potion setEffect(Effect effect) {
         this.effect = effect;
+        return this;
     }
 
     public Effect getEffect() {

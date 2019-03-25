@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class PlayerFightItemWindow extends JFrame implements Serializable {
 
@@ -21,6 +22,7 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
     private FightWindow fightWindow;
     private int width = 720;
     private int height = 720;
+    private ArrayList<Item> uniqueInventory = new ArrayList<>();
 
 
     public PlayerFightItemWindow(Player player, LiveCreature enemy, FightWindow fightWindow){
@@ -49,6 +51,13 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
 
         for(Item item : player.getInventory()){
             if(item instanceof BattleItem){
+
+                if(!uniqueInventoryContains(item)){
+                    uniqueInventory.add(item);
+                } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()){
+                    continue;
+                }
+
                 JPanel itemPanel = new JPanel();
                 itemPanel.setPreferredSize(new Dimension(width, 40));
                 GridBagConstraints itemConstraints = new GridBagConstraints();
@@ -152,7 +161,17 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
         pack();
         setVisible(true);
     }
+
     public void close(){
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }
+
+    private boolean uniqueInventoryContains(Item item){
+        for(Item itm : uniqueInventory){
+            if(itm.compareTo(item) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

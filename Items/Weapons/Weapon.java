@@ -17,12 +17,13 @@ public class Weapon extends Item {
         return weaponType;
     }
 
-    public void setWeaponType(WeaponType weaponType) {
-        this.weaponType.add(weaponType);;
+    public Weapon setWeaponType(WeaponType weaponType) {
+        this.weaponType.add(weaponType);
+        return this;
     }
 
     public double getDamage() {
-        return damage*bonusDamage*enchantBonus;
+        return damage*bonusDamage*enchantBonus*selfForgedBonus;
     }
 
     public Weapon countProperty(){

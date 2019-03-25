@@ -14,6 +14,7 @@ public class Item implements Serializable, Cloneable, Comparable {
     protected Material material;
     protected String stockName;
     protected boolean stackable;
+    protected double selfForgedBonus = 1;
     protected ArrayList<Enchant> enchants;
     private static int id;
 
@@ -120,8 +121,9 @@ public class Item implements Serializable, Cloneable, Comparable {
         return desc;
     }
 
-    public void setCost(int cost) {
+    public Item setCost(int cost) {
         this.cost = cost;
+        return this;
     }
 
     public int getCost() {
@@ -129,4 +131,8 @@ public class Item implements Serializable, Cloneable, Comparable {
     }
 
     public void countCost(){}
+
+    public void setSelfForgedBonus(double selfForgedBonus) {
+        this.selfForgedBonus = selfForgedBonus;
+    }
 }

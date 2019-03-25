@@ -6,7 +6,7 @@ public class Armor extends Item {
     protected int protection;
 
     public int getProtection() {
-        return protection;
+        return (int)(protection*selfForgedBonus);
     }
 
     public Armor countProperty(){

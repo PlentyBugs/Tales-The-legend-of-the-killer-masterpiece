@@ -1,6 +1,6 @@
 package Items;
 
-import Things.Door;
+import Things.Doors.Door;
 
 public class Key extends Item {
 

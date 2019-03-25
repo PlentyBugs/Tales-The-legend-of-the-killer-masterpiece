@@ -1,6 +1,7 @@
 package Items.Alchemy.Potions.Alcohol;
 
 import Effects.AlcoholBuff;
+import Effects.Effect;
 import Effects.EffectType;
 import Items.Alchemy.Potions.PotionMaterial;
 import Items.Grade;
@@ -20,5 +21,10 @@ public class Beer extends Alcohol {
 
     public Beer(){
         this(PotionMaterial.WATER, Rarity.COMMON, Grade.COMMON);
+    }
+
+    public Beer setEffect(Effect effect) {
+        this.effect = effect;
+        return this;
     }
 }

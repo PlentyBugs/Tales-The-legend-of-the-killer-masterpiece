@@ -81,11 +81,10 @@ public class Quest implements Serializable {
                 "\nНаграда опытом: " + Integer.toString(expReward) +
                 rewardItemMessage);
 
-        for(ArrayList<Conversation> list : conversationEmployer.getConversationTree()){
-            for(Conversation conversation : list){
-                conversation.setIsVisible(true);
-            }
-        }
+        if(conversationEmployer != null)
+            for(ArrayList<Conversation> list : conversationEmployer.getConversationTree())
+                for(Conversation conversation : list)
+                    conversation.setIsVisible(true);
 
         for(Quest quest : autoNextQuest){
             player.addQuest(quest);

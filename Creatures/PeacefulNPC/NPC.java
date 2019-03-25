@@ -7,6 +7,7 @@ import Abilities.Auras.Vision;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Abilities.Passive.Professions.Alchemist;
+import Abilities.Passive.Professions.BlackSmith;
 import Abilities.Passive.Professions.Steal;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.DialogConversation;
@@ -20,20 +21,29 @@ import Creatures.Player;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Armors.Helmet;
+import Items.BlackSmith.BluePrint;
+import Items.BlackSmith.ItemCraftType;
+import Items.BlackSmith.Resource.Adamantine;
+import Items.BlackSmith.Resource.Mythril;
 import Items.Enchanting.EnchantStone;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
 import Items.QuestItems.KingGoblinRing;
 import Items.Rarity;
+import Items.Tools.Pickaxe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
-import Quests.*;
+import Quests.CollectItemQuest;
+import Quests.KillQuest;
+import Quests.Quest;
+import Quests.ReachQuest;
 
 public class NPC {
     public static Inhabitant inhabitantDanil;
     public static Dealer dealerShutep;
     public static Dealer dealerPetush;
+    public static BlackSmithCraftMan blacksmithDroghan;
 
     public NPC(Player player){
         dealerPetush = new Dealer(1,1,"Петуш", 57, 59000);
@@ -203,8 +213,7 @@ public class NPC {
                 .setGoldReward(345000)
                 .setExpReward(110000)
                 .setTitle("Достичь 20 уровня")
-                .setEmployer(inhabitantDanil)
-                .setEmployerName(inhabitantDanil.getName());
+                .setEmployerName("Вы");
 
         killQuestDeadGuardian.addAutoNextQuest(reachTwentyLevel);
 
@@ -225,5 +234,79 @@ public class NPC {
         inhabitantDanil.getConversationWindow().setPlayer(player);
         inhabitantDanil.setX(2);
         inhabitantDanil.setY(2);
+
+
+        blacksmithDroghan = new BlackSmithCraftMan(7,7,"Дрогхан", 15623, 8461315);
+        blacksmithDroghan.setX(7);
+        blacksmithDroghan.setY(7);
+        shutepSwordForSale.countProperty();
+        blacksmithDroghan.addItemToInventory(
+                new BluePrint()
+                        .setType(ItemCraftType.SWORDONEHANDED)
+                        .addResource(new Adamantine())
+                        .setName("Чертеж адамантинового меча")
+                        .setCost(892000)
+                        .setTemperature(3000),
+                new BluePrint()
+                        .setType(ItemCraftType.SWORDONEHANDED)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового меча")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.AXE)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Топора")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.BOW)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Лука")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.LONGBOW)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Длинного лука")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.SHORTBOW)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Короткого лука")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.STAFF)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Посоха")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.RING)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Кольца")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.HELMET)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Шлема")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new BluePrint()
+                        .setType(ItemCraftType.TORSO)
+                        .addResource(new Mythril())
+                        .setName("Чертеж мифрилового Доспеха")
+                        .setCost(150000)
+                        .setTemperature(1300),
+                new Pickaxe().setCost(10000)
+        );
+        blacksmithDroghan.addConversationShop(1);
+        blacksmithDroghan.addConversationTrain(2, "Тренировка",
+                new Object[] {new BlackSmith(), 99000, 1}
+                );
+        blacksmithDroghan.getConversationWindow().setPlayer(player);
     }
 }

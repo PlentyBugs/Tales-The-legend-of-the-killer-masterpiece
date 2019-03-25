@@ -1,3 +1,6 @@
+import Abilities.Buffs.DamageUpBuff;
+import Abilities.Enchants.Enchant;
+import Abilities.Enchants.EnchantType;
 import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.LittleFool;
 import Creatures.Difficulty;
@@ -6,7 +9,11 @@ import Creatures.StatsEnum;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
-import Items.*;
+import Items.BlackSmith.Resource.Bronze;
+import Items.Grade;
+import Items.Item;
+import Items.Material;
+import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
@@ -65,10 +72,20 @@ public class Game {
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0),
                     new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0),
                     new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)
+                            .addEnchant(
+                                    new Enchant()
+                                            .setEnchantUse(liveCreature -> {
+                                                liveCreature.addBuffs(new DamageUpBuff(105, 5));
+                                            })
+                                            .setEnchantType(EnchantType.SELFUSE)
+                                            .setDescription("С каждым ударом накладывает эффект повышения урона на 5% на 5 ходов")
+                                            .setName("Подарок для тестера")
+                            ),
+                    new Bronze()
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();
-            };
+            }
 
             ChooseDifficultyWindow chooseDifficultyWindow = new ChooseDifficultyWindow();
             Difficulty difficulty = Difficulty.STOPIT;

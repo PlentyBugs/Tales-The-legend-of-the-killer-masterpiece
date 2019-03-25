@@ -9,7 +9,7 @@ import Windows.CraftWindow.AlchemyTableWindow;
 import java.awt.*;
 import java.util.HashMap;
 
-public class AlchemyTable extends Thing implements CraftTable{
+public class AlchemyTable extends Thing implements AlchemyCraftTable{
 
     private AlchemyTableWindow alchemyTableWindow;
     private boolean isAlchemyWindowOpen;

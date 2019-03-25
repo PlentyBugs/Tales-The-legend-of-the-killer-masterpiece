@@ -65,7 +65,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
             switch(item.getGrade()){
                 case COMMON: colorForeground = new Color(0,0,0); break;
-                case MAGIC: colorForeground = new Color(67, 162,255); break;
+                case MAGIC: colorForeground = new Color(128, 255, 80); break;
                 case CURSE: colorForeground = new Color(1,155, 24); break;
                 case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
                 case HEROIC: colorForeground = new Color(255, 96, 0); break;

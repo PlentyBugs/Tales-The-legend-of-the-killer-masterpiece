@@ -1,7 +1,6 @@
 package Things.Craft;
 
 import Creatures.Player;
-import Items.Alchemy.Ingredients.Ingredient;
 import Things.Thing;
 import Windows.CraftWindow.EnchantTableWindow;
 
@@ -40,10 +39,5 @@ public class EnchantTable extends Thing implements CraftTable{
     @Override
     public boolean getCraftTableWindowOpen() {
         return isCraftTableWindowOpen;
-    }
-
-    @Override
-    public <T extends Ingredient> void create(T... ingredient) {
-
     }
 }

@@ -1,10 +1,11 @@
 package Windows.SupportWindows;
 
+import Windows.SupportWindows.SupportComponents.JPanelWithBackGroundImage;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class StartWindow extends JFrame {
 
@@ -13,6 +14,7 @@ public class StartWindow extends JFrame {
 
     public StartWindow(){
         super("Начать игру");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -21,24 +23,27 @@ public class StartWindow extends JFrame {
         JButton newGame = new JButton("Новая игра");
         JButton loadGame = new JButton("Загрузить игру");
 
-        newGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                startGame = true;
-                game = "new";
-            }
+        newGame.addActionListener(e -> {
+            startGame = true;
+            game = "new";
         });
 
-        loadGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                startGame = true;
-                game = "load";
-            }
+        loadGame.addActionListener(e -> {
+            startGame = true;
+            game = "load";
         });
 
         panel.add(newGame, BorderLayout.NORTH);
         panel.add(loadGame, BorderLayout.SOUTH);
 
         getContentPane().add(panel);
+
+        try {
+            panel.add(new JPanelWithBackGroundImage("./Images/BackGroundMenu.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         pack();
         setVisible(true);
     }

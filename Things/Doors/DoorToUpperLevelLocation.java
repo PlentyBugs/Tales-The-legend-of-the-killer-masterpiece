@@ -1,4 +1,4 @@
-package Things;
+package Things.Doors;
 
 import java.awt.*;
 

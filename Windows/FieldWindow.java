@@ -6,15 +6,21 @@ import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
+import Items.BlackSmith.Resource.Resource;
+import Items.Tools.Pickaxe;
+import Locations.Cave.Cave;
 import Locations.Dungeon.Dungeon;
 import Locations.Map;
 import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
 import Things.Craft.CraftTable;
-import Things.Door;
-import Things.DoorToUpperLevelLocation;
+import Things.Doors.CaveDoor;
+import Things.Doors.Door;
+import Things.Doors.DoorToUpperLevelLocation;
 import Things.Grass;
 import Things.HealBlock;
+import Things.Ore;
+import Things.Stone;
 import Windows.BattleWindows.LossWindow;
 import Windows.SupportWindows.SupportComponents.Console;
 
@@ -110,6 +116,9 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 button.setBackground(information[i][j].getColor());
                 button.setLocation((width+5)*j + 8,(height+5)*i + 5);
                 button.setFont(new Font("TimesRoman", Font.BOLD, (int)(80/Math.pow(realVision, 0.9))));
+                if(information[i][j].getColor().getRed() < 70 && information[i][j].getColor().getBlue() < 70 && information[i][j].getColor().getGreen() < 70){
+                    button.setForeground(new Color(255 - information[i][j].getColor().getRed(), 255 - information[i][j].getColor().getGreen(), 255 - information[i][j].getColor().getBlue()));
+                }
 
                 button.setPreferredSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
                 button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
@@ -119,10 +128,11 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
                 boolean isLiveCreature = information[i][j].getClass().toString().contains("Creatures");
                 boolean isAlchemyThings = information[i][j].getClass().toString().contains("AlchemyThings");
+                boolean isOre = information[i][j] instanceof Ore;
                 boolean isHealBlock = information[i][j].getClass().toString().contains("HealBlock");
-                boolean isDoorToUpperLevel = information[i][j].getClass().toString().contains("DoorToUpperLevelLocation");
+                boolean isDoorToUpperLevel = information[i][j] instanceof Door;
                 boolean isChest = information[i][j].getClass().toString().contains("Chest");
-                boolean isCraft = information[i][j].getClass().toString().contains("Craft");
+                boolean isCraft = information[i][j] instanceof CraftTable;
 
                 if(!(information[i][j] instanceof Player) && information[i][j].getClass().toString().contains("Creature")){
                     npcController.addNPC((LiveCreature)information[i][j]);
@@ -159,30 +169,63 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                             currentMap.setPlayerX(player.getX());
                             currentMap.setPlayerY(player.getY());
                             ((Door)information[finalI1][finalJ1]).setIn(currentMap);
-                            Dungeon dungeon;
-                            Map map = new Map();
-                            if(((Door)information[finalI1][finalJ1]).getOut() == null){
-                                dungeon = new Dungeon(player);
-                                GodCreature[][][] zxc = dungeon.getMap();
-                                map.setMapLowerObjects(zxc[0]);
-                                map.setMapUpperObjects(zxc[1]);
-                                map.setMapHeight();
-                                map.setMapWidth();
-                                map.setLocationName(dungeon.getLocationName());
-                                ((Door)information[finalI1][finalJ1]).setOut(map);
-                                player.setX(dungeon.getPlayerXSafety());
-                                player.setY(dungeon.getPlayerYSafety());
-                                DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
-                                door.setOut(currentMap);
-                                door.setIsLocked(false);
-                                map.setElementByCoordinates(player.getX(), player.getY(), door);
-                            } else {
-                                map = ((Door)information[finalI1][finalJ1]).getOut();
-                                player.setX(map.getPlayerX());
-                                player.setY(map.getPlayerY());
+                            if(information[finalI1][finalJ1] instanceof DoorToUpperLevelLocation){
+                                ((Door)information[finalI1][finalJ1]).setGeneration(() -> {
+                                    Map map;
+                                    if(((Door)information[finalI1][finalJ1]).getOut() == null){
+                                        map = new Map();
+
+                                        Dungeon dungeon = new Dungeon(player);
+                                        GodCreature[][][] zxc = dungeon.getMap();
+                                        map.setMapLowerObjects(zxc[0]);
+                                        map.setMapUpperObjects(zxc[1]);
+                                        map.setMapHeight();
+                                        map.setMapWidth();
+                                        map.setLocationName(dungeon.getLocationName());
+                                        ((Door)information[finalI1][finalJ1]).setOut(map);
+                                        player.setX(dungeon.getPlayerXSafety());
+                                        player.setY(dungeon.getPlayerYSafety());
+                                        DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
+                                        door.setOut(currentMap);
+                                        door.setIsLocked(false);
+                                        map.setElementByCoordinates(player.getX(), player.getY(), door);
+                                    } else {
+                                        map = ((Door)information[finalI1][finalJ1]).getOut();
+                                        player.setX(map.getPlayerX());
+                                        player.setY(map.getPlayerY());
+                                    }
+                                    map.setPlayer(player);
+                                    return map;
+                                });
+                            } else if(information[finalI1][finalJ1] instanceof CaveDoor){
+                                ((Door)information[finalI1][finalJ1]).setGeneration(() -> {
+                                    Map map;
+                                    if(((Door)information[finalI1][finalJ1]).getOut() == null){
+                                        map = new Map();
+                                        Cave cave = new Cave();
+
+                                        map.setMapLowerObjects(cave.getCave());
+                                        map.setMapHeight();
+                                        map.setMapWidth();
+                                        ((Door)information[finalI1][finalJ1]).setOut(map);
+
+                                        player.setX(cave.getPlayerSafeX());
+                                        player.setY(cave.getPlayerSafeY());
+
+                                        CaveDoor door = new CaveDoor();
+                                        door.setOut(currentMap);
+                                        door.setIsLocked(false);
+                                        map.setElementByCoordinates(player.getX(), player.getY(), door);
+                                    } else {
+                                        map = ((Door)information[finalI1][finalJ1]).getOut();
+                                        player.setX(map.getPlayerX());
+                                        player.setY(map.getPlayerY());
+                                    }
+                                    map.setPlayer(player);
+                                    return map;
+                                });
                             }
-                            map.setPlayer(player);
-                            currentMap = map;
+                            currentMap = ((Door)information[finalI1][finalJ1]).generate();
                             System.gc();
                             player.setFieldWindow(FieldWindow.this);
                             drawMap();
@@ -227,6 +270,13 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                             if(isAlchemyThings){
                                 player.addItemToInventory((Ingredient)((IngredientThing)information[finalI][finalJ]).getIngredient());
                                 GodCreature godCreature = (GodCreature) ((IngredientThing)information[finalI][finalJ]).getParent();
+                                godCreature.setX(X);
+                                godCreature.setY(Y);
+                                currentMap.setElementByCoordinates(X, Y, godCreature);
+                            }
+                            if(isOre && player.hasItem(new Pickaxe())){
+                                player.addItemToInventory((Resource)((Ore)information[finalI][finalJ]).getResource());
+                                GodCreature godCreature = new Stone();
                                 godCreature.setX(X);
                                 godCreature.setY(Y);
                                 currentMap.setElementByCoordinates(X, Y, godCreature);

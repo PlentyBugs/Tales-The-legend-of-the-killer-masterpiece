@@ -2,16 +2,15 @@ package Windows.PlayerWindows;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Alchemy.Potions.Potion;
 import Items.Armors.Armor;
 import Items.Armors.Ring;
+import Items.BlackSmith.Resource.Resource;
 import Items.Item;
-import Items.Alchemy.Potions.Potion;
 import Items.Weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,58 +67,48 @@ public class InventoryWindow extends JFrame implements Serializable {
         menuPanel.add(potionInventory);
         menuPanel.add(ingredientInventory);
 
-        allInventory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                currentInventory = "All";
-                drawInventory();
-                if(player.getClass().toString().contains("Player")){
-                    if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                }
+        allInventory.addActionListener(e -> {
+            currentInventory = "All";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
             }
         });
 
-        weaponInventory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                currentInventory = "Weapon";
-                drawInventory();
-                if(player.getClass().toString().contains("Player")){
-                    if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                }
+        weaponInventory.addActionListener(e -> {
+            currentInventory = "Weapon";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
             }
         });
 
-        armorInventory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                currentInventory = "Armor";
-                drawInventory();
-                if(player.getClass().toString().contains("Player")){
-                    if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                }
+        armorInventory.addActionListener(e -> {
+            currentInventory = "Armor";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
             }
         });
 
-        potionInventory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                currentInventory = "Potion";
-                drawInventory();
-                if(player.getClass().toString().contains("Player")){
-                    if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                }
+        potionInventory.addActionListener(e -> {
+            currentInventory = "Potion";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
             }
         });
 
-        ingredientInventory.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                currentInventory = "Ingredient";
-                drawInventory();
-                if(player.getClass().toString().contains("Player")){
-                    if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
-                }
+        ingredientInventory.addActionListener(e -> {
+            currentInventory = "Ingredient";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
             }
         });
 
@@ -143,8 +132,15 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
 
             JPanel itemPanel = new JPanel(new GridBagLayout());
-            itemPanel.setToolTipText(item.getEnchantDescription());
+
+            if(item instanceof Resource)
+                itemPanel.setToolTipText("<html><p>Температура: <b>" + ((Resource)item).getTemperature() + "</b></p><br><p>Температура плавления: <b>" + ((Resource)item).getMaxTemperature() + "</b></p></html>");
+            else
+                itemPanel.setToolTipText(item.getEnchantDescription());
+
             itemPanel.setPreferredSize(new Dimension(width, 40));
+            itemPanel.setMinimumSize(new Dimension(width, 40));
+            itemPanel.setMaximumSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;
             itemConstraints.insets = new Insets(0, 2, 0, 2);
@@ -157,7 +153,7 @@ public class InventoryWindow extends JFrame implements Serializable {
 
             switch(item.getGrade()){
                 case COMMON: colorForeground = new Color(0,0,0); break;
-                case MAGIC: colorForeground = new Color(67, 162,255); break;
+                case MAGIC: colorForeground = new Color(128, 255, 80); break;
                 case CURSE: colorForeground = new Color(1,155, 24); break;
                 case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
                 case HEROIC: colorForeground = new Color(255, 96, 0); break;
@@ -212,6 +208,10 @@ public class InventoryWindow extends JFrame implements Serializable {
 
 
             JPanel labels = new JPanel(new GridBagLayout());
+            labels.setPreferredSize(new Dimension(width,20));
+            labels.setMaximumSize(new Dimension(width,20));
+            labels.setMinimumSize(new Dimension(width,20));
+            labels.setBackground(colorBackground);
             GridBagConstraints labelsConstraints = new GridBagConstraints();
             labelsConstraints.anchor = GridBagConstraints.WEST;
             labelsConstraints.insets = new Insets(0, 0, 0, 5);
@@ -232,13 +232,13 @@ public class InventoryWindow extends JFrame implements Serializable {
 
             JButton useButton = new JButton("Экипировать");
 
-            if(item.getClass().toString().contains("Alchemy")){
+            if(!(item instanceof Weapon || item instanceof Armor)){
                 itemQuality.setText("");
                 useButton.setText("Использовать");
             }
-            useButton.setPreferredSize(new Dimension(width/4,20));
-            useButton.setMaximumSize(new Dimension(width/4,20));
-            useButton.setMinimumSize(new Dimension(width/4,20));
+            useButton.setPreferredSize(new Dimension(width/3,20));
+            useButton.setMaximumSize(new Dimension(width/3,20));
+            useButton.setMinimumSize(new Dimension(width/3,20));
 
             if(!item.getClass().toString().contains("Alchemy")){
                 useButton.addActionListener(e -> {
@@ -265,11 +265,14 @@ public class InventoryWindow extends JFrame implements Serializable {
                 if(isDrawMap)
                     ((Player)player).getFieldWindow().drawAllPlayerWindow();
             });
-            removeButton.setPreferredSize(new Dimension(width/4,20));
-            removeButton.setMaximumSize(new Dimension(width/4,20));
-            removeButton.setMinimumSize(new Dimension(width/4,20));
+            removeButton.setPreferredSize(new Dimension(width/3,20));
+            removeButton.setMaximumSize(new Dimension(width/3,20));
+            removeButton.setMinimumSize(new Dimension(width/3,20));
 
             JPanel buttons = new JPanel(new GridBagLayout());
+            buttons.setPreferredSize(new Dimension(width,20));
+            buttons.setMaximumSize(new Dimension(width,20));
+            buttons.setMinimumSize(new Dimension(width,20));
             GridBagConstraints buttonsConstraints = new GridBagConstraints();
             buttonsConstraints.anchor = GridBagConstraints.WEST;
             buttonsConstraints.insets = new Insets(0, 0, 0, 5);
@@ -281,7 +284,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             buttons.add(removeButton, buttonsConstraints);
             itemPanel.add(buttons, itemConstraints);
 
-            itemPanel.setBackground(colorBackground);
+            buttons.setBackground(colorBackground);
 
             panel.add(itemPanel, constraints);
 

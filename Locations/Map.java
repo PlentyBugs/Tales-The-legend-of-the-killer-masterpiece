@@ -14,8 +14,13 @@ import Items.Key;
 import Things.AlchemyThings.Berry;
 import Things.AlchemyThings.Herb;
 import Things.AlchemyThings.Mushroom;
-import Things.Craft.AlchemyTable;
 import Things.*;
+import Things.Craft.AlchemyTable;
+import Things.Craft.Anvil;
+import Things.Craft.EnchantTable;
+import Things.Craft.Smelter;
+import Things.Doors.CaveDoor;
+import Things.Doors.DoorToUpperLevelLocation;
 
 import java.io.Serializable;
 
@@ -113,12 +118,6 @@ public class Map implements Serializable {
             int healBlockX = (int)(Math.random()*(mapWidth-1));
             mapLowerObjects[healBlockY][healBlockX] = new HealBlock(healBlockX, healBlockY);
         }
-        mapLowerObjects[4][4] = new DoorToUpperLevelLocation(4, 4).setKey(new Key());
-        for (int i = 0; i < 6; i++){
-            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
-            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
-            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY).setKey(new Key());
-        }
 /*
         for(int s = 0; s < 2; s++){
             GoblinCamp goblinCamp = new GoblinCamp();
@@ -141,12 +140,40 @@ public class Map implements Serializable {
         }
 */
 
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                mapUpperObjects[i][j] = null;
+                if(!((i == 9 && j == 4) || (j == 9 && i == 4)))
+                    if(i == 9 || j == 9)
+                        mapLowerObjects[i][j] = new WoodWall().setX(j).setY(i);
+                    else
+                        mapLowerObjects[i][j] = new BrickRoad().setX(j).setY(i);
+                else
+                    mapLowerObjects[i][j] = new BrickRoad().setX(j).setY(i);
+            }
+        }
 
-        mapUpperObjects[1][1] = NPC.dealerPetush;
-        mapUpperObjects[2][2] = NPC.inhabitantDanil;
-        mapUpperObjects[3][3] = NPC.dealerShutep;
-        mapUpperObjects[2][3] = new AlchemyTable();
-        //mapUpperObjects[2][4] = new EnchantTable();
+        for (int i = 0; i < 6; i++){
+            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
+            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
+            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY)
+                    .setKey(new Key());
+        }
+
+        for (int i = 0; i < 40; i++){
+            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
+            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
+            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new CaveDoor(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+        }
+
+        mapUpperObjects[6][3] = NPC.dealerPetush;
+        mapUpperObjects[3][5] = NPC.inhabitantDanil;
+        mapUpperObjects[3][4] = NPC.dealerShutep;
+        mapUpperObjects[6][7] = NPC.blacksmithDroghan;
+        mapUpperObjects[4][6] = new AlchemyTable();
+        mapUpperObjects[4][4] = new EnchantTable();
+        mapUpperObjects[7][8] = new Anvil();
+        mapUpperObjects[8][8] = new Smelter();
     }
 
     public GodCreature[][] getMap(int x, int y){

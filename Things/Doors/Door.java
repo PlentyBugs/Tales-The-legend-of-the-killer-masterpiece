@@ -1,7 +1,9 @@
-package Things;
+package Things.Doors;
 
 import Items.Key;
+import Locations.Generation;
 import Locations.Map;
+import Things.Thing;
 
 import java.awt.*;
 
@@ -11,6 +13,7 @@ public class Door extends Thing {
     protected Key key;
     protected Map in;
     protected Map out;
+    protected Generation generation;
 
     public Door(){
         name = "Дверь";
@@ -64,5 +67,13 @@ public class Door extends Thing {
     public Door setOut(Map out) {
         this.out = out;
         return this;
+    }
+
+    public void setGeneration(Generation generation) {
+        this.generation = generation;
+    }
+
+    public Map generate(){
+        return generation.generate();
     }
 }

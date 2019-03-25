@@ -46,4 +46,8 @@ public class Sword extends Weapon {
             attacker.addBuffs(new DamageUpBuff(150, 2));
     }
 
+    public Sword setWeaponType(WeaponType weaponType) {
+        this.weaponType.add(weaponType);
+        return this;
+    }
 }

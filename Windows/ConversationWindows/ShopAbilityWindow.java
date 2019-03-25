@@ -2,13 +2,11 @@ package Windows.ConversationWindows;
 
 import Abilities.Ability;
 import Conversations.CatalogStockTypeOfItem;
-import Items.Item;
 import Creatures.Player;
+import Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -74,17 +72,15 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
                 itemConstraints.gridx = 3;
                 JButton buy = new JButton("Купить");
 
-                buy.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (count > 0 && player.getMoney() >= price){
-                            Ability ability = ((Ability)(((Object[])obj)[0]));
-                            if (!player.hasAbility(ability)){
-                                player.reduceMoney(price);
-                                (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
-                                drawWindow();
-                                player.addAbility(ability);
-                                player.getFieldWindow().drawAllPlayerWindow();
-                            }
+                buy.addActionListener(e -> {
+                    if (count > 0 && player.getMoney() >= price){
+                        Ability ability = ((Ability)(((Object[])obj)[0]));
+                        if (!player.hasAbility(ability)){
+                            player.reduceMoney(price);
+                            (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
+                            drawWindow();
+                            player.addAbility(ability);
+                            player.getFieldWindow().drawAllPlayerWindow();
                         }
                     }
                 });
