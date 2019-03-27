@@ -2,10 +2,12 @@ package Things.Craft;
 
 import Abilities.Passive.Professions.BlackSmith;
 import Creatures.Player;
+import Creatures.StatsEnum;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
 import Items.BlackSmith.BluePrint;
+import Items.BlackSmith.ItemCraftType;
 import Items.BlackSmith.Resource.Resource;
 import Items.Grade;
 import Items.Item;
@@ -92,9 +94,8 @@ public class Anvil extends Thing implements BlackSmithCraftTable{
             item.setGrade(Grade.ARTIFACT).setRarity(Rarity.LEGENDARY);
         } else if(rank <= 15*6){
             item.setGrade(Grade.HEROIC).setRarity(Rarity.DRAGON);
-        } else if(rank <= 15*7){
+        } else
             item.setGrade(Grade.ABOVETHEGODS).setRarity(Rarity.DIVINE);
-        }
 
         switch (resource[0].getClass().getSimpleName()){
             case "Leather": item.setMaterial(Material.LEATHER); break;
@@ -112,6 +113,28 @@ public class Anvil extends Thing implements BlackSmithCraftTable{
             case "GodHeart": item.setMaterial(Material.GODSHEART); break;
             case "AbsoluteZero": item.setMaterial(Material.ABSOLUTEZERO); break;
         }
+
+        if (bluePrint.getItemType() == ItemCraftType.RING){
+            ((Ring)item).setStat(new StatsEnum[]{
+                    StatsEnum.STRENGTH,
+                    StatsEnum.SPEED,
+                    StatsEnum.AGILITY,
+                    StatsEnum.INTELLIGENCE,
+                    StatsEnum.LUCK,
+                    StatsEnum.ELOQUENCE,
+                    StatsEnum.BLACKSMITH,
+                    StatsEnum.THEFT,
+                    StatsEnum.ALCHEMY,
+                    StatsEnum.ONEHANDEDWEAPON,
+                    StatsEnum.TWOHANDEDWEAPON,
+                    StatsEnum.POLEWEAPON,
+                    StatsEnum.CHOPPINGWEAPON,
+                    StatsEnum.LONGRANGEWEAPON,
+                    StatsEnum.KNOWLEDGE,
+                    StatsEnum.ENERGY
+            }[(int)(Math.random()*16)]);
+        }
+
         item.countProperty();
 
         player.addItemToInventory(item);

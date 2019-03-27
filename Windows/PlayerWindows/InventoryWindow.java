@@ -60,12 +60,14 @@ public class InventoryWindow extends JFrame implements Serializable {
         JButton armorInventory = new JButton("Броня");
         JButton potionInventory = new JButton("Зелья");
         JButton ingredientInventory = new JButton("Ингредиенты");
+        JButton resourceInventory = new JButton("Ресурсы");
 
         menuPanel.add(allInventory);
         menuPanel.add(weaponInventory);
         menuPanel.add(armorInventory);
         menuPanel.add(potionInventory);
         menuPanel.add(ingredientInventory);
+        menuPanel.add(resourceInventory);
 
         allInventory.addActionListener(e -> {
             currentInventory = "All";
@@ -105,6 +107,15 @@ public class InventoryWindow extends JFrame implements Serializable {
 
         ingredientInventory.addActionListener(e -> {
             currentInventory = "Ingredient";
+            drawInventory();
+            if(player.getClass().toString().contains("Player")){
+                if(isDrawMap)
+                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
+            }
+        });
+
+        resourceInventory.addActionListener(e -> {
+            currentInventory = "Resource";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
                 if(isDrawMap)

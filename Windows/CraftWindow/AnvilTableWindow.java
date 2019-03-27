@@ -2,7 +2,6 @@ package Windows.CraftWindow;
 
 import Abilities.Passive.Professions.BlackSmith;
 import Creatures.Player;
-import Items.BlackSmith.Resource.Resource;
 import Things.Craft.Anvil;
 import Windows.SupportWindows.SupportComponents.BluePrintButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
@@ -19,10 +18,10 @@ public class AnvilTableWindow extends JFrame {
     private GridBagConstraints constraints = new GridBagConstraints();
     private int width = 480;
     private int height = 480;
-    private Resource res;
 
     public AnvilTableWindow(Anvil anvil){
         super("Наковальня");
+        setAlwaysOnTop(true);
         this.anvil = anvil;
 
         drawWindow();
@@ -64,11 +63,6 @@ public class AnvilTableWindow extends JFrame {
         bluePrint.setMaximumSize(new Dimension(width/2, (height-120)/2));
 
         ResourceButton resource = new ResourceButton("Ресурс");
-        if(res != null){
-            resource.setResource(res);
-            resource.setText(res.getName());
-            materialTemp.setText("Температура материала: " + resource.getResource().getTemperature());
-        }
         resource.addActionListener(e -> new ResourceChooser(player, resource));
         resource.setPreferredSize(new Dimension(width/2, (height-120)/2));
         resource.setMinimumSize(new Dimension(width/2, (height-120)/2));
@@ -88,10 +82,9 @@ public class AnvilTableWindow extends JFrame {
         use.addActionListener(e -> {
             if(resource.getResource() != null && bluePrint.getBluePrint() != null){
                 if(bluePrint.getBluePrint().getTemperature() <= resource.getResource().getTemperature() && bluePrint.getBluePrint().hasResource(resource.getResource())){
-                    res = resource.getResource();
                     anvil.setBluePrint(bluePrint.getBluePrint());
-                    anvil.create(res);
-                    player.removeItem(res);
+                    anvil.create(resource.getResource());
+                    player.removeItem(resource.getResource());
                     drawWindow();
                 }
             }

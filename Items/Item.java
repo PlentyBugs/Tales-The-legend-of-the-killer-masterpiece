@@ -16,7 +16,12 @@ public class Item implements Serializable, Cloneable, Comparable {
     protected boolean stackable;
     protected double selfForgedBonus = 1;
     protected ArrayList<Enchant> enchants;
-    private static int id;
+    private int id;
+    public static int number;
+
+    {
+        number ++;
+    }
 
     public Item(){
         grade = Grade.COMMON;
@@ -24,7 +29,6 @@ public class Item implements Serializable, Cloneable, Comparable {
         stackable = false;
         enchants = new ArrayList<>();
         cost = 0;
-        id ++;
     }
 
     public Grade getGrade() {

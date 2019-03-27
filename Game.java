@@ -9,7 +9,6 @@ import Creatures.StatsEnum;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
-import Items.BlackSmith.Resource.Bronze;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
@@ -80,8 +79,7 @@ public class Game {
                                             .setEnchantType(EnchantType.SELFUSE)
                                             .setDescription("С каждым ударом накладывает эффект повышения урона на 5% на 5 ходов")
                                             .setName("Подарок для тестера")
-                            ),
-                    new Bronze()
+                            )
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();
@@ -94,7 +92,7 @@ public class Game {
                 player.setDifficulty(difficulty);
             }
 
-            FieldWindow fieldWindow1 = new FieldWindow("Поле", player.getVision(), player, map.getMap(player.getX(), player.getY()), map);
+            FieldWindow fieldWindow1 = new FieldWindow("Поле", map);
 
             player.setFieldWindow(fieldWindow1);
 

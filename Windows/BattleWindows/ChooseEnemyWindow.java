@@ -6,24 +6,28 @@ import Windows.FieldWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChooseEnemyWindow extends JFrame implements Serializable {
+public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListener{
 
     private int width = 480;
-    private int heigt = 360;
+    private int height = 360;
 
     private ArrayList<LiveCreature> liveCreatures = new ArrayList<LiveCreature>();
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints;
+    private LiveCreature liveCreature;
 
-    Player player;
+    private ActionListener actionListener;
+
+    private Player player;
     private FieldWindow field;
 
     public ChooseEnemyWindow(Player player, FieldWindow field, LiveCreature ... liveCreatures){
         super("Выберите противника");
+        field.addKeyListener(this);
         setAlwaysOnTop(true);
 
         this.player = player;
@@ -70,11 +74,15 @@ public class ChooseEnemyWindow extends JFrame implements Serializable {
             liveCreatureConstraints.gridx = 3;
             JButton fight = new JButton("В Бой");
 
-            fight.addActionListener(e -> {
-                FightWindow fightWindow = new FightWindow(player, liveCreature, field);
+            this.liveCreature = liveCreature;
+            actionListener = e -> {
+                new FightWindow(player, liveCreature, field);
                 player.getFieldWindow().getNpcController().setWaiting(true);
+                field.removeKeyListener(this);
                 close();
-            });
+            };
+
+            fight.addActionListener(actionListener);
 
             liveCreaturePanel.add(enemyName, liveCreatureConstraints);
             liveCreaturePanel.add(enemyHp, liveCreatureConstraints);
@@ -99,4 +107,24 @@ public class ChooseEnemyWindow extends JFrame implements Serializable {
         drawEnemyWindow();
         setVisible(b);
     }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_F){
+            FightStart fightStart = () -> {
+                FightWindow fightWindow = new FightWindow(player, liveCreature, field);
+                player.getFieldWindow().getNpcController().setWaiting(true);
+                close();
+            };
+            fightStart.fight();
+        } else if(e.getKeyCode() == KeyEvent.VK_C){
+            close();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }

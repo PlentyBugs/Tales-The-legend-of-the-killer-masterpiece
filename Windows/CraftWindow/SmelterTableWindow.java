@@ -21,6 +21,7 @@ public class SmelterTableWindow extends JFrame {
 
     public SmelterTableWindow(Smelter smelter){
         super("Плавильня");
+        setAlwaysOnTop(true);
         this.smelter = smelter;
 
         drawWindow();

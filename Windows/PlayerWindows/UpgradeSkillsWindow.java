@@ -55,10 +55,11 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
                 upgrade.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (player.getLevelpoints() >= ability.getCost()){
+                            int cost = ability.getCost();
                             int lastlevel = ability.getLevel();
                             ability.levelUp(player);
                             if(ability.getLevel()-lastlevel > 0){
-                                player.setLevelpoints(player.getLevelpoints() - ability.getCost());
+                                player.setLevelpoints(player.getLevelpoints() - cost);
                                 drawWindow();
                             }
                         }

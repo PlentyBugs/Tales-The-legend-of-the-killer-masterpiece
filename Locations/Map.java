@@ -153,17 +153,17 @@ public class Map implements Serializable {
             }
         }
 
-        for (int i = 0; i < 6; i++){
-            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
-            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
-            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY)
-                    .setKey(new Key());
-        }
-
         for (int i = 0; i < 40; i++){
             int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
             int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
             mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new CaveDoor(doorToUpperLevelLocationX, doorToUpperLevelLocationY);
+        }
+
+        for (int i = 0; i < 12; i++){
+            int doorToUpperLevelLocationY = (int)(Math.random()*(mapHeight-1));
+            int doorToUpperLevelLocationX = (int)(Math.random()*(mapWidth-1));
+            mapLowerObjects[doorToUpperLevelLocationY][doorToUpperLevelLocationX] = new DoorToUpperLevelLocation(doorToUpperLevelLocationX, doorToUpperLevelLocationY)
+                    .setKey(new Key());
         }
 
         mapUpperObjects[6][3] = NPC.dealerPetush;
@@ -292,5 +292,13 @@ public class Map implements Serializable {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public GodCreature[][] getMapUpperObjects() {
+        return mapUpperObjects;
+    }
+
+    public GodCreature[][] getMapLowerObjects() {
+        return mapLowerObjects;
     }
 }

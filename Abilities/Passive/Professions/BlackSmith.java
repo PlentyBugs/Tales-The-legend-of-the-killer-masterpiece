@@ -17,7 +17,7 @@ public class BlackSmith extends Ability {
         if (level == 1){
             name = "Кузнец новичек";
         } else if(level == 2){
-            name = "Алхимик";
+            name = "Кузнец";
         } else if(level == 3){
             name = "Старший Кузнец";
         } else if(level == 4){

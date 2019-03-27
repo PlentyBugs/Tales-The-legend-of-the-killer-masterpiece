@@ -228,7 +228,7 @@ public abstract class LiveCreature extends GodCreature {
 
     public LiveCreature addItemToInventory(Item ... itemList){
         for(Item item : itemList){
-            item.setId(inventory.size());
+            item.setId(Item.number);
             inventory.add(item);
         }
         return this;
@@ -260,7 +260,7 @@ public abstract class LiveCreature extends GodCreature {
                 equipment.setHelmet((Helmet)item);
             } else if (item.getClass().toString().contains("Torso")){
                 equipment.setTorso((Torso)item);
-            } else if (item.getClass().toString().contains("Ring")){
+            } else if (item instanceof Ring){
                 equipment.setRings((Ring) item);
             }
         }
