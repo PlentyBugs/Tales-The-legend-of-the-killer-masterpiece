@@ -6,13 +6,10 @@ import Abilities.Passive.LittleFool;
 import Creatures.Difficulty;
 import Creatures.Player;
 import Creatures.StatsEnum;
+import Items.*;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
-import Items.Grade;
-import Items.Item;
-import Items.Material;
-import Items.Rarity;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
@@ -44,7 +41,9 @@ public class Game {
         String game = startWindow.getGame();
         startWindow.close();
         if(game.equals("new")) {
-            Player player = new Player(0, 0, "Вы", 1, 250);
+            Player player = new Player(1, 1, "Вы", 1, 250);
+            player.setX(1);
+            player.setY(1);
             player.addAbility(new LittleFool());
             Map map = new Map(player, 100, 100)
                     .setMapHeight()
@@ -79,7 +78,8 @@ public class Game {
                                             .setEnchantType(EnchantType.SELFUSE)
                                             .setDescription("С каждым ударом накладывает эффект повышения урона на 5% на 5 ходов")
                                             .setName("Подарок для тестера")
-                            )
+                            ),
+                    new Key()
             );
             for (Item item : player.getInventory()) {
                 item.countProperty();

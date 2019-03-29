@@ -88,8 +88,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         drawMap();
     }
 
-    public void drawField(GodCreature[][] information){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private void drawField(GodCreature[][] information){
         npcController.clear();
         npcController.setFieldWindow(this);
 
@@ -156,7 +155,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         realVision = player.getVision()*2+1;
         if(player.getHp() <= 0){
             setVisible(false);
-            LossWindow loss = new LossWindow();
+            new LossWindow();
         }
     }
 
@@ -186,7 +185,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         realVision = player.getVision()*2+1;
         if(player.getHp() <= 0){
             setVisible(false);
-            LossWindow loss = new LossWindow();
+            new LossWindow();
         }
     }
 

@@ -144,7 +144,7 @@ public class Map implements Serializable {
             for(int j = 0; j < 10; j++){
                 mapUpperObjects[i][j] = null;
                 if(!((i == 9 && j == 4) || (j == 9 && i == 4)))
-                    if(i == 9 || j == 9)
+                    if(i == 9 || j == 9  || i == 0 || j == 0)
                         mapLowerObjects[i][j] = new WoodWall().setX(j).setY(i);
                     else
                         mapLowerObjects[i][j] = new BrickRoad().setX(j).setY(i);
@@ -192,7 +192,26 @@ public class Map implements Serializable {
                         currentMap[i][j] = player;
                     }
                 } else {
-                    currentMap[i][j] = new GreatWallNullerField();
+                    int yy;
+                    int xx;
+                    if(i + y-vision < 0)
+                        yy = i + y-vision + mapLowerObjects.length;
+                    else if(i + y-vision >= mapLowerObjects.length)
+                        yy = i + y-vision - mapLowerObjects.length;
+                    else yy = i + y-vision;
+
+                    if(j + x-vision < 0)
+                        xx = j + x-vision + mapLowerObjects[0].length;
+                    else if(j + x-vision >= mapLowerObjects[0].length)
+                        xx = j + x-vision - mapLowerObjects[0].length;
+                    else
+                        xx = j + x-vision;
+
+                    if(mapUpperObjects != null && mapUpperObjects[yy][xx] != null)
+                        currentMap[i][j] = mapUpperObjects[yy][xx];
+                    else
+                        currentMap[i][j] = mapLowerObjects[yy][xx];
+
                 }
             }
         }
