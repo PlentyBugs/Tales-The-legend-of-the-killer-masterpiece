@@ -29,6 +29,7 @@ public class Item implements Serializable, Cloneable, Comparable {
         stackable = false;
         enchants = new ArrayList<>();
         cost = 0;
+        quality = 100;
     }
 
     public Grade getGrade() {
@@ -138,5 +139,9 @@ public class Item implements Serializable, Cloneable, Comparable {
 
     public void setSelfForgedBonus(double selfForgedBonus) {
         this.selfForgedBonus = selfForgedBonus;
+    }
+
+    public void decreaseQuality(double decQ){
+        quality -= decQ;
     }
 }

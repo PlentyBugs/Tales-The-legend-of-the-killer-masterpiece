@@ -1,6 +1,7 @@
 import Abilities.Buffs.DamageUpBuff;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
+import Abilities.Enchants.EnchantUse;
 import Abilities.Enchants.Weapon.Vampirism;
 import Abilities.Passive.LittleFool;
 import Creatures.Difficulty;
@@ -21,10 +22,7 @@ import Windows.SupportWindows.ChooseDifficultyWindow;
 import Windows.SupportWindows.LoadGameWindow;
 import Windows.SupportWindows.StartWindow;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 public class Game {
 
@@ -72,9 +70,7 @@ public class Game {
                     new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)
                             .addEnchant(
                                     new Enchant()
-                                            .setEnchantUse(liveCreature -> {
-                                                liveCreature.addBuffs(new DamageUpBuff(105, 5));
-                                            })
+                                            .setEnchantUse((EnchantUse & Serializable) liveCreature -> liveCreature.addBuffs(new DamageUpBuff(105, 5)))
                                             .setEnchantType(EnchantType.SELFUSE)
                                             .setDescription("С каждым ударом накладывает эффект повышения урона на 5% на 5 ходов")
                                             .setName("Подарок для тестера")
@@ -156,7 +152,7 @@ public class Game {
 
             Player player = fieldWindow.getPlayer();
             fieldWindow.drawMap();
-            player.initWindoows();
+            player.initWindows();
             fieldWindow.drawAllPlayerWindow();
             while (player.getHp() > 0) {
                 break;

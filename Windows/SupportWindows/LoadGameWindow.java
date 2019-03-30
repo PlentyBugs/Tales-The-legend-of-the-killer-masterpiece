@@ -2,8 +2,10 @@ package Windows.SupportWindows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class LoadGameWindow extends JFrame {
@@ -32,7 +34,7 @@ public class LoadGameWindow extends JFrame {
             panel.add(name, constraints);
             constraints.gridx ++;
             JButton loadButton = new JButton("Загрузитть");
-            loadButton.addActionListener(e -> fileName = file.getName());
+            loadButton.addActionListener((ActionListener & Serializable) e -> fileName = file.getName());
             panel.add(loadButton, constraints);
             constraints.gridy ++;
         }

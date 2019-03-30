@@ -1,5 +1,6 @@
 package Items;
 
+import Items.Armors.Armor;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
@@ -103,8 +104,8 @@ public class Equipment implements Serializable {
         return new Weapon[]{oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon};
     }
 
-    public Item[] getArmor(){
-        return new Item[]{torso, helmet};
+    public Armor[] getArmor(){
+        return new Armor[]{torso, helmet};
     }
 
     public Ring[] getRings(){

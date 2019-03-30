@@ -8,7 +8,9 @@ import Windows.SupportWindows.SupportComponents.ResourceButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 public class AnvilTableWindow extends JFrame {
 
@@ -57,13 +59,13 @@ public class AnvilTableWindow extends JFrame {
         JPanel buttons = new JPanel(new BorderLayout());
 
         BluePrintButton bluePrint = new BluePrintButton("Чертеж");
-        bluePrint.addActionListener(e -> new BluePrintChooser(player, bluePrint));
+        bluePrint.addActionListener((ActionListener & Serializable) e -> new BluePrintChooser(player, bluePrint));
         bluePrint.setPreferredSize(new Dimension(width/2, (height-120)/2));
         bluePrint.setMinimumSize(new Dimension(width/2, (height-120)/2));
         bluePrint.setMaximumSize(new Dimension(width/2, (height-120)/2));
 
         ResourceButton resource = new ResourceButton("Ресурс");
-        resource.addActionListener(e -> new ResourceChooser(player, resource));
+        resource.addActionListener((ActionListener & Serializable)e -> new ResourceChooser(player, resource));
         resource.setPreferredSize(new Dimension(width/2, (height-120)/2));
         resource.setMinimumSize(new Dimension(width/2, (height-120)/2));
         resource.setMaximumSize(new Dimension(width/2, (height-120)/2));
@@ -79,7 +81,7 @@ public class AnvilTableWindow extends JFrame {
         }
 
         JButton use = new JButton("Создать");
-        use.addActionListener(e -> {
+        use.addActionListener((ActionListener & Serializable)e -> {
             if(resource.getResource() != null && bluePrint.getBluePrint() != null){
                 if(bluePrint.getBluePrint().getTemperature() <= resource.getResource().getTemperature() && bluePrint.getBluePrint().hasResource(resource.getResource())){
                     anvil.setBluePrint(bluePrint.getBluePrint());

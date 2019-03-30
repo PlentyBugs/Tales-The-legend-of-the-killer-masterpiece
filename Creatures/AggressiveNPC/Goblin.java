@@ -31,6 +31,8 @@ public class Goblin extends Human {
                 new Axe(),
                 new Key()
         };
+
+        race = "Гоблин";
     }
 
     public Goblin(){

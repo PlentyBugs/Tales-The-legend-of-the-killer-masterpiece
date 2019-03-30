@@ -33,6 +33,7 @@ public class Player extends Human {
     private QuestsWindow playerQuestWindow;
     private FieldWindow fieldWindow;
     private SavePanel savePanel;
+    private DiseasesWindow diseasesWindow;
     private boolean inFight;
 
     private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -71,7 +72,7 @@ public class Player extends Human {
 
         color = Color.ORANGE;
 
-        initWindoows();
+        initWindows();
 
         isPlayer = true;
 
@@ -82,7 +83,7 @@ public class Player extends Human {
         NPC npc = new NPC(this);
     }
 
-    public void initWindoows(){
+    public void initWindows(){
         upStatsWindow = new UpStatsWindow(this);
         inventoryWindow = new InventoryWindow(this);
         equipmentWindow = new EquipmentWindow(this);
@@ -90,6 +91,7 @@ public class Player extends Human {
         playerAbilityWindow = new UpgradeSkillsWindow(this);
         playerQuestWindow = new QuestsWindow(this);
         savePanel = new SavePanel(this);
+        diseasesWindow = new DiseasesWindow(this);
     }
 
     public void setVision(int vision) {
@@ -177,6 +179,10 @@ public class Player extends Human {
 
     public UpgradeSkillsWindow getPlayerAbilityWindow() {
         return playerAbilityWindow;
+    }
+
+    public DiseasesWindow getDiseasesWindow() {
+        return diseasesWindow;
     }
 
     public void setUpStatsOpen(boolean isUpStatsOpen) {

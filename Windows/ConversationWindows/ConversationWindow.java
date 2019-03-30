@@ -102,7 +102,7 @@ public class ConversationWindow extends JFrame implements Serializable {
 
                         int finalS = s;
                         int finalK = k;
-                        title.addActionListener(e -> {
+                        title.addActionListener((ActionListener & Serializable) e -> {
                             if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("Train")) {
                                 ((TrainShop) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
                                 close();

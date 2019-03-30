@@ -1,19 +1,27 @@
-package Creatures;
+package Creatures.AggressiveNPC.Animals;
 
-public class Human extends LiveCreature {
+import Creatures.LiveCreature;
+import Creatures.Stats;
+import Diseases.Disease;
+
+import java.util.ArrayList;
+
+public class Animal extends LiveCreature {
+
     protected String name;
     protected String location = "Пустота";
+    protected ArrayList<Disease> diseases = new ArrayList<>();
 
     protected int upPointCount = 0;
     protected double hp = 100;
 
-    protected String race = "Человек";
+    protected String race = "Животное";
 
-    public Human(){
-        this(0,0,"Человек",1,100);
+    public Animal(){
+        this(0,0,"Животное",1,100);
     }
 
-    public Human(int x, int y, String name, int lvl, int hp){
+    public Animal(int x, int y, String name, int lvl, int hp){
 
         super(x, y, name, lvl, hp);
 
@@ -71,17 +79,13 @@ public class Human extends LiveCreature {
     }
 
     @Override
-    public Human clone() throws CloneNotSupportedException
+    public Animal clone() throws CloneNotSupportedException
     {
-        return (Human) super.clone();
+        return (Animal) super.clone();
     }
 
     @Override
-    public Human getClearCopy() {
-        return new Human();
-    }
-
-    public void useRacePower(LiveCreature enemy){
-
+    public Animal getClearCopy() {
+        return new Animal();
     }
 }

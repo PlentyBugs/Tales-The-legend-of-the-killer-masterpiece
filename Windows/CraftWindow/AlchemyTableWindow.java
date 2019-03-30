@@ -8,9 +8,11 @@ import Windows.SupportWindows.SupportComponents.IngredientButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 public class AlchemyTableWindow extends CraftWindow {
 
@@ -87,7 +89,7 @@ public class AlchemyTableWindow extends CraftWindow {
                 button.setMaximumSize(new Dimension(180, 120));
                 button.setMinimumSize(new Dimension(180, 120));
                 int finalI = i;
-                button.addActionListener(e -> {
+                button.addActionListener((ActionListener & Serializable)e -> {
                     IngredientChooser ingredientChooser = new IngredientChooser(player, ingredients, finalI, button);
                 });
             }
@@ -112,7 +114,7 @@ public class AlchemyTableWindow extends CraftWindow {
 
         constraints.gridy ++;
         JButton create = new JButton("Создать");
-        create.addActionListener(e -> {
+        create.addActionListener((ActionListener & Serializable) e -> {
             alchemyTable.clearCreatedPotion();
             alchemyTable.create(ingredients);
             for(int i = 0; i < buttons.length; i++){

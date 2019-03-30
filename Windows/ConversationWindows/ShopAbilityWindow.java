@@ -7,6 +7,7 @@ import Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -72,7 +73,7 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
                 itemConstraints.gridx = 3;
                 JButton buy = new JButton("Купить");
 
-                buy.addActionListener(e -> {
+                buy.addActionListener((ActionListener & Serializable)  e -> {
                     if (count > 0 && player.getMoney() >= price){
                         Ability ability = ((Ability)(((Object[])obj)[0]));
                         if (!player.hasAbility(ability)){

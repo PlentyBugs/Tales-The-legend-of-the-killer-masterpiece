@@ -5,9 +5,11 @@ import Things.Craft.EnchantTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 public class EnchantTableWindow extends CraftWindow {
 
@@ -85,7 +87,7 @@ public class EnchantTableWindow extends CraftWindow {
         JPanel buttons = new JPanel(new BorderLayout());
 
         JButton itemEnchantRemoveButton = new JButton("Пусто(Предмет)");
-        itemEnchantRemoveButton.addActionListener(e -> {
+        itemEnchantRemoveButton.addActionListener((ActionListener & Serializable) e -> {
 
         });
         itemEnchantRemoveButton.setPreferredSize(new Dimension(width/2, height/2));

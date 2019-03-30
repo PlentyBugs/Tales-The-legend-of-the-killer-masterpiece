@@ -45,6 +45,8 @@ public class Skeleton extends Human {
                 new BoneDust(),
                 new Key()
         };
+
+        race = "Мертвые";
     }
 
     public Skeleton(){

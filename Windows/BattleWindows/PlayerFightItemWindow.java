@@ -8,6 +8,7 @@ import Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -118,7 +119,7 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
 
                 JButton useButton = new JButton("Использовать");
 
-                useButton.addActionListener(e -> {
+                useButton.addActionListener((ActionListener & Serializable)  e -> {
                     if(item.getClass().toString().contains("Heal") || item.getClass().toString().contains("Power") || item.getClass().toString().contains("StatsUp")){
                         ((Potion)item).use(player);
                         fightWindow.enemyTurn();

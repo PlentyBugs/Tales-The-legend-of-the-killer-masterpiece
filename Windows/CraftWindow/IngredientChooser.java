@@ -7,6 +7,7 @@ import Windows.SupportWindows.SupportComponents.IngredientButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class IngredientChooser extends JFrame implements Serializable {
 
             int count = player.countOfItemInInventory(item);
             JButton button = new JButton(item.getName() + " Количество: " + count);
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable) e -> {
                 ingredients[i] = (Ingredient) item;
                 buttonParent.setIngredient((Ingredient)item);
                 buttonParent.setCountOfIngredients(count);

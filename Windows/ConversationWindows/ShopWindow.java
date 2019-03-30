@@ -9,6 +9,7 @@ import Items.Weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public class ShopWindow extends JFrame implements Serializable {
@@ -59,11 +60,11 @@ public class ShopWindow extends JFrame implements Serializable {
         JPanel choose = new JPanel(new BorderLayout());
         JButton buyButton = new JButton("Купить");
         JButton sellButton = new JButton("Продать");
-        buyButton.addActionListener(e -> {
+        buyButton.addActionListener((ActionListener & Serializable)e -> {
             chosenPanel = "buy";
             drawWindow();
         });
-        sellButton.addActionListener(e -> {
+        sellButton.addActionListener((ActionListener & Serializable)e -> {
             chosenPanel = "sell";
             drawWindow();
         });
@@ -122,7 +123,7 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemConstraints.gridx ++;
                 JButton buy = new JButton("Купить");
 
-                buy.addActionListener(e -> {
+                buy.addActionListener((ActionListener & Serializable)e -> {
                     seller.addMoney(price);
                     seller.removeItem(item);
                     player.reduceMoney(price);
@@ -176,7 +177,7 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemConstraints.gridx ++;
                 JButton sell = new JButton("Продать");
 
-                sell.addActionListener(e -> {
+                sell.addActionListener((ActionListener & Serializable) e -> {
                     player.addMoney(price);
                     player.removeItem(item);
                     drawWindow();

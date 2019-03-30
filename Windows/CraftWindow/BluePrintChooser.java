@@ -7,6 +7,7 @@ import Windows.SupportWindows.SupportComponents.BluePrintButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class BluePrintChooser extends JFrame implements Serializable {
 
             int count = player.countOfItemInInventory(item);
             JButton button = new JButton(item.getName() + " Количество: " + count);
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable) e -> {
                 buttonParent.setBluePrint((BluePrint) item);
                 buttonParent.setCountOfBluePrints(count);
                 buttonParent.writeText();

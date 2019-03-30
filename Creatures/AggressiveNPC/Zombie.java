@@ -45,6 +45,8 @@ public class Zombie extends Human {
                 new DeadFlesh(),
                 new Key()
         };
+
+        race = "Мертвые";
     }
 
     public Zombie(){

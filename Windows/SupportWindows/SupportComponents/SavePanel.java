@@ -4,6 +4,7 @@ import Creatures.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Date;
 
@@ -35,7 +36,7 @@ public class SavePanel extends JFrame {
         saveButton.setMinimumSize(new Dimension(140,20));
         saveButton.setMaximumSize(new Dimension(140,20));
 
-        saveButton.addActionListener(e -> {
+        saveButton.addActionListener((ActionListener & Serializable) e -> {
             try{
                 Date date = new Date();
                 try{

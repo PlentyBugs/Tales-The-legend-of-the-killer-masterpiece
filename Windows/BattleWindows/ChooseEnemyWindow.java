@@ -75,7 +75,7 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
             JButton fight = new JButton("В Бой");
 
             this.liveCreature = liveCreature;
-            actionListener = e -> {
+            actionListener = (ActionListener & Serializable)e -> {
                 new FightWindow(player, liveCreature, field);
                 player.getFieldWindow().getNpcController().setWaiting(true);
                 field.removeKeyListener(this);
@@ -114,7 +114,7 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_F){
-            FightStart fightStart = () -> {
+            FightStart fightStart = (FightStart & Serializable) () -> {
                 FightWindow fightWindow = new FightWindow(player, liveCreature, field);
                 player.getFieldWindow().getNpcController().setWaiting(true);
                 close();

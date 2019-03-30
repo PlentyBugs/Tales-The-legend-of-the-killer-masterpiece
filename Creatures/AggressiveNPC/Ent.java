@@ -33,6 +33,8 @@ public class Ent extends Human {
                 new Leaf(),
                 new Key()
         };
+
+        race = "Древесная";
     }
 
     public Ent(){

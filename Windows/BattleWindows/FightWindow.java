@@ -18,7 +18,9 @@ import Creatures.LiveCreature;
 import Creatures.Player;
 import Creatures.StatsEnum;
 import Items.Armors.Armor;
+import Items.Armors.Helmet;
 import Items.Armors.Ring;
+import Items.Armors.Torso;
 import Items.Grade;
 import Items.Item;
 import Items.Material;
@@ -37,6 +39,7 @@ import Windows.SupportWindows.SupportComponents.Console;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -186,12 +189,12 @@ public class FightWindow extends JFrame implements Serializable {
         }
 
 
-        playerAttackButton.addActionListener(e -> {
+        playerAttackButton.addActionListener((ActionListener & Serializable)e -> {
             attack(player, enemy);
             enemyTurn();
         });
 
-        playerAbilityButton.addActionListener(e -> {
+        playerAbilityButton.addActionListener((ActionListener & Serializable)e -> {
             if (playerAbilityWindow == null){
                 playerAbilityWindow = new PlayerAbilityWindow(player, enemy, FightWindow.this);
             } else {
@@ -200,7 +203,7 @@ public class FightWindow extends JFrame implements Serializable {
             }
         });
 
-        playerDiplomacyButton.addActionListener(e -> {
+        playerDiplomacyButton.addActionListener((ActionListener & Serializable)e -> {
             if (playerDiplomacyWindow == null){
                 playerDiplomacyWindow = new PlayerDiplomacyWindow(player, enemy, FightWindow.this);
             } else {
@@ -209,7 +212,7 @@ public class FightWindow extends JFrame implements Serializable {
             }
         });
 
-        playerUseItemButton.addActionListener(e -> {
+        playerUseItemButton.addActionListener((ActionListener & Serializable)e -> {
             if (playerFightItemWindow == null){
                 playerFightItemWindow = new PlayerFightItemWindow(player, enemy, FightWindow.this);
             } else {
@@ -218,7 +221,7 @@ public class FightWindow extends JFrame implements Serializable {
             }
         });
 
-        playerRunAwayButton.addActionListener(e -> {
+        playerRunAwayButton.addActionListener((ActionListener & Serializable) e -> {
             int chance = (int)(Math.random()*(100-player.getStats().getLuck()/2));
             if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
                 dialogWindow.close();
@@ -251,7 +254,7 @@ public class FightWindow extends JFrame implements Serializable {
         pack();
         setVisible(true);
         field.setIsVisible(false);
-        Thread printHp = new Thread(() -> printHp());
+        Thread printHp = new Thread((Runnable & Serializable)() -> printHp());
         printHp.start();
     }
 
@@ -315,7 +318,7 @@ public class FightWindow extends JFrame implements Serializable {
     }
 
     private void getReward(){
-        Thread thread = new Thread(() -> {
+        Thread thread = new Thread((Runnable & Serializable)() -> {
             if(player.getHp() <= 0){
                 loss();
             }
@@ -404,7 +407,7 @@ public class FightWindow extends JFrame implements Serializable {
 
                 chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
-                if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Sword")){
+                if (item instanceof Weapon){
                     if (chanceDropItem < enemy.getLvl()*12){
                         item.setMaterial(Material.IRON);
                     }
@@ -435,7 +438,7 @@ public class FightWindow extends JFrame implements Serializable {
                     if (chanceDropItem < -500 + enemy.getLvl()*5){
                         item.setMaterial(Material.ABSOLUTEZERO);
                     }
-                } else if (item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Torso") || item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1].equals("Helmet")){
+                } else if (item instanceof Torso || item instanceof Helmet){
 
                     if (chanceDropItem < enemy.getLvl()*12){
                         item.setMaterial(Material.STUDDEDLEATHER);
@@ -580,6 +583,9 @@ public class FightWindow extends JFrame implements Serializable {
                 writeToPlayerConsole(enemy.getName() + " увернулся");
             }
         } else {
+
+            attacker.useRacePower(enemy);
+
             for(Item item : attacker.getEquipment().getListOfEquipment()){
                 if(item != null)
                     for(Enchant enchant : item.getEnchants()){
@@ -649,7 +655,9 @@ public class FightWindow extends JFrame implements Serializable {
 
             damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
 
+            double decQ = damage;
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;
+            decQ = Math.max(0, (decQ - damage)/1000);
 
             for(Item item : enemy.getEquipment().getListOfEquipment()){
                 if(item != null)
@@ -665,6 +673,15 @@ public class FightWindow extends JFrame implements Serializable {
             }
 
             enemy.setHp(Math.round((enemy.getHp()-damage)*100.0)/100.0);
+
+
+            for(Weapon weapon : attacker.getEquipment().getWeaponList())
+                if(weapon != null)
+                    weapon.decreaseQuality(decQ);
+
+            for(Armor Armor : enemy.getEquipment().getArmor())
+                if(Armor != null)
+                    Armor.decreaseQuality(decQ);
 
             enemy.addLoyaltyToCreature(attacker, -(int)(enemy.getHp()/damage));
 

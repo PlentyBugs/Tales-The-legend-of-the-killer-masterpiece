@@ -8,6 +8,7 @@ import Items.Item;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
@@ -106,7 +107,7 @@ public class PlayerDiplomacyWindow extends JFrame implements Serializable {
 
                 JButton useButton = new JButton("Использовать");
 
-                useButton.addActionListener(e -> {
+                useButton.addActionListener((ActionListener & Serializable) e -> {
                     if(item.getClass().toString().contains("Alcohol")){
                         System.out.println(((Potion)item).getEffect().getPower());
                         ((Potion)item).use(enemy);

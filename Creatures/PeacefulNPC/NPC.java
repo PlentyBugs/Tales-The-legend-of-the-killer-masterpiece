@@ -34,10 +34,9 @@ import Items.Rarity;
 import Items.Tools.Pickaxe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
-import Quests.CollectItemQuest;
-import Quests.KillQuest;
-import Quests.Quest;
-import Quests.ReachQuest;
+import Quests.*;
+
+import java.io.Serializable;
 
 public class NPC {
     public static Inhabitant inhabitantDanil;
@@ -208,8 +207,8 @@ public class NPC {
 
 
         Quest reachTwentyLevel = new Quest()
-                .setCondition(() -> player.getLvl() >= 20)
-                .setConditionToBeVisible(() -> killQuestDeadGuardian.getIsFinished() && killQuestFrank.getIsFinished() && killQuestHigherGhost.getIsFinished())
+                .setCondition((QuestCondition & Serializable) () -> player.getLvl() >= 20)
+                .setConditionToBeVisible((VisibleCondition & Serializable) () -> killQuestDeadGuardian.getIsFinished() && killQuestFrank.getIsFinished() && killQuestHigherGhost.getIsFinished())
                 .setGoldReward(345000)
                 .setExpReward(110000)
                 .setTitle("Достичь 20 уровня")

@@ -27,6 +27,7 @@ import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -48,7 +49,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private JPanel info;
     private JPanel abilities;
     private JPanel quests;
-    private JPanel save;
+    private JPanel disease;
     private Map currentMap;
     private NPCController npcController;
     private static final long serialVersionUID = -5963455665311017981L;
@@ -68,7 +69,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         info = player.getPlayerInfoWindow().getPanel();
         abilities = player.getPlayerAbilityWindow().getPanel();
         quests = player.getPlayerQuestWindow().getPanel();
-        save = new JPanel();
+        disease = player.getDiseasesWindow().getPanel();
 
         console = new Console();
 
@@ -98,6 +99,8 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(0, 0, 0, 0);
+
+        player.removeBrokenItems();
 
         for (int i = 0; i < realVision; i++){
             for (int j = 0; j < realVision; j++) {
@@ -218,7 +221,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         info = player.getPlayerInfoWindow().getPanel();
         abilities = player.getPlayerAbilityWindow().getPanel();
         quests = player.getPlayerQuestWindow().getPanel();
-        save = player.getSavePanel().getPanel();
+        disease = player.getDiseasesWindow().getPanel();
 
         if(menu.getComponents().length != 0){
             try{
@@ -228,7 +231,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 menu.setComponentAt(3, info);
                 menu.setComponentAt(4, abilities);
                 menu.setComponentAt(5, quests);
-                menu.setComponentAt(6, save);
+                menu.setComponentAt(6, disease);
             } catch (Exception ex){
                 menu.removeAll();
                 menu.addTab("Инвентарь", inventory);
@@ -237,7 +240,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 menu.addTab("Информация", info);
                 menu.addTab("Умения", abilities);
                 menu.addTab("Квесты", quests);
-                menu.addTab("Сохранить", save);
+                menu.addTab("Болезни", disease);
             }
         } else {
             menu.setMinimumSize(new Dimension(x - (x/realVision) -404, y));
@@ -249,7 +252,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
             menu.addTab("Информация", info);
             menu.addTab("Умения", abilities);
             menu.addTab("Квесты", quests);
-            menu.addTab("Сохранить", save);
+            menu.addTab("Болезни", disease);
         }
 
     }
@@ -281,7 +284,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         player.getPlayerInfoWindow().drawInfo();
         player.getPlayerAbilityWindow().drawWindow();
         player.getPlayerQuestWindow().drawWindow();
-        player.getSavePanel().drawWindow();
+        player.getDiseasesWindow().drawWindow();
         drawMap();
     }
 
@@ -347,7 +350,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         if (creature.getIsPlayer()){
             button.addActionListener(e -> drawAllPlayerWindow());
         } else if (isHealBlock){
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable)e -> {
                 player.setFieldWindow(FieldWindow.this);
                 currentMap.setElementByCoordinates(creature.getX(), creature.getY(), new Grass(creature.getX(), creature.getY()));
                 ((HealBlock) creature).heal(player);
@@ -358,7 +361,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 drawAllPlayerWindow();
             });
         } else if (isDoorToUpperLevel) {
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable)e -> {
                 //todo add function to the Door class to check the key
                 if(!((Door)creature).getIsLocked() || (((Door)creature).getIsLocked() && player.hasItem(((Door)creature).getKey()))){
                     if(((Door)creature).getIsLocked()){
@@ -432,7 +435,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 drawAllPlayerWindow();
             });
         } else if(isCraft){
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable)e -> {
                 ((CraftTable) creature).setPlayer(player);
                 if(!((CraftTable) creature).getCraftTableWindowOpen()){
                     ((CraftTable) creature).setCraftTableWindow(true);
@@ -443,7 +446,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 }
             });
         }else if (isChest) {
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable)e -> {
                 player.setFieldWindow(FieldWindow.this);
                 if(!((Chest) creature).getIsInventoryChestOpen()){
                     ((Chest) creature).setPlayer(player);
@@ -459,7 +462,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
             });
         } else {
             boolean finalIsStep = isStep;
-            button.addActionListener(e -> {
+            button.addActionListener((ActionListener & Serializable) e -> {
                 if (finalIsStep) {
                     player.setFieldWindow(FieldWindow.this);
                     player.setX(X);
@@ -534,7 +537,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
             isStep = true;
         }
         if (isHealBlock){
-            step = () -> {
+            step = (Step & Serializable)() -> {
                 player.setFieldWindow(FieldWindow.this);
                 currentMap.setElementByCoordinates(creature.getX(), creature.getY(), new Grass(creature.getX(), creature.getY()));
                 ((HealBlock) creature).heal(player);
@@ -545,7 +548,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 drawAllPlayerWindow();
             };
         } else if (isDoorToUpperLevel) {
-            step = () -> {
+            step = (Step & Serializable)() -> {
                 //todo add function to the Door class to check the key
                 if(!((Door)creature).getIsLocked() || (((Door)creature).getIsLocked() && player.hasItem(((Door)creature).getKey()))){
                     if(((Door)creature).getIsLocked()){
@@ -619,7 +622,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 drawAllPlayerWindow();
             };
         } else if(isCraft){
-            step = () -> {
+            step = (Step & Serializable)() -> {
                 ((CraftTable) creature).setPlayer(player);
                 if(!((CraftTable) creature).getCraftTableWindowOpen()){
                     ((CraftTable) creature).setCraftTableWindow(true);
@@ -630,7 +633,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 }
             };
         }else if (isChest) {
-            step = () -> {
+            step = (Step & Serializable)() -> {
                 player.setFieldWindow(FieldWindow.this);
                 if(!((Chest) creature).getIsInventoryChestOpen()){
                     ((Chest) creature).setPlayer(player);
@@ -646,7 +649,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
             };
         } else {
             boolean finalIsStep = isStep;
-            step = () -> {
+            step = (Step & Serializable)() -> {
                 if (finalIsStep) {
                     player.setFieldWindow(FieldWindow.this);
                     player.setX(X);

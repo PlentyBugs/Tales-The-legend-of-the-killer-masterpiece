@@ -11,6 +11,7 @@ import Items.Weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         menuPanel.add(ingredientInventory);
         menuPanel.add(resourceInventory);
 
-        allInventory.addActionListener(e -> {
+        allInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "All";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -78,7 +79,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         });
 
-        weaponInventory.addActionListener(e -> {
+        weaponInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "Weapon";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -87,7 +88,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         });
 
-        armorInventory.addActionListener(e -> {
+        armorInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "Armor";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -96,7 +97,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         });
 
-        potionInventory.addActionListener(e -> {
+        potionInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "Potion";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -105,7 +106,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         });
 
-        ingredientInventory.addActionListener(e -> {
+        ingredientInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "Ingredient";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -114,7 +115,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         });
 
-        resourceInventory.addActionListener(e -> {
+        resourceInventory.addActionListener((ActionListener & Serializable)e -> {
             currentInventory = "Resource";
             drawInventory();
             if(player.getClass().toString().contains("Player")){
@@ -252,7 +253,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             useButton.setMinimumSize(new Dimension(width/3,20));
 
             if(!item.getClass().toString().contains("Alchemy")){
-                useButton.addActionListener(e -> {
+                useButton.addActionListener((ActionListener & Serializable) e -> {
                     player.equip(item);
                     if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
                         ((Player)player).getEquipmentWindow().drawEquipment();
@@ -261,7 +262,7 @@ public class InventoryWindow extends JFrame implements Serializable {
                     }
                 });
             } else {
-                useButton.addActionListener(e -> {
+                useButton.addActionListener((ActionListener & Serializable)e -> {
                     ((Potion)item).use(player);
                     player.removeItem(item);
                     drawInventory();
@@ -271,7 +272,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
 
             JButton removeButton = new JButton("Выбросить");
-            removeButton.addActionListener(e -> {
+            removeButton.addActionListener((ActionListener & Serializable)e -> {
                 player.removeItem(item);
                 if(isDrawMap)
                     ((Player)player).getFieldWindow().drawAllPlayerWindow();

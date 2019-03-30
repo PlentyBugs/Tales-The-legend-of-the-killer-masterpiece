@@ -138,7 +138,7 @@ public class Bandit extends Human {
         equip(banditArmorHelmet);
 
         addAbility(new CriticalStrike(Math.max(0, Math.min(lvl/15, (new CriticalStrike()).getMaxLevel()))),
-                new DamageUp(Math.max(0, Math.min(lvl/20, (new DecreaseDamage()).getMaxLevel()))),
+                new DamageUp(Math.max(0, Math.min(lvl/20, (new DamageUp()).getMaxLevel()))),
                 new DecreaseDamage(Math.max(0, Math.min(lvl/20, (new DecreaseDamage()).getMaxLevel()))),
                 new Evasion(Math.max(0, Math.min(lvl/12, (new Evasion()).getMaxLevel()))));
     }

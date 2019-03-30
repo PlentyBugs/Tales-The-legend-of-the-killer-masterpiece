@@ -1,15 +1,19 @@
 package Windows.SupportWindows;
 
+import Creatures.Player;
 import Items.Armors.Armor;
 import Items.Armors.Ring;
 import Items.Item;
 import Items.Weapons.Weapon;
-import Creatures.Player;
 import Things.ChestLike.Chest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class InventoryWindowChest extends JFrame {
@@ -138,7 +142,7 @@ public class InventoryWindowChest extends JFrame {
             itemConstraints.gridx = 4;
             JButton useButton = new JButton("Взять");
 
-            useButton.addActionListener(e -> {
+            useButton.addActionListener((ActionListener & Serializable) e -> {
                 player.addItemToInventory(item);
                 chest.removeItemFromInventory(item);
                 drawInventory();

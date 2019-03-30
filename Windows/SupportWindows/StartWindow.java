@@ -4,8 +4,10 @@ import Windows.SupportWindows.SupportComponents.JPanelWithBackGroundImage;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.io.Serializable;
 
 public class StartWindow extends JFrame {
 
@@ -23,12 +25,12 @@ public class StartWindow extends JFrame {
         JButton newGame = new JButton("Новая игра");
         JButton loadGame = new JButton("Загрузить игру");
 
-        newGame.addActionListener(e -> {
+        newGame.addActionListener((ActionListener & Serializable) e -> {
             startGame = true;
             game = "new";
         });
 
-        loadGame.addActionListener(e -> {
+        loadGame.addActionListener((ActionListener & Serializable)e -> {
             startGame = true;
             game = "load";
         });

@@ -5,12 +5,13 @@ import Creatures.LiveCreature;
 import Windows.BattleWindows.FightWindow;
 import Windows.FieldWindow;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 // Primitive NPC controller
-public class NPCController extends Thread{
+public class NPCController extends Thread implements Serializable {
 
     private Set<LiveCreature> NPC = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private FieldWindow fieldWindow;

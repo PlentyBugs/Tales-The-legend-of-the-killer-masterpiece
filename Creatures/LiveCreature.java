@@ -5,6 +5,7 @@ import Abilities.AbilityType;
 import Abilities.Buffs.Buff;
 import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.Conversation;
+import Diseases.Disease;
 import Effects.Effect;
 import Items.Armors.Armor;
 import Items.Armors.Helmet;
@@ -19,7 +20,7 @@ import Windows.ConversationWindows.ConversationWindow;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class LiveCreature extends GodCreature {
+public class LiveCreature extends GodCreature {
     protected int x;
     protected int y;
     protected double hp;
@@ -39,11 +40,13 @@ public abstract class LiveCreature extends GodCreature {
     protected double currentDamage;
     private static final long serialVersionUID = 3432956647310864719L;
 
-    protected ArrayList<Item> inventory = new ArrayList<>();
+    protected Set<Item> inventory = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
     protected Equipment equipment = new Equipment();
 
     protected ArrayList<Ability> abilities = new ArrayList<>();
+
+    protected ArrayList<Disease> diseases = new ArrayList<>();
 
     public LiveCreature(){
         this(0,0,"Существо",1,100);
@@ -234,7 +237,7 @@ public abstract class LiveCreature extends GodCreature {
         return this;
     }
 
-    public ArrayList<Item> getInventory(){
+    public Set<Item> getInventory(){
         return inventory;
     }
 
@@ -282,6 +285,17 @@ public abstract class LiveCreature extends GodCreature {
                 break;
             }
         }
+    }
+
+    public void removeBrokenItems(){
+        for(Item itm : inventory)
+            if(itm.getQuality() <= 0) {
+                if (equipment.getListOfEquipment().contains(itm)) {
+                    unequip(itm);
+                }
+                inventory.remove(itm);
+            }
+
     }
 
     public boolean hasItem(Item item){
@@ -362,5 +376,25 @@ public abstract class LiveCreature extends GodCreature {
 
     public void setStepCountBonus(int stepCountBonus) {
         this.stepCountBonus = stepCountBonus;
+    }
+
+    public void useRacePower(LiveCreature enemy){}
+
+    public ArrayList<Disease> getDiseases() {
+        return diseases;
+    }
+
+    public void addDisease(Disease disease){
+        if(!hasDisease(disease))
+            diseases.add(disease);
+    }
+
+    public boolean hasDisease(Disease disease){
+        for(Disease d : diseases){
+            if(d.compareTo(disease) == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -1,11 +1,11 @@
 package Locations;
 
+import Creatures.AggressiveNPC.Animals.Wolf;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Ent;
 import Creatures.AggressiveNPC.Goblin;
 import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.GodCreature;
-import Creatures.Human;
 import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.NPC;
 import Creatures.Player;
@@ -80,7 +80,7 @@ public class Map implements Serializable {
 
         for(int i = 0; i < mapHeight; i++){
             for(int j = 0; j < mapWidth; j++) {
-                Human[] randomHumanList = {new Bandit(), new Goblin(), new Ent()};
+                LiveCreature[] randomHumanList = {new Bandit(), new Goblin(), new Ent(), new Wolf()};
                 int chance = (int) Math.ceil(Math.random() * 100);
 
                 if (chance <= 5){

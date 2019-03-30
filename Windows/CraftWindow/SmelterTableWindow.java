@@ -7,7 +7,9 @@ import Windows.SupportWindows.SupportComponents.ResourceButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serializable;
 
 public class SmelterTableWindow extends JFrame {
 
@@ -69,7 +71,7 @@ public class SmelterTableWindow extends JFrame {
             materialTemp.setText("Температура материала: " + resource.getResource().getTemperature());
             materialMaxTemp.setText("Температура плавления м-ла: " + resource.getResource().getMaxTemperature());
         }
-        resource.addActionListener(e -> new ResourceChooser(player, resource));
+        resource.addActionListener((ActionListener & Serializable) e -> new ResourceChooser(player, resource));
         resource.setPreferredSize(new Dimension(width/2, height-120));
         resource.setMinimumSize(new Dimension(width/2, height-120));
         resource.setMaximumSize(new Dimension(width/2, height-120));
@@ -77,7 +79,7 @@ public class SmelterTableWindow extends JFrame {
         resPanel.add(resource, BorderLayout.EAST);
 
         JButton use = new JButton("Плавить");
-        use.addActionListener(e -> {
+        use.addActionListener((ActionListener & Serializable)e -> {
             if(resource.getResource() != null){
                 res = resource.getResource();
                 smelter.create(resource.getResource());
