@@ -303,7 +303,9 @@ public class InventoryWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
 
+        Point point = scroll.getViewport().getViewPosition();
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.getViewport().setViewPosition(point);
         scroll.setPreferredSize(new Dimension(width,height-80));
     }
 
