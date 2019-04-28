@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 public class QuestsWindow extends JFrame {
 
     private Player player;
-    private JPanel panel = new JPanel();
+    private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints;
     private int width = 520;
     private int height = 240;
@@ -27,8 +27,6 @@ public class QuestsWindow extends JFrame {
     }
 
     public void drawWindow(){
-
-        panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -76,7 +74,6 @@ public class QuestsWindow extends JFrame {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public void close(){

@@ -215,14 +215,6 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
     private void updateTabs(){
 
-        inventory = player.getInventoryWindow().getPanel();
-        upgrade = player.getUpStatsWindow().getPanel();
-        equipment = player.getEquipmentWindow().getPanel();
-        info = player.getPlayerInfoWindow().getPanel();
-        abilities = player.getPlayerAbilityWindow().getPanel();
-        quests = player.getPlayerQuestWindow().getPanel();
-        disease = player.getDiseasesWindow().getPanel();
-
         if(menu.getComponents().length != 0){
             try{
                 menu.setComponentAt(0, inventory);
@@ -243,6 +235,13 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                 menu.addTab("Болезни", disease);
             }
         } else {
+            inventory = player.getInventoryWindow().getPanel();
+            upgrade = player.getUpStatsWindow().getPanel();
+            equipment = player.getEquipmentWindow().getPanel();
+            info = player.getPlayerInfoWindow().getPanel();
+            abilities = player.getPlayerAbilityWindow().getPanel();
+            quests = player.getPlayerQuestWindow().getPanel();
+            disease = player.getDiseasesWindow().getPanel();
             menu.setMinimumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
             menu.setMaximumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
             menu.setPreferredSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
@@ -285,7 +284,6 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         player.getPlayerAbilityWindow().drawWindow();
         player.getPlayerQuestWindow().drawWindow();
         player.getDiseasesWindow().drawWindow();
-        drawMap();
     }
 
     public void keyPressed(KeyEvent event){

@@ -23,7 +23,6 @@ public class DiseasesWindow extends JFrame implements Serializable {
     }
 
     public void drawWindow(){
-        panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
@@ -55,7 +54,6 @@ public class DiseasesWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public void close(){
