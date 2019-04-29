@@ -23,6 +23,7 @@ public class DiseasesWindow extends JFrame implements Serializable {
     }
 
     public void drawWindow(){
+        panel.removeAll();
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;

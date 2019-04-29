@@ -22,6 +22,7 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
     }
 
     public void drawInfo(){
+        panel.removeAll();
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;

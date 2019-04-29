@@ -27,6 +27,7 @@ public class QuestsWindow extends JFrame {
     }
 
     public void drawWindow(){
+        panel.removeAll();
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;

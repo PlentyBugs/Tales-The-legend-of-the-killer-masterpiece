@@ -50,6 +50,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
     }
 
     public void drawWindow(){
+        panel.removeAll();
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
