@@ -37,7 +37,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
     }
 
     public void drawEquipment(){
-        panel.removeAll();
+        panel = new JPanel();
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;

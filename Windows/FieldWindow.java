@@ -215,6 +215,15 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
     private void updateTabs(){
 
+
+        inventory = player.getInventoryWindow().getPanel();
+        upgrade = player.getUpStatsWindow().getPanel();
+        equipment = player.getEquipmentWindow().getPanel();
+        info = player.getPlayerInfoWindow().getPanel();
+        abilities = player.getPlayerAbilityWindow().getPanel();
+        quests = player.getPlayerQuestWindow().getPanel();
+        disease = player.getDiseasesWindow().getPanel();
+
         if(menu.getComponents().length != 0){
             try{
                 menu.setComponentAt(0, inventory);
