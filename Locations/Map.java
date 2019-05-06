@@ -192,8 +192,6 @@ public class Map implements Serializable {
                         currentMap[i][j] = player;
                     }
                 } else {
-                    //currentMap[i][j] = new GreatWallNullerField();
-
                     int yy;
                     int xx;
                     if(i + y-vision < 0)
@@ -213,7 +211,6 @@ public class Map implements Serializable {
                         currentMap[i][j] = mapUpperObjects[yy][xx];
                     else
                         currentMap[i][j] = mapLowerObjects[yy][xx];
-
 
                 }
             }

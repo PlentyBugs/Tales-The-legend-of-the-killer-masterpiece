@@ -168,7 +168,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         mainPanel = new JPanel(new GridBagLayout());
         mainConstraints = new GridBagConstraints();
         mainConstraints.anchor = GridBagConstraints.WEST;
-        mainConstraints.insets = new Insets(0, 0, 0, 0);
+        mainConstraints.insets = new Insets(0, 5, 0, 5);
         mainConstraints.gridx = 0;
         mainConstraints.gridy = 0;
 
@@ -254,6 +254,10 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
             menu.setMinimumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
             menu.setMaximumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
             menu.setPreferredSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
+            menu.setMinimumSize(new Dimension(x - (x/realVision) -404, y));
+            menu.setMaximumSize(new Dimension(x - (x/realVision) -404, y));
+            menu.setPreferredSize(new Dimension(x - (x/realVision) -404, y));
+            
             menu.addTab("Инвентарь", inventory);
             menu.addTab("Прокачка", upgrade);
             menu.addTab("Экипировка", equipment);
