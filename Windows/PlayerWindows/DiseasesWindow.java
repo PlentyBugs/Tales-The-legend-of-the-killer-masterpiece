@@ -24,7 +24,11 @@ public class DiseasesWindow extends JFrame implements Serializable {
 
     public void drawWindow(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         panel.removeAll();
+=======
+        panel = new JPanel(new GridBagLayout());
+>>>>>>> parent of 7b0d953... v 0.044
 =======
         panel = new JPanel(new GridBagLayout());
 >>>>>>> parent of 7b0d953... v 0.044

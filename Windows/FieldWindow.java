@@ -216,7 +216,10 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private void updateTabs(){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 7b0d953... v 0.044
 =======
 >>>>>>> parent of 7b0d953... v 0.044
         inventory = player.getInventoryWindow().getPanel();
