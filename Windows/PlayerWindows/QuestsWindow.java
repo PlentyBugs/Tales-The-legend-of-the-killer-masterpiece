@@ -29,6 +29,7 @@ public class QuestsWindow extends JFrame {
     public void drawWindow(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         panel.removeAll();
 =======
 
@@ -38,6 +39,8 @@ public class QuestsWindow extends JFrame {
 
         panel = new JPanel(new GridBagLayout());
 >>>>>>> parent of 7b0d953... v 0.044
+=======
+>>>>>>> parent of a29fff8... v 0.045
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;

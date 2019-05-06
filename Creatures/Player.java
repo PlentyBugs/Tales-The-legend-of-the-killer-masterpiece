@@ -53,7 +53,7 @@ public class Player extends Human {
         stats.setIntelligence(5);
         stats.setLuck(5);
         stats.setEloquence(5);
-        stats.setBlacksmith(5);
+        stats.setBlacksmith(500);
         stats.setTheft(5);
         stats.setAlchemy(5);
         stats.setOne_handed_weapon(5);

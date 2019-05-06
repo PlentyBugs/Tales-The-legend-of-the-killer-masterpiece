@@ -301,56 +301,30 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
     public void keyPressed(KeyEvent event){
         if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A){
-            if(player.getX() - 1 >= 0){
+            if(player != null && currentMap.getMapLowerObjects()[player.getY()][player.getX()-1] != null){
                 if(currentMap.getMapUpperObjects()[player.getY()][player.getX()-1] != null)
                     step(currentMap.getMapUpperObjects()[player.getY()][player.getX()-1]);
                 else
                     step(currentMap.getMapLowerObjects()[player.getY()][player.getX()-1]);
-            } else {
-                if(currentMap.getMapUpperObjects()[player.getY()][currentMap.getMapWidth()-1] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()][currentMap.getMapWidth()-1]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()][currentMap.getMapWidth()-1]);
+                drawMap();
             }
-            drawMap();
         } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D){
-            if(player.getX() + 1 < currentMap.getMapWidth()){
-                if(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()][player.getX()+1]);
-            } else {
-                if(currentMap.getMapUpperObjects()[player.getY()][0] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()][0]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()][0]);
-            }
+            if(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1] != null)
+                step(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1]);
+            else
+            step(currentMap.getMapLowerObjects()[player.getY()][player.getX()+1]);
             drawMap();
         } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W){
-            if(player.getY() - 1 >= 0){
-                if(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()-1][player.getX()]);
-            } else {
-                if(currentMap.getMapUpperObjects()[currentMap.getMapHeight()-1][player.getX()] != null)
-                    step(currentMap.getMapUpperObjects()[currentMap.getMapHeight()-1][player.getX()]);
-                else
-                    step(currentMap.getMapLowerObjects()[currentMap.getMapHeight()-1][player.getX()]);
-            }
+            if(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()] != null)
+                step(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()]);
+            else
+            step(currentMap.getMapLowerObjects()[player.getY()-1][player.getX()]);
             drawMap();
         } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S){
-            if(player.getY() + 1 < currentMap.getMapHeight()){
-                if(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()+1][player.getX()]);
-            } else {
-                if(currentMap.getMapUpperObjects()[0][player.getX()] != null)
-                    step(currentMap.getMapUpperObjects()[0][player.getX()]);
-                else
-                    step(currentMap.getMapLowerObjects()[0][player.getX()]);
-            }
+            if(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()] != null)
+                step(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()]);
+            else
+            step(currentMap.getMapLowerObjects()[player.getY()+1][player.getX()]);
             drawMap();
         }
     }

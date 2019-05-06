@@ -24,6 +24,7 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
     public void drawInfo(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         panel.removeAll();
 =======
 
@@ -33,6 +34,8 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
 
         panel = new JPanel(new GridBagLayout());
 >>>>>>> parent of 7b0d953... v 0.044
+=======
+>>>>>>> parent of a29fff8... v 0.045
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
