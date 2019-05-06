@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class EquipmentWindow extends JFrame implements Serializable {
 
     private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());
+    private JPanel panel = new JPanel();
     private GridBagConstraints constraints;
     private int width = 480;
     private int height = 240;
@@ -37,7 +37,11 @@ public class EquipmentWindow extends JFrame implements Serializable {
     }
 
     public void drawEquipment(){
+<<<<<<< HEAD
         panel = new JPanel();
+=======
+        panel = new JPanel(new GridBagLayout());
+>>>>>>> parent of 7b0d953... v 0.044
         constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -127,6 +131,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
         pack();
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public JPanel getPanel() {

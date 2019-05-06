@@ -50,7 +50,11 @@ public class UpStatsWindow extends JFrame implements Serializable {
     }
 
     public void drawWindow(){
+<<<<<<< HEAD
         panel.removeAll();
+=======
+        panel = new JPanel(new GridBagLayout());
+>>>>>>> parent of 7b0d953... v 0.044
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
@@ -342,6 +346,7 @@ public class UpStatsWindow extends JFrame implements Serializable {
             panel.add(longRangeWeaponButton, constraints);
         }
         pack();
+        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
     }
 
     public JPanel getPanel() {
