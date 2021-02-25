@@ -4,10 +4,10 @@ import Abilities.Ability;
 import Creatures.LiveCreature;
 import Items.Item;
 
-public class Enchant<T extends Item> extends Ability {
+public class Enchant extends Ability {
     protected double damage;
 
-    protected T item;
+    protected Item item;
     protected EnchantType enchantType;
     protected int power;
     protected String description;
@@ -15,7 +15,7 @@ public class Enchant<T extends Item> extends Ability {
 
     public Enchant(){}
 
-    public Enchant(T item){
+    public Enchant(Item item){
         this.item = item;
     }
 
@@ -30,7 +30,7 @@ public class Enchant<T extends Item> extends Ability {
         return this;
     }
 
-    public void setItem(T item){
+    public void setItem(Item item){
         this.item = item;
     }
 

@@ -3,9 +3,9 @@ package Abilities.Enchants.Armor;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
-import Items.Armors.Armor;
+import Items.Item;
 
-public class SpikeArmor<T extends Armor> extends Enchant {
+public class SpikeArmor extends Enchant {
 
     public SpikeArmor() {
         name = "Шипованная броня";
@@ -14,8 +14,8 @@ public class SpikeArmor<T extends Armor> extends Enchant {
         power = 5;
     }
 
-    public SpikeArmor(T item) {
-        super(item);
+    public SpikeArmor(Item armor) {
+        super(armor);
         name = "Шипованная броня";
         description = "Возвращает часть урона врагу";
         enchantType = EnchantType.COUNTERATTACK;

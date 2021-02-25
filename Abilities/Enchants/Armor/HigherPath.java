@@ -3,9 +3,9 @@ package Abilities.Enchants.Armor;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
-import Items.Armors.Armor;
+import Items.Item;
 
-public class HigherPath<T extends Armor> extends Enchant {
+public class HigherPath extends Enchant {
 
     public HigherPath() {
         name = "Путь Высшего";
@@ -14,8 +14,8 @@ public class HigherPath<T extends Armor> extends Enchant {
         power = 1;
     }
 
-    public HigherPath(T item) {
-        super(item);
+    public HigherPath(Item armor) {
+        super(armor);
         name = "Путь Высшего";
         description = "Дает шанс избежать урона";
         enchantType = EnchantType.DEFEND;

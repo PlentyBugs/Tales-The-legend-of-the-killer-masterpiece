@@ -3,13 +3,15 @@ package Abilities.Enchants.Weapon;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
+import Items.Item;
 import Items.Weapons.Weapon;
 
-public class KornelCurse<T extends Weapon> extends Enchant {
+public class KornelCurse extends Enchant {
 
     public KornelCurse() {
         this(3);
     }
+
     public KornelCurse(int power) {
         name = "Проклятье Корнела";
         description = "Увеличивает урон оружия в 3 раза, но делает его полностью случайным";
@@ -17,8 +19,8 @@ public class KornelCurse<T extends Weapon> extends Enchant {
         this.power = power;
     }
 
-    public KornelCurse(T item) {
-        super(item);
+    public KornelCurse(Item weapon) {
+        super(weapon);
         name = "Проклятье Корнела";
         description = "Увеличивает урон оружия в 3 раза, но делает его полностью случайным";
         enchantType = EnchantType.SELFUSE;

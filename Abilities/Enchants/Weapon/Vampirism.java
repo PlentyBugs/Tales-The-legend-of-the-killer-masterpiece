@@ -3,9 +3,10 @@ package Abilities.Enchants.Weapon;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
+import Items.Item;
 import Items.Weapons.Weapon;
 
-public class Vampirism<T extends Weapon> extends Enchant {
+public class Vampirism extends Enchant {
 
     public Vampirism() {
         this(10);
@@ -18,8 +19,8 @@ public class Vampirism<T extends Weapon> extends Enchant {
         this.power = power;
     }
 
-    public Vampirism(T item) {
-        super(item);
+    public Vampirism(Item weapon) {
+        super(weapon);
         name = "Вампиризм";
         description = "Переводит часть вашего урона в жизни";
         enchantType = EnchantType.SELFUSE;

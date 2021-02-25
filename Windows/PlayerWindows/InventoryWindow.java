@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class InventoryWindow extends JFrame implements Serializable {
 
@@ -70,59 +71,24 @@ public class InventoryWindow extends JFrame implements Serializable {
         menuPanel.add(ingredientInventory);
         menuPanel.add(resourceInventory);
 
-        allInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "All";
+        // Я к этому коду 2 года не притрагивался, вообще не знаю что тут происходит, но он мне не нравится
+        // Буду пытаться методом тыка делать его лучше
+        Consumer<String> draw = (inv) -> {
+            currentInventory = inv;
             drawInventory();
             if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
+                if(isDrawMap) {
                     ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                }
             }
-        });
+        };
 
-        weaponInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "Weapon";
-            drawInventory();
-            if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
-            }
-        });
-
-        armorInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "Armor";
-            drawInventory();
-            if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
-            }
-        });
-
-        potionInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "Potion";
-            drawInventory();
-            if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
-            }
-        });
-
-        ingredientInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "Ingredient";
-            drawInventory();
-            if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
-            }
-        });
-
-        resourceInventory.addActionListener((ActionListener & Serializable)e -> {
-            currentInventory = "Resource";
-            drawInventory();
-            if(player.getClass().toString().contains("Player")){
-                if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
-            }
-        });
+        allInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("All"));
+        weaponInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Weapon"));
+        armorInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Armor"));
+        potionInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Potion"));
+        ingredientInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Ingredient"));
+        resourceInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Resource"));
 
         panel = new JPanel(new GridBagLayout());
         constraints = new GridBagConstraints();
@@ -160,29 +126,26 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemConstraints.gridy = 0;
             JLabel propertyCount = new JLabel();
 
-            Color colorBackground = new Color(255,255,255,255);
-            Color colorForeground = new Color(0,0,0);
+            new Color(0, 0, 0);
+            Color colorForeground = switch (item.getGrade()) {
+                case COMMON -> new Color(0, 0, 0);
+                case MAGIC -> new Color(128, 255, 80);
+                case CURSE -> new Color(1, 155, 24);
+                case ARTIFACT -> new Color(255, 0, 18);
+                case HEROIC -> new Color(255, 96, 0);
+                case ABOVETHEGODS -> new Color(255, 0, 197);
+            };
 
-            switch(item.getGrade()){
-                case COMMON: colorForeground = new Color(0,0,0); break;
-                case MAGIC: colorForeground = new Color(128, 255, 80); break;
-                case CURSE: colorForeground = new Color(1,155, 24); break;
-                case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
-                case HEROIC: colorForeground = new Color(255, 96, 0); break;
-                case ABOVETHEGODS: colorForeground = new Color(255, 0, 197); break;
-                default:  colorForeground = new Color(0,0,0); break;
-            }
-
-            switch(item.getRarity()){
-                case COMMON: colorBackground = new Color(255,255,255,100); break;
-                case UNCOMMON: colorBackground = new Color(0, 115,255,100); break;
-                case RARE: colorBackground = new Color(12, 0,255,100); break;
-                case MYSTICAL: colorBackground = new Color(255, 0, 119,100); break;
-                case LEGENDARY: colorBackground = new Color(255, 232, 0,100); break;
-                case DRAGON: colorBackground = new Color(255, 9, 0,100); break;
-                case DIVINE: colorBackground = new Color(255, 169, 0,100); break;
-                default:  colorBackground = new Color(255,255,255,100); break;
-            }
+            Color colorBackground;
+            colorBackground = switch (item.getRarity()) {
+                case COMMON -> new Color(255, 255, 255, 100);
+                case UNCOMMON -> new Color(0, 115, 255, 100);
+                case RARE -> new Color(12, 0, 255, 100);
+                case MYSTICAL -> new Color(255, 0, 119, 100);
+                case LEGENDARY -> new Color(255, 232, 0, 100);
+                case DRAGON -> new Color(255, 9, 0, 100);
+                case DIVINE -> new Color(255, 169, 0, 100);
+            };
 
             JLabel itemName = new JLabel(item.getName());
             JLabel itemQuality = new JLabel("Прочность: " + Double.toString(item.getQuality()));

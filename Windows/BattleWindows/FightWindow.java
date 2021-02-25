@@ -43,28 +43,27 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FightWindow extends JFrame implements Serializable {
 
-    private Player player;
+    private final Player player;
     private LiveCreature enemy;
-    private FieldWindow field;
+    private final FieldWindow field;
 
-    private JProgressBar playerHp;
-    private JProgressBar enemyHp;
-    private JProgressBar loyalty;
+    private final JProgressBar playerHp;
+    private final JProgressBar enemyHp;
+    private final JProgressBar loyalty;
     private boolean battleInProgress;
 
-    private int width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()-20;
-    private int height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private int countMoves = 1;
 
-    private Console enemyConsoleActions;
-    private Console enemyConsoleStatus;
-    private Console playerConsole;
+    private final Console enemyConsoleActions;
+    private final Console enemyConsoleStatus;
+    private final Console playerConsole;
     private DialogWindow dialogWindow = new DialogWindow("");
 
-    private JPanel panel;
+    private final JPanel panel;
     private PlayerAbilityWindow playerAbilityWindow;
     private PlayerFightItemWindow playerFightItemWindow;
     private PlayerDiplomacyWindow playerDiplomacyWindow;
@@ -115,10 +114,12 @@ public class FightWindow extends JFrame implements Serializable {
 
         enemyConsoleActions = new Console();
         enemyConsoleActions.setSpeed(0);
-        enemyConsoleActions.setSizeArea(width/2,height/2-80);
+        int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 20;
+        int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        enemyConsoleActions.setSizeArea(width /2, height /2-80);
 
         enemyConsoleStatus = new Console();
-        enemyConsoleStatus.setSizeArea(width/2,height/2-80);
+        enemyConsoleStatus.setSizeArea(width /2, height /2-80);
         enemyConsoleStatus.setSpeed(0);
 
         JPanel enemyBars = new JPanel(new BorderLayout());
@@ -140,7 +141,7 @@ public class FightWindow extends JFrame implements Serializable {
 
         playerConsole = new Console();
         playerConsole.setSpeed(0);
-        playerConsole.setSizeArea(width/2,height/2);
+        playerConsole.setSizeArea(width /2, height /2);
 
         JPanel playerActions = new JPanel();
         BoxLayout boxLayout = new BoxLayout(playerActions, BoxLayout.Y_AXIS);
@@ -148,7 +149,7 @@ public class FightWindow extends JFrame implements Serializable {
 
         JButton playerAttackButton = new JButton("Атаковать");
         playerAttackButton.setBackground(new Color(0,255,0));
-        Dimension d = new Dimension(width/2,height/10);
+        Dimension d = new Dimension(width /2, height /10);
         playerAttackButton.setMinimumSize(d);
         playerAttackButton.setPreferredSize(d);
         playerAttackButton.setMaximumSize(d);
@@ -254,7 +255,7 @@ public class FightWindow extends JFrame implements Serializable {
         pack();
         setVisible(true);
         field.setIsVisible(false);
-        Thread printHp = new Thread((Runnable & Serializable)() -> printHp());
+        Thread printHp = new Thread((Runnable & Serializable) this::printHp);
         printHp.start();
     }
 
@@ -334,9 +335,7 @@ public class FightWindow extends JFrame implements Serializable {
             int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
             ArrayList<Item> dropItems = new ArrayList<>();
             if(enemy instanceof Boss){
-                for(Item item : ((Boss)enemy).getDropItems()){
-                    dropItems.add(item);
-                }
+                dropItems.addAll(Arrays.asList(((Boss) enemy).getDropItems()));
             }
             for (int i = 0; i < countItemsDrop; i++){
                 Item item = null;
@@ -357,10 +356,10 @@ public class FightWindow extends JFrame implements Serializable {
                     int chanceEnchant = (int)Math.ceil(Math.random()*100);
                     if(chanceEnchant < 3){
                         if(item instanceof Armor){
-                            Enchant<Armor>[] armorEnchants = new Enchant[]{new SpikeArmor<>((Armor)item), new HigherPath<>((Armor)item)};
+                            Enchant[] armorEnchants = new Enchant[]{new SpikeArmor(item), new HigherPath(item)};
                             item.addEnchant(armorEnchants[(int)(Math.random()*armorEnchants.length)]);
                         } else if(item instanceof Weapon){
-                            Enchant<Weapon>[] weaponEnchants = new Enchant[]{new Vampirism((Weapon) item), new KornelCurse((Weapon)item)};
+                            Enchant[] weaponEnchants = new Enchant[]{new Vampirism(item), new KornelCurse(item)};
                             item.addEnchant(weaponEnchants[(int)(Math.random()*weaponEnchants.length)]);
                         }
                     }
