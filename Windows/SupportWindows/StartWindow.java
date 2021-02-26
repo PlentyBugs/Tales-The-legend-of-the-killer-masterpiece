@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 public class StartWindow extends JFrame {
 
-    private boolean startGame;
     private String game = "";
 
     public StartWindow(){
@@ -26,12 +25,16 @@ public class StartWindow extends JFrame {
         JButton loadGame = new JButton("Загрузить игру");
 
         newGame.addActionListener((ActionListener & Serializable) e -> {
-            startGame = true;
+            synchronized (StartWindow.class) {
+                StartWindow.class.notify();
+            }
             game = "new";
         });
 
         loadGame.addActionListener((ActionListener & Serializable)e -> {
-            startGame = true;
+            synchronized (StartWindow.class) {
+                StartWindow.class.notify();
+            }
             game = "load";
         });
 
@@ -42,9 +45,7 @@ public class StartWindow extends JFrame {
 
         try {
             panel.add(new JPanelWithBackGroundImage("./Images/BackGroundMenu.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
 
         pack();
         setVisible(true);
@@ -56,9 +57,5 @@ public class StartWindow extends JFrame {
 
     public String getGame() {
         return game;
-    }
-
-    public boolean getStartGame(){
-        return startGame;
     }
 }

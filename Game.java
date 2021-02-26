@@ -30,12 +30,14 @@ public class Game {
 
         StartWindow startWindow = new StartWindow();
 
-        while(true){
-            System.out.println();
-            if(startWindow.getStartGame()){
-                break;
+        synchronized (StartWindow.class) {
+            try {
+                StartWindow.class.wait();
+            } catch (InterruptedException ex) {
+                System.out.println("Game Started");
             }
         }
+
         String game = startWindow.getGame();
         startWindow.close();
         if(game.equals("new")) {
@@ -114,9 +116,9 @@ public class Game {
             LoadGameWindow loadGameWindow = new LoadGameWindow(ff.getFiles());
 
             String fileName;
-            while(true){
-                fileName = loadGameWindow.getFileName();
+            while(true) {
                 System.out.println();
+                fileName = loadGameWindow.getFileName();
                 if(fileName != null){
                     break;
                 }
