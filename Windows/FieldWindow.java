@@ -291,32 +291,45 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         drawMap();
     }
 
+    // Не понимаю зачем тут я вообще так делал, пока просто отрефакторю, потом мб переделаю
     public void keyPressed(KeyEvent event){
-        if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A){
-            if(player != null && currentMap.getMapLowerObjects()[player.getY()][player.getX()-1] != null){
-                if(currentMap.getMapUpperObjects()[player.getY()][player.getX()-1] != null)
-                    step(currentMap.getMapUpperObjects()[player.getY()][player.getX()-1]);
-                else
-                    step(currentMap.getMapLowerObjects()[player.getY()][player.getX()-1]);
-                drawMap();
-            }
-        } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D){
-            if(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1] != null)
-                step(currentMap.getMapUpperObjects()[player.getY()][player.getX()+1]);
-            else
-            step(currentMap.getMapLowerObjects()[player.getY()][player.getX()+1]);
+        GodCreature[][] lower = currentMap.getMapLowerObjects();
+        GodCreature[][] upper = currentMap.getMapUpperObjects();
+        int height = lower.length;
+        int width = lower[0].length;
+        int x = player.getX();
+        int y = player.getY();
+        if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A) {
+            int newX = x == 0 ? width - 1: x - 1;
+            step(
+                    upper[y][newX] == null ?
+                            lower[y][newX]:
+                            upper[y][newX]
+            );
             drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W){
-            if(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()] != null)
-                step(currentMap.getMapUpperObjects()[player.getY()-1][player.getX()]);
-            else
-            step(currentMap.getMapLowerObjects()[player.getY()-1][player.getX()]);
+        } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D) {
+            int newX = x == width - 1 ? 0: x + 1;
+            step(
+                    upper[y][newX] == null ?
+                            lower[y][newX]:
+                            upper[y][newX]
+            );
             drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S){
-            if(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()] != null)
-                step(currentMap.getMapUpperObjects()[player.getY()+1][player.getX()]);
-            else
-            step(currentMap.getMapLowerObjects()[player.getY()+1][player.getX()]);
+        } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W) {
+            int newY = y == 0 ? height - 1: y - 1;
+            step(
+                    upper[newY][x] == null ?
+                            lower[newY][x]:
+                            upper[newY][x]
+            );
+            drawMap();
+        } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S) {
+            int newY = y == height - 1 ? 0: y + 1;
+            step(
+                    upper[newY][x] == null ?
+                            lower[newY][x]:
+                            upper[newY][x]
+            );
             drawMap();
         }
     }
@@ -431,7 +444,6 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                         });
                     }
                     currentMap = ((Door)creature).generate();
-                    System.gc();
                     player.setFieldWindow(FieldWindow.this);
                     drawMap();
                 }
@@ -618,7 +630,6 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
                         });
                     }
                     currentMap = ((Door)creature).generate();
-                    System.gc();
                     player.setFieldWindow(FieldWindow.this);
                     drawMap();
                 }
