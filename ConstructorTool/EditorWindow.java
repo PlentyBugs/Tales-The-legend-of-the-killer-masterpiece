@@ -24,9 +24,8 @@ import java.awt.*;
 
 public class EditorWindow extends JFrame {
 
-    private GodCreature godCreature;
+    private final GodCreature godCreature;
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
 
     public EditorWindow(GodCreature godCreature){
         super("Редактирование " + godCreature.getName());
@@ -40,12 +39,13 @@ public class EditorWindow extends JFrame {
         getContentPane().remove(panel);
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(5, 5, 5, 5);
         constraints.gridx = 0;
         constraints.gridy = 0;
+        Dimension preferredSize = new Dimension(150, 20);
 
         if (!godCreature.getClass().toString().contains("Chest")){
 
@@ -53,9 +53,9 @@ public class EditorWindow extends JFrame {
             panel.add(name, constraints);
             constraints.gridx ++;
             JTextArea nameTextArea = new JTextArea();
-            nameTextArea.setPreferredSize(new Dimension(150,20));
-            nameTextArea.setMaximumSize(new Dimension(150,20));
-            nameTextArea.setMinimumSize(new Dimension(150,20));
+            nameTextArea.setPreferredSize(preferredSize);
+            nameTextArea.setMaximumSize(preferredSize);
+            nameTextArea.setMinimumSize(preferredSize);
             panel.add(nameTextArea, constraints);
             constraints.gridy ++;
 
@@ -68,9 +68,9 @@ public class EditorWindow extends JFrame {
             panel.add(hpName, constraints);
             constraints.gridx ++;
             JTextArea hpValue = new JTextArea();
-            hpValue.setPreferredSize(new Dimension(150,20));
-            hpValue.setMaximumSize(new Dimension(150,20));
-            hpValue.setMinimumSize(new Dimension(150,20));
+            hpValue.setPreferredSize(preferredSize);
+            hpValue.setMaximumSize(preferredSize);
+            hpValue.setMinimumSize(preferredSize);
             panel.add(hpValue, constraints);
             constraints.gridy ++;
 
@@ -79,9 +79,9 @@ public class EditorWindow extends JFrame {
             panel.add(levelName, constraints);
             constraints.gridx ++;
             JTextArea levelValue = new JTextArea();
-            levelValue.setPreferredSize(new Dimension(150,20));
-            levelValue.setMaximumSize(new Dimension(150,20));
-            levelValue.setMinimumSize(new Dimension(150,20));
+            levelValue.setPreferredSize(preferredSize);
+            levelValue.setMaximumSize(preferredSize);
+            levelValue.setMinimumSize(preferredSize);
             panel.add(levelValue, constraints);
             constraints.gridy ++;
 
@@ -90,9 +90,9 @@ public class EditorWindow extends JFrame {
             panel.add(strengthName, constraints);
             constraints.gridx ++;
             JTextArea strengthValue = new JTextArea();
-            strengthValue.setPreferredSize(new Dimension(150,20));
-            strengthValue.setMaximumSize(new Dimension(150,20));
-            strengthValue.setMinimumSize(new Dimension(150,20));
+            strengthValue.setPreferredSize(preferredSize);
+            strengthValue.setMaximumSize(preferredSize);
+            strengthValue.setMinimumSize(preferredSize);
             panel.add(strengthValue, constraints);
             constraints.gridy ++;
 
@@ -101,9 +101,9 @@ public class EditorWindow extends JFrame {
             panel.add(speedName, constraints);
             constraints.gridx ++;
             JTextArea speedValue = new JTextArea();
-            speedValue.setPreferredSize(new Dimension(150,20));
-            speedValue.setMaximumSize(new Dimension(150,20));
-            speedValue.setMinimumSize(new Dimension(150,20));
+            speedValue.setPreferredSize(preferredSize);
+            speedValue.setMaximumSize(preferredSize);
+            speedValue.setMinimumSize(preferredSize);
             panel.add(speedValue, constraints);
             constraints.gridy ++;
 
@@ -112,9 +112,9 @@ public class EditorWindow extends JFrame {
             panel.add(agilityName, constraints);
             constraints.gridx ++;
             JTextArea agilityValue = new JTextArea();
-            agilityValue.setPreferredSize(new Dimension(150,20));
-            agilityValue.setMaximumSize(new Dimension(150,20));
-            agilityValue.setMinimumSize(new Dimension(150,20));
+            agilityValue.setPreferredSize(preferredSize);
+            agilityValue.setMaximumSize(preferredSize);
+            agilityValue.setMinimumSize(preferredSize);
             panel.add(agilityValue, constraints);
             constraints.gridy ++;
 
@@ -123,9 +123,9 @@ public class EditorWindow extends JFrame {
             panel.add(intelligenceName, constraints);
             constraints.gridx ++;
             JTextArea intelligenceValue = new JTextArea();
-            intelligenceValue.setPreferredSize(new Dimension(150,20));
-            intelligenceValue.setMaximumSize(new Dimension(150,20));
-            intelligenceValue.setMinimumSize(new Dimension(150,20));
+            intelligenceValue.setPreferredSize(preferredSize);
+            intelligenceValue.setMaximumSize(preferredSize);
+            intelligenceValue.setMinimumSize(preferredSize);
             panel.add(intelligenceValue, constraints);
             constraints.gridy ++;
 
@@ -134,9 +134,9 @@ public class EditorWindow extends JFrame {
             panel.add(luckName, constraints);
             constraints.gridx ++;
             JTextArea luckValue = new JTextArea();
-            luckValue.setPreferredSize(new Dimension(150,20));
-            luckValue.setMaximumSize(new Dimension(150,20));
-            luckValue.setMinimumSize(new Dimension(150,20));
+            luckValue.setPreferredSize(preferredSize);
+            luckValue.setMaximumSize(preferredSize);
+            luckValue.setMinimumSize(preferredSize);
             panel.add(luckValue, constraints);
             constraints.gridy ++;
 
@@ -145,9 +145,9 @@ public class EditorWindow extends JFrame {
             panel.add(eloquenceName, constraints);
             constraints.gridx ++;
             JTextArea eloquenceValue = new JTextArea();
-            eloquenceValue.setPreferredSize(new Dimension(150,20));
-            eloquenceValue.setMaximumSize(new Dimension(150,20));
-            eloquenceValue.setMinimumSize(new Dimension(150,20));
+            eloquenceValue.setPreferredSize(preferredSize);
+            eloquenceValue.setMaximumSize(preferredSize);
+            eloquenceValue.setMinimumSize(preferredSize);
             panel.add(eloquenceValue, constraints);
             constraints.gridy ++;
 
@@ -156,9 +156,9 @@ public class EditorWindow extends JFrame {
             panel.add(blacksmithName, constraints);
             constraints.gridx ++;
             JTextArea blacksmithValue = new JTextArea();
-            blacksmithValue.setPreferredSize(new Dimension(150,20));
-            blacksmithValue.setMaximumSize(new Dimension(150,20));
-            blacksmithValue.setMinimumSize(new Dimension(150,20));
+            blacksmithValue.setPreferredSize(preferredSize);
+            blacksmithValue.setMaximumSize(preferredSize);
+            blacksmithValue.setMinimumSize(preferredSize);
             panel.add(blacksmithValue, constraints);
             constraints.gridy ++;
 
@@ -167,9 +167,9 @@ public class EditorWindow extends JFrame {
             panel.add(theftName, constraints);
             constraints.gridx ++;
             JTextArea theftValue = new JTextArea();
-            theftValue.setPreferredSize(new Dimension(150,20));
-            theftValue.setMaximumSize(new Dimension(150,20));
-            theftValue.setMinimumSize(new Dimension(150,20));
+            theftValue.setPreferredSize(preferredSize);
+            theftValue.setMaximumSize(preferredSize);
+            theftValue.setMinimumSize(preferredSize);
             panel.add(theftValue, constraints);
             constraints.gridy ++;
 
@@ -178,9 +178,9 @@ public class EditorWindow extends JFrame {
             panel.add(alchemyName, constraints);
             constraints.gridx ++;
             JTextArea alchemyValue = new JTextArea();
-            alchemyValue.setPreferredSize(new Dimension(150,20));
-            alchemyValue.setMaximumSize(new Dimension(150,20));
-            alchemyValue.setMinimumSize(new Dimension(150,20));
+            alchemyValue.setPreferredSize(preferredSize);
+            alchemyValue.setMaximumSize(preferredSize);
+            alchemyValue.setMinimumSize(preferredSize);
             panel.add(alchemyValue, constraints);
             constraints.gridy ++;
 
@@ -189,20 +189,20 @@ public class EditorWindow extends JFrame {
             panel.add(one_handed_weaponName, constraints);
             constraints.gridx ++;
             JTextArea one_handed_weaponValue = new JTextArea();
-            one_handed_weaponValue.setPreferredSize(new Dimension(150,20));
-            one_handed_weaponValue.setMaximumSize(new Dimension(150,20));
-            one_handed_weaponValue.setMinimumSize(new Dimension(150,20));
+            one_handed_weaponValue.setPreferredSize(preferredSize);
+            one_handed_weaponValue.setMaximumSize(preferredSize);
+            one_handed_weaponValue.setMinimumSize(preferredSize);
             panel.add(one_handed_weaponValue, constraints);
             constraints.gridy ++;
 
             constraints.gridx = 0;
-            JLabel two_handed_weaponName = new JLabel("Двуручное оруэие: ");
+            JLabel two_handed_weaponName = new JLabel("Двуручное оружие: ");
             panel.add(two_handed_weaponName, constraints);
             constraints.gridx ++;
             JTextArea two_handed_weaponValue = new JTextArea();
-            two_handed_weaponValue.setPreferredSize(new Dimension(150,20));
-            two_handed_weaponValue.setMaximumSize(new Dimension(150,20));
-            two_handed_weaponValue.setMinimumSize(new Dimension(150,20));
+            two_handed_weaponValue.setPreferredSize(preferredSize);
+            two_handed_weaponValue.setMaximumSize(preferredSize);
+            two_handed_weaponValue.setMinimumSize(preferredSize);
             panel.add(two_handed_weaponValue, constraints);
             constraints.gridy ++;
 
@@ -211,9 +211,9 @@ public class EditorWindow extends JFrame {
             panel.add(pole_weaponName, constraints);
             constraints.gridx ++;
             JTextArea pole_weaponValue = new JTextArea();
-            pole_weaponValue.setPreferredSize(new Dimension(150,20));
-            pole_weaponValue.setMaximumSize(new Dimension(150,20));
-            pole_weaponValue.setMinimumSize(new Dimension(150,20));
+            pole_weaponValue.setPreferredSize(preferredSize);
+            pole_weaponValue.setMaximumSize(preferredSize);
+            pole_weaponValue.setMinimumSize(preferredSize);
             panel.add(pole_weaponValue, constraints);
             constraints.gridy ++;
 
@@ -222,9 +222,9 @@ public class EditorWindow extends JFrame {
             panel.add(chopping_weaponName, constraints);
             constraints.gridx ++;
             JTextArea chopping_weaponValue = new JTextArea();
-            chopping_weaponValue.setPreferredSize(new Dimension(150,20));
-            chopping_weaponValue.setMaximumSize(new Dimension(150,20));
-            chopping_weaponValue.setMinimumSize(new Dimension(150,20));
+            chopping_weaponValue.setPreferredSize(preferredSize);
+            chopping_weaponValue.setMaximumSize(preferredSize);
+            chopping_weaponValue.setMinimumSize(preferredSize);
             panel.add(chopping_weaponValue, constraints);
             constraints.gridy ++;
 
@@ -233,9 +233,9 @@ public class EditorWindow extends JFrame {
             panel.add(long_range_weaponName, constraints);
             constraints.gridx ++;
             JTextArea long_range_weaponValue = new JTextArea();
-            long_range_weaponValue.setPreferredSize(new Dimension(150,20));
-            long_range_weaponValue.setMaximumSize(new Dimension(150,20));
-            long_range_weaponValue.setMinimumSize(new Dimension(150,20));
+            long_range_weaponValue.setPreferredSize(preferredSize);
+            long_range_weaponValue.setMaximumSize(preferredSize);
+            long_range_weaponValue.setMinimumSize(preferredSize);
             panel.add(long_range_weaponValue, constraints);
             constraints.gridy ++;
 

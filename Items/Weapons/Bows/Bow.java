@@ -21,7 +21,7 @@ public class Bow extends Weapon {
     }
 
     public Bow(){
-        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.LONGRANGE);
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.LONG_RANGE);
         name = "Лук";
     }
     @Override

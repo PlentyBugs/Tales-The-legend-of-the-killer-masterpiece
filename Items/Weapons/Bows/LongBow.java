@@ -18,7 +18,7 @@ public class LongBow extends Bow {
     }
 
     public LongBow(){
-        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.LONGRANGE);
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.LONG_RANGE);
         stockName = "Длинный лук";
     }
 
@@ -72,9 +72,9 @@ public class LongBow extends Bow {
 
         for(WeaponType type : weaponType){
             switch (type){
-                case ONEHANDED: addDamage += 0; break;
-                case TWOHANDED: addDamage += addDamage; break;
-                case LONGRANGE: addDamage += 0; break;
+                case ONE_HANDED: addDamage += 0; break;
+                case TWO_HANDED: addDamage += addDamage; break;
+                case LONG_RANGE: addDamage += 0; break;
                 case POLE: addDamage += 0; break;
                 case CHOPPING: addDamage += 0; break;
             }

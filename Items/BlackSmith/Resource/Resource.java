@@ -30,15 +30,14 @@ public class Resource extends Item {
         this.temperature = temperature;
     }
 
-    @Override
-    public int compareTo(Object o) {
+    public int compareTo(Resource o) {
         if(o.getClass() != getClass()){
             return -1;
         }
-        if(maxTemperature == ((Resource)o).getMaxTemperature() && hotTreatment == ((Resource) o).getTreatment()){
+        if(maxTemperature == o.getMaxTemperature() && hotTreatment == o.getTreatment()){
             return 0;
         }
-        if(maxTemperature > ((Resource)o).getMaxTemperature())
+        if(maxTemperature > o.getMaxTemperature())
             return 1;
         else
             return -1;

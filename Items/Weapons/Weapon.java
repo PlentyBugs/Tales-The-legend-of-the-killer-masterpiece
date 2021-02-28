@@ -4,14 +4,17 @@ import Creatures.LiveCreature;
 import Items.Item;
 import Windows.BattleWindows.FightWindow;
 
+import java.io.Serial;
 import java.util.ArrayList;
 
 public class Weapon extends Item {
+    @Serial
+    private static final long serialVersionUID = -704955292525306190L;
+
     protected int damage;
     protected int bonusDamage = 1;
     protected double enchantBonus = 1;
     protected ArrayList<WeaponType> weaponType = new ArrayList<>();
-    private static final long serialVersionUID = -704955292525306190L;
 
     public ArrayList<WeaponType> getWeaponType() {
         return weaponType;
@@ -30,62 +33,59 @@ public class Weapon extends Item {
         int addDamage = 0;
 
         for(WeaponType type : weaponType){
-            switch (type){
-                case ONEHANDED: stockName = "Одноручный " + stockName;break;
-                case TWOHANDED: stockName = "Двуручный " + stockName; break;
+            switch (type) {
+                case ONE_HANDED -> stockName = "Одноручный " + stockName;
+                case TWO_HANDED -> stockName = "Двуручный " + stockName;
             }
         }
-        switch (material){
-            case COPPER: addDamage += 1; break;
-            case IRON: addDamage += 15; break;
-            case BRONZE: addDamage += 31; break;
-            case STEEL: addDamage += 43; break;
-            case MYTHRIL: addDamage += 57; break;
-            case ADAMANTINE: addDamage += 76; break;
-            case ELVENMYTHRIL: addDamage += 92; break;
-            case CRYSTAL: addDamage += 143; break;
-            case DEEP: addDamage += 276; break;
-            case GODSHEART: addDamage += 434; break;
-            case ABSOLUTEZERO: addDamage += 700; break;
+        switch (material) {
+            case COPPER -> addDamage += 1;
+            case IRON -> addDamage += 15;
+            case BRONZE -> addDamage += 31;
+            case STEEL -> addDamage += 43;
+            case MYTHRIL -> addDamage += 57;
+            case ADAMANTINE -> addDamage += 76;
+            case ELVENMYTHRIL -> addDamage += 92;
+            case CRYSTAL -> addDamage += 143;
+            case DEEP -> addDamage += 276;
+            case GODSHEART -> addDamage += 434;
+            case ABSOLUTEZERO -> addDamage += 700;
         }
-        switch (material){
-            case COPPER: name = "Медный " + stockName; break;
-            case IRON: name = "Железный " + stockName; break;
-            case BRONZE: name = "Бронзовый " + stockName; break;
-            case STEEL: name = "Стальной " + stockName; break;
-            case MYTHRIL: name = "Мифриловый " + stockName; break;
-            case ADAMANTINE: name = "Адамантиновый " + stockName; break;
-            case ELVENMYTHRIL: name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " из эльфийского мифрила"; break;
-            case CRYSTAL: name = "Хрустальный " + stockName; break;
-            case DEEP: name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " бездны"; break;
-            case GODSHEART: name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " из сердца бога"; break;
-            case ABSOLUTEZERO: name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " начала и конца"; break;
+        switch (material) {
+            case COPPER -> name = "Медный " + stockName;
+            case IRON -> name = "Железный " + stockName;
+            case BRONZE -> name = "Бронзовый " + stockName;
+            case STEEL -> name = "Стальной " + stockName;
+            case MYTHRIL -> name = "Мифриловый " + stockName;
+            case ADAMANTINE -> name = "Адамантиновый " + stockName;
+            case ELVENMYTHRIL -> name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " из эльфийского мифрила";
+            case CRYSTAL -> name = "Хрустальный " + stockName;
+            case DEEP -> name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " бездны";
+            case GODSHEART -> name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " из сердца бога";
+            case ABSOLUTEZERO -> name = stockName.substring(0, 1).toUpperCase() + stockName.substring(1) + " начала и конца";
         }
-        switch (grade){
-            case COMMON: addDamage += 1; break;
-            case MAGIC: addDamage += 32; break;
-            case CURSE: addDamage += 73; break;
-            case ARTIFACT: addDamage += 150; break;
-            case HEROIC: addDamage += 360; break;
-            case ABOVETHEGODS: addDamage += 700; break;
+        switch (grade) {
+            case COMMON -> addDamage += 1;
+            case MAGIC -> addDamage += 32;
+            case CURSE -> addDamage += 73;
+            case ARTIFACT -> addDamage += 150;
+            case HEROIC -> addDamage += 360;
+            case ABOVETHEGODS -> addDamage += 700;
         }
-        switch (rarity){
-            case COMMON: addDamage += 1; break;
-            case UNCOMMON: addDamage += 14; break;
-            case RARE: addDamage += 45; break;
-            case MYSTICAL: addDamage += 87; break;
-            case LEGENDARY: addDamage += 160; break;
-            case DRAGON: addDamage += 389; break;
-            case DIVINE: addDamage += 587; break;
+        switch (rarity) {
+            case COMMON -> addDamage += 1;
+            case UNCOMMON -> addDamage += 14;
+            case RARE -> addDamage += 45;
+            case MYSTICAL -> addDamage += 87;
+            case LEGENDARY -> addDamage += 160;
+            case DRAGON -> addDamage += 389;
+            case DIVINE -> addDamage += 587;
         }
 
         for(WeaponType type : weaponType){
-            switch (type){
-                case ONEHANDED: addDamage += 0; break;
-                case TWOHANDED: addDamage += addDamage; break;
-                case LONGRANGE: addDamage += 0; break;
-                case POLE: addDamage += 0; break;
-                case CHOPPING: addDamage += 0; break;
+            switch (type) {
+                case ONE_HANDED, LONG_RANGE, POLE, CHOPPING -> addDamage += 0;
+                case TWO_HANDED -> addDamage += addDamage;
             }
         }
 
@@ -121,38 +121,38 @@ public class Weapon extends Item {
     public void countCost(){
         int addCost = 0;
 
-        switch (material){
-            case LEATHER: addCost += 700; break;
-            case STUDDEDLEATHER: addCost += 1500; break;
-            case CHAIN: addCost += 4500; break;
-            case COPPER: addCost += 9800; break;
-            case IRON: addCost += 11200; break;
-            case BRONZE: addCost += 24000; break;
-            case STEEL: addCost += 38000; break;
-            case MYTHRIL: addCost += 87000; break;
-            case ADAMANTINE: addCost += 145000; break;
-            case ELVENMYTHRIL: addCost += 265000; break;
-            case CRYSTAL: addCost += 554000; break;
-            case DEEP: addCost += 870000; break;
-            case GODSHEART: addCost += 1120000; break;
-            case ABSOLUTEZERO: addCost += 1345000; break;
+        switch (material) {
+            case LEATHER -> addCost += 700;
+            case STUDDEDLEATHER -> addCost += 1500;
+            case CHAIN -> addCost += 4500;
+            case COPPER -> addCost += 9800;
+            case IRON -> addCost += 11200;
+            case BRONZE -> addCost += 24000;
+            case STEEL -> addCost += 38000;
+            case MYTHRIL -> addCost += 87000;
+            case ADAMANTINE -> addCost += 145000;
+            case ELVENMYTHRIL -> addCost += 265000;
+            case CRYSTAL -> addCost += 554000;
+            case DEEP -> addCost += 870000;
+            case GODSHEART -> addCost += 1120000;
+            case ABSOLUTEZERO -> addCost += 1345000;
         }
-        switch (grade){
-            case COMMON: addCost += 300; break;
-            case MAGIC: addCost += 5420; break;
-            case CURSE: addCost += 18450; break;
-            case ARTIFACT: addCost += 34500; break;
-            case HEROIC: addCost += 78540; break;
-            case ABOVETHEGODS: addCost += 1600000; break;
+        switch (grade) {
+            case COMMON -> addCost += 300;
+            case MAGIC -> addCost += 5420;
+            case CURSE -> addCost += 18450;
+            case ARTIFACT -> addCost += 34500;
+            case HEROIC -> addCost += 78540;
+            case ABOVETHEGODS -> addCost += 1600000;
         }
-        switch (rarity){
-            case COMMON: addCost += 900; break;
-            case UNCOMMON: addCost += 4550; break;
-            case RARE: addCost += 11500; break;
-            case MYSTICAL: addCost += 25000; break;
-            case LEGENDARY: addCost += 42000; break;
-            case DRAGON: addCost += 156000; break;
-            case DIVINE: addCost += 354000; break;
+        switch (rarity) {
+            case COMMON -> addCost += 900;
+            case UNCOMMON -> addCost += 4550;
+            case RARE -> addCost += 11500;
+            case MYSTICAL -> addCost += 25000;
+            case LEGENDARY -> addCost += 42000;
+            case DRAGON -> addCost += 156000;
+            case DIVINE -> addCost += 354000;
         }
 
         cost = addCost;

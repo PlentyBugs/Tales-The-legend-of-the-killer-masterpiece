@@ -1,6 +1,5 @@
 package Windows.PlayerWindows;
 
-import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Alchemy.Potions.Potion;
 import Items.Armors.Armor;
@@ -13,25 +12,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class InventoryWindow extends JFrame implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -559721917387219997L;
 
-    private LiveCreature player;
+    private final Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
     private JScrollPane scroll = new JScrollPane(panel);
-    private GridBagConstraints constraints;
     private JPanel menuPanel = new JPanel();
-    private int width = 720;
-    private int height = 720;
+    private final int width = 720;
+    private final int height = 720;
     private JPanel panelz = new JPanel();
-    private static final long serialVersionUID = -559721917387219997L;
     private String currentInventory = "All";
-    private ArrayList<Item> uniqueInventory = new ArrayList<>();
+    // Вообще костыль, надо будет переделать потом
+    private final ArrayList<Item> uniqueInventory = new ArrayList<>();
 
-    public InventoryWindow(LiveCreature player){
+    public InventoryWindow(Player player){
         super("Инвентарь");
 
         setPreferredSize(new Dimension(width, height));
@@ -46,7 +47,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void setIsVisible(boolean b) {
+    public void setIsVisible() {
         drawInventory();
     }
 
@@ -78,7 +79,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             drawInventory();
             if(player.getClass().toString().contains("Player")){
                 if(isDrawMap) {
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                    player.getFieldWindow().drawAllPlayerWindow();
                 }
             }
         };
@@ -91,7 +92,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         resourceInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Resource"));
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 0, 0, 0);
@@ -148,9 +149,9 @@ public class InventoryWindow extends JFrame implements Serializable {
             };
 
             JLabel itemName = new JLabel(item.getName());
-            JLabel itemQuality = new JLabel("Прочность: " + Double.toString(item.getQuality()));
+            JLabel itemQuality = new JLabel("Прочность: " + item.getQuality());
             JLabel property = new JLabel();
-
+            
             if (item.getClass().toString().contains("Weapons")){
                 property.setText("Урон: ");
                 propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));

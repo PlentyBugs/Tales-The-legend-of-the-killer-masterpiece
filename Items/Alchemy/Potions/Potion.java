@@ -9,11 +9,14 @@ import Items.Grade;
 import Items.Item;
 import Items.Rarity;
 
+import java.io.Serial;
+
 public class Potion extends Item implements BattleItem {
+    @Serial
+    private static final long serialVersionUID = -1676624921038826829L;
 
     protected PotionMaterial potionMaterial;
     protected Effect effect;
-    private static final long serialVersionUID = -1676624921038826829L;
 
     public Potion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
         this.name = "Зелье";
@@ -49,9 +52,14 @@ public class Potion extends Item implements BattleItem {
         return potionMaterial;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        if(getName().equals(((Item) o).getName()) && getGrade() == ((Item) o).getGrade() && getQuality() == ((Item) o).getQuality() && getRarity() == ((Item) o).getRarity() && effect.getPower() == ((Potion)o).getEffect().getPower()){
+    public int compareTo(Potion o) {
+        if(
+                getName().equals(o.getName()) &&
+                getGrade() == o.getGrade() &&
+                getQuality() == o.getQuality() &&
+                getRarity() == o.getRarity() &&
+                effect.getPower() == o.getEffect().getPower()
+        ){
             return 0;
         }
         return -1;
@@ -59,30 +67,30 @@ public class Potion extends Item implements BattleItem {
 
     public Potion countProperty(){
         int addPower = 0;
-        switch (potionMaterial){
-            case WATER: addPower += 30; break;
-            case AIR: addPower += 800; break;
-            case BLOOD: addPower += 4500; break;
-            case DRAGONBLOOD: addPower += 33000; break;
-            case GODBLOOD: addPower += 178000; break;
+        switch (potionMaterial) {
+            case WATER -> addPower += 30;
+            case AIR -> addPower += 800;
+            case BLOOD -> addPower += 4500;
+            case DRAGONBLOOD -> addPower += 33000;
+            case GODBLOOD -> addPower += 178000;
         }
 
-        switch (grade){
-            case COMMON: addPower += 300; break;
-            case MAGIC: addPower += 4800; break;
-            case CURSE: addPower += 13000; break;
-            case ARTIFACT: addPower += 51000; break;
-            case HEROIC: addPower += 230000; break;
-            case ABOVETHEGODS: addPower += 580000; break;
+        switch (grade) {
+            case COMMON -> addPower += 300;
+            case MAGIC -> addPower += 4800;
+            case CURSE -> addPower += 13000;
+            case ARTIFACT -> addPower += 51000;
+            case HEROIC -> addPower += 230000;
+            case ABOVETHEGODS -> addPower += 580000;
         }
-        switch (rarity){
-            case COMMON: addPower += 120; break;
-            case UNCOMMON: addPower += 3500; break;
-            case RARE: addPower += 14200; break;
-            case MYSTICAL: addPower += 35400; break;
-            case LEGENDARY: addPower += 78000; break;
-            case DRAGON: addPower += 347000; break;
-            case DIVINE: addPower += 975000; break;
+        switch (rarity) {
+            case COMMON -> addPower += 120;
+            case UNCOMMON -> addPower += 3500;
+            case RARE -> addPower += 14200;
+            case MYSTICAL -> addPower += 35400;
+            case LEGENDARY -> addPower += 78000;
+            case DRAGON -> addPower += 347000;
+            case DIVINE -> addPower += 975000;
         }
 
         effect.setPower(effect.getPower() + addPower);
@@ -93,33 +101,35 @@ public class Potion extends Item implements BattleItem {
     public void useItemInBattle() {
 
     }
+
     @Override
     public void countCost(){
         int addCost = 0;
-        switch (potionMaterial){
-            case WATER: addCost += 500; break;
-            case AIR: addCost += 1450; break;
-            case BLOOD: addCost += 4500; break;
-            case DRAGONBLOOD: addCost += 14200; break;
-            case GODBLOOD: addCost += 45200; break;
+        switch (potionMaterial) {
+            case WATER -> addCost += 500;
+            case AIR -> addCost += 1450;
+            case BLOOD -> addCost += 4500;
+            case DRAGONBLOOD -> addCost += 14200;
+            case GODBLOOD -> addCost += 45200;
         }
 
-        switch (grade){
-            case COMMON: addCost += 300; break;
-            case MAGIC: addCost += 2100; break;
-            case CURSE: addCost += 6400; break;
-            case ARTIFACT: addCost += 17500; break;
-            case HEROIC: addCost += 57800; break;
-            case ABOVETHEGODS: addCost += 145000; break;
+        switch (grade) {
+            case COMMON -> addCost += 300;
+            case MAGIC -> addCost += 2100;
+            case CURSE -> addCost += 6400;
+            case ARTIFACT -> addCost += 17500;
+            case HEROIC -> addCost += 57800;
+            case ABOVETHEGODS -> addCost += 145000;
         }
-        switch (rarity){
-            case COMMON: addCost += 120; break;
-            case UNCOMMON: addCost += 1400; break;
-            case RARE: addCost += 3540; break;
-            case MYSTICAL: addCost += 18000; break;
-            case LEGENDARY: addCost += 42000; break;
-            case DRAGON: addCost += 54200; break;
-            case DIVINE: addCost += 175000; break;
+
+        switch (rarity) {
+            case COMMON -> addCost += 120;
+            case UNCOMMON -> addCost += 1400;
+            case RARE -> addCost += 3540;
+            case MYSTICAL -> addCost += 18000;
+            case LEGENDARY -> addCost += 42000;
+            case DRAGON -> addCost += 54200;
+            case DIVINE -> addCost += 175000;
         }
 
         cost = addCost;

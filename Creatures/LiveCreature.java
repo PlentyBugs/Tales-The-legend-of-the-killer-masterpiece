@@ -244,7 +244,7 @@ public class LiveCreature extends GodCreature {
     public void equip(Item item){
         if (inventory.contains(item)){
             if (item.getClass().toString().contains("Weapons")){
-                if (((Weapon)item).getWeaponType().contains(WeaponType.ONEHANDED)){
+                if (((Weapon)item).getWeaponType().contains(WeaponType.ONE_HANDED)){
                     if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
                         equipment.setOneHandedWeaponLeft((Weapon)item);

@@ -33,7 +33,7 @@ public class Skeleton extends Human {
         color = new Color(155,155,155);
 
         uniqueDropItems = new Item[]{new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new HealPotion(),
@@ -89,7 +89,7 @@ public class Skeleton extends Human {
             skeletonBow.setMaterial(Material.COPPER);
             skeletonBow.setRarity(Rarity.COMMON);
             skeletonBow.setGrade(Grade.COMMON);
-            skeletonBow.setWeaponType(WeaponType.ONEHANDED);
+            skeletonBow.setWeaponType(WeaponType.ONE_HANDED);
             skeletonArmorTorso.setMaterial(Material.COPPER);
             skeletonArmorTorso.setRarity(Rarity.COMMON);
             skeletonArmorTorso.setGrade(Grade.COMMON);
@@ -100,7 +100,7 @@ public class Skeleton extends Human {
             skeletonBow.setMaterial(Material.BRONZE);
             skeletonBow.setRarity(Rarity.RARE);
             skeletonBow.setGrade(Grade.MAGIC);
-            skeletonBow.setWeaponType(WeaponType.TWOHANDED);
+            skeletonBow.setWeaponType(WeaponType.TWO_HANDED);
             skeletonArmorTorso.setMaterial(Material.BRONZE);
             skeletonArmorTorso.setRarity(Rarity.RARE);
             skeletonArmorTorso.setGrade(Grade.MAGIC);
@@ -111,7 +111,7 @@ public class Skeleton extends Human {
             skeletonBow.setMaterial(Material.MYTHRIL);
             skeletonBow.setRarity(Rarity.MYSTICAL);
             skeletonBow.setGrade(Grade.CURSE);
-            skeletonBow.setWeaponType(WeaponType.TWOHANDED);
+            skeletonBow.setWeaponType(WeaponType.TWO_HANDED);
             skeletonArmorTorso.setMaterial(Material.MYTHRIL);
             skeletonArmorTorso.setRarity(Rarity.MYSTICAL);
             skeletonArmorTorso.setGrade(Grade.CURSE);
@@ -122,7 +122,7 @@ public class Skeleton extends Human {
             skeletonBow.setMaterial(Material.DEEP);
             skeletonBow.setRarity(Rarity.DRAGON);
             skeletonBow.setGrade(Grade.ARTIFACT);
-            skeletonBow.setWeaponType(WeaponType.TWOHANDED);
+            skeletonBow.setWeaponType(WeaponType.TWO_HANDED);
             skeletonArmorTorso.setMaterial(Material.MYTHRIL);
             skeletonArmorTorso.setRarity(Rarity.MYSTICAL);
             skeletonArmorTorso.setGrade(Grade.CURSE);

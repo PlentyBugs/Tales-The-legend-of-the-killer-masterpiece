@@ -33,7 +33,7 @@ public class Zombie extends Human {
         color = new Color(33, 99, 70);
 
         uniqueDropItems = new Item[]{new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new HealPotion(),

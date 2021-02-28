@@ -5,7 +5,7 @@ import Abilities.Enchants.Enchant;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Item implements Serializable, Cloneable, Comparable {
+public class Item implements Serializable, Cloneable {
     protected String name;
     protected int cost;
     protected Grade grade;
@@ -83,9 +83,8 @@ public class Item implements Serializable, Cloneable, Comparable {
         return super.clone();
     }
 
-    @Override
-    public int compareTo(Object o) {
-        if(getName().equals(((Item) o).getName()) && getGrade() == ((Item) o).getGrade() && getQuality() == ((Item) o).getQuality() && getRarity() == ((Item) o).getRarity()){
+    public int compareTo(Item o) {
+        if(getName().equals(o.getName()) && getGrade() == o.getGrade() && getQuality() == o.getQuality() && getRarity() == o.getRarity()){
             return 0;
         }
         return -1;
@@ -118,12 +117,19 @@ public class Item implements Serializable, Cloneable, Comparable {
     }
 
     public String getEnchantDescription(){
-        String desc = "<html>Зачарования:<br>";
+        StringBuilder desc = new StringBuilder("<html>Зачарования:<br>");
         for(Enchant enchant : enchants){
-            desc += "<b>Название:</b> " + enchant.getName() + "<br><b>Описание:</b> " + enchant.getDescription() + "<br><b>Мощность:</b> " + enchant.getPower() + "<br><br>";
+            desc.
+                    append("<b>Название:</b> ").
+                    append(enchant.getName()).
+                    append("<br><b>Описание:</b> ").
+                    append(enchant.getDescription()).
+                    append("<br><b>Мощность:</b> ").
+                    append(enchant.getPower()).
+                    append("<br><br>");
         }
-        desc += "</html>";
-        return desc;
+        desc.append("</html>");
+        return desc.toString();
     }
 
     public Item setCost(int cost) {
@@ -144,4 +150,5 @@ public class Item implements Serializable, Cloneable, Comparable {
     public void decreaseQuality(double decQ){
         quality -= decQ;
     }
+
 }

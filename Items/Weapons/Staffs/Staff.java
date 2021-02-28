@@ -20,7 +20,7 @@ public class Staff extends Weapon {
     }
 
     public Staff(){
-        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED);
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED);
         name = "посох";
     }
 
@@ -29,8 +29,8 @@ public class Staff extends Weapon {
 
         for(WeaponType type : weaponType){
             switch (type){
-                case ONEHANDED: stockName = "Одноручный " + stockName; break;
-                case TWOHANDED: stockName = "Двуручный " + stockName; break;
+                case ONE_HANDED: stockName = "Одноручный " + stockName; break;
+                case TWO_HANDED: stockName = "Двуручный " + stockName; break;
             }
         }
         switch (material){

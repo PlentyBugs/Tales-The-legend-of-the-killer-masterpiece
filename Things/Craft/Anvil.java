@@ -73,8 +73,8 @@ public class Anvil extends Thing implements BlackSmithCraftTable{
             case BOW: item = new Bow(); break;
             case SHORTBOW: item = new ShortBow(); break;
             case LONGBOW: item = new LongBow(); break;
-            case SWORDONEHANDED: item = new Sword().setWeaponType(WeaponType.ONEHANDED); break;
-            case SWORDTWOHANDED: item = new Sword().setWeaponType(WeaponType.TWOHANDED); break;
+            case SWORDONEHANDED: item = new Sword().setWeaponType(WeaponType.ONE_HANDED); break;
+            case SWORDTWOHANDED: item = new Sword().setWeaponType(WeaponType.TWO_HANDED); break;
             case TORSO: item = new Torso(); break;
             case HELMET: item = new Helmet(); break;
             case RING: item = new Ring(); break;

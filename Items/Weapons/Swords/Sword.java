@@ -24,15 +24,15 @@ public class Sword extends Weapon {
     }
 
     public Sword(){
-        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.ONEHANDED);
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.ONE_HANDED);
         name = "меч";
     }
 
     @Override
     public void weaponSkill(LiveCreature enemy, FightWindow fightWindow, LiveCreature attacker){
-        if(weaponType.contains(WeaponType.TWOHANDED))
+        if(weaponType.contains(WeaponType.TWO_HANDED))
             injury(enemy, fightWindow);
-        else if(weaponType.contains(WeaponType.ONEHANDED))
+        else if(weaponType.contains(WeaponType.ONE_HANDED))
             battleTendency(attacker, fightWindow);
     }
 

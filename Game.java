@@ -61,12 +61,12 @@ public class Game {
             }
 */
             player.addItemToInventory(
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED)
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONE_HANDED)
                             .addEnchant(new Vampirism()),
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWOHANDED),
-                    new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONGRANGE),
-                    new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
-                    new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONEHANDED),
+                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWO_HANDED),
+                    new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONG_RANGE),
+                    new Staff(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONE_HANDED),
+                    new Axe(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONE_HANDED),
                     new Torso(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 10000000),
                     new Helmet(Material.LEATHER, Rarity.COMMON, Grade.COMMON, 0),
                     new Ring(Material.COPPER, Rarity.COMMON, Grade.COMMON, StatsEnum.ALCHEMY)

@@ -73,7 +73,7 @@ public class DeadGuardian extends Boss {
             guardianSword.setMaterial(Material.MYTHRIL);
             guardianSword.setRarity(Rarity.MYSTICAL);
             guardianSword.setGrade(Grade.CURSE);
-            guardianSword.setWeaponType(WeaponType.TWOHANDED);
+            guardianSword.setWeaponType(WeaponType.TWO_HANDED);
             guardianArmorTorso.setMaterial(Material.MYTHRIL);
             guardianArmorTorso.setRarity(Rarity.MYSTICAL);
             guardianArmorTorso.setGrade(Grade.CURSE);
@@ -84,7 +84,7 @@ public class DeadGuardian extends Boss {
             guardianSword.setMaterial(Material.ADAMANTINE);
             guardianSword.setRarity(Rarity.LEGENDARY);
             guardianSword.setGrade(Grade.CURSE);
-            guardianSword.setWeaponType(WeaponType.TWOHANDED);
+            guardianSword.setWeaponType(WeaponType.TWO_HANDED);
             guardianArmorTorso.setMaterial(Material.ADAMANTINE);
             guardianArmorTorso.setRarity(Rarity.LEGENDARY);
             guardianArmorTorso.setGrade(Grade.CURSE);
@@ -95,7 +95,7 @@ public class DeadGuardian extends Boss {
             guardianSword.setMaterial(Material.DEEP);
             guardianSword.setRarity(Rarity.DRAGON);
             guardianSword.setGrade(Grade.ARTIFACT);
-            guardianSword.setWeaponType(WeaponType.TWOHANDED);
+            guardianSword.setWeaponType(WeaponType.TWO_HANDED);
             guardianArmorTorso.setMaterial(Material.DEEP);
             guardianArmorTorso.setRarity(Rarity.DRAGON);
             guardianArmorTorso.setGrade(Grade.ARTIFACT);
@@ -137,7 +137,7 @@ public class DeadGuardian extends Boss {
 
         uniqueDropItems = new Item[]{
                 new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new Ring(),

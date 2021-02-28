@@ -105,7 +105,7 @@ public class NPC {
         dealerPetush.addConversationDialog(3, questDialogConversationDealer);
 
         dealerPetush.addItemToInventory(
-                new Sword(Material.ELVENMYTHRIL, Rarity.LEGENDARY, Grade.ARTIFACT, 3, WeaponType.TWOHANDED),
+                new Sword(Material.ELVENMYTHRIL, Rarity.LEGENDARY, Grade.ARTIFACT, 3, WeaponType.TWO_HANDED),
                 new Helmet(Material.ELVENMYTHRIL, Rarity.MYSTICAL, Grade.ARTIFACT, 1)
         );
 
@@ -119,9 +119,9 @@ public class NPC {
         dealerShutep = new Dealer(3,3,"Шутеп", 15623, 8461315);
         dealerShutep.setX(3);
         dealerShutep.setY(3);
-        Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED);
+        Sword shutepSwordForSale = new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED);
         shutepSwordForSale.countProperty();
-        dealerShutep.addItemToInventory(new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONEHANDED).countProperty());
+        dealerShutep.addItemToInventory(new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty());
         dealerShutep.addConversationShop(1);
         dealerShutep.addConversationTrain(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
         dealerShutep.getConversationWindow().setPlayer(player);

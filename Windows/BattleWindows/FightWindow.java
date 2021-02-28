@@ -601,18 +601,18 @@ public class FightWindow extends JFrame implements Serializable {
                     weapon.setBonusDamage(1);
                     for(WeaponType weaponType : weapon.getWeaponType()){
                         switch (weaponType){
-                            case ONEHANDED:{
+                            case ONE_HANDED:{
                                 if(attacker.getStats().getOne_handed_weapon() != 0) {
                                     weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
                                 }
                             }
                             break;
-                            case TWOHANDED:{
+                            case TWO_HANDED:{
                                 if(attacker.getStats().getTwo_handed_weapon() != 0) {
                                     weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
                                 }
                             } break;
-                            case LONGRANGE:{
+                            case LONG_RANGE:{
                                 if(attacker.getStats().getLong_range_weapon() != 0) {
                                     weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
                                 }

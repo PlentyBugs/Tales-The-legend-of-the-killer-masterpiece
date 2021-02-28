@@ -26,35 +26,35 @@ public class Key extends Item {
     public Key countProperty(){
         int levelAdd = 0;
 
-        switch (material){
-            case COPPER: levelAdd += 1; break;
-            case IRON: levelAdd += 2; break;
-            case BRONZE: levelAdd += 3; break;
-            case STEEL: levelAdd += 4; break;
-            case MYTHRIL: levelAdd += 5; break;
-            case ADAMANTINE: levelAdd += 6; break;
-            case ELVENMYTHRIL: levelAdd += 7; break;
-            case CRYSTAL: levelAdd += 8; break;
-            case DEEP: levelAdd += 9; break;
-            case GODSHEART: levelAdd += 10; break;
-            case ABSOLUTEZERO: levelAdd += 11; break;
+        switch (material) {
+            case COPPER -> levelAdd += 1;
+            case IRON -> levelAdd += 2;
+            case BRONZE -> levelAdd += 3;
+            case STEEL -> levelAdd += 4;
+            case MYTHRIL -> levelAdd += 5;
+            case ADAMANTINE -> levelAdd += 6;
+            case ELVENMYTHRIL -> levelAdd += 7;
+            case CRYSTAL -> levelAdd += 8;
+            case DEEP -> levelAdd += 9;
+            case GODSHEART -> levelAdd += 10;
+            case ABSOLUTEZERO -> levelAdd += 11;
         }
-        switch (grade){
-            case COMMON: levelAdd += 1; break;
-            case MAGIC: levelAdd += 2; break;
-            case CURSE: levelAdd += 3; break;
-            case ARTIFACT: levelAdd += 4; break;
-            case HEROIC: levelAdd += 5; break;
-            case ABOVETHEGODS: levelAdd += 6; break;
+        switch (grade) {
+            case COMMON -> levelAdd += 1;
+            case MAGIC -> levelAdd += 2;
+            case CURSE -> levelAdd += 3;
+            case ARTIFACT -> levelAdd += 4;
+            case HEROIC -> levelAdd += 5;
+            case ABOVETHEGODS -> levelAdd += 6;
         }
-        switch (rarity){
-            case COMMON: levelAdd += 1; break;
-            case UNCOMMON: levelAdd += 2; break;
-            case RARE: levelAdd += 3; break;
-            case MYSTICAL: levelAdd += 4; break;
-            case LEGENDARY: levelAdd += 5; break;
-            case DRAGON: levelAdd += 6; break;
-            case DIVINE: levelAdd += 7; break;
+        switch (rarity) {
+            case COMMON -> levelAdd += 1;
+            case UNCOMMON -> levelAdd += 2;
+            case RARE -> levelAdd += 3;
+            case MYSTICAL -> levelAdd += 4;
+            case LEGENDARY -> levelAdd += 5;
+            case DRAGON -> levelAdd += 6;
+            case DIVINE -> levelAdd += 7;
         }
 
         level += levelAdd;
@@ -77,19 +77,18 @@ public class Key extends Item {
         this.level = level;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        if(o.getClass() != getClass() || door != ((Key)o).getDoor()){
+    public int compareTo(Key o) {
+        if(o.getClass() != getClass() || door != o.getDoor()){
             return -1;
         }
-        if(door == ((Key)o).getDoor()){
-            if(level == ((Key)o).getLevel()){
+        if(door == o.getDoor()){
+            if(level == o.getLevel()){
                 return 0;
             }
-            if(level >= ((Key)o).getLevel()){
+            if(level >= o.getLevel()){
                 return 1;
             }
-            if(level <= ((Key)o).getLevel()){
+            if(level <= o.getLevel()){
                 return -1;
             }
         }

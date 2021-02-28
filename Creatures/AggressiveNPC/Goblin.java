@@ -69,30 +69,30 @@ public class Goblin extends Human {
 
 
         Axe goblinAxe = new Axe();
-        goblinAxe.setWeaponType(WeaponType.TWOHANDED);
+        goblinAxe.setWeaponType(WeaponType.TWO_HANDED);
         if(lvl < 10){
             goblinAxe.setMaterial(Material.COPPER);
             goblinAxe.setRarity(Rarity.COMMON);
             goblinAxe.setGrade(Grade.COMMON);
-            goblinAxe.setWeaponType(WeaponType.ONEHANDED);
+            goblinAxe.setWeaponType(WeaponType.ONE_HANDED);
             goblinAxe.setWeaponType(WeaponType.CHOPPING);
         } else if(lvl < 22){
             goblinAxe.setMaterial(Material.BRONZE);
             goblinAxe.setRarity(Rarity.RARE);
             goblinAxe.setGrade(Grade.MAGIC);
-            goblinAxe.setWeaponType(WeaponType.ONEHANDED);
+            goblinAxe.setWeaponType(WeaponType.ONE_HANDED);
             goblinAxe.setWeaponType(WeaponType.CHOPPING);
         } else if(lvl < 45){
             goblinAxe.setMaterial(Material.MYTHRIL);
             goblinAxe.setRarity(Rarity.MYSTICAL);
             goblinAxe.setGrade(Grade.CURSE);
-            goblinAxe.setWeaponType(WeaponType.TWOHANDED);
+            goblinAxe.setWeaponType(WeaponType.TWO_HANDED);
             goblinAxe.setWeaponType(WeaponType.CHOPPING);
         } else {
             goblinAxe.setMaterial(Material.DEEP);
             goblinAxe.setRarity(Rarity.DRAGON);
             goblinAxe.setGrade(Grade.ARTIFACT);
-            goblinAxe.setWeaponType(WeaponType.TWOHANDED);
+            goblinAxe.setWeaponType(WeaponType.TWO_HANDED);
             goblinAxe.setWeaponType(WeaponType.CHOPPING);
         }
         goblinAxe.countProperty();

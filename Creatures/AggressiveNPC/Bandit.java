@@ -33,7 +33,7 @@ public class Bandit extends Human {
 
         uniqueDropItems = new Item[]{
                 new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new HealPotion(),
@@ -86,7 +86,7 @@ public class Bandit extends Human {
             banditSword.setMaterial(Material.COPPER);
             banditSword.setRarity(Rarity.COMMON);
             banditSword.setGrade(Grade.COMMON);
-            banditSword.setWeaponType(WeaponType.ONEHANDED);
+            banditSword.setWeaponType(WeaponType.ONE_HANDED);
             banditArmorTorso.setMaterial(Material.COPPER);
             banditArmorTorso.setRarity(Rarity.COMMON);
             banditArmorTorso.setGrade(Grade.COMMON);
@@ -97,7 +97,7 @@ public class Bandit extends Human {
             banditSword.setMaterial(Material.BRONZE);
             banditSword.setRarity(Rarity.RARE);
             banditSword.setGrade(Grade.MAGIC);
-            banditSword.setWeaponType(WeaponType.TWOHANDED);
+            banditSword.setWeaponType(WeaponType.TWO_HANDED);
             banditArmorTorso.setMaterial(Material.BRONZE);
             banditArmorTorso.setRarity(Rarity.RARE);
             banditArmorTorso.setGrade(Grade.MAGIC);
@@ -108,7 +108,7 @@ public class Bandit extends Human {
             banditSword.setMaterial(Material.MYTHRIL);
             banditSword.setRarity(Rarity.MYSTICAL);
             banditSword.setGrade(Grade.CURSE);
-            banditSword.setWeaponType(WeaponType.TWOHANDED);
+            banditSword.setWeaponType(WeaponType.TWO_HANDED);
             banditArmorTorso.setMaterial(Material.MYTHRIL);
             banditArmorTorso.setRarity(Rarity.MYSTICAL);
             banditArmorTorso.setGrade(Grade.CURSE);
@@ -119,7 +119,7 @@ public class Bandit extends Human {
             banditSword.setMaterial(Material.DEEP);
             banditSword.setRarity(Rarity.DRAGON);
             banditSword.setGrade(Grade.ARTIFACT);
-            banditSword.setWeaponType(WeaponType.TWOHANDED);
+            banditSword.setWeaponType(WeaponType.TWO_HANDED);
             banditArmorTorso.setMaterial(Material.MYTHRIL);
             banditArmorTorso.setRarity(Rarity.MYSTICAL);
             banditArmorTorso.setGrade(Grade.CURSE);

@@ -1,9 +1,9 @@
 package Items.Weapons;
 
 public enum  WeaponType {
-    ONEHANDED,
-    TWOHANDED,
-    LONGRANGE,
+    ONE_HANDED,
+    TWO_HANDED,
+    LONG_RANGE,
     POLE,
     CHOPPING
 }

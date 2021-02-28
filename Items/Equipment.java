@@ -170,7 +170,7 @@ public class Equipment implements Serializable {
             }
         }
         if(item instanceof Weapon){
-            if(((Weapon) item).getWeaponType().contains(WeaponType.ONEHANDED)){
+            if(((Weapon) item).getWeaponType().contains(WeaponType.ONE_HANDED)){
                 if(item == oneHandedWeaponRight){
                     oneHandedWeaponRight = oneHandedWeaponLeft;
                     oneHandedWeaponLeft = null;

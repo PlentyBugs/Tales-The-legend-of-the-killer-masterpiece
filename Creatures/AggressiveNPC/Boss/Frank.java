@@ -71,7 +71,7 @@ public class Frank extends Boss {
             frankSword.setMaterial(Material.MYTHRIL);
             frankSword.setRarity(Rarity.MYSTICAL);
             frankSword.setGrade(Grade.CURSE);
-            frankSword.setWeaponType(WeaponType.TWOHANDED);
+            frankSword.setWeaponType(WeaponType.TWO_HANDED);
             frankArmorTorso.setMaterial(Material.MYTHRIL);
             frankArmorTorso.setRarity(Rarity.MYSTICAL);
             frankArmorTorso.setGrade(Grade.CURSE);
@@ -82,7 +82,7 @@ public class Frank extends Boss {
             frankSword.setMaterial(Material.ADAMANTINE);
             frankSword.setRarity(Rarity.LEGENDARY);
             frankSword.setGrade(Grade.CURSE);
-            frankSword.setWeaponType(WeaponType.TWOHANDED);
+            frankSword.setWeaponType(WeaponType.TWO_HANDED);
             frankArmorTorso.setMaterial(Material.ADAMANTINE);
             frankArmorTorso.setRarity(Rarity.LEGENDARY);
             frankArmorTorso.setGrade(Grade.CURSE);
@@ -93,7 +93,7 @@ public class Frank extends Boss {
             frankSword.setMaterial(Material.DEEP);
             frankSword.setRarity(Rarity.DRAGON);
             frankSword.setGrade(Grade.ARTIFACT);
-            frankSword.setWeaponType(WeaponType.TWOHANDED);
+            frankSword.setWeaponType(WeaponType.TWO_HANDED);
             frankArmorTorso.setMaterial(Material.DEEP);
             frankArmorTorso.setRarity(Rarity.DRAGON);
             frankArmorTorso.setGrade(Grade.ARTIFACT);
@@ -133,7 +133,7 @@ public class Frank extends Boss {
 
         uniqueDropItems = new Item[]{
                 new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new Ring(),

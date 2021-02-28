@@ -24,7 +24,7 @@ public class Axe extends Weapon {
     }
 
     public Axe(){
-        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.ONEHANDED);
+        this(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.ONE_HANDED);
         name = "топор";
     }
 
@@ -33,8 +33,8 @@ public class Axe extends Weapon {
 
         for(WeaponType type : weaponType){
             switch (type){
-                case ONEHANDED: stockName = "Одноручный " + stockName; break;
-                case TWOHANDED: stockName = "Двуручный " + stockName; break;
+                case ONE_HANDED: stockName = "Одноручный " + stockName; break;
+                case TWO_HANDED: stockName = "Двуручный " + stockName; break;
             }
         }
         switch (material){

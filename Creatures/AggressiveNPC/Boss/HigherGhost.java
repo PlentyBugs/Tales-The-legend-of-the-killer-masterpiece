@@ -143,7 +143,7 @@ public class HigherGhost extends Boss {
 
         uniqueDropItems = new Item[]{
                 new Sword(),
-                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWOHANDED),
+                new Sword(Material.COPPER, Rarity.COMMON, Grade.COMMON, 0, WeaponType.TWO_HANDED),
                 new Torso(),
                 new Helmet(),
                 new Ring(),
