@@ -99,16 +99,7 @@ public class Game {
             Narrator narrator = new Narrator(difficulty, fieldWindow1);
 
             narrator.theBeginning(player);
-
-            while (player.getHp() > 0) {
-                break;
-            }
         } else if(game.equals("load")){
-            FieldWindow fieldWindow = null;
-
-            FileInputStream fin = null;
-            ObjectInputStream ois = null;
-
             FindFile ff = new FindFile();
 
             ff.findFile("*.txt", new File("./Saves/"));
@@ -116,48 +107,21 @@ public class Game {
             LoadGameWindow loadGameWindow = new LoadGameWindow(ff.getFiles());
 
             String fileName;
-            while(true) {
+            do {
                 System.out.println();
                 fileName = loadGameWindow.getFileName();
-                if(fileName != null){
-                    break;
-                }
-            }
+            } while (fileName == null);
             loadGameWindow.close();
 
-            try {
-
-                fin = new FileInputStream("./Saves/" + fileName);
-                ois = new ObjectInputStream(fin);
-                fieldWindow = (FieldWindow) ois.readObject();
-
+            try (FileInputStream fin = new FileInputStream("./Saves/" + fileName);
+                 ObjectInputStream ois = new ObjectInputStream(fin)) {
+                FieldWindow fieldWindow = (FieldWindow) ois.readObject();
+                Player player = fieldWindow.getPlayer();
+                fieldWindow.drawMap();
+                player.initWindows();
+                fieldWindow.drawAllPlayerWindow();
             } catch (Exception ex) {
                 ex.printStackTrace();
-            } finally {
-
-                if (fin != null) {
-                    try {
-                        fin.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (ois != null) {
-                    try {
-                        ois.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            Player player = fieldWindow.getPlayer();
-            fieldWindow.drawMap();
-            player.initWindows();
-            fieldWindow.drawAllPlayerWindow();
-            while (player.getHp() > 0) {
-                break;
             }
         }
     }
