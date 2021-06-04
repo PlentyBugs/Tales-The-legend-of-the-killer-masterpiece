@@ -70,7 +70,7 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
         panel.add(lvlPointsCount, constraints);
 
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
     }
 
     public void close(){

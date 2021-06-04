@@ -18,6 +18,7 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Things.ChestLike.Chest;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -240,7 +241,7 @@ public class EditorWindow extends JFrame {
             constraints.gridy ++;
 
             constraints.gridx = 0;
-            JButton countStats = new JButton("Добавить");
+            JButton countStats = new UnfocusedButton("Добавить");
             panel.add(countStats, constraints);
             constraints.gridy ++;
 
@@ -353,7 +354,7 @@ public class EditorWindow extends JFrame {
         constraints.gridy ++;
 
         constraints.gridx = 0;
-        JButton addItem = new JButton("Добавить в инвентарь");
+        JButton addItem = new UnfocusedButton("Добавить в инвентарь");
         panel.add(addItem, constraints);
 
         addItem.addActionListener(e -> {

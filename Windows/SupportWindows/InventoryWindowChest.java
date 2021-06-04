@@ -6,6 +6,8 @@ import Items.Armors.Ring;
 import Items.Item;
 import Items.Weapons.Weapon;
 import Things.ChestLike.Chest;
+import Windows.PlayerWindows.UnfocusedButton;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,19 +15,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class InventoryWindowChest extends JFrame {
 
-    private Chest chest;
+    private final Chest chest;
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
     private JScrollPane scroll = new JScrollPane(panel);
-    private GridBagConstraints constraints;
-    private int width = 600;
-    private int height = 480;
-    private ArrayList<Item> uniqueInventory = new ArrayList<>();
+    private final ArrayList<Item> uniqueInventory = new ArrayList<>();
+    @Serial
     private static final long serialVersionUID = -3364742123084557236L;
 
     public InventoryWindowChest(Chest chest){
@@ -69,12 +70,13 @@ public class InventoryWindowChest extends JFrame {
         getContentPane().remove(scroll);
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
+        int width = 600;
         for (Item item : chest.getInventory()){
             JPanel itemPanel = new JPanel();
             itemPanel.setToolTipText(item.getEnchantDescription());
@@ -140,13 +142,14 @@ public class InventoryWindowChest extends JFrame {
             propertyCount.setForeground(colorForeground);
 
             itemConstraints.gridx = 4;
-            JButton useButton = new JButton("Взять");
+            JButton useButton = new UnfocusedButton("Взять");
 
             useButton.addActionListener((ActionListener & Serializable) e -> {
                 player.addItemToInventory(item);
                 chest.removeItemFromInventory(item);
                 drawInventory();
-                player.getFieldWindow().drawAllPlayerWindow();
+                WindowInterface windowInterface = player.getWindowInterface();
+                windowInterface.drawAllPlayerWindow(player, windowInterface);
             });
 
             itemPanel.add(itemName, itemConstraints);
@@ -163,7 +166,8 @@ public class InventoryWindowChest extends JFrame {
         }
 
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(width,height));
+        int height = 480;
+        scroll.setPreferredSize(new Dimension(width, height));
         getContentPane().add(scroll);
         pack();
         setVisible(true);

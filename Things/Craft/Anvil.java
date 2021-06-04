@@ -22,6 +22,7 @@ import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import Things.Thing;
 import Windows.CraftWindow.AnvilTableWindow;
+import Windows.WindowInterface;
 
 import java.awt.*;
 
@@ -138,7 +139,8 @@ public class Anvil extends Thing implements BlackSmithCraftTable{
         item.countProperty();
 
         player.addItemToInventory(item);
-        player.getFieldWindow().drawAllPlayerWindow();
+        WindowInterface windowInterface = player.getWindowInterface();
+        windowInterface.drawAllPlayerWindow(player, windowInterface);
     }
 
     public void setBluePrint(BluePrint bluePrint) {

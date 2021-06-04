@@ -3,6 +3,7 @@ package ConstructorTool;
 import Creatures.GodCreature;
 import Things.Grass;
 import Things.Tree;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,13 +64,13 @@ public class ConstructorField extends JFrame {
 
         panel = new JPanel(new BorderLayout());
 
-        JButton addUp = new JButton("+");
+        JButton addUp = new UnfocusedButton("+");
 
-        JButton addLeft = new JButton("+");
+        JButton addLeft = new UnfocusedButton("+");
 
-        JButton addDown = new JButton("+");
+        JButton addDown = new UnfocusedButton("+");
 
-        JButton addRight = new JButton("+");
+        JButton addRight = new UnfocusedButton("+");
 
         addUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -110,7 +111,7 @@ public class ConstructorField extends JFrame {
             for (int j = 0; j < mapWidth; j++){
                 constraints.gridx = j;
                 constraints.gridy = i;
-                JButton blockButton = new JButton(map[i][j].getName());
+                JButton blockButton = new UnfocusedButton(map[i][j].getName());
                 blockButton.setBackground(map[i][j].getColor());
                 blockButton.setFont(new Font("TimesRoman", Font.BOLD, 8));
 

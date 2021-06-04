@@ -1,6 +1,7 @@
 package Windows.SupportWindows;
 
 import Creatures.Difficulty;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,7 +64,7 @@ public class ChooseDifficultyWindow extends JFrame implements Serializable {
         constraints.gridy = 5;
         panel.add(stopIt, constraints);
 
-        JButton button = new JButton("Ок");
+        JButton button = new UnfocusedButton("Ок");
         button.setPreferredSize(new Dimension(150,30));
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

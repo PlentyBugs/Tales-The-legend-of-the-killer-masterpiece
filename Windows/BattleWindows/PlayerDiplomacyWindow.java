@@ -5,6 +5,7 @@ import Creatures.Player;
 import Items.Alchemy.Potions.Potion;
 import Items.DiplomacyItem;
 import Items.Item;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -105,7 +106,7 @@ public class PlayerDiplomacyWindow extends JFrame implements Serializable {
                 property.setForeground(colorForeground);
                 propertyCount.setForeground(colorForeground);
 
-                JButton useButton = new JButton("Использовать");
+                JButton useButton = new UnfocusedButton("Использовать");
 
                 useButton.addActionListener((ActionListener & Serializable) e -> {
                     if(item.getClass().toString().contains("Alcohol")){

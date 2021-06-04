@@ -2,6 +2,7 @@ package Windows.PlayerWindows;
 
 import Creatures.Player;
 import Creatures.StatsEnum;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -157,20 +158,20 @@ public class UpStatsWindow extends JFrame implements Serializable {
         panel.add(upPointsLeft, constraints);
         if (player.getUpPointCount() > 0){
 
-            JButton strengthButton = new JButton("+");
-            JButton speedButton = new JButton("+");
-            JButton agilityButton = new JButton("+");
-            JButton intelligenceButton = new JButton("+");
-            JButton luckButton = new JButton("+");
-            JButton eloquenceButton = new JButton("+");
-            JButton blacksmithButton = new JButton("+");
-            JButton theftButton = new JButton("+");
-            JButton alchemyButton = new JButton("+");
-            JButton oneHandedWeaponButton = new JButton("+");
-            JButton twoHandedWeaponButton = new JButton("+");
-            JButton poleWeaponButton = new JButton("+");
-            JButton choppingWeaponButton = new JButton("+");
-            JButton longRangeWeaponButton = new JButton("+");
+            JButton strengthButton = new UnfocusedButton("+");
+            JButton speedButton = new UnfocusedButton("+");
+            JButton agilityButton = new UnfocusedButton("+");
+            JButton intelligenceButton = new UnfocusedButton("+");
+            JButton luckButton = new UnfocusedButton("+");
+            JButton eloquenceButton = new UnfocusedButton("+");
+            JButton blacksmithButton = new UnfocusedButton("+");
+            JButton theftButton = new UnfocusedButton("+");
+            JButton alchemyButton = new UnfocusedButton("+");
+            JButton oneHandedWeaponButton = new UnfocusedButton("+");
+            JButton twoHandedWeaponButton = new UnfocusedButton("+");
+            JButton poleWeaponButton = new UnfocusedButton("+");
+            JButton choppingWeaponButton = new UnfocusedButton("+");
+            JButton longRangeWeaponButton = new UnfocusedButton("+");
 
             strengthButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -343,7 +344,10 @@ public class UpStatsWindow extends JFrame implements Serializable {
             panel.add(longRangeWeaponButton, constraints);
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+        if(player != null) {
+            WindowInterface windowInterface = player.getWindowInterface();
+            if (windowInterface != null) windowInterface.drawMap();
+        }
     }
 
     public JPanel getPanel() {

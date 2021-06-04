@@ -1,6 +1,7 @@
 package ConstructorTool;
 
 import Conversations.DialogConversation;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,7 @@ public class ConstructorConversationWindowEditor extends JFrame {
         constraints.gridy ++;
 
 
-        JButton sum = new JButton("Принять");
+        JButton sum = new UnfocusedButton("Принять");
         sum.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 

@@ -1,5 +1,7 @@
 package Windows.SupportWindows;
 
+import Windows.PlayerWindows.UnfocusedButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +34,7 @@ public class ChooseNameWindow extends JFrame implements Serializable {
         constraints.gridy = 0;
         panel.add(jTextArea, constraints);
 
-        JButton button = new JButton("Так меня зовут");
+        JButton button = new UnfocusedButton("Так меня зовут");
         button.setSize(280,80);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

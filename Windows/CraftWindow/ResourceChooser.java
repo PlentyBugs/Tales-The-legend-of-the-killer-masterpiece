@@ -3,6 +3,7 @@ package Windows.CraftWindow;
 import Creatures.Player;
 import Items.BlackSmith.Resource.Resource;
 import Items.Item;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
 
 import javax.swing.*;
@@ -37,7 +38,7 @@ public class ResourceChooser extends JFrame implements Serializable {
             }
 
             int count = player.countOfItemInInventory(item);
-            JButton button = new JButton(item.getName() + " Количество: " + count);
+            JButton button = new UnfocusedButton(item.getName() + " Количество: " + count);
             button.addActionListener((ActionListener & Serializable) e -> {
                 buttonParent.setResource((Resource)item);
                 buttonParent.setCountOfResources(count);

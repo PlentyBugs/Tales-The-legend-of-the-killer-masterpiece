@@ -51,7 +51,7 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
 
             if(ability.getLevel() < ability.getMaxLevel()){
                 skillConstraints.gridx = 2;
-                JButton upgrade = new JButton("Прокачать");
+                JButton upgrade = new UnfocusedButton("Прокачать");
 
                 upgrade.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -74,7 +74,7 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
     }
 
     public void close(){

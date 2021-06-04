@@ -3,6 +3,7 @@ package Windows.CraftWindow;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
 import Items.Item;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.IngredientButton;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public class IngredientChooser extends JFrame implements Serializable {
                 continue;
 
             int count = player.countOfItemInInventory(item);
-            JButton button = new JButton(item.getName() + " Количество: " + count);
+            JButton button = new UnfocusedButton(item.getName() + " Количество: " + count);
             button.addActionListener((ActionListener & Serializable) e -> {
                 ingredients[i] = (Ingredient) item;
                 buttonParent.setIngredient((Ingredient)item);

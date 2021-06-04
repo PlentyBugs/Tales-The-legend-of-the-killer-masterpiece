@@ -3,6 +3,7 @@ package ConstructorTool;
 import Conversations.Conversation;
 import Conversations.DialogConversation;
 import Creatures.PeacefulNPC.Peaceful;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.ScrollPanels;
 
 import javax.swing.*;
@@ -35,29 +36,27 @@ public class ConstructorConversationWindow extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
 
-        JButton addConversationDialog = new JButton("Добавить диалог");
+        JButton addConversationDialog = new UnfocusedButton("Добавить диалог");
 
         addConversationDialog.setPreferredSize(new Dimension(180,40));
         addConversationDialog.setMinimumSize(new Dimension(180,40));
         addConversationDialog.setMaximumSize(new Dimension(180,40));
-        addConversationDialog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                branches.clear();
-                for(ArrayList<Conversation> conversationArrayList : peaceful.getConversation().getConversationTree()) {
-                    for (Conversation conversation : conversationArrayList) {
-                        if(!branches.contains(conversation.getBranchNumber())){
-                            branches.add(conversation.getBranchNumber());
-                        }
+        addConversationDialog.addActionListener(e -> {
+            branches.clear();
+            for(ArrayList<Conversation> conversationArrayList : peaceful.getConversation().getConversationTree()) {
+                for (Conversation conversation : conversationArrayList) {
+                    if(!branches.contains(conversation.getBranchNumber())){
+                        branches.add(conversation.getBranchNumber());
                     }
                 }
-                ConstructorConversationWindowEditor constructorConversationWindowEditor = new ConstructorConversationWindowEditor((DialogConversation) null, ConstructorConversationWindow.this, branches.size());
             }
+            ConstructorConversationWindowEditor constructorConversationWindowEditor = new ConstructorConversationWindowEditor((DialogConversation) null, ConstructorConversationWindow.this, branches.size());
         });
 
         panel.add(addConversationDialog, constraints);
         constraints.gridx ++;
 
-        JButton addConversationShop = new JButton("Добавить магазин");
+        JButton addConversationShop = new UnfocusedButton("Добавить магазин");
 
         addConversationShop.setPreferredSize(new Dimension(180,40));
         addConversationShop.setMinimumSize(new Dimension(180,40));
@@ -77,7 +76,7 @@ public class ConstructorConversationWindow extends JFrame {
         panel.add(addConversationShop, constraints);
         constraints.gridx ++;
 
-        JButton addBranchConversation = new JButton("Добавить ветку");
+        JButton addBranchConversation = new UnfocusedButton("Добавить ветку");
 
         addBranchConversation.setPreferredSize(new Dimension(180,40));
         addBranchConversation.setMinimumSize(new Dimension(180,40));

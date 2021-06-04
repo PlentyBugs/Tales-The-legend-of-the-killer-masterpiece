@@ -5,6 +5,7 @@ import Conversations.*;
 import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.Peaceful;
 import Creatures.Player;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
@@ -94,7 +95,7 @@ public class ConversationWindow extends JFrame implements Serializable {
                         convPartconstraints.gridx = 0;
                         convPartconstraints.gridy = 0;
 
-                        JButton title = new JButton(opponent.getConversation().getConversationTree().get(s).get(k).getTitle());
+                        JButton title = new UnfocusedButton(opponent.getConversation().getConversationTree().get(s).get(k).getTitle());
 
                         title.setPreferredSize(new Dimension(width, 30));
                         title.setMinimumSize(new Dimension(width, 30));
@@ -144,7 +145,7 @@ public class ConversationWindow extends JFrame implements Serializable {
                 }
 
                 if(player != null && player.hasAbility(new Steal())){
-                    JButton title = new JButton("Обокрасть");
+                    JButton title = new UnfocusedButton("Обокрасть");
 
                     title.setPreferredSize(new Dimension(width, 30));
                     title.setMinimumSize(new Dimension(width, 30));

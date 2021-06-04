@@ -32,7 +32,8 @@ import Quests.KillQuest;
 import Quests.Quest;
 import Things.ChestLike.Chest;
 import Things.ChestLike.Corpse;
-import Windows.FieldWindow;
+import Windows.PlayerWindows.UnfocusedButton;
+import Windows.WindowInterface;
 import Windows.SupportWindows.DialogWindow;
 import Windows.SupportWindows.SupportComponents.Console;
 
@@ -49,7 +50,7 @@ public class FightWindow extends JFrame implements Serializable {
 
     private final Player player;
     private LiveCreature enemy;
-    private final FieldWindow field;
+    private final WindowInterface field;
 
     private final JProgressBar playerHp;
     private final JProgressBar enemyHp;
@@ -68,7 +69,7 @@ public class FightWindow extends JFrame implements Serializable {
     private PlayerFightItemWindow playerFightItemWindow;
     private PlayerDiplomacyWindow playerDiplomacyWindow;
 
-    public FightWindow(Player player, LiveCreature enemy, FieldWindow field) {
+    public FightWindow(Player player, LiveCreature enemy, WindowInterface field) {
         super("Бой");
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -147,32 +148,32 @@ public class FightWindow extends JFrame implements Serializable {
         BoxLayout boxLayout = new BoxLayout(playerActions, BoxLayout.Y_AXIS);
         playerActions.setLayout(boxLayout);
 
-        JButton playerAttackButton = new JButton("Атаковать");
+        JButton playerAttackButton = new UnfocusedButton("Атаковать");
         playerAttackButton.setBackground(new Color(0,255,0));
         Dimension d = new Dimension(width /2, height /10);
         playerAttackButton.setMinimumSize(d);
         playerAttackButton.setPreferredSize(d);
         playerAttackButton.setMaximumSize(d);
 
-        JButton playerAbilityButton = new JButton("Способность");
+        JButton playerAbilityButton = new UnfocusedButton("Способность");
         playerAbilityButton.setBackground(new Color(0,255,0));
         playerAbilityButton.setMinimumSize(d);
         playerAbilityButton.setPreferredSize(d);
         playerAbilityButton.setMaximumSize(d);
 
-        JButton playerDiplomacyButton = new JButton("Дипломатия");
+        JButton playerDiplomacyButton = new UnfocusedButton("Дипломатия");
         playerDiplomacyButton.setBackground(new Color(255,255,0));
         playerDiplomacyButton.setMinimumSize(d);
         playerDiplomacyButton.setPreferredSize(d);
         playerDiplomacyButton.setMaximumSize(d);
 
-        JButton playerUseItemButton = new JButton("Предметы");
+        JButton playerUseItemButton = new UnfocusedButton("Предметы");
         playerUseItemButton.setBackground(new Color(0,255,0));
         playerUseItemButton.setMinimumSize(d);
         playerUseItemButton.setPreferredSize(d);
         playerUseItemButton.setMaximumSize(d);
 
-        JButton playerRunAwayButton = new JButton("Побег");
+        JButton playerRunAwayButton = new UnfocusedButton("Побег");
         playerRunAwayButton.setBackground(new Color(0,255,0));
         playerRunAwayButton.setMinimumSize(d);
         playerRunAwayButton.setPreferredSize(d);
@@ -508,8 +509,8 @@ public class FightWindow extends JFrame implements Serializable {
                 if(item != null && chest != null)
                     chest.addItemToInventory(item);
             }
-            field.getCurrentMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
-            field.getCurrentMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
+            field.getMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
+            field.getMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
 
             if (player.getQuests() != null){
                 for (Quest quest : player.getQuests()){

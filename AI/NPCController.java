@@ -84,12 +84,12 @@ public class NPCController extends Thread implements Serializable {
                         liveCreature.setX(liveCreature.getX()-1);
                     }
                 }
-                fieldWindow.drawMap(true);
+//                fieldWindow.drawMap(true);
             }
         }
     }
 
-    public void setFieldWindow(FieldWindow fieldWindow) {
+    public void setWindowInterface(FieldWindow fieldWindow) {
         this.fieldWindow = fieldWindow;
     }
 

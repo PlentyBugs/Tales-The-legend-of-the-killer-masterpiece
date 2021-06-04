@@ -4,7 +4,9 @@ import Abilities.Passive.Professions.Alchemist;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Craft.AlchemyTable;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.IngredientButton;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +18,13 @@ import java.io.Serializable;
 
 public class AlchemyTableWindow extends CraftWindow {
 
-    private AlchemyTable alchemyTable;
-    private JPanel panel;
-    private Player player;
-    private GridBagConstraints constraints;
-    private Ingredient[] ingredients;
+    private final GridBagConstraints constraints;
+    private final IngredientButton[] buttons;
+    private final AlchemyTable alchemyTable;
+    private final Ingredient[] ingredients;
+    private final JPanel panel;
     private JPanel ingredientsPanel;
-    private IngredientButton[] buttons;
+    private Player player;
 
     public AlchemyTableWindow(AlchemyTable parent){
         super("Алхимический стол");
@@ -113,7 +115,7 @@ public class AlchemyTableWindow extends CraftWindow {
         panel.add(ingredientsPanel, constraints);
 
         constraints.gridy ++;
-        JButton create = new JButton("Создать");
+        JButton create = new UnfocusedButton("Создать");
         create.addActionListener((ActionListener & Serializable) e -> {
             alchemyTable.clearCreatedPotion();
             alchemyTable.create(ingredients);
@@ -137,7 +139,8 @@ public class AlchemyTableWindow extends CraftWindow {
             if(alchemyTable.getCreatedPotion() != null){
                 player.addItemToInventory(alchemyTable.getCreatedPotion());
             }
-            player.getFieldWindow().drawAllPlayerWindow();
+            WindowInterface windowInterface = player.getWindowInterface();
+            windowInterface.drawAllPlayerWindow(player, windowInterface);
         });
         panel.add(create, constraints);
         getContentPane().add(panel);

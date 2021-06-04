@@ -4,6 +4,8 @@ import Abilities.Ability;
 import Conversations.CatalogStockTypeOfItem;
 import Creatures.Player;
 import Items.Item;
+import Windows.PlayerWindows.UnfocusedButton;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +15,9 @@ import java.util.ArrayList;
 
 public class ShopAbilityWindow extends JFrame implements Serializable {
 
-    private Player player;
-    private ArrayList<Object> catalog = new ArrayList<Object>();
+    private final ArrayList<Object> catalog;
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
+    private Player player;
 
     public ShopAbilityWindow(Player player, ArrayList<Object> catalog){
         super("Магазин");
@@ -34,7 +35,7 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
         getContentPane().remove(panel);
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 5, 5, 5);
@@ -71,7 +72,7 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
                 JLabel itemCount = new JLabel(Integer.toString(count));
                 itemPanel.add(itemCount, itemConstraints);
                 itemConstraints.gridx = 3;
-                JButton buy = new JButton("Купить");
+                JButton buy = new UnfocusedButton("Купить");
 
                 buy.addActionListener((ActionListener & Serializable)  e -> {
                     if (count > 0 && player.getMoney() >= price){
@@ -81,7 +82,8 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
                             (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
                             drawWindow();
                             player.addAbility(ability);
-                            player.getFieldWindow().drawAllPlayerWindow();
+                            WindowInterface windowInterface = player.getWindowInterface();
+                            windowInterface.drawAllPlayerWindow(player, windowInterface);
                         }
                     }
                 });

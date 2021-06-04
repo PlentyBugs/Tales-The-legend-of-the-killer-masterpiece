@@ -11,6 +11,7 @@ import Locations.Map;
 import Things.*;
 import Things.ChestLike.Chest;
 import Things.ChestLike.Corpse;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,19 +62,19 @@ public class BlockChooser extends JFrame {
         constraints.gridy = 0;
 
 
-        JButton build = new JButton("Строить");
+        JButton build = new UnfocusedButton("Строить");
         build.setPreferredSize(new Dimension(width, 20));
         build.setMinimumSize(new Dimension(width, 20));
         build.setMaximumSize(new Dimension(width, 20));
         panel.add(build, constraints);
         constraints.gridy ++;
-        JButton areaBuilder = new JButton("Строить по площади");
+        JButton areaBuilder = new UnfocusedButton("Строить по площади");
         areaBuilder.setPreferredSize(new Dimension(width, 20));
         areaBuilder.setMinimumSize(new Dimension(width, 20));
         areaBuilder.setMaximumSize(new Dimension(width, 20));
         panel.add(areaBuilder, constraints);
         constraints.gridy ++;
-        JButton edit = new JButton("Редактировать");
+        JButton edit = new UnfocusedButton("Редактировать");
         edit.setPreferredSize(new Dimension(width, 20));
         edit.setMinimumSize(new Dimension(width, 20));
         edit.setMaximumSize(new Dimension(width, 20));
@@ -123,7 +124,7 @@ public class BlockChooser extends JFrame {
 
             JLabel blockName = new JLabel(creature.getName());
 
-            JButton blockButton = new JButton("Выбрать");
+            JButton blockButton = new UnfocusedButton("Выбрать");
 
             if(creature == block.getBlock()){
                 blockButton.setBackground(new Color(0,255,0));
@@ -162,7 +163,7 @@ public class BlockChooser extends JFrame {
 
             JLabel blockName = new JLabel(creature.getName());
 
-            JButton blockButton = new JButton("Выбрать");
+            JButton blockButton = new UnfocusedButton("Выбрать");
 
             if(creature == block.getBlock()){
                 blockButton.setBackground(new Color(0,255,0));
@@ -208,7 +209,7 @@ public class BlockChooser extends JFrame {
         panel.add(fileNameTextArea, constraints);
         constraints.gridy ++;
 
-        JButton saveButton = new JButton("Сохранить");
+        JButton saveButton = new UnfocusedButton("Сохранить");
         saveButton.setPreferredSize(new Dimension(width, 20));
         saveButton.setMinimumSize(new Dimension(width, 20));
         saveButton.setMaximumSize(new Dimension(width, 20));

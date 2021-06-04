@@ -3,6 +3,7 @@ package Windows.CraftWindow;
 import Creatures.Player;
 import Items.BlackSmith.Resource.Resource;
 import Things.Craft.Smelter;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
 
 import javax.swing.*;
@@ -78,7 +79,7 @@ public class SmelterTableWindow extends JFrame {
         resPanel.add(resDescPanel, BorderLayout.WEST);
         resPanel.add(resource, BorderLayout.EAST);
 
-        JButton use = new JButton("Плавить");
+        JButton use = new UnfocusedButton("Плавить");
         use.addActionListener((ActionListener & Serializable)e -> {
             if(resource.getResource() != null){
                 res = resource.getResource();

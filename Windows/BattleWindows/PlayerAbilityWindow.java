@@ -6,6 +6,7 @@ import Abilities.Active.AbilityActive;
 import Abilities.CostType;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,7 +84,7 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
             abilityPanel.add(abilityTarget, abilityConstraints);
             abilityConstraints.gridx ++;
 
-            JButton abilityUseButton = new JButton("Использовать");
+            JButton abilityUseButton = new UnfocusedButton("Использовать");
             abilityPanel.add(abilityUseButton, abilityConstraints);
             abilityConstraints.gridx ++;
 

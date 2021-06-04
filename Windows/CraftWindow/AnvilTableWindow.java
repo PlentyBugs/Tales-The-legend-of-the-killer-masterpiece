@@ -3,6 +3,7 @@ package Windows.CraftWindow;
 import Abilities.Passive.Professions.BlackSmith;
 import Creatures.Player;
 import Things.Craft.Anvil;
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.BluePrintButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
 
@@ -80,7 +81,7 @@ public class AnvilTableWindow extends JFrame {
             resPanel.add(new Label("Я еще не умею этого делать"), BorderLayout.EAST);
         }
 
-        JButton use = new JButton("Создать");
+        JButton use = new UnfocusedButton("Создать");
         use.addActionListener((ActionListener & Serializable)e -> {
             if(resource.getResource() != null && bluePrint.getBluePrint() != null){
                 if(bluePrint.getBluePrint().getTemperature() <= resource.getResource().getTemperature() && bluePrint.getBluePrint().hasResource(resource.getResource())){

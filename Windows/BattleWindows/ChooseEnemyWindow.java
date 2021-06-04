@@ -2,30 +2,28 @@ package Windows.BattleWindows;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
-import Windows.FieldWindow;
+import Windows.PlayerWindows.UnfocusedButton;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListener{
 
-    private int width = 480;
-    private int height = 360;
-
-    private ArrayList<LiveCreature> liveCreatures = new ArrayList<LiveCreature>();
+    private final ArrayList<LiveCreature> liveCreatures = new ArrayList<>();
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
-    private LiveCreature liveCreature;
 
-    private ActionListener actionListener;
+    private final Player player;
+    private final WindowInterface field;
 
-    private Player player;
-    private FieldWindow field;
-
-    public ChooseEnemyWindow(Player player, FieldWindow field, LiveCreature ... liveCreatures){
+    public ChooseEnemyWindow(Player player, WindowInterface field, LiveCreature ... liveCreatures){
         super("Выберите противника");
         field.addKeyListener(this);
         setAlwaysOnTop(true);
@@ -40,16 +38,14 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
     }
 
     public void addEnemy(LiveCreature ... liveCreatures){
-        for (LiveCreature liveCreature : liveCreatures){
-            this.liveCreatures.add(liveCreature);
-        }
+        Collections.addAll(this.liveCreatures, liveCreatures);
     }
 
     private void drawEnemyWindow(){
         getContentPane().remove(panel);
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 0, 0, 0);
@@ -59,6 +55,7 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
         for(LiveCreature liveCreature : liveCreatures){
 
             JPanel liveCreaturePanel = new JPanel();
+            int width = 480;
             liveCreaturePanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints liveCreatureConstraints = new GridBagConstraints();
             liveCreatureConstraints.anchor = GridBagConstraints.WEST;
@@ -68,16 +65,15 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
 
             JLabel enemyName = new JLabel("Имя: " + liveCreature.getName());
             liveCreatureConstraints.gridx = 1;
-            JLabel enemyHp = new JLabel("Жизни: " + Double.toString(liveCreature.getHp()));
+            JLabel enemyHp = new JLabel("Жизни: " + liveCreature.getHp());
             liveCreatureConstraints.gridx = 2;
-            JLabel enemyLvl = new JLabel("Уровень: " + Integer.toString(liveCreature.getLvl()));
+            JLabel enemyLvl = new JLabel("Уровень: " + liveCreature.getLvl());
             liveCreatureConstraints.gridx = 3;
-            JButton fight = new JButton("В Бой");
+            JButton fight = new UnfocusedButton("В Бой");
 
-            this.liveCreature = liveCreature;
-            actionListener = (ActionListener & Serializable)e -> {
+            ActionListener actionListener = (ActionListener & Serializable) e -> {
                 new FightWindow(player, liveCreature, field);
-                player.getFieldWindow().getNpcController().setWaiting(true);
+                player.getWindowInterface().getNpcController().setWaiting(true);
                 field.removeKeyListener(this);
                 close();
             };
@@ -115,8 +111,7 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_F){
             FightStart fightStart = (FightStart & Serializable) () -> {
-                FightWindow fightWindow = new FightWindow(player, liveCreature, field);
-                player.getFieldWindow().getNpcController().setWaiting(true);
+                player.getWindowInterface().getNpcController().setWaiting(true);
                 close();
             };
             fightStart.fight();

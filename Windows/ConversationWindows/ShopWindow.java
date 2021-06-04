@@ -6,6 +6,8 @@ import Items.Alchemy.Potions.Potion;
 import Items.Armors.Armor;
 import Items.Item;
 import Items.Weapons.Weapon;
+import Windows.PlayerWindows.UnfocusedButton;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +16,13 @@ import java.io.Serializable;
 
 public class ShopWindow extends JFrame implements Serializable {
 
+    private final LiveCreature seller;
+    private final int height;
+    private final int width;
     private Player player;
     private JPanel panel = new JPanel(new GridBagLayout());
-    private LiveCreature seller;
     private JScrollPane scroll = new JScrollPane(panel);
-    private GridBagConstraints constraints;
     private String chosenPanel;
-    private int width;
-    private int height;
 
     public ShopWindow(Player player, LiveCreature seller){
         super("Магазин");
@@ -50,7 +51,7 @@ public class ShopWindow extends JFrame implements Serializable {
         scroll.setMinimumSize(new Dimension(width, height-90));
         scroll.setPreferredSize(new Dimension(width, height-90));
         scroll.setMaximumSize(new Dimension(width, height-90));
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(0, 0, 0, 0);
@@ -58,8 +59,8 @@ public class ShopWindow extends JFrame implements Serializable {
         constraints.gridy = 0;
 
         JPanel choose = new JPanel(new BorderLayout());
-        JButton buyButton = new JButton("Купить");
-        JButton sellButton = new JButton("Продать");
+        JButton buyButton = new UnfocusedButton("Купить");
+        JButton sellButton = new UnfocusedButton("Продать");
         buyButton.addActionListener((ActionListener & Serializable)e -> {
             chosenPanel = "buy";
             drawWindow();
@@ -81,6 +82,7 @@ public class ShopWindow extends JFrame implements Serializable {
         getContentPane().add(choose, BorderLayout.NORTH);
         constraints.gridy ++;
 
+        WindowInterface windowInterface = player.getWindowInterface();
         if(chosenPanel.equals("buy")){
 
             for(Item item : seller.getInventory()){
@@ -101,27 +103,27 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemConstraints.gridx ++;
 
                 if(item instanceof Weapon){
-                    JLabel itemProperty = new JLabel("Урон: " + Double.toString(((Weapon)item).getDamage()));
+                    JLabel itemProperty = new JLabel("Урон: " + ((Weapon) item).getDamage());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
                 if(item instanceof Armor){
-                    JLabel itemProperty = new JLabel("Защита: " + Integer.toString(((Armor)item).getProtection()));
+                    JLabel itemProperty = new JLabel("Защита: " + ((Armor) item).getProtection());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
                 if(item instanceof Potion){
-                    JLabel itemProperty = new JLabel("Мощность: " + Integer.toString(((Potion)item).getEffect().getPower()));
+                    JLabel itemProperty = new JLabel("Мощность: " + ((Potion) item).getEffect().getPower());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                JLabel itemCost = new JLabel("Стоимость: " + Integer.toString(price) + " золотых");
+                JLabel itemCost = new JLabel("Стоимость: " + price + " золотых");
                 itemPanel.add(itemCost, itemConstraints);
                 itemConstraints.gridx ++;
-                JButton buy = new JButton("Купить");
+                JButton buy = new UnfocusedButton("Купить");
 
                 buy.addActionListener((ActionListener & Serializable)e -> {
                     seller.addMoney(price);
@@ -129,7 +131,7 @@ public class ShopWindow extends JFrame implements Serializable {
                     player.reduceMoney(price);
                     player.addItemToInventory(item);
                     drawWindow();
-                    player.getFieldWindow().drawAllPlayerWindow();
+                    windowInterface.drawAllPlayerWindow(player, windowInterface);
                 });
                 itemPanel.add(buy, itemConstraints);
 
@@ -155,33 +157,33 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemConstraints.gridx ++;
 
                 if(item instanceof Weapon){
-                    JLabel itemProperty = new JLabel("Урон: " + Double.toString(((Weapon)item).getDamage()));
+                    JLabel itemProperty = new JLabel("Урон: " + ((Weapon) item).getDamage());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
                 if(item instanceof Armor){
-                    JLabel itemProperty = new JLabel("Защита: " + Integer.toString(((Armor)item).getProtection()));
+                    JLabel itemProperty = new JLabel("Защита: " + ((Armor) item).getProtection());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
                 if(item instanceof Potion){
-                    JLabel itemProperty = new JLabel("Мощность: " + Integer.toString(((Potion)item).getEffect().getPower()));
+                    JLabel itemProperty = new JLabel("Мощность: " + ((Potion) item).getEffect().getPower());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                JLabel itemCost = new JLabel("Стоимость: " + Integer.toString(price) + " золотых");
+                JLabel itemCost = new JLabel("Стоимость: " + price + " золотых");
                 itemPanel.add(itemCost, itemConstraints);
                 itemConstraints.gridx ++;
-                JButton sell = new JButton("Продать");
+                JButton sell = new UnfocusedButton("Продать");
 
                 sell.addActionListener((ActionListener & Serializable) e -> {
                     player.addMoney(price);
                     player.removeItem(item);
                     drawWindow();
-                    player.getFieldWindow().drawAllPlayerWindow();
+                    windowInterface.drawAllPlayerWindow(player, windowInterface);
                 });
                 itemPanel.add(sell, itemConstraints);
 

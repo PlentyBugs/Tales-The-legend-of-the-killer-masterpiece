@@ -1,6 +1,7 @@
 package Windows.SupportWindows.SupportComponents;
 
 import Creatures.Player;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class SavePanel extends JFrame {
         saveName.setPreferredSize(new Dimension(140,20));
         saveName.setMinimumSize(new Dimension(140,20));
         saveName.setMaximumSize(new Dimension(140,20));
-        JButton saveButton = new JButton("Сохранить");
+        JButton saveButton = new UnfocusedButton("Сохранить");
         saveButton.setPreferredSize(new Dimension(140,20));
         saveButton.setMinimumSize(new Dimension(140,20));
         saveButton.setMaximumSize(new Dimension(140,20));
@@ -42,7 +43,7 @@ public class SavePanel extends JFrame {
                 try{
                     FileOutputStream fos = new FileOutputStream("./Saves/" + saveName.getText() + ".txt");
                     ObjectOutputStream outStream = new ObjectOutputStream(fos);
-                    outStream.writeObject(player.getFieldWindow());
+                    outStream.writeObject(player.getWindowInterface());
                     outStream.flush();
                     outStream.close();
                 } catch (FileNotFoundException ex){
@@ -50,7 +51,7 @@ public class SavePanel extends JFrame {
                     dir.mkdir();
                     FileOutputStream fos = new FileOutputStream("./Saves/" + saveName.getText() + ".txt");
                     ObjectOutputStream outStream = new ObjectOutputStream(fos);
-                    outStream.writeObject(player.getFieldWindow());
+                    outStream.writeObject(player.getWindowInterface());
                     outStream.flush();
                     outStream.close();
                 }

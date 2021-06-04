@@ -56,7 +56,7 @@ public class DiseasesWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
     }
 
     public void close(){

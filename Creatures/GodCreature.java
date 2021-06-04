@@ -1,12 +1,12 @@
 package Creatures;
 
 import Windows.BattleWindows.ChooseEnemyWindow;
-import Windows.FieldWindow;
+import Windows.WindowInterface;
 
 import java.awt.*;
 import java.io.Serializable;
 
-public class GodCreature implements Serializable, Cloneable, Copying  {
+public class GodCreature implements Serializable, Cloneable, Copying<GodCreature>  {
     protected String name;
     protected Color color;
     protected boolean isStep;
@@ -58,7 +58,7 @@ public class GodCreature implements Serializable, Cloneable, Copying  {
         return isPlayer;
     }
 
-    public void setChooseEnemyWindow(Player player, FieldWindow fieldWindow, LiveCreature liveCreature){
+    public void setChooseEnemyWindow(Player player, WindowInterface fieldWindow, LiveCreature liveCreature){
         chooseEnemyWindow = new ChooseEnemyWindow(player, fieldWindow, liveCreature);
         chooseEnemyWindow.requestFocusInWindow();
     }

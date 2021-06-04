@@ -1,5 +1,6 @@
 package Windows.SupportWindows;
 
+import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.JPanelWithBackGroundImage;
 
 import javax.swing.*;
@@ -21,8 +22,8 @@ public class StartWindow extends JFrame {
 
         JPanel panel = new JPanel(new BorderLayout());
 
-        JButton newGame = new JButton("Новая игра");
-        JButton loadGame = new JButton("Загрузить игру");
+        JButton newGame = new UnfocusedButton("Новая игра");
+        JButton loadGame = new UnfocusedButton("Загрузить игру");
 
         newGame.addActionListener((ActionListener & Serializable) e -> {
             synchronized (StartWindow.class) {

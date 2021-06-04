@@ -2,6 +2,7 @@ package Windows.SupportWindows.SupportComponents;
 
 import ConstructorTool.ConstructorConversationWindow;
 import Conversations.Conversation;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,15 +72,13 @@ public class ScrollPanels {
         for(int s = 0; s < tree.size(); s++) {
             for (int k = 0; k < tree.get(s).size(); k++) {
 
-                JButton button = new JButton(tree.get(s).get(k).getTitle());
+                JButton button = new UnfocusedButton(tree.get(s).get(k).getTitle());
                 int finalS = s;
                 int finalK = k;
-                button.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        constructorConversationWindow.setChosenConversation(tree.get(finalS).get(finalK));
-                        addToNumberOfLayers(finalS, finalK, i);
-                        constructorConversationWindow.drawWindow();
-                    }
+                button.addActionListener(e -> {
+                    constructorConversationWindow.setChosenConversation(tree.get(finalS).get(finalK));
+                    addToNumberOfLayers(finalS, finalK, i);
+                    constructorConversationWindow.drawWindow();
                 });
                 button.setPreferredSize(new Dimension(120,40));
                 button.setMinimumSize(new Dimension(120,40));

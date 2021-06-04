@@ -7,6 +7,7 @@ import Items.Armors.Ring;
 import Items.BlackSmith.Resource.Resource;
 import Items.Item;
 import Items.Weapons.Weapon;
+import Windows.WindowInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,12 +59,12 @@ public class InventoryWindow extends JFrame implements Serializable {
     public void drawInventory(Boolean isDrawMap){
         menuPanel = new JPanel();
 
-        JButton allInventory = new JButton("Всё");
-        JButton weaponInventory = new JButton("Оружие");
-        JButton armorInventory = new JButton("Броня");
-        JButton potionInventory = new JButton("Зелья");
-        JButton ingredientInventory = new JButton("Ингредиенты");
-        JButton resourceInventory = new JButton("Ресурсы");
+        JButton allInventory = new UnfocusedButton("Всё");
+        JButton weaponInventory = new UnfocusedButton("Оружие");
+        JButton armorInventory = new UnfocusedButton("Броня");
+        JButton potionInventory = new UnfocusedButton("Зелья");
+        JButton ingredientInventory = new UnfocusedButton("Ингредиенты");
+        JButton resourceInventory = new UnfocusedButton("Ресурсы");
 
         menuPanel.add(allInventory);
         menuPanel.add(weaponInventory);
@@ -79,7 +80,8 @@ public class InventoryWindow extends JFrame implements Serializable {
             drawInventory();
             if(player.getClass().toString().contains("Player")){
                 if(isDrawMap) {
-                    player.getFieldWindow().drawAllPlayerWindow();
+                    WindowInterface windowInterface = player.getWindowInterface();
+                    windowInterface.drawAllPlayerWindow(player, windowInterface);
                 }
             }
         };
@@ -206,7 +208,7 @@ public class InventoryWindow extends JFrame implements Serializable {
             itemPanel.add(labels, itemConstraints);
             itemConstraints.gridy ++;
 
-            JButton useButton = new JButton("Экипировать");
+            JButton useButton = new UnfocusedButton("Экипировать");
 
             if(!(item instanceof Weapon || item instanceof Armor)){
                 itemQuality.setText("");
@@ -216,30 +218,31 @@ public class InventoryWindow extends JFrame implements Serializable {
             useButton.setMaximumSize(new Dimension(width/3,20));
             useButton.setMinimumSize(new Dimension(width/3,20));
 
+            WindowInterface windowInterface = player.getWindowInterface();
             if(!item.getClass().toString().contains("Alchemy")){
                 useButton.addActionListener((ActionListener & Serializable) e -> {
                     player.equip(item);
-                    if(player.getClass().toString().contains("Player") && ((Player)player).getEquipmentWindow() != null){
-                        ((Player)player).getEquipmentWindow().drawEquipment();
+                    if(player.getClass().toString().contains("Player") && player.getEquipmentWindow() != null){
+                        player.getEquipmentWindow().drawEquipment();
                         if(isDrawMap)
-                            ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                            windowInterface.drawAllPlayerWindow(player, windowInterface);
                     }
                 });
             } else {
                 useButton.addActionListener((ActionListener & Serializable)e -> {
-                    ((Potion)item).use(player);
+                    ((Potion) item).use(player);
                     player.removeItem(item);
                     drawInventory();
                     if(isDrawMap)
-                        ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                        windowInterface.drawAllPlayerWindow(player, windowInterface);
                 });
             }
 
-            JButton removeButton = new JButton("Выбросить");
+            JButton removeButton = new UnfocusedButton("Выбросить");
             removeButton.addActionListener((ActionListener & Serializable)e -> {
                 player.removeItem(item);
                 if(isDrawMap)
-                    ((Player)player).getFieldWindow().drawAllPlayerWindow();
+                    windowInterface.drawAllPlayerWindow(player, windowInterface);
             });
             removeButton.setPreferredSize(new Dimension(width/3,20));
             removeButton.setMaximumSize(new Dimension(width/3,20));

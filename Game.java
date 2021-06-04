@@ -92,7 +92,7 @@ public class Game {
 
             FieldWindow fieldWindow1 = new FieldWindow("Поле", map);
 
-            player.setFieldWindow(fieldWindow1);
+            player.setWindowInterface(fieldWindow1);
 
             chooseDifficultyWindow.close();
 
@@ -119,7 +119,7 @@ public class Game {
                 Player player = fieldWindow.getPlayer();
                 fieldWindow.drawMap();
                 player.initWindows();
-                fieldWindow.drawAllPlayerWindow();
+                fieldWindow.drawAllPlayerWindow(fieldWindow.getPlayer(), fieldWindow);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

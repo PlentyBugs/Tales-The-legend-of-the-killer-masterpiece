@@ -6,6 +6,7 @@ import Items.Weapons.Weapon;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,7 +127,7 @@ public class ThiefWindow extends JFrame implements Serializable {
             }
 
             itemConstraints.gridx = 4;
-            JButton useButton = new JButton("Украсть(Шанс " + Math.round(chance*100.0)/100.0 + "%)");
+            JButton useButton = new UnfocusedButton("Украсть(Шанс " + Math.round(chance*100.0)/100.0 + "%)");
             useButton.setSize(100,40);
 
             double finalChance = chance;
@@ -139,7 +140,7 @@ public class ThiefWindow extends JFrame implements Serializable {
                         drawInventory();
                         thief.getInventoryWindow().drawInventory();
                     } else {
-                        FightWindow fightWindow = new FightWindow(thief, player, thief.getFieldWindow());
+                        FightWindow fightWindow = new FightWindow(thief, player, thief.getWindowInterface());
                         close();
                     }
                 }

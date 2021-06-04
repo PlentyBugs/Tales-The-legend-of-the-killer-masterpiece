@@ -1,48 +1,26 @@
 package Windows;
 
 import AI.NPCController;
-import Abilities.Passive.LittleFool;
-import Creatures.GodCreature;
-import Creatures.LiveCreature;
 import Creatures.Player;
-import Items.Alchemy.Ingredients.Ingredient;
-import Items.BlackSmith.Resource.Resource;
-import Items.Tools.Pickaxe;
-import Locations.Cave.Cave;
-import Locations.Dungeon.Dungeon;
 import Locations.Map;
-import Things.AlchemyThings.IngredientThing;
-import Things.ChestLike.Chest;
-import Things.Craft.CraftTable;
-import Things.Doors.CaveDoor;
-import Things.Doors.Door;
-import Things.Doors.DoorToUpperLevelLocation;
-import Things.Grass;
-import Things.HealBlock;
-import Things.Ore;
-import Things.Stone;
-import Windows.BattleWindows.GodCreatureButton;
-import Windows.BattleWindows.LossWindow;
 import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.util.List;
 import java.awt.event.WindowEvent;
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.stream.IntStream;
 
-public class FieldWindow extends JFrame implements Serializable, KeyListener {
-    private int x, y;
-    private int realVision;
-    private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private JPanel mainPanel = new JPanel(new GridBagLayout());
-    private GridBagConstraints mainConstraints = new GridBagConstraints();
+public class FieldWindow extends JFrame implements Serializable, WindowInterface {
+    private final int y;
+    private final Player player;
+    private final FieldPanel fieldPanel;
+    private final JPanel subPanel = new JPanel(new BorderLayout());
+    private final JTabbedPane menu = new JTabbedPane();
     private JPanel contentPanel = new JPanel(new GridBagLayout());
-    private JTabbedPane menu = new JTabbedPane();
     private JPanel inventory;
     private JPanel upgrade;
     private JPanel equipment;
@@ -51,10 +29,13 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
     private JPanel quests;
     private JPanel disease;
     private Map currentMap;
-    private NPCController npcController;
+    private final NPCController npcController;
+    @Serial
     private static final long serialVersionUID = -5963455665311017981L;
+    private final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-    private Console console;
+    private final Console console;
 
     public FieldWindow(String name, Map map) {
         super(name);
@@ -62,6 +43,7 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         setFocusable(true);
         setFocusTraversalKeysEnabled(true);
         this.player = map.getPlayer();
+        fieldPanel = new FieldPanel(map);
 
         inventory = player.getInventoryWindow().getPanel();
         upgrade = player.getUpStatsWindow().getPanel();
@@ -73,13 +55,19 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
 
         console = new Console();
 
-        x = 1024;
         y = 720;
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        console.setSizeArea((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()-40, (int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()/6.5));
+        console.setSizeArea((int) (SCREEN_WIDTH * 0.4), (int)(SCREEN_HEIGHT / 6.5));
+
+        Dimension subPanelSize = new Dimension((int) (SCREEN_WIDTH * 0.4), SCREEN_HEIGHT);
+        subPanel.setSize(subPanelSize);
+        subPanel.setPreferredSize(subPanelSize);
+        subPanel.setMaximumSize(subPanelSize);
+        subPanel.setMinimumSize(subPanelSize);
+        subPanel.add(console, BorderLayout.SOUTH);
 
         currentMap = map;
 
@@ -89,111 +77,36 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         drawMap();
     }
 
-    private void drawField(GodCreature[][] information){
-        npcController.clear();
-        npcController.setFieldWindow(this);
-
-        realVision = player.getVision()*2+1;
-        int width = (int)(x*0.95)/realVision;
-        int height = (int)(y*0.7)/realVision;
-
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(0, 0, 0, 0);
-
-        player.removeBrokenItems();
-
-        for (int i = 0; i < realVision; i++){
-            for (int j = 0; j < realVision; j++) {
-                constraints.gridx = j;
-                constraints.gridy = i;
-                GodCreatureButton button = new GodCreatureButton(information[i][j]);
-                button.setText(information[i][j].getName());
-                button.setBounds(0,0,100,50);
-                button.setBackground(information[i][j].getColor());
-                button.setLocation((width+5)*j + 8,(height+5)*i + 5);
-                button.setFont(new Font("TimesRoman", Font.BOLD, (int)(80/Math.pow(realVision, 0.9))));
-                if(information[i][j].getColor().getRed() < 70 && information[i][j].getColor().getBlue() < 70 && information[i][j].getColor().getGreen() < 70){
-                    button.setForeground(new Color(255 - information[i][j].getColor().getRed(), 255 - information[i][j].getColor().getGreen(), 255 - information[i][j].getColor().getBlue()));
-                }
-
-                button.setPreferredSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
-                button.setMinimumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
-                button.setMaximumSize(new Dimension(x/realVision,(int)(0.7*y/realVision)));
-
-                button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-                control(information[i][j], button);
-
-                panel.add(button, constraints);
-            }
-        }
-    }
-
     public void writeToConsole(String text) {
         console.writeToConsole(text);
     }
 
-    public void drawMap(boolean controlledByController){
-        getContentPane().removeAll();
-        mainPanel = new JPanel(new GridBagLayout());
-        mainConstraints = new GridBagConstraints();
-        mainConstraints.anchor = GridBagConstraints.WEST;
-        mainConstraints.insets = new Insets(0, 5, 0, 5);
-        mainConstraints.gridx = 0;
-        mainConstraints.gridy = 0;
-
-        panel = new JPanel(new GridBagLayout());
-        drawField(currentMap.getMap(player.getX(),player.getY()));
-        mainPanel.add(panel, mainConstraints);
-
-        fillContentPanel();
-
-        getContentPane().add(mainPanel, BorderLayout.NORTH);
-        getContentPane().add(console, BorderLayout.SOUTH);
-        setVisible(!player.getInFight());
-
-        player.countPassiveBuffs();
-        player.checkQuests();
-        player.countEquipmentBuffs();
-        realVision = player.getVision()*2+1;
-        if(player.getHp() <= 0){
-            setVisible(false);
-            new LossWindow();
-        }
-    }
-
+    @Override
     public void drawMap(){
-        player.setLocation(currentMap.getLocationName());
-        getContentPane().removeAll();
-        mainPanel = new JPanel(new GridBagLayout());
-        mainConstraints = new GridBagConstraints();
-        mainConstraints.anchor = GridBagConstraints.WEST;
-        mainConstraints.insets = new Insets(0, 5, 0, 5);
-        mainConstraints.gridx = 0;
-        mainConstraints.gridy = 0;
 
-        panel = new JPanel(new GridBagLayout());
-        drawField(currentMap.getMap(player.getX(),player.getY()));
-        mainPanel.add(panel, mainConstraints);
+//        npcController.clear();
+//        npcController.setWindowInterface(this);
+//        player.removeBrokenItems();
+//        setVisible(!player.getInFight());
+//        player.countPassiveBuffs();
+//        player.checkQuests();
+//        player.countEquipmentBuffs();
+//        if(player.getHp() <= 0){
+//            setVisible(false);
+//            new LossWindow();
+//        }
+        fieldPanel.updateUI();
+        fieldPanel.setPreferredSize(new Dimension((int) (SCREEN_WIDTH * 0.6), SCREEN_HEIGHT));
 
         fillContentPanel();
 
-        getContentPane().add(mainPanel, BorderLayout.NORTH);
-        getContentPane().add(console, BorderLayout.SOUTH);
+        getContentPane().add(fieldPanel, BorderLayout.WEST);
+        getContentPane().add(subPanel, BorderLayout.EAST);
         setVisible(true);
-
-        player.countPassiveBuffs();
-        player.checkQuests();
-        player.countEquipmentBuffs();
-        realVision = player.getVision()*2+1;
-        if(player.getHp() <= 0){
-            setVisible(false);
-            new LossWindow();
-        }
     }
 
     private void fillContentPanel(){
-        mainPanel.remove(contentPanel);
+        subPanel.remove(contentPanel);
 
         contentPanel = new JPanel(new GridBagLayout());
         GridBagConstraints contentConstraints = new GridBagConstraints();
@@ -202,15 +115,15 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         contentConstraints.gridx = 0;
         contentConstraints.gridy = 0;
 
-        contentPanel.setMinimumSize(new Dimension(x - (x/realVision) -380, y));
-        contentPanel.setMaximumSize(new Dimension(x - (x/realVision) -380, y));
-        contentPanel.setPreferredSize(new Dimension(x - (x/realVision) -380, y));
+        Dimension minimumSize = new Dimension(600, y);
+        contentPanel.setMinimumSize(minimumSize);
+        contentPanel.setMaximumSize(minimumSize);
+        contentPanel.setPreferredSize(minimumSize);
 
         updateTabs();
 
         contentPanel.add(menu);
-        mainConstraints.gridx = 1;
-        mainPanel.add(contentPanel, mainConstraints);
+        subPanel.add(contentPanel, BorderLayout.NORTH);
     }
 
     private void updateTabs(){
@@ -221,41 +134,45 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         abilities = player.getPlayerAbilityWindow().getPanel();
         quests = player.getPlayerQuestWindow().getPanel();
         disease = player.getDiseasesWindow().getPanel();
+        List<JPanel> tabs = List.of(
+                inventory,
+                upgrade,
+                equipment,
+                info,
+                abilities,
+                quests,
+                disease
+        );
+        List<String> tabNames = List.of(
+                "Инвентарь",
+                "Прокачка",
+                "Экипировка",
+                "Информация",
+                "Умения",
+                "Квесты",
+                "Болезни"
+        );
 
         if(menu.getComponents().length != 0){
             try{
-                menu.setComponentAt(0, inventory);
-                menu.setComponentAt(1, upgrade);
-                menu.setComponentAt(2, equipment);
-                menu.setComponentAt(3, info);
-                menu.setComponentAt(4, abilities);
-                menu.setComponentAt(5, quests);
-                menu.setComponentAt(6, disease);
+                IntStream
+                        .range(0, tabs.size())
+                        .forEach(i -> menu.setComponentAt(i, tabs.get(i)));
             } catch (Exception ex){
                 menu.removeAll();
-                menu.addTab("Инвентарь", inventory);
-                menu.addTab("Прокачка", upgrade);
-                menu.addTab("Экипировка", equipment);
-                menu.addTab("Информация", info);
-                menu.addTab("Умения", abilities);
-                menu.addTab("Квесты", quests);
-                menu.addTab("Болезни", disease);
+                IntStream
+                        .range(0, tabs.size())
+                        .forEach(i -> menu.addTab(tabNames.get(i), tabs.get(i)));
             }
         } else {
-            menu.setMinimumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
-            menu.setMaximumSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
-            menu.setPreferredSize(new Dimension((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - x), y));
-            menu.setMinimumSize(new Dimension(x - (x/realVision) -404, y));
-            menu.setMaximumSize(new Dimension(x - (x/realVision) -404, y));
-            menu.setPreferredSize(new Dimension(x - (x/realVision) -404, y));
-            
-            menu.addTab("Инвентарь", inventory);
-            menu.addTab("Прокачка", upgrade);
-            menu.addTab("Экипировка", equipment);
-            menu.addTab("Информация", info);
-            menu.addTab("Умения", abilities);
-            menu.addTab("Квесты", quests);
-            menu.addTab("Болезни", disease);
+            Dimension minimumSize = new Dimension(600, y);
+            menu.setMinimumSize(minimumSize);
+            menu.setMaximumSize(minimumSize);
+            menu.setPreferredSize(minimumSize);
+
+            IntStream
+                    .range(0, tabs.size())
+                    .forEach(i -> menu.addTab(tabNames.get(i), tabs.get(i)));
         }
 
     }
@@ -280,440 +197,211 @@ public class FieldWindow extends JFrame implements Serializable, KeyListener {
         return player;
     }
 
-    public void drawAllPlayerWindow(){
-        player.getInventoryWindow().drawInventory();
-        player.getUpStatsWindow().drawWindow();
-        player.getEquipmentWindow().drawEquipment();
-        player.getPlayerInfoWindow().drawInfo();
-        player.getPlayerAbilityWindow().drawWindow();
-        player.getPlayerQuestWindow().drawWindow();
-        player.getDiseasesWindow().drawWindow();
-        drawMap();
-    }
-
-    // Не понимаю зачем тут я вообще так делал, пока просто отрефакторю, потом мб переделаю
-    public void keyPressed(KeyEvent event){
-        GodCreature[][] lower = currentMap.getMapLowerObjects();
-        GodCreature[][] upper = currentMap.getMapUpperObjects();
-        int height = lower.length;
-        int width = lower[0].length;
-        int x = player.getX();
-        int y = player.getY();
-        if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A) {
-            int newX = x == 0 ? width - 1: x - 1;
-            step(
-                    upper[y][newX] == null ?
-                            lower[y][newX]:
-                            upper[y][newX]
-            );
-            drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D) {
-            int newX = x == width - 1 ? 0: x + 1;
-            step(
-                    upper[y][newX] == null ?
-                            lower[y][newX]:
-                            upper[y][newX]
-            );
-            drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W) {
-            int newY = y == 0 ? height - 1: y - 1;
-            step(
-                    upper[newY][x] == null ?
-                            lower[newY][x]:
-                            upper[newY][x]
-            );
-            drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S) {
-            int newY = y == height - 1 ? 0: y + 1;
-            step(
-                    upper[newY][x] == null ?
-                            lower[newY][x]:
-                            upper[newY][x]
-            );
-            drawMap();
-        }
-    }
-
-    public void keyReleased(KeyEvent event){}
-
-    public void keyTyped(KeyEvent event){}
-
     public NPCController getNpcController() {
         return npcController;
     }
 
-    private void control(GodCreature creature, GodCreatureButton button) {
-
-        boolean isStep = creature.getIsStep();
-        int X = creature.getX();
-        int Y = creature.getY();
-
-        boolean isLiveCreature = creature instanceof LiveCreature;
-        boolean isAlchemyThings = creature.getClass().toString().contains("AlchemyThings");
-        boolean isOre = creature instanceof Ore;
-        boolean isHealBlock = creature instanceof HealBlock;
-        boolean isDoorToUpperLevel = creature instanceof Door;
-        boolean isChest = creature instanceof Chest;
-        boolean isCraft = creature instanceof CraftTable;
-
-        if(!(creature instanceof Player) && creature instanceof LiveCreature){
-            npcController.addNPC((LiveCreature)creature);
-        }
-
-        if(player.hasAbility(new LittleFool()) && creature.getClass().toString().contains("Tree")){
-            isStep = true;
-        }
-        if (creature.getIsPlayer()){
-            button.addActionListener(e -> drawAllPlayerWindow());
-        } else if (isHealBlock){
-            button.addActionListener((ActionListener & Serializable)e -> {
-                player.setFieldWindow(FieldWindow.this);
-                currentMap.setElementByCoordinates(creature.getX(), creature.getY(), new Grass(creature.getX(), creature.getY()));
-                ((HealBlock) creature).heal(player);
-                int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
-                int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
-                currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
-                drawMap();
-                drawAllPlayerWindow();
-            });
-        } else if (isDoorToUpperLevel) {
-            button.addActionListener((ActionListener & Serializable)e -> {
-                //todo add function to the Door class to check the key
-                if(!((Door)creature).getIsLocked() || (((Door)creature).getIsLocked() && player.hasItem(((Door)creature).getKey()))){
-                    if(((Door)creature).getIsLocked()){
-                        player.removeItem(((Door)creature).getKey());
-                        ((Door)creature).setIsLocked(false);
-                    }
-                    currentMap.setPlayerX(player.getX());
-                    currentMap.setPlayerY(player.getY());
-                    ((Door)creature).setIn(currentMap);
-                    if(creature instanceof DoorToUpperLevelLocation){
-                        ((Door)creature).setGeneration(() -> {
-                            Map map;
-                            if(((Door)creature).getOut() == null){
-                                map = new Map();
-
-                                Dungeon dungeon = new Dungeon(player);
-                                GodCreature[][][] zxc = dungeon.getMap();
-                                map.setMapLowerObjects(zxc[0]);
-                                map.setMapUpperObjects(zxc[1]);
-                                map.setMapHeight();
-                                map.setMapWidth();
-                                map.setLocationName(dungeon.getLocationName());
-                                ((Door)creature).setOut(map);
-                                player.setX(dungeon.getPlayerXSafety());
-                                player.setY(dungeon.getPlayerYSafety());
-                                DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
-                                door.setOut(currentMap);
-                                door.setIsLocked(false);
-                                map.setElementByCoordinates(player.getX(), player.getY(), door);
-                            } else {
-                                map = ((Door)creature).getOut();
-                                player.setX(map.getPlayerX());
-                                player.setY(map.getPlayerY());
-                            }
-                            map.setPlayer(player);
-                            return map;
-                        });
-                    } else if(creature instanceof CaveDoor){
-                        ((Door)creature).setGeneration(() -> {
-                            Map map;
-                            if(((Door)creature).getOut() == null){
-                                map = new Map();
-                                Cave cave = new Cave();
-
-                                map.setMapLowerObjects(cave.getCave());
-                                map.setMapHeight();
-                                map.setMapWidth();
-                                ((Door)creature).setOut(map);
-
-                                player.setX(cave.getPlayerSafeX());
-                                player.setY(cave.getPlayerSafeY());
-
-                                CaveDoor door = new CaveDoor();
-                                door.setOut(currentMap);
-                                door.setIsLocked(false);
-                                map.setElementByCoordinates(player.getX(), player.getY(), door);
-                            } else {
-                                map = ((Door)creature).getOut();
-                                player.setX(map.getPlayerX());
-                                player.setY(map.getPlayerY());
-                            }
-                            map.setPlayer(player);
-                            return map;
-                        });
-                    }
-                    currentMap = ((Door)creature).generate();
-                    player.setFieldWindow(FieldWindow.this);
-                    drawMap();
-                }
-                drawAllPlayerWindow();
-            });
-        } else if(isCraft){
-            button.addActionListener((ActionListener & Serializable)e -> {
-                ((CraftTable) creature).setPlayer(player);
-                if(!((CraftTable) creature).getCraftTableWindowOpen()){
-                    ((CraftTable) creature).setCraftTableWindow(true);
-                    ((CraftTable) creature).setCraftTableWindowOpen(true);
-                } else {
-                    ((CraftTable) creature).setCraftTableWindow(false);
-                    ((CraftTable) creature).setCraftTableWindowOpen(false);
-                }
-            });
-        }else if (isChest) {
-            button.addActionListener((ActionListener & Serializable)e -> {
-                player.setFieldWindow(FieldWindow.this);
-                if(!((Chest) creature).getIsInventoryChestOpen()){
-                    ((Chest) creature).setPlayer(player);
-                    ((Chest) creature).setInventoryWindow();
-                    ((Chest) creature).setInventoryWindowChestIsVisible(true);
-                    ((Chest) creature).setInventoryChestOpen(true);
-                } else {
-                    ((Chest) creature).getInventoryWindow().close();
-                    ((Chest) creature).setInventoryWindowChestIsVisible(false);
-                    ((Chest) creature).setInventoryChestOpen(false);
-                }
-                drawAllPlayerWindow();
-            });
-        } else {
-            boolean finalIsStep = isStep;
-            button.addActionListener((ActionListener & Serializable) e -> {
-                if (finalIsStep) {
-                    player.setFieldWindow(FieldWindow.this);
-                    player.setX(X);
-                    player.setY(Y);
-                    if (isAlchemyThings) {
-                        player.addItemToInventory((Ingredient) ((IngredientThing) creature).getIngredient());
-                        GodCreature godCreature = (GodCreature) ((IngredientThing) creature).getParent();
-                        godCreature.setX(X);
-                        godCreature.setY(Y);
-                        currentMap.setElementByCoordinates(X, Y, godCreature);
-                    }
-                    if (isOre && player.hasItem(new Pickaxe())) {
-                        player.addItemToInventory((Resource) ((Ore) creature).getResource());
-                        GodCreature godCreature = new Stone();
-                        godCreature.setX(X);
-                        godCreature.setY(Y);
-                        currentMap.setElementByCoordinates(X, Y, godCreature);
-                    }
-                    drawMap();
-                } else if (isLiveCreature) {
-                    player.setFieldWindow(FieldWindow.this);
-                    if (((LiveCreature) creature).getTalkative()) {
-                        ((LiveCreature) creature).setConversationWindowPlayer(player);
-                        if (!((LiveCreature) creature).getIsConversationWindowOpen()) {
-                            ((LiveCreature) creature).setConversationWindowIsVisible(true);
-                            ((LiveCreature) creature).setConversationWindowOpen(true);
-                        } else {
-                            ((LiveCreature) creature).setConversationWindowIsVisible(false);
-                            ((LiveCreature) creature).setConversationWindowOpen(false);
-                        }
-                    } else {
-                        player.setFieldWindow(FieldWindow.this);
-                        if (((LiveCreature) creature).getHp() == 0) {
-                            ((LiveCreature) creature).countStatsAfterBorn();
-                        }
-                        if (creature.getChooseEnemyWindow() == null) {
-                            creature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) creature);
-                        }
-                        if (!creature.getIsChooseEnemyWindowOpen()) {
-                            creature.setChooseEnemyWindowIsVisible(true);
-                            creature.setChooseEnemyWindowOpen(true);
-                        } else {
-                            creature.setChooseEnemyWindowIsVisible(false);
-                            creature.setChooseEnemyWindowOpen(false);
-                        }
-                    }
-                }
-                drawAllPlayerWindow();
-            });
-        }
+    @Override
+    public Map getMap() {
+        return currentMap;
     }
-    private void step(GodCreature creature) {
 
-        boolean isStep = creature.getIsStep();
-        Step step;
-        int X = creature.getX();
-        int Y = creature.getY();
-
-        boolean isLiveCreature = creature instanceof LiveCreature;
-        boolean isAlchemyThings = creature.getClass().toString().contains("AlchemyThings");
-        boolean isOre = creature instanceof Ore;
-        boolean isHealBlock = creature instanceof HealBlock;
-        boolean isDoorToUpperLevel = creature instanceof Door;
-        boolean isChest = creature instanceof Chest;
-        boolean isCraft = creature instanceof CraftTable;
-
-        if(!(creature instanceof Player) && creature instanceof LiveCreature){
-            npcController.addNPC((LiveCreature)creature);
-        }
-
-        if(player.hasAbility(new LittleFool()) && creature.getClass().toString().contains("Tree")){
-            isStep = true;
-        }
-        if (isHealBlock){
-            step = (Step & Serializable)() -> {
-                player.setFieldWindow(FieldWindow.this);
-                currentMap.setElementByCoordinates(creature.getX(), creature.getY(), new Grass(creature.getX(), creature.getY()));
-                ((HealBlock) creature).heal(player);
-                int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
-                int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
-                currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
-                drawMap();
-                drawAllPlayerWindow();
-            };
-        } else if (isDoorToUpperLevel) {
-            step = (Step & Serializable)() -> {
-                //todo add function to the Door class to check the key
-                if(!((Door)creature).getIsLocked() || (((Door)creature).getIsLocked() && player.hasItem(((Door)creature).getKey()))){
-                    if(((Door)creature).getIsLocked()){
-                        player.removeItem(((Door)creature).getKey());
-                        ((Door)creature).setIsLocked(false);
-                    }
-                    currentMap.setPlayerX(player.getX());
-                    currentMap.setPlayerY(player.getY());
-                    ((Door)creature).setIn(currentMap);
-                    if(creature instanceof DoorToUpperLevelLocation){
-                        ((Door)creature).setGeneration(() -> {
-                            Map map;
-                            if(((Door)creature).getOut() == null){
-                                map = new Map();
-
-                                Dungeon dungeon = new Dungeon(player);
-                                GodCreature[][][] zxc = dungeon.getMap();
-                                map.setMapLowerObjects(zxc[0]);
-                                map.setMapUpperObjects(zxc[1]);
-                                map.setMapHeight();
-                                map.setMapWidth();
-                                map.setLocationName(dungeon.getLocationName());
-                                ((Door)creature).setOut(map);
-                                player.setX(dungeon.getPlayerXSafety());
-                                player.setY(dungeon.getPlayerYSafety());
-                                DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
-                                door.setOut(currentMap);
-                                door.setIsLocked(false);
-                                map.setElementByCoordinates(player.getX(), player.getY(), door);
-                            } else {
-                                map = ((Door)creature).getOut();
-                                player.setX(map.getPlayerX());
-                                player.setY(map.getPlayerY());
-                            }
-                            map.setPlayer(player);
-                            return map;
-                        });
-                    } else if(creature instanceof CaveDoor){
-                        ((Door)creature).setGeneration(() -> {
-                            Map map;
-                            if(((Door)creature).getOut() == null){
-                                map = new Map();
-                                Cave cave = new Cave();
-
-                                map.setMapLowerObjects(cave.getCave());
-                                map.setMapHeight();
-                                map.setMapWidth();
-                                ((Door)creature).setOut(map);
-
-                                player.setX(cave.getPlayerSafeX());
-                                player.setY(cave.getPlayerSafeY());
-
-                                CaveDoor door = new CaveDoor();
-                                door.setOut(currentMap);
-                                door.setIsLocked(false);
-                                map.setElementByCoordinates(player.getX(), player.getY(), door);
-                            } else {
-                                map = ((Door)creature).getOut();
-                                player.setX(map.getPlayerX());
-                                player.setY(map.getPlayerY());
-                            }
-                            map.setPlayer(player);
-                            return map;
-                        });
-                    }
-                    currentMap = ((Door)creature).generate();
-                    player.setFieldWindow(FieldWindow.this);
-                    drawMap();
-                }
-                drawAllPlayerWindow();
-            };
-        } else if(isCraft){
-            step = (Step & Serializable)() -> {
-                ((CraftTable) creature).setPlayer(player);
-                if(!((CraftTable) creature).getCraftTableWindowOpen()){
-                    ((CraftTable) creature).setCraftTableWindow(true);
-                    ((CraftTable) creature).setCraftTableWindowOpen(true);
-                } else {
-                    ((CraftTable) creature).setCraftTableWindow(false);
-                    ((CraftTable) creature).setCraftTableWindowOpen(false);
-                }
-            };
-        }else if (isChest) {
-            step = (Step & Serializable)() -> {
-                player.setFieldWindow(FieldWindow.this);
-                if(!((Chest) creature).getIsInventoryChestOpen()){
-                    ((Chest) creature).setPlayer(player);
-                    ((Chest) creature).setInventoryWindow();
-                    ((Chest) creature).setInventoryWindowChestIsVisible(true);
-                    ((Chest) creature).setInventoryChestOpen(true);
-                } else {
-                    ((Chest) creature).getInventoryWindow().close();
-                    ((Chest) creature).setInventoryWindowChestIsVisible(false);
-                    ((Chest) creature).setInventoryChestOpen(false);
-                }
-                drawAllPlayerWindow();
-            };
-        } else {
-            boolean finalIsStep = isStep;
-            step = (Step & Serializable)() -> {
-                if (finalIsStep) {
-                    player.setFieldWindow(FieldWindow.this);
-                    player.setX(X);
-                    player.setY(Y);
-                    if (isAlchemyThings) {
-                        player.addItemToInventory((Ingredient) ((IngredientThing) creature).getIngredient());
-                        GodCreature godCreature = (GodCreature) ((IngredientThing) creature).getParent();
-                        godCreature.setX(X);
-                        godCreature.setY(Y);
-                        currentMap.setElementByCoordinates(X, Y, godCreature);
-                    }
-                    if (isOre && player.hasItem(new Pickaxe())) {
-                        player.addItemToInventory((Resource) ((Ore) creature).getResource());
-                        GodCreature godCreature = new Stone();
-                        godCreature.setX(X);
-                        godCreature.setY(Y);
-                        currentMap.setElementByCoordinates(X, Y, godCreature);
-                    }
-                    drawMap();
-                } else if (isLiveCreature) {
-                    player.setFieldWindow(FieldWindow.this);
-                    if (((LiveCreature) creature).getTalkative()) {
-                        ((LiveCreature) creature).setConversationWindowPlayer(player);
-                        if (!((LiveCreature) creature).getIsConversationWindowOpen()) {
-                            ((LiveCreature) creature).setConversationWindowIsVisible(true);
-                            ((LiveCreature) creature).setConversationWindowOpen(true);
-                        } else {
-                            ((LiveCreature) creature).setConversationWindowIsVisible(false);
-                            ((LiveCreature) creature).setConversationWindowOpen(false);
-                        }
-                    } else {
-                        player.setFieldWindow(FieldWindow.this);
-                        if (((LiveCreature) creature).getHp() == 0) {
-                            ((LiveCreature) creature).countStatsAfterBorn();
-                        }
-                        if (creature.getChooseEnemyWindow() == null) {
-                            creature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) creature);
-                        }
-                        if (!creature.getIsChooseEnemyWindowOpen()) {
-                            creature.setChooseEnemyWindowIsVisible(true);
-                            creature.setChooseEnemyWindowOpen(true);
-                        } else {
-                            creature.setChooseEnemyWindowIsVisible(false);
-                            creature.setChooseEnemyWindowOpen(false);
-                        }
-                    }
-                }
-                drawAllPlayerWindow();
-            };
-        }
-        step.step();
+    @Override
+    public void setMap(Map map) {
+        currentMap = map;
     }
+
+    @Override
+    public WindowInterface getWindow() {
+        return this;
+    }
+
+    //    private void control(GodCreature creature, GodCreatureButton button) {
+//
+//        boolean isStep = creature.getIsStep();
+//        int X = creature.getX();
+//        int Y = creature.getY();
+//
+//        boolean isLiveCreature = creature instanceof LiveCreature;
+//        boolean isAlchemyThings = creature.getClass().toString().contains("AlchemyThings");
+//        boolean isOre = creature instanceof Ore;
+//        boolean isHealBlock = creature instanceof HealBlock;
+//        boolean isDoorToUpperLevel = creature instanceof Door;
+//        boolean isChest = creature instanceof Chest;
+//        boolean isCraft = creature instanceof CraftTable;
+//
+//        if(!(creature instanceof Player) && creature instanceof LiveCreature){
+//            npcController.addNPC((LiveCreature)creature);
+//        }
+//
+//        if(player.hasAbility(new LittleFool()) && creature.getClass().toString().contains("Tree")){
+//            isStep = true;
+//        }
+//        if (creature.getIsPlayer()){
+//            button.addActionListener(e -> drawAllPlayerWindow());
+//        } else if (isHealBlock){
+//            button.addActionListener((ActionListener & Serializable)e -> {
+//                player.setWindowInterface(FieldWindow.this);
+//                currentMap.setElementByCoordinates(creature.getX(), creature.getY(), new Grass(creature.getX(), creature.getY()));
+//                ((HealBlock) creature).heal(player);
+//                int healBlockY = (int)(Math.random()*(currentMap.getMapHeight()-1));
+//                int healBlockX = (int)(Math.random()*(currentMap.getMapWidth()-1));
+//                currentMap.setElementByCoordinates(healBlockX, healBlockY, new HealBlock(healBlockX, healBlockY));
+//                drawMap();
+//                drawAllPlayerWindow();
+//            });
+//        } else if (isDoorToUpperLevel) {
+//            button.addActionListener((ActionListener & Serializable)e -> {
+//                //todo add function to the Door class to check the key
+//                if(!((Door)creature).getIsLocked() || (((Door)creature).getIsLocked() && player.hasItem(((Door)creature).getKey()))){
+//                    if(((Door)creature).getIsLocked()){
+//                        player.removeItem(((Door)creature).getKey());
+//                        ((Door)creature).setIsLocked(false);
+//                    }
+//                    currentMap.setPlayerX(player.getX());
+//                    currentMap.setPlayerY(player.getY());
+//                    ((Door)creature).setIn(currentMap);
+//                    if(creature instanceof DoorToUpperLevelLocation){
+//                        ((Door)creature).setGeneration(() -> {
+//                            Map map;
+//                            if(((Door)creature).getOut() == null){
+//                                map = new Map();
+//
+//                                Dungeon dungeon = new Dungeon(player);
+//                                GodCreature[][][] zxc = dungeon.getMap();
+//                                map.setMapLowerObjects(zxc[0]);
+//                                map.setMapUpperObjects(zxc[1]);
+//                                map.setMapHeight();
+//                                map.setMapWidth();
+//                                map.setLocationName(dungeon.getLocationName());
+//                                ((Door)creature).setOut(map);
+//                                player.setX(dungeon.getPlayerXSafety());
+//                                player.setY(dungeon.getPlayerYSafety());
+//                                DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
+//                                door.setOut(currentMap);
+//                                door.setIsLocked(false);
+//                                map.setElementByCoordinates(player.getX(), player.getY(), door);
+//                            } else {
+//                                map = ((Door)creature).getOut();
+//                                player.setX(map.getPlayerX());
+//                                player.setY(map.getPlayerY());
+//                            }
+//                            map.setPlayer(player);
+//                            return map;
+//                        });
+//                    } else if(creature instanceof CaveDoor){
+//                        ((Door)creature).setGeneration(() -> {
+//                            Map map;
+//                            if(((Door)creature).getOut() == null){
+//                                map = new Map();
+//                                Cave cave = new Cave();
+//
+//                                map.setMapLowerObjects(cave.getCave());
+//                                map.setMapHeight();
+//                                map.setMapWidth();
+//                                ((Door)creature).setOut(map);
+//
+//                                player.setX(cave.getPlayerSafeX());
+//                                player.setY(cave.getPlayerSafeY());
+//
+//                                CaveDoor door = new CaveDoor();
+//                                door.setOut(currentMap);
+//                                door.setIsLocked(false);
+//                                map.setElementByCoordinates(player.getX(), player.getY(), door);
+//                            } else {
+//                                map = ((Door)creature).getOut();
+//                                player.setX(map.getPlayerX());
+//                                player.setY(map.getPlayerY());
+//                            }
+//                            map.setPlayer(player);
+//                            return map;
+//                        });
+//                    }
+//                    currentMap = ((Door) creature).generate();
+//                    fieldPanel.setMap(currentMap);
+//                    player.setWindowInterface(FieldWindow.this);
+//                    drawMap();
+//                }
+//                drawAllPlayerWindow();
+//            });
+//        } else if(isCraft){
+//            button.addActionListener((ActionListener & Serializable)e -> {
+//                ((CraftTable) creature).setPlayer(player);
+//                if(!((CraftTable) creature).getCraftTableWindowOpen()){
+//                    ((CraftTable) creature).setCraftTableWindow(true);
+//                    ((CraftTable) creature).setCraftTableWindowOpen(true);
+//                } else {
+//                    ((CraftTable) creature).setCraftTableWindow(false);
+//                    ((CraftTable) creature).setCraftTableWindowOpen(false);
+//                }
+//            });
+//        }else if (isChest) {
+//            button.addActionListener((ActionListener & Serializable)e -> {
+//                player.setWindowInterface(FieldWindow.this);
+//                if(!((Chest) creature).getIsInventoryChestOpen()){
+//                    ((Chest) creature).setPlayer(player);
+//                    ((Chest) creature).setInventoryWindow();
+//                    ((Chest) creature).setInventoryWindowChestIsVisible(true);
+//                    ((Chest) creature).setInventoryChestOpen(true);
+//                } else {
+//                    ((Chest) creature).getInventoryWindow().close();
+//                    ((Chest) creature).setInventoryWindowChestIsVisible(false);
+//                    ((Chest) creature).setInventoryChestOpen(false);
+//                }
+//                drawAllPlayerWindow();
+//            });
+//        } else {
+//            boolean finalIsStep = isStep;
+//            button.addActionListener((ActionListener & Serializable) e -> {
+//                if (finalIsStep) {
+//                    player.setWindowInterface(FieldWindow.this);
+//                    player.setX(X);
+//                    player.setY(Y);
+//                    if (isAlchemyThings) {
+//                        player.addItemToInventory((Ingredient) ((IngredientThing) creature).getIngredient());
+//                        GodCreature godCreature = (GodCreature) ((IngredientThing) creature).getParent();
+//                        godCreature.setX(X);
+//                        godCreature.setY(Y);
+//                        currentMap.setElementByCoordinates(X, Y, godCreature);
+//                    }
+//                    if (isOre && player.hasItem(new Pickaxe())) {
+//                        player.addItemToInventory((Resource) ((Ore) creature).getResource());
+//                        GodCreature godCreature = new Stone();
+//                        godCreature.setX(X);
+//                        godCreature.setY(Y);
+//                        currentMap.setElementByCoordinates(X, Y, godCreature);
+//                    }
+//                    drawMap();
+//                } else if (isLiveCreature) {
+//                    player.setWindowInterface(FieldWindow.this);
+//                    if (((LiveCreature) creature).getTalkative()) {
+//                        ((LiveCreature) creature).setConversationWindowPlayer(player);
+//                        if (!((LiveCreature) creature).getIsConversationWindowOpen()) {
+//                            ((LiveCreature) creature).setConversationWindowIsVisible(true);
+//                            ((LiveCreature) creature).setConversationWindowOpen(true);
+//                        } else {
+//                            ((LiveCreature) creature).setConversationWindowIsVisible(false);
+//                            ((LiveCreature) creature).setConversationWindowOpen(false);
+//                        }
+//                    } else {
+//                        player.setWindowInterface(FieldWindow.this);
+//                        if (((LiveCreature) creature).getHp() == 0) {
+//                            ((LiveCreature) creature).countStatsAfterBorn();
+//                        }
+//                        if (creature.getChooseEnemyWindow() == null) {
+//                            creature.setChooseEnemyWindow(player, FieldWindow.this, (LiveCreature) creature);
+//                        }
+//                        if (!creature.getIsChooseEnemyWindowOpen()) {
+//                            creature.setChooseEnemyWindowIsVisible(true);
+//                            creature.setChooseEnemyWindowOpen(true);
+//                        } else {
+//                            creature.setChooseEnemyWindowIsVisible(false);
+//                            creature.setChooseEnemyWindowOpen(false);
+//                        }
+//                    }
+//                }
+//                drawAllPlayerWindow();
+//            });
+//        }
+//    }
 }

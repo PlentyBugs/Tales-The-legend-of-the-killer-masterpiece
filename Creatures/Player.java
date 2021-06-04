@@ -8,9 +8,9 @@ import Items.Item;
 import Items.StatItem;
 import Quests.Quest;
 import Quests.ReachQuest;
-import Windows.FieldWindow;
 import Windows.PlayerWindows.*;
 import Windows.SupportWindows.SupportComponents.SavePanel;
+import Windows.WindowInterface;
 
 import java.awt.*;
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class Player extends Human {
     private PlayerInfoWindow playerInfoWindow;
     private UpgradeSkillsWindow playerAbilityWindow;
     private QuestsWindow playerQuestWindow;
-    private FieldWindow fieldWindow;
+    private WindowInterface windowInterface;
     private SavePanel savePanel;
     private DiseasesWindow diseasesWindow;
     private boolean inFight;
@@ -134,8 +134,8 @@ public class Player extends Human {
         return difficulty;
     }
 
-    public void setFieldWindow(FieldWindow fieldWindow){
-        this.fieldWindow = fieldWindow;
+    public void setWindowInterface(WindowInterface windowInterface){
+        this.windowInterface = windowInterface;
     }
 
     public void Status() throws InterruptedException {
@@ -145,28 +145,28 @@ public class Player extends Human {
     }
 
     public void getStatusPosition() throws InterruptedException {
-        fieldWindow.writeToConsole("Позиция: x = "+x+", y = " + y);
+        windowInterface.writeToConsole("Позиция: x = "+x+", y = " + y);
     }
 
     public void getStatusLocation() throws InterruptedException {
-        fieldWindow.writeToConsole("Локация: " + location);
+        windowInterface.writeToConsole("Локация: " + location);
     }
 
     public void getStatusStats() throws InterruptedException {
-        fieldWindow.writeToConsole("Статы:");
-        fieldWindow.writeToConsole("\tСила: " + stats.getStrength());
-        fieldWindow.writeToConsole("\tЛовкость: " + stats.getAgility());
-        fieldWindow.writeToConsole("\tСкорость: " + stats.getSpeed());
-        fieldWindow.writeToConsole("\tИнтеллект: " + stats.getIntelligence());
-        fieldWindow.writeToConsole("\tУдача: " + stats.getLuck());
-        fieldWindow.writeToConsole("\tКрасноречие: " + stats.getEloquence());
-        fieldWindow.writeToConsole("\tКузнечное дело: " + stats.getBlacksmith());
-        fieldWindow.writeToConsole("\tАлхимия: " + stats.getAlchemy());
-        fieldWindow.writeToConsole("\tОдноручное оружие: " + stats.getOne_handed_weapon());
-        fieldWindow.writeToConsole("\tДвуручное оружие: " + stats.getTwo_handed_weapon());
-        fieldWindow.writeToConsole("\tДревковое оружие: " + stats.getPole_weapon());
-        fieldWindow.writeToConsole("\tРубящее оружие: " + stats.getChopping_weapon());
-        fieldWindow.writeToConsole("\tДальнобойное оружие: " + stats.getLong_range_weapon());
+        windowInterface.writeToConsole("Статы:");
+        windowInterface.writeToConsole("\tСила: " + stats.getStrength());
+        windowInterface.writeToConsole("\tЛовкость: " + stats.getAgility());
+        windowInterface.writeToConsole("\tСкорость: " + stats.getSpeed());
+        windowInterface.writeToConsole("\tИнтеллект: " + stats.getIntelligence());
+        windowInterface.writeToConsole("\tУдача: " + stats.getLuck());
+        windowInterface.writeToConsole("\tКрасноречие: " + stats.getEloquence());
+        windowInterface.writeToConsole("\tКузнечное дело: " + stats.getBlacksmith());
+        windowInterface.writeToConsole("\tАлхимия: " + stats.getAlchemy());
+        windowInterface.writeToConsole("\tОдноручное оружие: " + stats.getOne_handed_weapon());
+        windowInterface.writeToConsole("\tДвуручное оружие: " + stats.getTwo_handed_weapon());
+        windowInterface.writeToConsole("\tДревковое оружие: " + stats.getPole_weapon());
+        windowInterface.writeToConsole("\tРубящее оружие: " + stats.getChopping_weapon());
+        windowInterface.writeToConsole("\tДальнобойное оружие: " + stats.getLong_range_weapon());
     }
 
     public QuestsWindow getPlayerQuestWindow() {
@@ -261,8 +261,8 @@ public class Player extends Human {
                     addMaxHpByStats();
                     setHp(maxHp);
 
-                    fieldWindow.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
-                    fieldWindow.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
+                    windowInterface.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
+                    windowInterface.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
                 }
             }
         });
@@ -302,8 +302,8 @@ public class Player extends Human {
         }
     }
 
-    public FieldWindow getFieldWindow() {
-        return fieldWindow;
+    public WindowInterface getWindowInterface() {
+        return windowInterface;
     }
 
     public EquipmentWindow getEquipmentWindow() {

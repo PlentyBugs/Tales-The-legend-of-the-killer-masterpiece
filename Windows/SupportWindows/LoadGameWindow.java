@@ -1,5 +1,7 @@
 package Windows.SupportWindows;
 
+import Windows.PlayerWindows.UnfocusedButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -33,7 +35,7 @@ public class LoadGameWindow extends JFrame {
             JLabel name = new JLabel(file.getName().substring(0, file.getName().length()-4));
             panel.add(name, constraints);
             constraints.gridx ++;
-            JButton loadButton = new JButton("Загрузитть");
+            JButton loadButton = new UnfocusedButton("Загрузитть");
             loadButton.addActionListener((ActionListener & Serializable) e -> fileName = file.getName());
             panel.add(loadButton, constraints);
             constraints.gridy ++;

@@ -76,7 +76,7 @@ public class QuestsWindow extends JFrame {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getFieldWindow() != null) player.getFieldWindow().drawMap();
+        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
     }
 
     public void close(){

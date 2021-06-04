@@ -2,6 +2,7 @@ package Windows.CraftWindow;
 
 import Creatures.Player;
 import Things.Craft.EnchantTable;
+import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +87,7 @@ public class EnchantTableWindow extends CraftWindow {
         panel.setMinimumSize(new Dimension(width, height));
         JPanel buttons = new JPanel(new BorderLayout());
 
-        JButton itemEnchantRemoveButton = new JButton("Пусто(Предмет)");
+        JButton itemEnchantRemoveButton = new UnfocusedButton("Пусто(Предмет)");
         itemEnchantRemoveButton.addActionListener((ActionListener & Serializable) e -> {
 
         });
@@ -94,12 +95,12 @@ public class EnchantTableWindow extends CraftWindow {
         itemEnchantRemoveButton.setMaximumSize(new Dimension(width/2, height/2));
         itemEnchantRemoveButton.setMinimumSize(new Dimension(width/2, height/2));
 
-        JButton enchantStoneButton = new JButton("Пусто(Камень зачарования)");
+        JButton enchantStoneButton = new UnfocusedButton("Пусто(Камень зачарования)");
         enchantStoneButton.setPreferredSize(new Dimension(width/2, height/2));
         enchantStoneButton.setMaximumSize(new Dimension(width/2, height/2));
         enchantStoneButton.setMinimumSize(new Dimension(width/2, height/2));
 
-        JButton removeButton = new JButton("Снять зачарование");
+        JButton removeButton = new UnfocusedButton("Снять зачарование");
         removeButton.setBackground(Color.MAGENTA);
         removeButton.setPreferredSize(new Dimension(width, height/2));
         removeButton.setMaximumSize(new Dimension(width, height/2));
@@ -129,17 +130,17 @@ public class EnchantTableWindow extends CraftWindow {
 
         JPanel buttons = new JPanel(new BorderLayout());
 
-        JButton itemEnchantRemoveButton = new JButton("Пусто(Предмет)");
+        JButton itemEnchantRemoveButton = new UnfocusedButton("Пусто(Предмет)");
         itemEnchantRemoveButton.setPreferredSize(new Dimension(width/2, height/2));
         itemEnchantRemoveButton.setMaximumSize(new Dimension(width/2, height/2));
         itemEnchantRemoveButton.setMinimumSize(new Dimension(width/2, height/2));
 
-        JButton enchantStoneButton = new JButton("Пусто(Камень зачарования)");
+        JButton enchantStoneButton = new UnfocusedButton("Пусто(Камень зачарования)");
         enchantStoneButton.setPreferredSize(new Dimension(width/2, height/2));
         enchantStoneButton.setMaximumSize(new Dimension(width/2, height/2));
         enchantStoneButton.setMinimumSize(new Dimension(width/2, height/2));
 
-        JButton addButton = new JButton("Зачаровать");
+        JButton addButton = new UnfocusedButton("Зачаровать");
         addButton.setBackground(Color.cyan);
         addButton.setPreferredSize(new Dimension(width, height/2));
         addButton.setMaximumSize(new Dimension(width, height/2));
