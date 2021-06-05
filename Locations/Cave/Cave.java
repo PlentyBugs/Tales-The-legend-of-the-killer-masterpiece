@@ -2,12 +2,13 @@ package Locations.Cave;
 
 import Creatures.GodCreature;
 import Items.BlackSmith.Resource.*;
+import Locations.GenerationHelper;
 import Locations.Map;
 import Things.GreatWallNullerField;
 import Things.Ore;
 import Things.Stone;
 
-public class Cave extends Map {
+public class Cave extends Map implements GenerationHelper {
     private int[][] mapKeys;
     private int playerSafeX;
     private int playerSafeY;
@@ -92,79 +93,6 @@ public class Cave extends Map {
         }
     }
 
-    private void addToUp(){
-
-        mapHeight += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapWidth; j++){
-            mapKeys[0][j] = 0;
-        }
-
-        for (int i = 1; i < mapHeight; i++){
-            for (int j = 0; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i-1][j];
-            }
-        }
-    }
-
-    private void addToDown(){
-
-        mapHeight += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapWidth; j++){
-            mapKeys[mapHeight-1][j] = 0;
-        }
-
-        for (int i = 0; i < mapHeight-1; i++){
-            for (int j = 0; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i][j];
-            }
-        }
-    }
-
-    private void addToLeft(){
-
-        mapWidth += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapHeight; j++){
-            mapKeys[j][0] = 0;
-        }
-
-        for (int i = 0; i < mapHeight; i++){
-            for (int j = 1; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i][j-1];
-            }
-        }
-    }
-
-    private void addToRight(){
-
-        mapWidth += 1;
-
-        int[][] oldMap = mapKeys;
-
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapHeight; j++){
-            mapKeys[j][mapWidth-1] = 0;
-        }
-
-        for (int i = 0; i < mapHeight; i++){
-            for (int j = 0; j < mapWidth-1; j++){
-                mapKeys[i][j] = oldMap[i][j];
-            }
-        }
-    }
-
     public GodCreature[][] getCave(){
         return mapLowerObjects;
     }
@@ -175,5 +103,35 @@ public class Cave extends Map {
 
     public int getPlayerSafeY() {
         return playerSafeY;
+    }
+
+    @Override
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    @Override
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    @Override
+    public void incrementMapWidth() {
+        mapWidth++;
+    }
+
+    @Override
+    public void incrementMapHeight() {
+        mapHeight++;
+    }
+
+    @Override
+    public int[][] getMapKeys() {
+        return mapKeys;
+    }
+
+    @Override
+    public void setMapKeys(int[][] mapKeys) {
+        this.mapKeys = mapKeys;
     }
 }

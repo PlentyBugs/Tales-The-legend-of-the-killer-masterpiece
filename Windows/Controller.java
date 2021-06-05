@@ -26,7 +26,7 @@ import java.io.Serializable;
 public interface Controller extends WindowProvider, MapProvider, MapDrawer, PlayerInterfaceDrawer {
 
     default void step(GodCreature creature) {
-        
+
         final Map map = getMap();
         Player player = map.getPlayer();
 
@@ -84,14 +84,12 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Play
                                 GodCreature[][][] zxc = dungeon.getMap();
                                 newMap.setMapLowerObjects(zxc[0]);
                                 newMap.setMapUpperObjects(zxc[1]);
-                                newMap.setMapHeight();
-                                newMap.setMapWidth();
                                 newMap.setLocationName(dungeon.getLocationName());
                                 ((Door)creature).setOut(newMap);
                                 player.setX(dungeon.getPlayerXSafety());
                                 player.setY(dungeon.getPlayerYSafety());
                                 DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
-                                door.setOut(newMap);
+                                door.setOut(map);
                                 door.setIsLocked(false);
                                 newMap.setElementByCoordinates(player.getX(), player.getY(), door);
                             } else {
@@ -110,15 +108,13 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Play
                                 Cave cave = new Cave();
 
                                 newMap.setMapLowerObjects(cave.getCave());
-                                newMap.setMapHeight();
-                                newMap.setMapWidth();
                                 ((Door)creature).setOut(newMap);
 
                                 player.setX(cave.getPlayerSafeX());
                                 player.setY(cave.getPlayerSafeY());
 
                                 CaveDoor door = new CaveDoor();
-                                door.setOut(newMap);
+                                door.setOut(map);
                                 door.setIsLocked(false);
                                 newMap.setElementByCoordinates(player.getX(), player.getY(), door);
                             } else {

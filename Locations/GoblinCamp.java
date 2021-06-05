@@ -1,5 +1,7 @@
 package Locations;
 
+import Creatures.GodCreature;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,16 +17,18 @@ public class GoblinCamp{
             FileInputStream fis = new FileInputStream("./Locations/LocationParts/GoblinCamp.txt");
             ObjectInputStream inputStream = new ObjectInputStream(fis);
             map = (Map) inputStream.readObject();
-            map.setMapHeight();
-            map.setMapWidth();
+            GodCreature[][] mapLowerObjects = map.getMapLowerObjects();
+            map.setMapHeight(mapLowerObjects.length);
+            map.setMapWidth(mapLowerObjects[0].length);
             inputStream.close();
         } catch (Exception e) {
             try{
                 FileInputStream fis = new FileInputStream("./src/Locations/LocationParts/GoblinCamp.txt");
                 ObjectInputStream inputStream = new ObjectInputStream(fis);
                 map = (Map) inputStream.readObject();
-                map.setMapHeight();
-                map.setMapWidth();
+                GodCreature[][] mapLowerObjects = map.getMapLowerObjects();
+                map.setMapHeight(mapLowerObjects.length);
+                map.setMapWidth(mapLowerObjects[0].length);
                 inputStream.close();
             } catch (IOException ex){
                 ex.printStackTrace();

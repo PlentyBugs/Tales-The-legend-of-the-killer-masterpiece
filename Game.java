@@ -46,8 +46,6 @@ public class Game {
             player.setY(1);
             player.addAbility(new LittleFool());
             Map map = new Map(player, 100, 100)
-                    .setMapHeight()
-                    .setMapWidth()
                     .setPlayer(player);
             /*
             try {

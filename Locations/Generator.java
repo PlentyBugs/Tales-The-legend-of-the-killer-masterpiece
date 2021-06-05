@@ -1,11 +1,9 @@
 package Locations;
 
-import Creatures.Player;
 import Locations.Dungeon.Dungeon;
 
-public class Generator {
+public class Generator implements GenerationHelper {
     private Dungeon dungeon;
-    private Player player;
     private int mapWidth;
     private int mapHeight;
     private int[][] mapKeys;
@@ -29,7 +27,7 @@ public class Generator {
         while(!isEnded){
             Check: for(int i = 0; i < mapKeys.length; i++){
                 for(int j = 0; j < mapKeys[i].length; j++){
-                    if(i*j > 10*5){
+                    if(i * j > 50){
                         isEnded = true;
                     }
                     if(mapKeys[i][j] != 0){
@@ -37,145 +35,33 @@ public class Generator {
                         int n = mapKeys[i][j] - (mapKeys[i][j]/10)*10;
 
                         if(mapKeys[i][j] == 1){
-                            if(i-1 < 0){
-                                addToUp();
-                                break Check;
-                            } else if(mapKeys[i-1][j] == 0){
-                                mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*12)];
-                                break Check;
-                            }
-                            if(j-1 < 0){
-                                addToLeft();
-                                break Check;
-                            } else if(mapKeys[i][j-1] == 0){
-                                mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*12)];
-                                break Check;
-                            }
-                            if(i+1 >= mapKeys.length){
-                                addToDown();
-                                break Check;
-                            } else if(mapKeys[i+1][j] == 0){
-                                mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*12)];
-                                break Check;
-                            }
-                            if(j+1 >= mapKeys[i].length){
-                                addToRight();
-                                break Check;
-                            } else if(mapKeys[i][j+1] == 0){
-                                mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*12)];
-                                break Check;
-                            }
+                            if (addToUp(i, j)) break Check;
+                            if (addToLeft(i, j)) break Check;
+                            if (addToDown(i, j)) break Check;
+                            if (addToRight(i, j)) break Check;
                         }
 
-                        if((mapKeys[i][j]/10)*10 == 2){
-                            if(n == 1 || n == 2){
-                                if(i-1 < 0){
-                                    addToUp();
-                                    break Check;
-                                } else if(mapKeys[i-1][j] == 0){
-                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 1 || n == 0){
-                                if(j-1 < 0){
-                                    addToLeft();
-                                    break Check;
-                                } else if(mapKeys[i][j-1] == 0){
-                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 0 || n == 3){
-                                if(i+1 >= mapKeys.length){
-                                    addToDown();
-                                    break Check;
-                                } else if(mapKeys[i+1][j] == 0){
-                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 3 || n == 2){
-                                if(j+1 >= mapKeys[i].length){
-                                    addToRight();
-                                    break Check;
-                                } else if(mapKeys[i][j+1] == 0){
-                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
+                        if((mapKeys[i][j] / 10) * 10 == 2) {
+                            if((n == 1 || n == 2) && addToUp(i, j)) break;
+                            if((n == 1 || n == 0) && addToLeft(i, j)) break;
+                            if((n == 0 || n == 3) && addToDown(i, j)) break;
+                            if((n == 3 || n == 2) && addToRight(i, j)) break;
                         }
 
-                        if((mapKeys[i][j]/10)*10 == 3){
-                            if(n == 1 || n == 2 || n == 3){
-                                if(i-1 < 0){
-                                    addToUp();
-                                    break Check;
-                                } else if(mapKeys[i-1][j] == 0){
-                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 0 || n == 1 || n == 2){
-                                if(j-1 < 0){
-                                    addToLeft();
-                                    break Check;
-                                } else if(mapKeys[i][j-1] == 0){
-                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 0 || n == 1 || n == 3){
-                                if(i+1 >= mapKeys.length){
-                                    addToDown();
-                                    break Check;
-                                } else if(mapKeys[i+1][j] == 0){
-                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
-                            if(n == 0 || n == 2 || n == 3){
-                                if(j+1 >= mapKeys[i].length){
-                                    addToRight();
-                                    break Check;
-                                } else if(mapKeys[i][j+1] == 0){
-                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                            }
+                        if((mapKeys[i][j] / 10) * 10 == 3) {
+                            if((n == 1 || n == 2 || n == 3) && addToUp(i, j)) break;
+                            if((n == 0 || n == 1 || n == 2) && addToLeft(i, j)) break;
+                            if((n == 0 || n == 1 || n == 3) && addToDown(i, j)) break;
+                            if((n == 0 || n == 2 || n == 3) && addToRight(i, j)) break;
                         }
-                        if((mapKeys[i][j]/10)*10 == 5){
+                        if((mapKeys[i][j] / 10) * 10 == 5) {
                             if(n == 0){
-                                if(j-1 < 0){
-                                    addToLeft();
-                                    break Check;
-                                } else if(mapKeys[i][j-1] == 0){
-                                    mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                                if(j+1 >= mapKeys[i].length){
-                                    addToRight();
-                                    break Check;
-                                } else if(mapKeys[i][j+1] == 0){
-                                    mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
+                                if (addToLeft(i, j)) break;
+                                if (addToRight(i, j)) break;
                             }
                             if(n == 1){
-                                if(i-1 < 0){
-                                    addToUp();
-                                    break Check;
-                                } else if(mapKeys[i-1][j] == 0){
-                                    mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
-                                if(i+1 >= mapKeys.length){
-                                    addToDown();
-                                    break Check;
-                                } else if(mapKeys[i+1][j] == 0){
-                                    mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*12)];
-                                    break Check;
-                                }
+                                if (addToUp(i, j)) break;
+                                if (addToDown(i, j)) break;
                             }
                         }
                     }
@@ -185,88 +71,84 @@ public class Generator {
                 }
             }
         }
-        for(int i = 0; i < mapKeys.length; i++){
-            for(int j = 0; j < mapKeys[i].length; j++){
-                System.out.print(mapKeys[i][j] + " ");
+        for (int[] mapKey : mapKeys) {
+            for (int i : mapKey) {
+                System.out.print(i + " ");
             }
             System.out.println();
         }
     }
 
-    private void addToUp(){
-
-        mapHeight += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapWidth; j++){
-            mapKeys[0][j] = 0;
+    private boolean addToRight(int i, int j) {
+        if(j+1 >= mapKeys[i].length){
+            addToRight();
+            return true;
+        } else if(mapKeys[i][j+1] == 0){
+            mapKeys[i][j+1] = new int[]{1,1,1,1,50,20,21,30,31,33,40, 0}[(int)(Math.random()*12)];
+            return true;
         }
-
-        for (int i = 1; i < mapHeight; i++){
-            for (int j = 0; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i-1][j];
-            }
-        }
+        return false;
     }
 
-    private void addToDown(){
-
-        mapHeight += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapWidth; j++){
-            mapKeys[mapHeight-1][j] = 0;
+    private boolean addToDown(int i, int j) {
+        if(i+1 >= mapKeys.length){
+            addToDown();
+            return true;
+        } else if(mapKeys[i+1][j] == 0){
+            mapKeys[i+1][j] = new int[]{1,1,1,1,51,21,22,30,31,32,41, 0}[(int)(Math.random()*12)];
+            return true;
         }
-
-        for (int i = 0; i < mapHeight-1; i++){
-            for (int j = 0; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i][j];
-            }
-        }
+        return false;
     }
 
-    private void addToLeft(){
-
-        mapWidth += 1;
-
-        int[][] oldMap = mapKeys;
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapHeight; j++){
-            mapKeys[j][0] = 0;
+    private boolean addToLeft(int i, int j) {
+        if(j-1 < 0){
+            addToLeft();
+            return true;
+        } else if(mapKeys[i][j-1] == 0){
+            mapKeys[i][j-1] = new int[]{1,1,1,1,50,22,23,31,32,33,42, 0}[(int)(Math.random()*12)];
+            return true;
         }
-
-        for (int i = 0; i < mapHeight; i++){
-            for (int j = 1; j < mapWidth; j++){
-                mapKeys[i][j] = oldMap[i][j-1];
-            }
-        }
+        return false;
     }
 
-    private void addToRight(){
-
-        mapWidth += 1;
-
-        int[][] oldMap = mapKeys;
-
-        mapKeys = new int[mapHeight][mapWidth];
-
-        for(int j = 0; j < mapHeight; j++){
-            mapKeys[j][mapWidth-1] = 0;
+    private boolean addToUp(int i, int j) {
+        if(i-1 < 0){
+            addToUp();
+            return true;
+        } else if(mapKeys[i-1][j] == 0){
+            mapKeys[i-1][j] = new int[]{1,1,1,1,51,20,23,30,32,33,43, 0}[(int)(Math.random()*12)];
+            return true;
         }
+        return false;
+    }
 
-        for (int i = 0; i < mapHeight; i++){
-            for (int j = 0; j < mapWidth-1; j++){
-                mapKeys[i][j] = oldMap[i][j];
-            }
-        }
+    @Override
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    @Override
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    @Override
+    public void incrementMapWidth() {
+        mapWidth++;
+    }
+
+    @Override
+    public void incrementMapHeight() {
+        mapHeight++;
     }
 
     public int[][] getMapKeys() {
         return mapKeys;
+    }
+
+    @Override
+    public void setMapKeys(int[][] mapKeys) {
+        this.mapKeys = mapKeys;
     }
 }

@@ -19,34 +19,35 @@ public interface KeyController extends KeyListener, Controller {
         int width = lower[0].length;
         int x = player.getX();
         int y = player.getY();
-        if(event.getKeyCode() == KeyEvent.VK_LEFT || event.getKeyCode() == KeyEvent.VK_A) {
+        int keyCode = event.getKeyCode();
+        if(keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
             int newX = x == 0 ? width - 1: x - 1;
             step(
-                    upper[y][newX] == null ?
+                    upper == null || upper[y][newX] == null ?
                             lower[y][newX]:
                             upper[y][newX]
             );
             drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_RIGHT || event.getKeyCode() == KeyEvent.VK_D) {
+        } else if(keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
             int newX = x == width - 1 ? 0: x + 1;
             step(
-                    upper[y][newX] == null ?
+                    upper == null || upper[y][newX] == null ?
                             lower[y][newX]:
                             upper[y][newX]
             );
             drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_UP || event.getKeyCode() == KeyEvent.VK_W) {
+        } else if(keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
             int newY = y == 0 ? height - 1: y - 1;
             step(
-                    upper[newY][x] == null ?
+                    upper == null || upper[newY][x] == null ?
                             lower[newY][x]:
                             upper[newY][x]
             );
             drawMap();
-        } else if(event.getKeyCode() == KeyEvent.VK_DOWN || event.getKeyCode() == KeyEvent.VK_S) {
+        } else if(keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
             int newY = y == height - 1 ? 0: y + 1;
             step(
-                    upper[newY][x] == null ?
+                    upper == null || upper[newY][x] == null ?
                             lower[newY][x]:
                             upper[newY][x]
             );

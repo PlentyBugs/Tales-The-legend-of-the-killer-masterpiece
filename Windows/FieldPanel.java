@@ -24,7 +24,7 @@ public class FieldPanel extends JPanel {
         int realVision = player.getVision() * 2 + 1;
         int x = player.getX();
         int y = player.getY();
-        GodCreature[][] localMap = this.map.getMap(x, y);
+        GodCreature[][] localMap = map.getMap(x, y);
 
         player.removeBrokenItems();
 

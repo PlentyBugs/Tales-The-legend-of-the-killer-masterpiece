@@ -74,7 +74,8 @@ public class Map implements Serializable {
                 randomGodCreature.setY(i);
 
                 mapLowerObjects[i][j] = randomGodCreature;
-
+                setMapHeight(mapLowerObjects.length);
+                setMapWidth(mapLowerObjects[0].length);
             }
         }
 
@@ -220,6 +221,8 @@ public class Map implements Serializable {
 
     public Map setMapLowerObjects(GodCreature[][] mapLowerObjects) {
         this.mapLowerObjects = mapLowerObjects;
+        setMapHeight(mapLowerObjects.length);
+        setMapWidth(mapLowerObjects[0].length);
         return this;
     }
 
@@ -250,13 +253,13 @@ public class Map implements Serializable {
         return mapWidth;
     }
 
-    public Map setMapHeight() {
-        this.mapHeight = mapLowerObjects.length;
+    public Map setMapHeight(int mapHeight) {
+        this.mapHeight = mapHeight;
         return this;
     }
 
-    public Map setMapWidth() {
-        this.mapWidth = mapLowerObjects[0].length;
+    public Map setMapWidth(int mapWidth) {
+        this.mapWidth = mapWidth;
         return this;
     }
 
