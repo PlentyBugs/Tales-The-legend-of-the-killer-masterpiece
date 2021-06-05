@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class Console extends JPanel implements Serializable {
-    private JScrollPane vertical;
-    private JTextArea console;
+    private final JScrollPane vertical;
+    private final JTextArea console;
     private boolean firstTime = true;
-    private int speed = 60;
+    private int speed = 10;
 
     public Console()
     {

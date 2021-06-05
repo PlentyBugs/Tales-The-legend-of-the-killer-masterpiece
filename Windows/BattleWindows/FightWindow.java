@@ -64,7 +64,6 @@ public class FightWindow extends JFrame implements Serializable {
     private final Console playerConsole;
     private DialogWindow dialogWindow = new DialogWindow("");
 
-    private final JPanel panel;
     private PlayerAbilityWindow playerAbilityWindow;
     private PlayerFightItemWindow playerFightItemWindow;
     private PlayerDiplomacyWindow playerDiplomacyWindow;
@@ -88,7 +87,7 @@ public class FightWindow extends JFrame implements Serializable {
         playerHp.setForeground(new Color(0,255,0));
         playerHp.setValue((int)player.getHp());
         playerHp.setStringPainted(true);
-        playerHp.setString(Double.toString(player.getHp()) + "/" + Integer.toString(player.getMaxHp()));
+        playerHp.setString(player.getHp() + "/" + player.getMaxHp());
 
 
         loyalty = new JProgressBar(-100, 100);
@@ -109,7 +108,7 @@ public class FightWindow extends JFrame implements Serializable {
         dialogWindow.setVisible(false);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
 
         JPanel enemyPanel = new JPanel(new BorderLayout());
 
@@ -601,33 +600,32 @@ public class FightWindow extends JFrame implements Serializable {
                 if(weapon != null){
                     weapon.setBonusDamage(1);
                     for(WeaponType weaponType : weapon.getWeaponType()){
-                        switch (weaponType){
-                            case ONE_HANDED:{
-                                if(attacker.getStats().getOne_handed_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
+                        switch (weaponType) {
+                            case ONE_HANDED -> {
+                                if (attacker.getStats().getOne_handed_weapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon() / 150.0);
                                 }
                             }
-                            break;
-                            case TWO_HANDED:{
-                                if(attacker.getStats().getTwo_handed_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
+                            case TWO_HANDED -> {
+                                if (attacker.getStats().getTwo_handed_weapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getTwo_handed_weapon() / 150.0);
                                 }
-                            } break;
-                            case LONG_RANGE:{
-                                if(attacker.getStats().getLong_range_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
+                            }
+                            case LONG_RANGE -> {
+                                if (attacker.getStats().getLong_range_weapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getLong_range_weapon() / 150.0);
                                 }
-                            } break;
-                            case POLE:{
-                                if(attacker.getStats().getPole_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
+                            }
+                            case POLE -> {
+                                if (attacker.getStats().getPole_weapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getPole_weapon() / 150.0);
                                 }
-                            } break;
-                            case CHOPPING:{
-                                if(attacker.getStats().getChopping_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon()/150.0);
+                            }
+                            case CHOPPING -> {
+                                if (attacker.getStats().getChopping_weapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getChopping_weapon() / 150.0);
                                 }
-                            } break;
+                            }
                         }
                     }
                 }
@@ -638,9 +636,9 @@ public class FightWindow extends JFrame implements Serializable {
             int chanceToCrit = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*attacker.getLvl()/attacker.getStats().getLuck()));
             if(attacker.hasAbility(new CriticalStrike()) && chanceToCrit <= attacker.getAbility(new CriticalStrike()).getChance()){
                 if(attacker instanceof Player)
-                    writeToPlayerConsole("Критический удар(x"+ Double.toString(attacker.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                    writeToPlayerConsole("Критический удар(x"+ attacker.getAbility(new CriticalStrike()).getPower() / 100.0 + ")!");
                 else
-                    writeToEnemyStatusConsole(  "Критический удар(x"+ Double.toString(attacker.getAbility(new CriticalStrike()).getPower()/100.0) + ")!");
+                    writeToEnemyStatusConsole(  "Критический удар(x"+ attacker.getAbility(new CriticalStrike()).getPower() / 100.0 + ")!");
                 damage *= attacker.getAbility(new CriticalStrike()).getPower()/100.0;
             }
 
@@ -653,7 +651,7 @@ public class FightWindow extends JFrame implements Serializable {
             }
             damage = attacker.getCurrentDamage();
 
-            damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
+//            damage = damage*((100-attacker.getLoyaltyByIndex(enemy))/100.0);
 
             double decQ = damage;
             damage = Math.round(enemy.absorbDamage(damage)*100.0)/100.0;

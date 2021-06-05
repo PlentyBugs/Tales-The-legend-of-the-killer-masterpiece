@@ -86,8 +86,8 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
 
 //        npcController.clear();
 //        npcController.setWindowInterface(this);
-        player.removeBrokenItems();
-        setVisible(!player.getInFight());
+//        player.removeBrokenItems();
+//        setVisible(!player.getInFight());
         player.countPassiveBuffs();
         player.checkQuests();
         player.countEquipmentBuffs();

@@ -69,7 +69,7 @@ public class Player extends Human {
 
         stats.setMilitarism(0);
         stats.setPacifism(0);
-        vision = 9;
+        vision = 4;
         levelPoints = 0;
 
         color = Color.ORANGE;
