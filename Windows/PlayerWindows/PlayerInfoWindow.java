@@ -66,7 +66,7 @@ public class PlayerInfoWindow extends JFrame implements Serializable {
         JLabel lvlCount = new JLabel(Integer.toString(player.getLvl()));
         panel.add(lvlCount, constraints);
         constraints.gridy = 5;
-        JLabel lvlPointsCount = new JLabel(Integer.toString(player.getLevelpoints()));
+        JLabel lvlPointsCount = new JLabel(Integer.toString(player.getLevelPoints()));
         panel.add(lvlPointsCount, constraints);
 
         pack();

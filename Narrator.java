@@ -57,7 +57,7 @@ public class Narrator {
         }
 
         if(player.getName().equals("TesteratorGun1479")){
-            player.setLevelpoints(50);
+            player.setLevelPoints(50);
             player.setUpPointCount(6000);
             player.setName("cheater");
             player.setHp(20000000);
@@ -65,7 +65,7 @@ public class Narrator {
         }
 
         if(player.getName().equals("IMN0TaDR1Nk3RiMAnA1c43m1st")){
-            player.setLevelpoints(30);
+            player.setLevelPoints(30);
             player.getStats().setStrength(1);
             player.getStats().setSpeed(0);
             player.getStats().setAgility(0);
@@ -100,7 +100,7 @@ public class Narrator {
             player.getStats().setChopping_weapon(0);
             player.getStats().setLong_range_weapon(0);
 
-            player.setLevelpoints(10);
+            player.setLevelPoints(10);
             player.setUpPointCount(10);
             player.setName("cheater");
             player.setHp(5000);

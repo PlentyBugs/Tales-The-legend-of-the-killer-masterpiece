@@ -71,12 +71,6 @@ public class Generator implements GenerationHelper {
                 }
             }
         }
-        for (int[] mapKey : mapKeys) {
-            for (int i : mapKey) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
-        }
     }
 
     private boolean addToRight(int i, int j) {

@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class Inhabitant extends Peaceful {
 
+    public static final Inhabitant commonInhabitant = new Inhabitant(0,0, "", 0,0);
+
     public Inhabitant(){
         this(0,0,"Житель",1,100);
     }
@@ -33,6 +35,10 @@ public class Inhabitant extends Peaceful {
         if(talkative){
             initializeWindowConv();
         }
+    }
+
+    public static Inhabitant getInstance() {
+        return commonInhabitant;
     }
 
     @Override

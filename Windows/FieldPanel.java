@@ -50,28 +50,30 @@ public class FieldPanel extends JPanel {
                 g2.setColor(Color.black);
                 g2.draw(field);
 
-                g2.setColor(Color.black);
-                if(fillColor.getRed() < 70 && fillColor.getBlue() < 70 && fillColor.getGreen() < 70){
-                    Color foreground = new Color(255 - fillColor.getRed(), 255 - fillColor.getGreen(), 255 - fillColor.getBlue());
-                    g2.setColor(foreground);
-                }
-                Font font = new Font("TimesRoman", Font.BOLD, (int) (80 / Math.pow(realVision, 0.9)));
-                FontMetrics metrics = g.getFontMetrics(font);
-                String name = godCreature.getName();
-                int stringWidth = metrics.stringWidth(name);
-                while (stringWidth > size && name.contains(" ")) {
-                    name = name.replaceFirst(" ", "\n");
-                    stringWidth = metrics.stringWidth(name);
-                }
-                g2.setFont(font);
-                String[] split = name.split("\n");
-                int length = split.length;
-                int currStringHeight = metrics.getHeight() * (length / 2 + 1);
-                for (String line : split) {
-                    int xxx = (int) (field.x) + (size - metrics.stringWidth(line)) / 2;
-                    int yyy = (int) (field.y) + (size - currStringHeight) / 2 + metrics.getAscent();
-                    currStringHeight -= metrics.getHeight() + metrics.getAscent();
-                    g.drawString(line, xxx, yyy);
+                if (realVision < 20) {
+                    g2.setColor(Color.black);
+                    if(fillColor.getRed() < 70 && fillColor.getBlue() < 70 && fillColor.getGreen() < 70){
+                        Color foreground = new Color(255 - fillColor.getRed(), 255 - fillColor.getGreen(), 255 - fillColor.getBlue());
+                        g2.setColor(foreground);
+                    }
+                    Font font = new Font("TimesRoman", Font.BOLD, (int) (80 / Math.pow(realVision, 0.9)));
+                    FontMetrics metrics = g.getFontMetrics(font);
+                    String name = godCreature.getName();
+                    int stringWidth = metrics.stringWidth(name);
+                    while (stringWidth > size && name.contains(" ")) {
+                        name = name.replaceFirst(" ", "\n");
+                        stringWidth = metrics.stringWidth(name);
+                    }
+                    g2.setFont(font);
+                    String[] split = name.split("\n");
+                    int length = split.length;
+                    int currStringHeight = metrics.getHeight() * (length / 2 + 1);
+                    for (String line : split) {
+                        int xxx = (int) (field.x) + (size - metrics.stringWidth(line)) / 2;
+                        int yyy = (int) (field.y) + (size - currStringHeight) / 2 + metrics.getAscent();
+                        currStringHeight -= metrics.getHeight() + metrics.getAscent();
+                        g.drawString(line, xxx, yyy);
+                    }
                 }
             }
         }

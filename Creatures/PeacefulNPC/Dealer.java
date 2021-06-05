@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class Dealer extends Peaceful {
 
+    public static final Dealer commonDealer = new Dealer(0,0, "", 0,0);
+
     public Dealer(){
         this(0,0,"Торговец",1,100);
     }
@@ -58,5 +60,9 @@ public class Dealer extends Peaceful {
     @Override
     public Dealer getClearCopy() {
         return new Dealer();
+    }
+
+    public static Dealer getInstance() {
+        return commonDealer;
     }
 }

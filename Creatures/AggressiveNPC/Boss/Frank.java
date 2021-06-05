@@ -142,13 +142,13 @@ public class Frank extends Boss {
     }
 
     @Override
-    public DeadGuardian clone() throws CloneNotSupportedException
+    public Frank clone() throws CloneNotSupportedException
     {
-        return (DeadGuardian) super.clone();
+        return (Frank) super.clone();
     }
 
     @Override
-    public DeadGuardian getClearCopy() {
-        return new DeadGuardian();
+    public Frank getClearCopy() {
+        return new Frank();
     }
 }

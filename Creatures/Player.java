@@ -13,6 +13,7 @@ import Windows.SupportWindows.SupportComponents.SavePanel;
 import Windows.WindowInterface;
 
 import java.awt.*;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,7 +23,7 @@ public class Player extends Human {
     private int vision;
     private int exp;
     private int needExpToNextLvl;
-    private int levelpoints;
+    private int levelPoints;
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
@@ -36,8 +37,9 @@ public class Player extends Human {
     private DiseasesWindow diseasesWindow;
     private boolean inFight;
 
-    private Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private final Set<Quest> quests = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
+    @Serial
     private static final long serialVersionUID = 4994679203117290921L;
 
     public Player(int x, int y, String name, int lvl, int hp){
@@ -67,8 +69,8 @@ public class Player extends Human {
 
         stats.setMilitarism(0);
         stats.setPacifism(0);
-        vision = 4;
-        levelpoints = 0;
+        vision = 9;
+        levelPoints = 0;
 
         color = Color.ORANGE;
 
@@ -107,9 +109,7 @@ public class Player extends Human {
     }
 
     public void removeQuest(Quest quest){
-        if(quests.contains(quest)){
-            quests.remove(quest);
-        }
+        quests.remove(quest);
     }
 
     public int getVision(){
@@ -120,7 +120,7 @@ public class Player extends Human {
         return name;
     }
     public void setName(String name){
-        if (name.equals("")){
+        if ("".equals(name) || name == null){
             name = "Безымянный";
         }
         this.name = name;
@@ -144,15 +144,15 @@ public class Player extends Human {
         getStatusStats();
     }
 
-    public void getStatusPosition() throws InterruptedException {
+    public void getStatusPosition() {
         windowInterface.writeToConsole("Позиция: x = "+x+", y = " + y);
     }
 
-    public void getStatusLocation() throws InterruptedException {
+    public void getStatusLocation() {
         windowInterface.writeToConsole("Локация: " + location);
     }
 
-    public void getStatusStats() throws InterruptedException {
+    public void getStatusStats() {
         windowInterface.writeToConsole("Статы:");
         windowInterface.writeToConsole("\tСила: " + stats.getStrength());
         windowInterface.writeToConsole("\tЛовкость: " + stats.getAgility());
@@ -185,8 +185,7 @@ public class Player extends Human {
         return diseasesWindow;
     }
 
-    public void setUpStatsOpen(boolean isUpStatsOpen) {
-    }
+    public void setUpStatsOpen(boolean isUpStatsOpen) {}
 
     public int getExp() {
         return exp;
@@ -197,12 +196,12 @@ public class Player extends Human {
         levelup();
     }
 
-    public int getLevelpoints() {
-        return levelpoints;
+    public int getLevelPoints() {
+        return levelPoints;
     }
 
-    public void setLevelpoints(int levelpoints) {
-        this.levelpoints = levelpoints;
+    public void setLevelPoints(int levelPoints) {
+        this.levelPoints = levelPoints;
     }
 
     public int getNeedExpToNextLvl() {
@@ -210,60 +209,42 @@ public class Player extends Human {
     }
 
     private void levelup(){
-        Thread myThready = new Thread(new Runnable()
-        {
-            public void run()
-            {
+        Thread myThready = new Thread(() -> {
 
-                while(exp > needExpToNextLvl){
-                    exp -= needExpToNextLvl;
-                    int wasUpCountPoints = upPointCount;
-                    needExpToNextLvl += lvl*500;
-                    lvl ++;
-                    levelpoints ++;
-                    int chance = 10;
-                    switch (difficulty){
-                        case EASY:
-                            upPointCount += 5;
-                            chance = 10;
-                            break;
-                        case NORMAL:
-                            upPointCount += 5;
-                            chance = 15;
-                            break;
-                        case HARD:
-                            upPointCount += 5;
-                            chance = 20;
-                            break;
-                        case VERYHARD:
-                            upPointCount += 6;
-                            chance = 25;
-                            break;
-                        case NIGHTMARE:
-                            upPointCount += 6;
-                            chance = 30;
-                            break;
-                        case STOPIT:
-                            upPointCount += 7;
-                            chance = 40;
-                            break;
+            while(exp > needExpToNextLvl){
+                exp -= needExpToNextLvl;
+                int wasUpCountPoints = upPointCount;
+                needExpToNextLvl += lvl*500;
+                lvl ++;
+                levelPoints++;
+                upPointCount += switch (difficulty) {
+                    case EASY, NORMAL, HARD -> 5;
+                    case VERYHARD, NIGHTMARE -> 6;
+                    case STOPIT -> 7;
+                };
+                int chance = switch (difficulty) {
+                    case EASY -> 10;
+                    case NORMAL -> 15;
+                    case HARD -> 20;
+                    case VERYHARD -> 25;
+                    case NIGHTMARE -> 30;
+                    case STOPIT -> 40;
+                };
+
+                chance += stats.getLuck() / 2;
+                while(chance > 0){
+                    int isExtraPoint = (int) Math.ceil(Math.random() * 100);
+                    if (isExtraPoint < chance){
+                        upPointCount ++;
                     }
-
-                    chance += stats.getLuck()/2;
-                    while(chance > 0){
-                        int isExtraPoint = (int) Math.ceil(Math.random() * 100);
-                        if (isExtraPoint < chance){
-                            upPointCount ++;
-                        }
-                        chance -= 5;
-                    }
-
-                    addMaxHpByStats();
-                    setHp(maxHp);
-
-                    windowInterface.writeToConsole("Вы повысили уровень(" + Integer.toString(lvl-1) + "->" + Integer.toString(lvl) + ")");
-                    windowInterface.writeToConsole("Вы получили очков прокачки: " + Integer.toString(upPointCount-wasUpCountPoints));
+                    chance -= 5;
                 }
+
+                addMaxHpByStats();
+                setHp(maxHp);
+
+                windowInterface.writeToConsole("Вы повысили уровень(" + (lvl - 1) + "->" + lvl + ")");
+                windowInterface.writeToConsole("Вы получили очков прокачки: " + (upPointCount - wasUpCountPoints));
             }
         });
         myThready.start();

@@ -24,16 +24,14 @@ import java.io.ObjectOutputStream;
 
 public class BlockChooser extends JFrame {
 
-    private int width = 300;
-    private int height = 720;
-    private Block block;
-    private GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
-    private GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), new Dealer(0,0, "", 0,0), new Goblin(), new Knight(), new Inhabitant(0,0, "", 0,0), new GoblinKing()};
+    private final int width = 300;
+    private final Block block;
+    private final GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
+    private final GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), Dealer.getInstance(), new Goblin(), new Knight(), Inhabitant.getInstance(), new GoblinKing()};
 
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private ToolMode toolMode;
-    private ConstructorField constructorField;
+    private final ToolMode toolMode;
+    private final ConstructorField constructorField;
 
     public BlockChooser(Block block, ConstructorField constructorField, ToolMode toolMode){
         super("Выбор блока");
@@ -42,6 +40,7 @@ public class BlockChooser extends JFrame {
         this.constructorField = constructorField;
         this.toolMode = toolMode;
 
+        int height = 720;
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
@@ -54,7 +53,7 @@ public class BlockChooser extends JFrame {
     public void drawWindow(){
         getContentPane().remove(panel);
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(5, 5, 5, 5);
@@ -86,34 +85,28 @@ public class BlockChooser extends JFrame {
         constraints.gridy ++;
 
 
-        build.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                toolMode.setToolModeEnum(ToolModeEnum.BUILD);
-                build.setBackground(new Color(0,255,0));
-                areaBuilder.setBackground(new Color(255,255,255));
-                edit.setBackground(new Color(255,255,255));
-            }
+        build.addActionListener(e -> {
+            toolMode.setToolModeEnum(ToolModeEnum.BUILD);
+            build.setBackground(new Color(0,255,0));
+            areaBuilder.setBackground(new Color(255,255,255));
+            edit.setBackground(new Color(255,255,255));
         });
-        areaBuilder.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                constructorField.setClickAreaBuilderCheck(false);
-                constructorField.setSecondClickAreaBuilderIdX(-1);
-                constructorField.setFirstClickAreaBuilderIdX(-1);
-                constructorField.setSecondClickAreaBuilderIdY(-1);
-                constructorField.setFirstClickAreaBuilderIdY(-1);
-                toolMode.setToolModeEnum(ToolModeEnum.AREABUILDER);
-                areaBuilder.setBackground(new Color(0,255,0));
-                edit.setBackground(new Color(255,255,255));
-                build.setBackground(new Color(255,255,255));
-            }
+        areaBuilder.addActionListener(e -> {
+            constructorField.setClickAreaBuilderCheck(false);
+            constructorField.setSecondClickAreaBuilderIdX(-1);
+            constructorField.setFirstClickAreaBuilderIdX(-1);
+            constructorField.setSecondClickAreaBuilderIdY(-1);
+            constructorField.setFirstClickAreaBuilderIdY(-1);
+            toolMode.setToolModeEnum(ToolModeEnum.AREABUILDER);
+            areaBuilder.setBackground(new Color(0,255,0));
+            edit.setBackground(new Color(255,255,255));
+            build.setBackground(new Color(255,255,255));
         });
-        edit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                toolMode.setToolModeEnum(ToolModeEnum.EDITOR);
-                edit.setBackground(new Color(0,255,0));
-                areaBuilder.setBackground(new Color(255,255,255));
-                build.setBackground(new Color(255,255,255));
-            }
+        edit.addActionListener(e -> {
+            toolMode.setToolModeEnum(ToolModeEnum.EDITOR);
+            edit.setBackground(new Color(0,255,0));
+            areaBuilder.setBackground(new Color(255,255,255));
+            build.setBackground(new Color(255,255,255));
         });
 
         for (GodCreature creature : blockListNotLive){
@@ -134,11 +127,7 @@ public class BlockChooser extends JFrame {
             }
 
             blockButton.addActionListener(e -> {
-                if (creature.getClass().toString().contains("Chest")){
-                    block.setEditable(true);
-                } else {
-                    block.setEditable(false);
-                }
+                block.setEditable(creature.getClass().toString().contains("Chest"));
                 block.setBlock(creature);
                 block.setBlockType(BlockType.THING);
                 drawWindow();
@@ -173,17 +162,11 @@ public class BlockChooser extends JFrame {
             }
 
 
-            blockButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (creature.getClass().toString().split(" ")[1].split("\\.")[0].equals("Creatures")){
-                        block.setEditable(true);
-                    } else {
-                        block.setEditable(false);
-                    }
-                    block.setBlock(creature);
-                    block.setBlockType(BlockType.LIVECREATURE);
-                    drawWindow();
-                }
+            blockButton.addActionListener(e -> {
+                block.setEditable(creature.getClass().toString().split(" ")[1].split("\\.")[0].equals("Creatures"));
+                block.setBlock(creature);
+                block.setBlockType(BlockType.LIVECREATURE);
+                drawWindow();
             });
 
             blockPanel.add(blockName, BorderLayout.LINE_START);
@@ -214,23 +197,19 @@ public class BlockChooser extends JFrame {
         saveButton.setMinimumSize(new Dimension(width, 20));
         saveButton.setMaximumSize(new Dimension(width, 20));
 
-        saveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try{
-                    Map newMap = new Map(new Player(0,0,"",0,0), 20,20);
-                    newMap.setMapLowerObjects(constructorField.getMap());
-                    FileOutputStream fos = new FileOutputStream("./" + fileNameTextArea.getText() + ".txt");
-                    ObjectOutputStream outStream = new ObjectOutputStream(fos);
-                    outStream.writeObject(newMap);
-                    outStream.flush();
-                    outStream.close();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-
+        saveButton.addActionListener(e -> {
+            try{
+                Map newMap = new Map(new Player(0,0,"",0,0), 20,20);
+                newMap.setMapLowerObjects(constructorField.getMap());
+                FileOutputStream fos = new FileOutputStream("./" + fileNameTextArea.getText() + ".txt");
+                ObjectOutputStream outStream = new ObjectOutputStream(fos);
+                outStream.writeObject(newMap);
+                outStream.flush();
+                outStream.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
+
         });
 
         panel.add(saveButton, constraints);

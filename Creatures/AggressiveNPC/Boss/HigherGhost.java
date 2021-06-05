@@ -152,13 +152,13 @@ public class HigherGhost extends Boss {
     }
 
     @Override
-    public DeadGuardian clone() throws CloneNotSupportedException
+    public HigherGhost clone() throws CloneNotSupportedException
     {
-        return (DeadGuardian) super.clone();
+        return (HigherGhost) super.clone();
     }
 
     @Override
-    public DeadGuardian getClearCopy() {
-        return new DeadGuardian();
+    public HigherGhost getClearCopy() {
+        return new HigherGhost();
     }
 }
