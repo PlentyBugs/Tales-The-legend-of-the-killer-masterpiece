@@ -5,13 +5,14 @@ import Items.Alchemy.Ingredients.Ingredient;
 import Items.Alchemy.Potions.Potion;
 import Things.Thing;
 import Windows.CraftWindow.AlchemyTableWindow;
+import utils.Pair;
 
 import java.awt.*;
 import java.util.HashMap;
 
 public class AlchemyTable extends Thing implements AlchemyCraftTable{
 
-    private AlchemyTableWindow alchemyTableWindow;
+    private final AlchemyTableWindow alchemyTableWindow;
     private boolean isAlchemyWindowOpen;
     private Potion createdPotion;
     private Player player;
@@ -42,28 +43,34 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable{
         return isAlchemyWindowOpen;
     }
 
+    @SafeVarargs
     @Override
-    public <T extends Ingredient> void create(T ... ingredients) {
-        HashMap<String, Object[]> usage = new HashMap<>();
-        int count = 0;
+    public final <T extends Ingredient> void create(T ... ingredients) {
+        HashMap<Long, Pair<Potion, Integer>> usage = new HashMap<>();
         for(Ingredient ingredient : ingredients){
             if(ingredient == null)
                 continue;
-            count ++;
             for(Potion potion : ingredient.getUsage()){
-                if(usage.containsKey(potion.getClass().toString())){
-                    usage.put(potion.getClass().toString(), new Object[]{(Potion)usage.get(potion.getClass().toString())[0], (int)usage.get(potion.getClass().toString())[1] + 1});
+                if(usage.containsKey(potion.getId())){
+                    usage.put(potion.getId(), new Pair<>(
+                            usage.get(potion.getId()).first,
+                            usage.get(potion.getId()).second + 1
+                    ));
                 } else {
-                    usage.put(potion.getClass().toString(), new Object[]{potion, 1});
+                    usage.put(potion.getId(), new Pair<>(potion, 1));
                 }
             }
         }
-        Object[] objects = maxKey(usage);
-        Potion key = (Potion)objects[0];
+
+        Pair<Potion, Integer> objects = maxKey(usage);
+        Potion key = objects.first.getClearCopy();
 
         if(key != null){
             key.setEffect(key.getEffect().getClearCopy());
-            key.getEffect().setPowerAlchemy((int)(player.getStats().getAlchemy()*Math.pow((int)objects[1], 1.0 + ((int)objects[1])/10.0)));
+            key.getEffect().setPowerAlchemy(
+                    (int) (player.getStats().getAlchemy() * Math.pow(objects.second, 1.0 + (objects.second / 10.0)))
+            );
+            key.countCost();
             createdPotion = key;
         }
     }
@@ -72,16 +79,16 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable{
         return createdPotion;
     }
 
-    private Object[] maxKey(HashMap<String, Object[]> table){
+    private Pair<Potion, Integer> maxKey(HashMap<Long, Pair<Potion, Integer>> table) {
         Potion key = null;
         int max = -1;
-        for(String str : table.keySet()){
-            if(max < (int)table.get(str)[1]){
-                key = (Potion)table.get(str)[0];
-                max = (int)table.get(str)[1];
+        for(Long str : table.keySet()){
+            if(max < table.get(str).second){
+                key = table.get(str).first;
+                max = table.get(str).second;
             }
         }
-        return new Object[]{key, max};
+        return new Pair<>(key, max);
     }
 
     public void clearCreatedPotion(){

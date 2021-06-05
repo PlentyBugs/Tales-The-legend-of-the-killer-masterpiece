@@ -230,10 +230,7 @@ public class LiveCreature extends GodCreature {
     }
 
     public LiveCreature addItemToInventory(Item ... itemList){
-        for(Item item : itemList){
-            item.setId(Item.number);
-            inventory.add(item);
-        }
+        inventory.addAll(Arrays.asList(itemList));
         return this;
     }
 

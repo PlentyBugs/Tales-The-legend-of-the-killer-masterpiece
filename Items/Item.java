@@ -1,11 +1,13 @@
 package Items;
 
 import Abilities.Enchants.Enchant;
+import Creatures.Copying;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Item implements Serializable, Cloneable {
+public class Item implements Serializable, Cloneable, Copying<Item> {
     protected String name;
     protected int cost;
     protected Grade grade;
@@ -16,12 +18,8 @@ public class Item implements Serializable, Cloneable {
     protected boolean stackable;
     protected double selfForgedBonus = 1;
     protected ArrayList<Enchant> enchants;
-    private int id;
-    public static int number;
-
-    {
-        number ++;
-    }
+    private long id;
+    public static int number = 0;
 
     public Item(){
         grade = Grade.COMMON;
@@ -30,6 +28,7 @@ public class Item implements Serializable, Cloneable {
         enchants = new ArrayList<>();
         cost = 0;
         quality = 100;
+        id = number++;
     }
 
     public Grade getGrade() {
@@ -98,11 +97,11 @@ public class Item implements Serializable, Cloneable {
         this.stackable = stackable;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -151,4 +150,21 @@ public class Item implements Serializable, Cloneable {
         quality -= decQ;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return id == item.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public Item getClearCopy() {
+        return new Item();
+    }
 }

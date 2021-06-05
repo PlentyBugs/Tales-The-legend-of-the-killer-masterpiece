@@ -134,4 +134,14 @@ public class Potion extends Item implements BattleItem {
 
         cost = addCost;
     }
+
+    @Override
+    public Potion getClearCopy() {
+        Potion potion = new Potion(potionMaterial, rarity, grade);
+        potion.setName(name);
+        potion.setEffect(effect);
+        potion.setMaterial(material);
+        potion.setQuality(quality);
+        return potion;
+    }
 }
