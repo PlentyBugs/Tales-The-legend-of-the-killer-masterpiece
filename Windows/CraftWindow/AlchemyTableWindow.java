@@ -85,7 +85,7 @@ public class AlchemyTableWindow extends CraftWindow {
         ingredientsConstraints.gridy = 0;
         for(int i = 0; i < 3 + alchemyLevel; i++){
             if(buttons[i] == null){
-                IngredientButton button = new IngredientButton("Ингридиент");
+                IngredientButton button = new IngredientButton("Ингредиент");
                 buttons[i] = button;
                 button.setPreferredSize(new Dimension(180, 120));
                 button.setMaximumSize(new Dimension(180, 120));
