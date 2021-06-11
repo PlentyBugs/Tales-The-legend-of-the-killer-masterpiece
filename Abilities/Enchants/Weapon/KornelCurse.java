@@ -5,8 +5,18 @@ import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
 import Items.Item;
 import Items.Weapons.Weapon;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KornelCurse extends Enchant {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Enchant.propertyList);
+    }
 
     public KornelCurse() {
         this(3);

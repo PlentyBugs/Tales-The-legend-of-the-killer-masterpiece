@@ -1,8 +1,19 @@
 package Quests;
 
 import Creatures.LiveCreature;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class KillQuest extends Quest {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Quest.propertyList);
+    }
+
     private LiveCreature enemyToKill;
     private int enemyCountToKill;
     private int enemyCountToKillCurrent;

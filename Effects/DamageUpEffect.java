@@ -2,8 +2,19 @@ package Effects;
 
 import Abilities.Buffs.DamageUpBuff;
 import Creatures.LiveCreature;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DamageUpEffect extends Effect {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Effect.propertyList);
+        propertyList.add(Property.DAMAGE_UP_EFFECT);
+    }
 
     public DamageUpEffect(){
         this(EffectType.MOMENT);

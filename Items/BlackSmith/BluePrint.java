@@ -2,13 +2,22 @@ package Items.BlackSmith;
 
 import Items.BlackSmith.Resource.Resource;
 import Items.Item;
+import support.Property;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class BluePrint extends Item {
+public class BluePrint extends Item  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Item.propertyList);
+        propertyList.add(Property.BLUEPRINT);
+    }
 
     private ItemCraftType itemType;
-    private ArrayList<Resource> resources;
+    private final ArrayList<Resource> resources;
     private int temperature;
 
     public BluePrint(){

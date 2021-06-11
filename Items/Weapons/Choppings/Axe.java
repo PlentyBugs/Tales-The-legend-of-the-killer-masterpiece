@@ -8,8 +8,22 @@ import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
+import support.Property;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Axe extends Weapon {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Weapon.propertyList);
+        propertyList.add(Property.AXE);
+    }
+
+    @Serial
     private static final long serialVersionUID = 5336683018159383002L;
 
     public Axe(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){

@@ -2,9 +2,21 @@ package Effects;
 
 import Creatures.LiveCreature;
 import Creatures.StatsEnum;
+import support.Property;
 
-public class StatsUpEffect extends Effect {
-    private StatsEnum stat;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StatsUpEffect extends Effect  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Effect.propertyList);
+        propertyList.add(Property.STATUS_UP_EFFECT);
+    }
+
+    private final StatsEnum stat;
 
     public StatsUpEffect(){
         this(EffectType.MOMENT, StatsEnum.STRENGTH);

@@ -1,10 +1,20 @@
 package Things;
 
 import Creatures.Player;
+import support.Property;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.List;
+import java.util.ArrayList;
 
 public class HealBlock extends Thing {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.HEAL_BLOCK);
+    }
 
     public HealBlock(){
         this(0, 0);

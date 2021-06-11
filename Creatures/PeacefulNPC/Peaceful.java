@@ -5,10 +5,23 @@ import Conversations.CatalogStock;
 import Conversations.DialogConversation;
 import Conversations.Shop;
 import Conversations.TrainShop;
+import Creatures.GodCreature;
 import Items.Item;
 import Creatures.Human;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Peaceful extends Human {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.PEACEFUL);
+    }
+
     protected CatalogStock catalogStock;
     protected String starterPhrase;
 

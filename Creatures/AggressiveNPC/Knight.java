@@ -2,20 +2,30 @@ package Creatures.AggressiveNPC;
 
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
+import Creatures.Human;
+import Items.Alchemy.Potions.HealPotion;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
+import Items.Armors.Torso;
 import Items.Item;
-import Items.Alchemy.Potions.HealPotion;
 import Items.Key;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
-import Items.Armors.Torso;
-import Creatures.Human;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Knight extends Human {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.KNIGHT);
+    }
 
     public Knight(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);

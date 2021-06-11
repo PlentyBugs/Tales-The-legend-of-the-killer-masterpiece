@@ -1,9 +1,20 @@
 package Conversations;
 
+import support.Property;
+import support.PropertyProvider;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Conversation implements Serializable {
+public class Conversation implements Serializable, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(Property.CONVERSATION);
+    }
+
     protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();
     protected String Title;
     protected int layerNumber = 0;

@@ -9,8 +9,21 @@ import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
+import support.Property;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sword extends Weapon {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Weapon.propertyList);
+        propertyList.add(Property.SWORD);
+    }
+    @Serial
     private static final long serialVersionUID = -1973203379601612951L;
 
     public Sword(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){

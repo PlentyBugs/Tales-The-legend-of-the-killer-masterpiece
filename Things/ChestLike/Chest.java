@@ -4,12 +4,21 @@ import Items.Item;
 import Creatures.Player;
 import Things.Thing;
 import Windows.SupportWindows.InventoryWindowChest;
+import support.Property;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Chest extends Thing {
+public class Chest extends Thing  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.CHEST);
+    }
 
     private Item[] inventory = new Item[0];
     private InventoryWindowChest inventoryWindow;

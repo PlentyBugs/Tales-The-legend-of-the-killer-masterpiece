@@ -1,12 +1,25 @@
 package Effects;
 
 import Creatures.LiveCreature;
+import support.Property;
+import support.PropertyProvider;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Effect implements Serializable {
+public class Effect implements Serializable, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(Property.EFFECT);
+    }
+
     protected EffectType type;
     protected int power;
+    @Serial
     private static final long serialVersionUID = -1522910815967517982L;
 
     public EffectType getType() {

@@ -4,8 +4,18 @@ import Creatures.StatsEnum;
 import Items.Alchemy.Potions.NecrosisPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Alchemy.Potions.StatsUpPotion;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoneDust extends Ingredient {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Ingredient.propertyList);
+    }
 
     public BoneDust(){
         super();

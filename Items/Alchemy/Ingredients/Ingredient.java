@@ -4,11 +4,21 @@ import Items.Alchemy.Potions.Potion;
 import Items.Alchemy.Potions.PotionMaterial;
 import Items.Grade;
 import Items.Rarity;
+import support.Property;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 
-public class Ingredient extends Potion {
+public class Ingredient extends Potion  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Potion.propertyList);
+        propertyList.add(Property.INGREDIENT);
+    }
+
     protected ArrayList<Potion> usage;
     protected Color color;
 

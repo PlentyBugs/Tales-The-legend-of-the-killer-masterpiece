@@ -1,8 +1,19 @@
 package Things;
 
-import java.awt.*;
+import support.Property;
 
-public class BrickRoad extends Thing{
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+
+public class BrickRoad extends Thing {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.ROAD);
+    }
     public BrickRoad(){
         name = "";
         color = new Color((int)(Math.random()*5) + 150, (int)(Math.random()*5) + 76, (int)(Math.random()*5) + 65);

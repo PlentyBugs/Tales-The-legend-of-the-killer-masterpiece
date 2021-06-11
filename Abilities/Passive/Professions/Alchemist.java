@@ -3,8 +3,18 @@ package Abilities.Passive.Professions;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Creatures.Player;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Alchemist extends Ability {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Ability.propertyList);
+    }
 
     public Alchemist(){
         setLevel(1);

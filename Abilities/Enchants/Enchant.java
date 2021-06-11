@@ -3,8 +3,19 @@ package Abilities.Enchants;
 import Abilities.Ability;
 import Creatures.LiveCreature;
 import Items.Item;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Enchant extends Ability {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Ability.propertyList);
+    }
+
     protected double damage;
 
     protected Item item;

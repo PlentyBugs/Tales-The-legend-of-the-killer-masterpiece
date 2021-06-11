@@ -16,11 +16,21 @@ import Items.Item;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.ConversationWindows.ConversationWindow;
+import support.Property;
 
+import java.io.Serial;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LiveCreature extends GodCreature {
+public class LiveCreature extends GodCreature  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(GodCreature.propertyList);
+        propertyList.add(Property.LIVE);
+    }
+
     protected int x;
     protected int y;
     protected double hp;
@@ -38,6 +48,7 @@ public class LiveCreature extends GodCreature {
     private ConversationWindow conversationWindow;
     private boolean isConversationWindowOpen;
     protected double currentDamage;
+    @Serial
     private static final long serialVersionUID = 3432956647310864719L;
 
     protected Set<Item> inventory = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -78,9 +89,7 @@ public class LiveCreature extends GodCreature {
     }
 
     public void removeBuff(Buff buff){
-        if (buffs.contains(buff)){
-            buffs.remove(buff);
-        }
+        buffs.remove(buff);
     }
 
     public void addAbility(Ability ... abilities){

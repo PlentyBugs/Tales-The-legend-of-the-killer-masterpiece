@@ -11,10 +11,20 @@ import Items.Armors.Ring;
 import Items.BlackSmith.Resource.Leather;
 import Items.Item;
 import Items.Key;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Wolf extends Animal {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Animal.propertyList);
+        propertyList.add(Property.WOLF);
+    }
 
     public Wolf(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);

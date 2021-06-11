@@ -14,10 +14,20 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HigherGhost extends Boss {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Boss.propertyList);
+        propertyList.add(Property.HIGHER_GHOST);
+    }
 
     public HigherGhost(int x, int y, String name, int lvl, int hp) {
 

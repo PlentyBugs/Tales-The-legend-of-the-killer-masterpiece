@@ -2,8 +2,19 @@ package Things.AlchemyThings;
 
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Stone;
+import support.Property;
 
-public class Other extends Stone implements IngredientThing{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Other extends Stone implements IngredientThing {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Stone.propertyList);
+        propertyList.add(Property.OTHER);
+    }
     private Ingredient ingredient;
 
     public Other(Ingredient ingredient){

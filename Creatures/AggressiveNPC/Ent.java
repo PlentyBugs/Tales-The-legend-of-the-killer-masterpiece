@@ -10,10 +10,20 @@ import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Item;
 import Items.Key;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ent extends Human {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.ENT);
+    }
 
     public Ent(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);

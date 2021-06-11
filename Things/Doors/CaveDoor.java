@@ -1,8 +1,19 @@
 package Things.Doors;
 
-import java.awt.*;
+import support.Property;
 
-public class CaveDoor extends Door{
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+
+public class CaveDoor extends Door {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Door.propertyList);
+        propertyList.add(Property.CAVE_DOOR);
+    }
 
     public CaveDoor(){
         this(0,0);

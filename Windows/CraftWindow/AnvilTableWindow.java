@@ -6,6 +6,7 @@ import Things.Craft.Anvil;
 import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.BluePrintButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
+import utils.PanelProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,11 +17,8 @@ import java.io.Serializable;
 public class AnvilTableWindow extends JFrame {
 
     private Player player;
-    private Anvil anvil;
+    private final Anvil anvil;
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private int width = 480;
-    private int height = 480;
 
     public AnvilTableWindow(Anvil anvil){
         super("Наковальня");
@@ -33,10 +31,12 @@ public class AnvilTableWindow extends JFrame {
     public void drawWindow(){
         getContentPane().remove(panel);
         panel = new JPanel(new GridBagLayout());
+        int width = 480;
+        int height = 480;
         panel.setPreferredSize(new Dimension(width, height));
         panel.setMinimumSize(new Dimension(width, height));
         panel.setMaximumSize(new Dimension(width, height));
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(0, 0, 0, 0);
@@ -45,14 +45,10 @@ public class AnvilTableWindow extends JFrame {
 
         JPanel resPanel = new JPanel(new BorderLayout());
         JPanel resDescPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraintsResDescPanel = new GridBagConstraints();
-        constraintsResDescPanel.anchor = GridBagConstraints.NORTH;
-        constraintsResDescPanel.insets = new Insets(0, 0, 0, 0);
-        constraintsResDescPanel.gridx = 0;
-        constraintsResDescPanel.gridy = 0;
-        resDescPanel.setPreferredSize(new Dimension(width/2, height-120));
-        resDescPanel.setMinimumSize(new Dimension(width/2, height-120));
-        resDescPanel.setMaximumSize(new Dimension(width/2, height-120));
+        GridBagConstraints constraintsResDescPanel = PanelProvider.getEmptyGBC();
+        resDescPanel.setPreferredSize(new Dimension(width /2, height -120));
+        resDescPanel.setMinimumSize(new Dimension(width /2, height -120));
+        resDescPanel.setMaximumSize(new Dimension(width /2, height -120));
         JLabel materialTemp = new JLabel("Температура материала: -");
         resDescPanel.add(materialTemp, constraintsResDescPanel);
         constraintsResDescPanel.gridy ++;
@@ -61,15 +57,15 @@ public class AnvilTableWindow extends JFrame {
 
         BluePrintButton bluePrint = new BluePrintButton("Чертеж");
         bluePrint.addActionListener((ActionListener & Serializable) e -> new BluePrintChooser(player, bluePrint));
-        bluePrint.setPreferredSize(new Dimension(width/2, (height-120)/2));
-        bluePrint.setMinimumSize(new Dimension(width/2, (height-120)/2));
-        bluePrint.setMaximumSize(new Dimension(width/2, (height-120)/2));
+        bluePrint.setPreferredSize(new Dimension(width /2, (height -120)/2));
+        bluePrint.setMinimumSize(new Dimension(width /2, (height -120)/2));
+        bluePrint.setMaximumSize(new Dimension(width /2, (height -120)/2));
 
         ResourceButton resource = new ResourceButton("Ресурс");
         resource.addActionListener((ActionListener & Serializable)e -> new ResourceChooser(player, resource));
-        resource.setPreferredSize(new Dimension(width/2, (height-120)/2));
-        resource.setMinimumSize(new Dimension(width/2, (height-120)/2));
-        resource.setMaximumSize(new Dimension(width/2, (height-120)/2));
+        resource.setPreferredSize(new Dimension(width /2, (height -120)/2));
+        resource.setMinimumSize(new Dimension(width /2, (height -120)/2));
+        resource.setMaximumSize(new Dimension(width /2, (height -120)/2));
 
         buttons.add(bluePrint, BorderLayout.NORTH);
         buttons.add(resource, BorderLayout.SOUTH);

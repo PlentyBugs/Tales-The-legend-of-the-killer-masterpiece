@@ -2,8 +2,20 @@ package Things.AlchemyThings;
 
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Grass;
+import support.Property;
 
-public class Grapes extends Grass implements IngredientThing{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Grapes extends Grass implements IngredientThing {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Grass.propertyList);
+        propertyList.add(Property.GRAPES);
+    }
+
     private Ingredient herb;
 
     public Grapes(Ingredient herb){

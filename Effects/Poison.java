@@ -1,8 +1,22 @@
 package Effects;
 
 import Creatures.LiveCreature;
+import support.Property;
 
-public class Poison extends Effect {
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Poison extends Effect  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Effect.propertyList);
+        propertyList.add(Property.POISON_EFFECT);
+    }
+
+    @Serial
     private static final long serialVersionUID = 3324013978376654430L;
 
     public Poison(){

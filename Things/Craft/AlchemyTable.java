@@ -5,12 +5,23 @@ import Items.Alchemy.Ingredients.Ingredient;
 import Items.Alchemy.Potions.Potion;
 import Things.Thing;
 import Windows.CraftWindow.AlchemyTableWindow;
+import support.Property;
 import utils.Pair;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class AlchemyTable extends Thing implements AlchemyCraftTable{
+public class AlchemyTable extends Thing implements AlchemyCraftTable {
+    protected final static java.util.List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.ALCHEMY_TABLE);
+    }
+
 
     private final AlchemyTableWindow alchemyTableWindow;
     private boolean isAlchemyWindowOpen;

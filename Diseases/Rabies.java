@@ -1,6 +1,18 @@
 package Diseases;
 
-public class Rabies extends Disease {
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Rabies extends Disease  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Disease.propertyList);
+        propertyList.add(Property.RABIES);
+    }
 
     public Rabies(){
         name = "Бешенство";
@@ -8,8 +20,8 @@ public class Rabies extends Disease {
     }
 
     @Override
-    public int compareTo(Object o) {
-        if(o instanceof Rabies)
+    public int compareTo(Disease o) {
+        if(o != null)
             return 0;
         return -1;
     }

@@ -8,10 +8,21 @@ import Items.BattleItem;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
+import support.Property;
 
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Potion extends Item implements BattleItem {
+public class Potion extends Item implements BattleItem  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Item.propertyList);
+        propertyList.add(Property.POTION);
+    }
+
     @Serial
     private static final long serialVersionUID = -1676624921038826829L;
 

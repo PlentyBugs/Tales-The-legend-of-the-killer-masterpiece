@@ -2,10 +2,21 @@ package Items.Alchemy.Potions;
 
 import Effects.EffectType;
 import Effects.Heal;
+import Items.Alchemy.Ingredients.Ingredient;
 import Items.Grade;
 import Items.Rarity;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HealPotion extends Potion {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Potion.propertyList);
+    }
 
     public HealPotion(PotionMaterial potionMaterial, Rarity rarity, Grade grade){
         super(potionMaterial, rarity, grade);

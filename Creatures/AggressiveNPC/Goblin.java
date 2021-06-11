@@ -2,17 +2,27 @@ package Creatures.AggressiveNPC;
 
 import Abilities.Passive.CriticalStrike;
 import Creatures.Human;
-import Items.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
+import Items.*;
 import Items.Weapons.Bows.ShortBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Goblin extends Human {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.GOBLIN);
+    }
 
     public Goblin(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);

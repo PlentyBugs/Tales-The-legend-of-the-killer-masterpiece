@@ -3,8 +3,21 @@ package Effects;
 import Abilities.Buffs.DecreaseDamageBuff;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.Property;
 
-public class AlcoholBuff extends Effect {
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AlcoholBuff extends Effect  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Effect.propertyList);
+        propertyList.add(Property.ALCOHOL_EFFECT);
+    }
+    @Serial
     private static final long serialVersionUID = -2237990859028001672L;
 
     public AlcoholBuff(){

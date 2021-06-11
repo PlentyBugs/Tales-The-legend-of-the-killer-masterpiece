@@ -11,14 +11,24 @@ import Quests.ReachQuest;
 import Windows.PlayerWindows.*;
 import Windows.SupportWindows.SupportComponents.SavePanel;
 import Windows.WindowInterface;
+import support.Property;
 
 import java.awt.*;
 import java.io.Serial;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Player extends Human {
+public class Player extends Human  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.PLAYER);
+    }
 
     private int vision;
     private int exp;

@@ -6,8 +6,22 @@ import Items.*;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
+import support.Property;
+
+import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bow extends Weapon {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Weapon.propertyList);
+        propertyList.add(Property.BOW);
+    }
+
+    @Serial
     private static final long serialVersionUID = -8079067509250088207L;
 
     public Bow(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){

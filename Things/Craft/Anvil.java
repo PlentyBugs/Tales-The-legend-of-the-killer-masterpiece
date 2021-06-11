@@ -23,13 +23,24 @@ import Items.Weapons.WeaponType;
 import Things.Thing;
 import Windows.CraftWindow.AnvilTableWindow;
 import Windows.WindowInterface;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Anvil extends Thing implements BlackSmithCraftTable{
+public class Anvil extends Thing implements BlackSmithCraftTable {
+    protected final static java.util.List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.ANVIL);
+    }
+
 
     private boolean isCraftTableWindowOpen;
-    private AnvilTableWindow anvilTableWindow;
+    private final AnvilTableWindow anvilTableWindow;
     private Player player;
     private BluePrint bluePrint;
 

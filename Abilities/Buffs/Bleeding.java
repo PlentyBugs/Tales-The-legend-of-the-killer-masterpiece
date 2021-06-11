@@ -4,7 +4,7 @@ import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
 
-public class Bleeding extends Buff implements StackableBuff{
+public class Bleeding extends Buff implements StackableBuff {
     private FightWindow fightWindow;
 
     public Bleeding(int power){

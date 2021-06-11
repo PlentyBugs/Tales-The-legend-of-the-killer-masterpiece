@@ -1,8 +1,19 @@
 package Things;
 
-import java.awt.*;
+import support.Property;
 
-public class WoodWall extends Thing{
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+
+public class WoodWall extends Thing {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.WALL);
+    }
     public WoodWall(){
         name = "Стена";
         color = new Color((int)(Math.random()*5) + 163, (int)(Math.random()*5) + 95, (int)(Math.random()*5) + 7);

@@ -1,6 +1,18 @@
 package Creatures;
 
-public class Human extends LiveCreature {
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Human extends LiveCreature  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(LiveCreature.propertyList);
+        propertyList.add(Property.HUMAN);
+    }
     protected String name;
     protected String location = "Пустота";
 

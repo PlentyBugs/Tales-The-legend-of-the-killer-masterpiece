@@ -1,8 +1,19 @@
 package Things.Doors;
 
-import java.awt.*;
+import support.Property;
 
-public class DoorToUpperLevelLocation extends Door {
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+
+public class DoorToUpperLevelLocation extends Door  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Door.propertyList);
+        propertyList.add(Property.DOOR_TO_UPPER_LEVEL_LOCATION);
+    }
     public DoorToUpperLevelLocation(){
         this(0,0);
     }

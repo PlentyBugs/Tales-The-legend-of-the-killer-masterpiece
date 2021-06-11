@@ -3,7 +3,7 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Creatures.Player;
 
-public class DamageUpBuff extends Buff implements StackableBuff {
+public class DamageUpBuff extends Buff implements StackableBuff  {
 
     public DamageUpBuff(int power){
         name = "Повышение урона";

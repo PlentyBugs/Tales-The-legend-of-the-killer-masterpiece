@@ -4,8 +4,18 @@ import Items.Grade;
 import Items.Material;
 import Items.Rarity;
 import Items.Armors.Ring;
+import support.Property;
 
-public class KingGoblinRing extends Ring {
+import java.util.ArrayList;
+import java.util.List;
+
+public class KingGoblinRing extends Ring  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Ring.propertyList);
+    }
 
     public KingGoblinRing(){
         stockName = "Кольцо Короля гоблинов";

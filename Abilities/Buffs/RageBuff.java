@@ -3,7 +3,7 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Creatures.Player;
 
-public class RageBuff extends Buff {
+public class RageBuff extends Buff  {
 
     public RageBuff(int power){
         name = "Ярость";

@@ -2,7 +2,7 @@ package Conversations;
 
 import Windows.SupportWindows.SupportComponents.Console;
 
-public class DialogConversation extends Conversation{
+public class DialogConversation extends Conversation {
     protected String text;
     protected String playerText;
     protected Console console;

@@ -2,17 +2,28 @@ package Creatures.AggressiveNPC;
 
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
-import Items.Item;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.PoisonPotion;
+import Items.Item;
 import Items.QuestItems.KingGoblinRing;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoblinKing extends Goblin {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Goblin.propertyList);
+        propertyList.add(Property.GOBLIN_KING);
+    }
+
     public GoblinKing(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);
 

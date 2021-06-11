@@ -13,10 +13,20 @@ import Items.*;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeadGuardian extends Boss {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Boss.propertyList);
+        propertyList.add(Property.DEAD_GUARDIAN);
+    }
 
     public DeadGuardian(int x, int y, String name, int lvl, int hp) {
 

@@ -4,14 +4,23 @@ import Creatures.Player;
 import Items.BlackSmith.Resource.Resource;
 import Things.Thing;
 import Windows.CraftWindow.SmelterTableWindow;
+import support.Property;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
-public class Smelter extends Thing implements BlackSmithCraftTable{
+public class Smelter extends Thing implements BlackSmithCraftTable {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.SMELTER);
+    }
 
     private boolean isCraftTableWindowOpen;
-    private SmelterTableWindow smelterTableWindow;
-    private Player player;
+    private final SmelterTableWindow smelterTableWindow;
     private int maxTemperature;
     private int power;
 
@@ -29,7 +38,6 @@ public class Smelter extends Thing implements BlackSmithCraftTable{
     @Override
     public void setPlayer(Player player) {
         smelterTableWindow.setPlayer(player);
-        this.player = player;
     }
 
     @Override

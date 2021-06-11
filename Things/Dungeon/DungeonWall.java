@@ -1,10 +1,21 @@
 package Things.Dungeon;
 
 import Things.Thing;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DungeonWall extends Thing {
+    protected final static java.util.List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.WALL);
+    }
+
 
     public static final DungeonWall instance = new DungeonWall();
 

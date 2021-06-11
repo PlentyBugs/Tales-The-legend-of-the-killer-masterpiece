@@ -12,9 +12,7 @@ import java.awt.event.ActionListener;
 
 public class ConstructorField extends JFrame {
 
-    private int width = 1024;
-    private int height = 720;
-    private Block block;
+    private final Block block;
     private JPanel panel = new JPanel(new BorderLayout());
     private GodCreature[][] map;
     private boolean[][] isEditableMap;
@@ -22,7 +20,7 @@ public class ConstructorField extends JFrame {
     private JScrollPane centerFieldScroll = new JScrollPane(centerFieldPanel);
     private int mapWidth;
     private int mapHeight;
-    private ToolMode toolMode;
+    private final ToolMode toolMode;
     private int firstClickAreaBuilderIdX = -1;
     private int secondClickAreaBuilderIdX = -1;
     private int firstClickAreaBuilderIdY = -1;
@@ -39,6 +37,8 @@ public class ConstructorField extends JFrame {
 
         this.block.setBlock(new Grass());
 
+        int width = 1024;
+        int height = 720;
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
@@ -72,33 +72,26 @@ public class ConstructorField extends JFrame {
 
         JButton addRight = new UnfocusedButton("+");
 
-        addUp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addToUp();
-                drawWindow();
-            }
+        addUp.addActionListener(e -> {
+            addToUp();
+            drawWindow();
         });
 
-        addLeft.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addToLeft();
-                drawWindow();
-            }
+        addLeft.addActionListener(e -> {
+            addToLeft();
+            drawWindow();
         });
 
-        addDown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addToDown();
-                drawWindow();
-            }
+        addDown.addActionListener(e -> {
+            addToDown();
+            drawWindow();
         });
 
-        addRight.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                addToRight();
-                drawWindow();
-            }
+        addRight.addActionListener(e -> {
+            addToRight();
+            drawWindow();
         });
+
         centerFieldPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 

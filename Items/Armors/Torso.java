@@ -3,8 +3,19 @@ package Items.Armors;
 import Items.Grade;
 import Items.Material;
 import Items.Rarity;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Torso extends Armor {
+    protected final static java.util.List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Armor.propertyList);
+    }
+
     public Torso(Material material, Rarity rarity, Grade grade, int protection){
         stockName = "броня";
         this.material = material;

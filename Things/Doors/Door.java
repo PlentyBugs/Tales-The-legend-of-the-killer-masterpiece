@@ -4,10 +4,21 @@ import Items.Key;
 import Locations.Generation;
 import Locations.Map;
 import Things.Thing;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Door extends Thing {
+    protected final static java.util.List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.DOOR);
+    }
+
 
     protected boolean isLocked;
     protected Key key;

@@ -2,11 +2,17 @@ package Creatures;
 
 import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.WindowInterface;
+import support.Property;
+import support.PropertyProvider;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GodCreature implements Serializable, Cloneable, Copying<GodCreature>  {
+public class GodCreature implements Serializable, Cloneable, Copying<GodCreature>, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
     protected String name;
     protected Color color;
     protected boolean isStep;

@@ -3,7 +3,7 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Windows.BattleWindows.FightWindow;
 
-public class Necrosis extends Buff implements StackableBuff{
+public class Necrosis extends Buff implements StackableBuff {
     private FightWindow fightWindow;
 
     public Necrosis(int power){

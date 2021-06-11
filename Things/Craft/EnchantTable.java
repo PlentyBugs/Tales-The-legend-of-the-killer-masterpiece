@@ -3,14 +3,23 @@ package Things.Craft;
 import Creatures.Player;
 import Things.Thing;
 import Windows.CraftWindow.EnchantTableWindow;
+import support.Property;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
-public class EnchantTable extends Thing implements CraftTable{
+public class EnchantTable extends Thing implements CraftTable {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.ENCHANT_TABLE);
+    }
 
     private boolean isCraftTableWindowOpen;
-    private EnchantTableWindow enchantTableWindow;
-    private Player player;
+    private final EnchantTableWindow enchantTableWindow;
 
     public EnchantTable(){
         name = "Стол зачарования";
@@ -24,7 +33,6 @@ public class EnchantTable extends Thing implements CraftTable{
     @Override
     public void setPlayer(Player player) {
         enchantTableWindow.setPlayer(player);
-        this.player = player;
     }
 
     @Override

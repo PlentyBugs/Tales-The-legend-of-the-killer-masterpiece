@@ -1,8 +1,19 @@
 package Items;
 
 import Things.Doors.Door;
+import support.Property;
 
-public class Key extends Item {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Key extends Item  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Item.propertyList);
+        propertyList.add(Property.KEY);
+    }
 
     private int level;
     private Door door;

@@ -15,65 +15,30 @@ public class Alcohol extends Potion implements DiplomacyItem {
     public Alcohol countProperty() {
         int addPower = 0;
         switch (potionMaterial) {
-            case WATER:
-                addPower += 1;
-                break;
-            case AIR:
-                addPower += 4;
-                break;
-            case BLOOD:
-                addPower += 8;
-                break;
-            case DRAGONBLOOD:
-                addPower += 32;
-                break;
-            case GODBLOOD:
-                addPower += 64;
-                break;
+            case WATER -> addPower += 1;
+            case AIR -> addPower += 4;
+            case BLOOD -> addPower += 8;
+            case DRAGONBLOOD -> addPower += 32;
+            case GODBLOOD -> addPower += 64;
         }
 
         switch (grade) {
-            case COMMON:
-                addPower += 1;
-                break;
-            case MAGIC:
-                addPower += 4;
-                break;
-            case CURSE:
-                addPower += 8;
-                break;
-            case ARTIFACT:
-                addPower += 16;
-                break;
-            case HEROIC:
-                addPower += 32;
-                break;
-            case ABOVETHEGODS:
-                addPower += 64;
-                break;
+            case COMMON -> addPower += 1;
+            case MAGIC -> addPower += 4;
+            case CURSE -> addPower += 8;
+            case ARTIFACT -> addPower += 16;
+            case HEROIC -> addPower += 32;
+            case ABOVETHEGODS -> addPower += 64;
         }
+
         switch (rarity) {
-            case COMMON:
-                addPower += 1;
-                break;
-            case UNCOMMON:
-                addPower += 4;
-                break;
-            case RARE:
-                addPower += 8;
-                break;
-            case MYSTICAL:
-                addPower += 16;
-                break;
-            case LEGENDARY:
-                addPower += 32;
-                break;
-            case DRAGON:
-                addPower += 64;
-                break;
-            case DIVINE:
-                addPower += 128;
-                break;
+            case COMMON -> addPower += 1;
+            case UNCOMMON -> addPower += 4;
+            case RARE -> addPower += 8;
+            case MYSTICAL -> addPower += 16;
+            case LEGENDARY -> addPower += 32;
+            case DRAGON -> addPower += 64;
+            case DIVINE -> addPower += 128;
         }
         return this;
     }

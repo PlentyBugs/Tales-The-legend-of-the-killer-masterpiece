@@ -8,12 +8,22 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
+import support.Property;
+import support.PropertyProvider;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class Equipment implements Serializable {
+public class Equipment implements Serializable, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(Property.EQUIPMENT);
+    }
 
     private Helmet helmet;
     private Torso torso;
@@ -21,6 +31,7 @@ public class Equipment implements Serializable {
     private Weapon oneHandedWeaponLeft;
     private Weapon oneHandedWeaponRight;
     private Weapon twoHandedWeapon;
+    @Serial
     private static final long serialVersionUID = -1882217856036727082L;
 
     public void setRings(Ring ring){
@@ -33,9 +44,7 @@ public class Equipment implements Serializable {
         }
         if(unique){
             Ring[] ringsCopy = new Ring[10];
-            for (int s = 1; s < 10; s++){
-                ringsCopy[s] = rings[s-1];
-            }
+            System.arraycopy(rings, 0, ringsCopy, 1, 9);
             ringsCopy[0] = ring;
 
             rings = ringsCopy;

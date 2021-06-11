@@ -3,8 +3,19 @@ package Conversations;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.ConversationWindows.ShopWindow;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Shop extends Conversation {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Conversation.propertyList);
+        propertyList.add(Property.SHOP);
+    }
 
     private ShopWindow shop;
     private LiveCreature seller;

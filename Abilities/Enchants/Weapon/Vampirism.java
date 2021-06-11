@@ -1,12 +1,23 @@
 package Abilities.Enchants.Weapon;
 
+import Abilities.Ability;
 import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
 import Items.Item;
 import Items.Weapons.Weapon;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Vampirism extends Enchant {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Enchant.propertyList);
+    }
 
     public Vampirism() {
         this(10);

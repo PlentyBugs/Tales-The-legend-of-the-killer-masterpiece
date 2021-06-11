@@ -2,11 +2,21 @@ package Abilities;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.Property;
+import support.PropertyProvider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Ability implements Serializable {
+public class Ability implements Serializable, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(Property.ABILITY);
+    }
+
     protected ArrayList<AbilityType> abilityType = new ArrayList<>();
     protected int power;
     protected int chance;

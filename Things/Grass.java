@@ -1,8 +1,20 @@
 package Things;
 
-import java.awt.*;
+import support.Property;
 
-public class Grass extends Thing {
+import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Grass extends Thing  {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Thing.propertyList);
+        propertyList.add(Property.GRASS);
+    }
+
     public Grass(){
         name = "";
         color = Color.GREEN;

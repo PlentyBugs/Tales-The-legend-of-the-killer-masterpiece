@@ -3,9 +3,20 @@ package Items.Weapons.Bows;
 import Items.Grade;
 import Items.Material;
 import Items.Rarity;
+import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LongBow extends Bow {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Bow.propertyList);
+    }
 
     public LongBow(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){
         stockName = "Длинный лук";

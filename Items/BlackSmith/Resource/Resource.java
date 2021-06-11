@@ -1,10 +1,21 @@
 package Items.BlackSmith.Resource;
 
 import Items.Item;
+import support.Property;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Resource extends Item {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Item.propertyList);
+        propertyList.add(Property.RESOURCE);
+    }
+
     protected int maxTemperature;
     protected int temperature = 0;
     protected boolean hotTreatment;

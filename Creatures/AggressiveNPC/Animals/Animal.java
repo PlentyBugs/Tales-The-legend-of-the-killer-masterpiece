@@ -3,10 +3,19 @@ package Creatures.AggressiveNPC.Animals;
 import Creatures.LiveCreature;
 import Creatures.Stats;
 import Diseases.Disease;
+import support.Property;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Animal extends LiveCreature {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(LiveCreature.propertyList);
+        propertyList.add(Property.ANIMAL);
+    }
 
     protected String name;
     protected String location = "Пустота";

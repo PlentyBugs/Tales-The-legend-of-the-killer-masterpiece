@@ -5,21 +5,31 @@ import Abilities.Active.DecreaseDamage;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
 import Creatures.Human;
-import Items.*;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
 import Items.Armors.Torso;
+import Items.*;
 import Items.Weapons.Bows.Bow;
 import Items.Weapons.Bows.LongBow;
 import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
+import support.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bandit extends Human {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Human.propertyList);
+        propertyList.add(Property.BANDIT);
+    }
 
     public Bandit(int x, int y, String name, int lvl, int hp) {
         super(x, y, name, lvl, hp);

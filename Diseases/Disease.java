@@ -1,13 +1,26 @@
 package Diseases;
 
-public class Disease implements Comparable{
+import support.Property;
+import support.PropertyProvider;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Disease implements Comparable<Disease>, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(Property.DISEASE);
+    }
+
     protected String name;
     protected int danger;
     protected Disease evolution;
 
     @Override
-    public int compareTo(Object o) {
-        if(o instanceof Disease)
+    public int compareTo(Disease o) {
+        if(o != null)
             return 0;
         return -1;
     }

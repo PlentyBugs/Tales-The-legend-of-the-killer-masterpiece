@@ -2,8 +2,18 @@ package Quests;
 
 import Items.Item;
 import Creatures.Player;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CollectItemQuest extends Quest {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Quest.propertyList);
+    }
 
     private Player player;
     private Item item;
