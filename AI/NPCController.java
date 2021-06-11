@@ -43,9 +43,9 @@ public class NPCController extends Thread implements Serializable {
 
     private void move(){
         for(LiveCreature liveCreature : NPC){
-            GodCreature[][] field;
-            field = fieldWindow.getCurrentMap().getMap(fieldWindow.getPlayer().getX(), fieldWindow.getPlayer().getY());
-            if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()) instanceof LiveCreature && ((LiveCreature)fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY())).getHp() <= 0){
+            GodCreature[][] field = fieldWindow.getCurrentMap().getMap(fieldWindow.getPlayer().getX(), fieldWindow.getPlayer().getY());
+            GodCreature elementByCoordinates = fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY());
+            if(elementByCoordinates instanceof LiveCreature creature && creature.getHp() <= 0){
                 fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
             }
             if(liveCreature.getClass().toString().contains("Aggressive")

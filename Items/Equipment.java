@@ -160,14 +160,14 @@ public class Equipment implements Serializable, PropertyProvider {
         return chopps;
     }
 
-    public void unequip(Item item){
-        if(item instanceof Helmet){
+    public void unequip(Item item) {
+        if(item instanceof Helmet) {
             helmet = null;
         }
-        if(item instanceof Torso){
+        if(item instanceof Torso) {
             torso = null;
         }
-        if (item instanceof Ring){
+        if (item instanceof Ring ring) {
             int k = 0;
             for(int i = 0; i < rings.length-1; i++){
                 if(rings[i] != null && rings[i].getId() == item.getId()){
@@ -175,18 +175,16 @@ public class Equipment implements Serializable, PropertyProvider {
                 }
                 rings[i] = rings[i+k];
             }
-            if(k == 0){
-                rings[rings.length-1] = (Ring)item;
+            if(k == 0) {
+                rings[rings.length-1] = ring;
             }
         }
-        if(item instanceof Weapon){
-            if(((Weapon) item).getWeaponType().contains(WeaponType.ONE_HANDED)){
-                if(item == oneHandedWeaponRight){
+        if(item instanceof Weapon weapon) {
+            if(weapon.getWeaponType().contains(WeaponType.ONE_HANDED)) {
+                if(item == oneHandedWeaponRight) {
                     oneHandedWeaponRight = oneHandedWeaponLeft;
-                    oneHandedWeaponLeft = null;
-                } else {
-                    oneHandedWeaponLeft = null;
                 }
+                oneHandedWeaponLeft = null;
             } else {
                 twoHandedWeapon = null;
             }

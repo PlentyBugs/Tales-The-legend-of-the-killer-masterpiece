@@ -114,8 +114,8 @@ public class InventoryWindow extends JFrame implements Serializable {
 
             JPanel itemPanel = new JPanel(new GridBagLayout());
 
-            if(item instanceof Resource)
-                itemPanel.setToolTipText("<html><p>Температура: <b>" + ((Resource)item).getTemperature() + "</b></p><br><p>Температура плавления: <b>" + ((Resource)item).getMaxTemperature() + "</b></p></html>");
+            if(item instanceof Resource resource)
+                itemPanel.setToolTipText("<html><p>Температура: <b>" + resource.getTemperature() + "</b></p><br><p>Температура плавления: <b>" + resource.getMaxTemperature() + "</b></p></html>");
             else
                 itemPanel.setToolTipText(item.getEnchantDescription());
 

@@ -243,27 +243,27 @@ public class LiveCreature extends GodCreature  {
 
     public void equip(Item item){
         if (inventory.contains(item)){
-            if (item.getClass().toString().contains("Weapons")){
-                if (((Weapon)item).getWeaponType().contains(WeaponType.ONE_HANDED)){
+            if (item instanceof Weapon weapon){
+                if (weapon.getWeaponType().contains(WeaponType.ONE_HANDED)){
                     if (getAbility(AbilityProperty.TWO_ONE_HANDED_WEAPONS) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
-                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setOneHandedWeaponLeft(weapon);
                     } else {
-                        equipment.setOneHandedWeaponLeft((Weapon)item);
+                        equipment.setOneHandedWeaponLeft(weapon);
                         equipment.setOneHandedWeaponRight(null);
                     }
                     equipment.setTwoHandedWeapon(null);
                 } else {
-                    equipment.setTwoHandedWeapon((Weapon)item);
+                    equipment.setTwoHandedWeapon(weapon);
                     equipment.setOneHandedWeaponLeft(null);
                     equipment.setOneHandedWeaponRight(null);
                 }
-            } else if (item.getClass().toString().contains("Helmet")){
-                equipment.setHelmet((Helmet)item);
-            } else if (item.getClass().toString().contains("Torso")){
-                equipment.setTorso((Torso)item);
-            } else if (item instanceof Ring){
-                equipment.setRings((Ring) item);
+            } else if (item instanceof Helmet helmet) {
+                equipment.setHelmet(helmet);
+            } else if (item instanceof Torso torso) {
+                equipment.setTorso(torso);
+            } else if (item instanceof Ring ring) {
+                equipment.setRings(ring);
             }
         }
     }

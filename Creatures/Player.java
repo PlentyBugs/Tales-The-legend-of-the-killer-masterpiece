@@ -276,16 +276,16 @@ public class Player extends Human  {
     public void countEquipmentBuffs(){
         stats.getBonusStats().clear();
         for(Item item : equipment.getListOfEquipment()){
-            if(item instanceof StatItem){
-                stats.getBonusStats().upStat(((StatItem)item).getStat(), ((StatItem)item).getStatPower());
+            if(item instanceof StatItem statItem){
+                stats.getBonusStats().upStat(statItem.getStat(), statItem.getStatPower());
             }
         }
     }
 
     public void checkQuests(){
         for(Quest quest : quests){
-            if(quest instanceof ReachQuest){
-                ((ReachQuest)quest).setCurrentLocation(location);
+            if(quest instanceof ReachQuest reachQuest){
+                reachQuest.setCurrentLocation(location);
             }
             if(quest.getVisible() && quest.check()){
                 quest.getReward(this);

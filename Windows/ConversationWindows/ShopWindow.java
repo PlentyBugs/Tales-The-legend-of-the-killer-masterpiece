@@ -102,20 +102,20 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemPanel.add(itemName, itemConstraints);
                 itemConstraints.gridx ++;
 
-                if(item instanceof Weapon){
-                    JLabel itemProperty = new JLabel("Урон: " + ((Weapon) item).getDamage());
+                if(item instanceof Weapon weapon) {
+                    JLabel itemProperty = new JLabel("Урон: " + weapon.getDamage());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                if(item instanceof Armor){
-                    JLabel itemProperty = new JLabel("Защита: " + ((Armor) item).getProtection());
+                if(item instanceof Armor armor) {
+                    JLabel itemProperty = new JLabel("Защита: " + armor.getProtection());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                if(item instanceof Potion){
-                    JLabel itemProperty = new JLabel("Мощность: " + ((Potion) item).getEffect().getPower());
+                if(item instanceof Potion potion) {
+                    JLabel itemProperty = new JLabel("Мощность: " + potion.getEffect().getPower());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
@@ -156,20 +156,20 @@ public class ShopWindow extends JFrame implements Serializable {
                 itemPanel.add(itemName, itemConstraints);
                 itemConstraints.gridx ++;
 
-                if(item instanceof Weapon){
-                    JLabel itemProperty = new JLabel("Урон: " + ((Weapon) item).getDamage());
+                if(item instanceof Weapon weapon){
+                    JLabel itemProperty = new JLabel("Урон: " + weapon.getDamage());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                if(item instanceof Armor){
-                    JLabel itemProperty = new JLabel("Защита: " + ((Armor) item).getProtection());
+                if(item instanceof Armor armor){
+                    JLabel itemProperty = new JLabel("Защита: " + armor.getProtection());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }
 
-                if(item instanceof Potion){
-                    JLabel itemProperty = new JLabel("Мощность: " + ((Potion) item).getEffect().getPower());
+                if(item instanceof Potion potion) {
+                    JLabel itemProperty = new JLabel("Мощность: " + potion.getEffect().getPower());
                     itemPanel.add(itemProperty, itemConstraints);
                     itemConstraints.gridx ++;
                 }

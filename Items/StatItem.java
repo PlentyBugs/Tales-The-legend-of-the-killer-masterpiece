@@ -2,7 +2,7 @@ package Items;
 
 import Creatures.StatsEnum;
 
-public interface StatItem<T extends StatsEnum> {
-    T getStat();
+public interface StatItem {
+    StatsEnum getStat();
     int getStatPower();
 }

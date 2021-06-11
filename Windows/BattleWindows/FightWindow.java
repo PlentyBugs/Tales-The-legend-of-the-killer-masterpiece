@@ -333,8 +333,8 @@ public class FightWindow extends JFrame implements Serializable {
             }
             int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
             ArrayList<Item> dropItems = new ArrayList<>();
-            if(enemy instanceof Boss){
-                dropItems.addAll(Arrays.asList(((Boss) enemy).getDropItems()));
+            if(enemy instanceof Boss boss){
+                dropItems.addAll(Arrays.asList(boss.getDropItems()));
             }
             for (int i = 0; i < countItemsDrop; i++){
                 Item item = null;

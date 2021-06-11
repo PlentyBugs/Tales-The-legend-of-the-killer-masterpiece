@@ -1,16 +1,15 @@
 package Items.QuestItems;
 
+import Items.Armors.Ring;
 import Items.Grade;
 import Items.Material;
 import Items.Rarity;
-import Items.Armors.Ring;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KingGoblinRing extends Ring  {
+public class KingGoblinRing extends Ring {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

@@ -31,8 +31,8 @@ public class AlcoholBuff extends Effect  {
     }
 
     public void use(LiveCreature liveCreature){
-        if(liveCreature instanceof Player){
-            ((Player) liveCreature).addExp(power*liveCreature.getLvl()*12);
+        if(liveCreature instanceof Player player){
+            player.addExp(power * liveCreature.getLvl() * 12);
             liveCreature.addBuffs(new DecreaseDamageBuff(power));
         } else {
             liveCreature.addLoyalityByClassName(Player.class.toString(), power);

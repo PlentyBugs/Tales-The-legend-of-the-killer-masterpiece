@@ -12,7 +12,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ring extends Armor implements StatItem  {
+public class Ring extends Armor implements StatItem {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
