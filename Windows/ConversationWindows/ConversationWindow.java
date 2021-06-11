@@ -10,7 +10,10 @@ import support.AbilityProperty;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -59,8 +62,6 @@ public class ConversationWindow extends JFrame implements Serializable {
         dialog.setSizeArea(width-30, height -240);
 
         getContentPane().add(dialog, BorderLayout.NORTH);
-
-        drawWindow();
     }
 
     public void setPlayer(Player player) {
@@ -124,10 +125,7 @@ public class ConversationWindow extends JFrame implements Serializable {
                             Conversation supportConversation = opponent.getConversation().getConversationTree().get(finalS).get(finalK);
                             opponent.getConversation().getConversationTree().remove(finalS);
                             for (int z = 0; z < size; z++){
-                                ArrayList<Conversation> conv = new ArrayList<>();
-                                for (int x = 0; x < supportConversation.getConversationTree().get(z).size(); x++){
-                                    conv.add(supportConversation.getConversationTree().get(z).get(x));
-                                }
+                                ArrayList<Conversation> conv = new ArrayList<>(supportConversation.getConversationTree().get(z));
                                 opponent.getConversation().getConversationTree().add(z+1, conv);
                             }
                             setVisible(false);
@@ -142,7 +140,7 @@ public class ConversationWindow extends JFrame implements Serializable {
                 }
             }
 
-            if(player != null && player.hasAbility(AbilityProperty.STEAL)){
+            if(player != null && player.hasAbility(AbilityProperty.STEAL)) {
                 JButton title = new UnfocusedButton("Обокрасть");
 
                 title.setPreferredSize(new Dimension(width, 30));

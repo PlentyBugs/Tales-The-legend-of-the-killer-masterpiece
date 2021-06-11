@@ -17,13 +17,10 @@ import java.io.Serializable;
 
 public class ThiefWindow extends JFrame implements Serializable {
 
-    private LiveCreature player;
-    private Player thief;
+    private final LiveCreature player;
+    private final Player thief;
     private JPanel panel = new JPanel(new GridBagLayout());
     JScrollPane scroll = new JScrollPane(panel);
-    private GridBagConstraints constraints;
-    private int width = 720;
-    private int height = 720;
 
     public ThiefWindow(LiveCreature player, Player thief) {
         super("Инвентарь " + player.getName());
@@ -32,7 +29,6 @@ public class ThiefWindow extends JFrame implements Serializable {
 
         this.player = player;
         this.thief = thief;
-        drawInventory();
     }
 
     public void close(){
@@ -40,7 +36,7 @@ public class ThiefWindow extends JFrame implements Serializable {
     }
 
     public void setIsVisible(boolean b) {
-        drawInventory();
+        if (b) drawInventory();
         setVisible(b);
     }
 
@@ -49,12 +45,13 @@ public class ThiefWindow extends JFrame implements Serializable {
         getContentPane().remove(scroll);
 
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 0, 0, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
+        int width = 720;
         for (Item item : player.getInventory()){
 
             JPanel itemPanel = new JPanel();
@@ -66,28 +63,25 @@ public class ThiefWindow extends JFrame implements Serializable {
             itemConstraints.gridy = 0;
 
             Color colorBackground = new Color(255,255,255,255);
-            Color colorForeground = new Color(0,0,0);
+            new Color(0, 0, 0);
+            Color colorForeground = switch (item.getGrade()) {
+                case COMMON -> new Color(0, 0, 0);
+                case MAGIC -> new Color(67, 162, 255);
+                case CURSE -> new Color(1, 155, 24);
+                case ARTIFACT -> new Color(255, 0, 18);
+                case HEROIC -> new Color(255, 96, 0);
+                case ABOVETHEGODS -> new Color(255, 0, 197);
+            };
 
-            switch(item.getGrade()){
-                case COMMON: colorForeground = new Color(0,0,0); break;
-                case MAGIC: colorForeground = new Color(67, 162,255); break;
-                case CURSE: colorForeground = new Color(1,155, 24); break;
-                case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
-                case HEROIC: colorForeground = new Color(255, 96, 0); break;
-                case ABOVETHEGODS: colorForeground = new Color(255, 0, 197); break;
-                default:  colorForeground = new Color(0,0,0); break;
-            }
-
-            switch(item.getRarity()){
-                case COMMON: colorBackground = new Color(255,255,255,100); break;
-                case UNCOMMON: colorBackground = new Color(0, 115,255,100); break;
-                case RARE: colorBackground = new Color(12, 0,255,100); break;
-                case MYSTICAL: colorBackground = new Color(255, 0, 119,100); break;
-                case LEGENDARY: colorBackground = new Color(255, 232, 0,100); break;
-                case DRAGON: colorBackground = new Color(255, 9, 0,100); break;
-                case DIVINE: colorBackground = new Color(255, 169, 0,100); break;
-                default:  colorBackground = new Color(255,255,255,100); break;
-            }
+            colorBackground = switch (item.getRarity()) {
+                case COMMON -> new Color(255, 255, 255, 100);
+                case UNCOMMON -> new Color(0, 115, 255, 100);
+                case RARE -> new Color(12, 0, 255, 100);
+                case MYSTICAL -> new Color(255, 0, 119, 100);
+                case LEGENDARY -> new Color(255, 232, 0, 100);
+                case DRAGON -> new Color(255, 9, 0, 100);
+                case DIVINE -> new Color(255, 169, 0, 100);
+            };
 
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 1;
@@ -159,9 +153,10 @@ public class ThiefWindow extends JFrame implements Serializable {
         }
 
         scroll = new JScrollPane(panel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(width,height));
+        int height = 720;
+        scroll.setPreferredSize(new Dimension(width, height));
         getContentPane().add(scroll);
         pack();
-        setVisible(true);
+//        setVisible(true);
     }
 }

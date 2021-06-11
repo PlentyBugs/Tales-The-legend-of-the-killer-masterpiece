@@ -1,11 +1,11 @@
 package Windows.ConversationWindows;
 
 import Abilities.Ability;
-import Conversations.CatalogStockTypeOfItem;
+import Conversations.CatalogItem;
 import Creatures.Player;
-import Items.Item;
 import Windows.PlayerWindows.UnfocusedButton;
 import Windows.WindowInterface;
+import support.Sellable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 public class ShopAbilityWindow extends JFrame implements Serializable {
 
-    private final ArrayList<Object> catalog;
+    private final ArrayList<CatalogItem> catalog;
     private JPanel panel = new JPanel(new GridBagLayout());
     private Player player;
 
-    public ShopAbilityWindow(Player player, ArrayList<Object> catalog){
+    public ShopAbilityWindow(Player player, ArrayList<CatalogItem> catalog){
         super("Магазин");
         setAlwaysOnTop(true);
 
@@ -42,56 +42,48 @@ public class ShopAbilityWindow extends JFrame implements Serializable {
         constraints.gridx = 0;
         constraints.gridy = 0;
 
-        for(Object cat : catalog){
-            for(Object obj : (ArrayList)cat){
+        for(CatalogItem cat : catalog) {
+            Sellable sellable = cat.sellable();
+            int price = cat.price();
+            int count = cat.count();
 
-                int price = (int)(((Object[])obj)[1]);
-                int count = (int)(((Object[])obj)[2]);
+            JPanel itemPanel = new JPanel(new GridBagLayout());
+            GridBagConstraints itemConstraints = new GridBagConstraints();
 
-                JPanel itemPanel = new JPanel(new GridBagLayout());
-                GridBagConstraints itemConstraints = new GridBagConstraints();
+            itemConstraints.anchor = GridBagConstraints.WEST;
+            itemConstraints.insets = new Insets(0, 30, 0, 0);
+            itemConstraints.gridx = 0;
+            itemConstraints.gridy = 0;
 
-                itemConstraints.anchor = GridBagConstraints.WEST;
-                itemConstraints.insets = new Insets(0, 30, 0, 0);
-                itemConstraints.gridx = 0;
-                itemConstraints.gridy = 0;
+            JLabel sellablePanel = new JLabel(sellable.getName());
+            itemPanel.add(sellablePanel, itemConstraints);
+            itemConstraints.gridx = 1;
 
+            JLabel itemCost = new JLabel(Integer.toString(price));
+            itemPanel.add(itemCost, itemConstraints);
+            itemConstraints.gridx = 2;
 
-                if (((Object[])obj)[3] == CatalogStockTypeOfItem.ITEM){
-                    JLabel itemName = new JLabel(((Item)(((Object[])obj)[0])).getName());
-                    itemPanel.add(itemName, itemConstraints);
-                    itemConstraints.gridx = 1;
-                } else if (((Object[])obj)[3] == CatalogStockTypeOfItem.ABILITY){
-                    JLabel abilityName = new JLabel(((Ability)(((Object[])obj)[0])).getName());
-                    itemPanel.add(abilityName, itemConstraints);
-                    itemConstraints.gridx = 1;
+            JLabel itemCount = new JLabel(Integer.toString(count));
+            itemPanel.add(itemCount, itemConstraints);
+            itemConstraints.gridx = 3;
+            JButton buy = new UnfocusedButton("Купить");
+
+            buy.addActionListener((ActionListener & Serializable)  e -> {
+                if (count > 0 && player.getMoney() >= price && sellable instanceof Ability ability){
+                    if (!player.hasAbility(ability.getLastProperty())){
+                        player.reduceMoney(price);
+                        cat.setCount(count - 1);
+                        drawWindow();
+                        player.addAbility(ability);
+                        WindowInterface windowInterface = player.getWindowInterface();
+                        windowInterface.drawAllPlayerWindow(player, windowInterface);
+                    }
                 }
-                JLabel itemCost = new JLabel(Integer.toString(price));
-                itemPanel.add(itemCost, itemConstraints);
-                itemConstraints.gridx = 2;
-                JLabel itemCount = new JLabel(Integer.toString(count));
-                itemPanel.add(itemCount, itemConstraints);
-                itemConstraints.gridx = 3;
-                JButton buy = new UnfocusedButton("Купить");
+            });
+            itemPanel.add(buy, itemConstraints);
 
-                buy.addActionListener((ActionListener & Serializable)  e -> {
-//                    if (count > 0 && player.getMoney() >= price){
-//                        Ability ability = ((Ability)(((Object[])obj)[0]));
-//                        if (!player.hasAbility(ability)){
-//                            player.reduceMoney(price);
-//                            (((Object[])obj)[2]) = ((int)(((Object[])obj)[2]) - 1);
-//                            drawWindow();
-//                            player.addAbility(ability);
-//                            WindowInterface windowInterface = player.getWindowInterface();
-//                            windowInterface.drawAllPlayerWindow(player, windowInterface);
-//                        }
-//                    }
-                });
-                itemPanel.add(buy, itemConstraints);
-
-                panel.add(itemPanel, constraints);
-                constraints.gridy ++;
-            }
+            panel.add(itemPanel, constraints);
+            constraints.gridy ++;
         }
 
         getContentPane().add(panel);

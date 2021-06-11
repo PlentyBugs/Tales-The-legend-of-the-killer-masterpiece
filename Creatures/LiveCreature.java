@@ -125,7 +125,7 @@ public class LiveCreature extends GodCreature  {
         return null;
     }
 
-    public boolean hasAbility(AbilityProperty abilityProperty){
+    public boolean hasAbility(Property abilityProperty){
         return abilities.stream().flatMap(e -> e.getProperties().stream()).anyMatch(e -> e.equals(abilityProperty));
     }
 
@@ -204,6 +204,7 @@ public class LiveCreature extends GodCreature  {
     public void countStatsAfterBorn(){}
 
     public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setIsVisible(isVisible);}
+
     public void setConversationWindowPlayer(Player player){
         conversationWindow.setPlayer(player);
     }

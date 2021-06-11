@@ -126,12 +126,14 @@ public class ShopWindow extends JFrame implements Serializable {
                 JButton buy = new UnfocusedButton("Купить");
 
                 buy.addActionListener((ActionListener & Serializable)e -> {
-                    seller.addMoney(price);
-                    seller.removeItem(item);
-                    player.reduceMoney(price);
-                    player.addItemToInventory(item);
-                    drawWindow();
-                    windowInterface.drawAllPlayerWindow(player, windowInterface);
+                    if (player.getMoney() >= price) {
+                        seller.addMoney(price);
+                        seller.removeItem(item);
+                        player.reduceMoney(price);
+                        player.addItemToInventory(item);
+                        drawWindow();
+                        windowInterface.drawAllPlayerWindow(player, windowInterface);
+                    }
                 });
                 itemPanel.add(buy, itemConstraints);
 

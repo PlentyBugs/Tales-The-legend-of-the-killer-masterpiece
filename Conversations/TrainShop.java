@@ -4,20 +4,19 @@ import Creatures.Player;
 import Windows.ConversationWindows.ShopAbilityWindow;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class TrainShop extends Conversation {
 
-    private ShopAbilityWindow shop;
-    private ArrayList<Object> catalog = new ArrayList<Object>();
+    private final ArrayList<CatalogItem> catalog = new ArrayList<>();
     private Player player;
 
     public void run(){
-        shop = new ShopAbilityWindow(player, catalog);
+        ShopAbilityWindow shop = new ShopAbilityWindow(player, catalog);
     }
 
     public void setCatalog(CatalogStock catalogStock){
-        catalog.addAll(Arrays.asList(catalogStock.getStock()));
+        catalog.addAll(catalogStock.getStock());
     }
 
     public void setPlayer(Player player) {

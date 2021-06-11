@@ -5,13 +5,14 @@ import Creatures.Copying;
 import support.Property;
 import support.GeneralProperty;
 import support.PropertyProvider;
+import support.Sellable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Item implements Serializable, Cloneable, Copying<Item>, PropertyProvider {
+public class Item implements Serializable, Cloneable, Copying<Item>, PropertyProvider, Sellable {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

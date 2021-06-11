@@ -2,16 +2,13 @@ package Abilities;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
-import support.AbilityProperty;
-import support.Property;
-import support.GeneralProperty;
-import support.PropertyProvider;
+import support.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ability implements Serializable, PropertyProvider {
+public class Ability implements Serializable, PropertyProvider, Sellable {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
