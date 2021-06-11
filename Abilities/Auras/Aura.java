@@ -2,6 +2,7 @@ package Abilities.Auras;
 
 import Abilities.Ability;
 import Creatures.LiveCreature;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Aura extends Ability  {
 
     static {
         propertyList.addAll(Ability.propertyList);
-        propertyList.add(Property.AURA);
+        propertyList.add(AbilityProperty.AURA);
     }
 
     public void use(LiveCreature liveCreature){

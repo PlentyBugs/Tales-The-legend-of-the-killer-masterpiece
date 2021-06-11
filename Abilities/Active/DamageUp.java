@@ -5,17 +5,19 @@ import Abilities.AbilityType;
 import Abilities.Buffs.DamageUpBuff;
 import Abilities.CostType;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DamageUp extends AbilityActive {
+public class DamageUp extends ActiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(AbilityActive.propertyList);
+        propertyList.addAll(ActiveAbility.propertyList);
+        propertyList.add(AbilityProperty.DAMAGE_UP);
     }
 
     public DamageUp(){

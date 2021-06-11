@@ -4,6 +4,7 @@ import Creatures.LiveCreature;
 import Items.Item;
 import Windows.BattleWindows.FightWindow;
 import support.Property;
+import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Weapon extends Item  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(Property.WEAPON);
+        propertyList.add(GeneralProperty.WEAPON);
     }
     @Serial
     private static final long serialVersionUID = -704955292525306190L;

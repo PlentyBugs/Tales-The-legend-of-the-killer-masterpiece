@@ -6,6 +6,7 @@ import Creatures.PeacefulNPC.Peaceful;
 import Creatures.Player;
 import Windows.SupportWindows.DialogWindow;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ public class Quest implements Serializable, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.QUEST);
+        propertyList.add(GeneralProperty.QUEST);
     }
 
     protected String title;

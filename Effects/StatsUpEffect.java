@@ -3,6 +3,7 @@ package Effects;
 import Creatures.LiveCreature;
 import Creatures.StatsEnum;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class StatsUpEffect extends Effect  {
 
     static {
         propertyList.addAll(Effect.propertyList);
-        propertyList.add(Property.STATUS_UP_EFFECT);
+        propertyList.add(GeneralProperty.STATUS_UP_EFFECT);
     }
 
     private final StatsEnum stat;

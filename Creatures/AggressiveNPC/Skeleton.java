@@ -18,6 +18,7 @@ import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Skeleton extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.SKELETON);
+        propertyList.add(GeneralProperty.SKELETON);
     }
 
     public Skeleton(int x, int y, String name, int lvl, int hp) {

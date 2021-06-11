@@ -3,6 +3,7 @@ package Quests;
 import Items.Item;
 import Creatures.Player;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,6 +2,7 @@ package Effects;
 
 import Creatures.LiveCreature;
 import support.Property;
+import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class NecrosisEffect extends Effect {
 
     static {
         propertyList.addAll(Effect.propertyList);
-        propertyList.add(Property.NECROSIS_EFFECT);
+        propertyList.add(GeneralProperty.NECROSIS_EFFECT);
     }
 
     @Serial

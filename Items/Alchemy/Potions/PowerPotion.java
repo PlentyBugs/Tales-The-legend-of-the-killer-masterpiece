@@ -5,6 +5,7 @@ import Effects.EffectType;
 import Items.Grade;
 import Items.Rarity;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

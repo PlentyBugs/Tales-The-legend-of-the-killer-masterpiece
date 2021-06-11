@@ -10,6 +10,7 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class GoblinKing extends Goblin {
 
     static {
         propertyList.addAll(Goblin.propertyList);
-        propertyList.add(Property.GOBLIN_KING);
+        propertyList.add(GeneralProperty.GOBLIN_KING);
     }
 
     public GoblinKing(int x, int y, String name, int lvl, int hp) {

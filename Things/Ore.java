@@ -2,6 +2,7 @@ package Things;
 
 import Items.BlackSmith.Resource.Resource;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Ore extends Stone  {
 
     static {
         propertyList.addAll(Stone.propertyList);
-        propertyList.add(Property.ORE);
+        propertyList.add(GeneralProperty.ORE);
     }
 
     protected Resource resource;

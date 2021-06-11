@@ -1,6 +1,7 @@
 package Things;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -12,7 +13,7 @@ public class House extends Thing {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.HOUSE);
+        propertyList.add(GeneralProperty.HOUSE);
     }
     public House(){
         name = "Дом";

@@ -5,6 +5,7 @@ import Items.Alchemy.Potions.NecrosisPotion;
 import Items.Alchemy.Potions.PoisonPotion;
 import Items.Alchemy.Potions.StatsUpPotion;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

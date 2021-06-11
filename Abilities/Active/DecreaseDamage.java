@@ -4,17 +4,19 @@ import Abilities.AbilityTarget;
 import Abilities.AbilityType;
 import Abilities.Buffs.DecreaseDamageBuff;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DecreaseDamage extends AbilityActive {
+public class DecreaseDamage extends ActiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(AbilityActive.propertyList);
+        propertyList.addAll(ActiveAbility.propertyList);
+        propertyList.add(AbilityProperty.DECREASE_DAMAGE);
     }
 
     public DecreaseDamage(){

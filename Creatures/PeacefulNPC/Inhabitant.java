@@ -2,6 +2,7 @@ package Creatures.PeacefulNPC;
 
 import Conversations.Conversation;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Inhabitant extends Peaceful {
 
     static {
         propertyList.addAll(Peaceful.propertyList);
-        propertyList.add(Property.INHABITANT);
+        propertyList.add(GeneralProperty.INHABITANT);
     }
 
     public static final Inhabitant commonInhabitant = new Inhabitant(0,0, "", 0,0);

@@ -6,6 +6,7 @@ import Items.Alchemy.Potions.Potion;
 import Things.Thing;
 import Windows.CraftWindow.AlchemyTableWindow;
 import support.Property;
+import support.GeneralProperty;
 import utils.Pair;
 
 import java.awt.*;
@@ -19,7 +20,7 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.ALCHEMY_TABLE);
+        propertyList.add(GeneralProperty.ALCHEMY_TABLE);
     }
 
 

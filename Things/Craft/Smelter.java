@@ -5,6 +5,7 @@ import Items.BlackSmith.Resource.Resource;
 import Things.Thing;
 import Windows.CraftWindow.SmelterTableWindow;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Smelter extends Thing implements BlackSmithCraftTable {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.SMELTER);
+        propertyList.add(GeneralProperty.SMELTER);
     }
 
     private boolean isCraftTableWindowOpen;

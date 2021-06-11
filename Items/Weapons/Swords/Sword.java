@@ -10,6 +10,7 @@ import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
 import support.Property;
+import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Sword extends Weapon {
 
     static {
         propertyList.addAll(Weapon.propertyList);
-        propertyList.add(Property.SWORD);
+        propertyList.add(GeneralProperty.SWORD);
     }
     @Serial
     private static final long serialVersionUID = -1973203379601612951L;

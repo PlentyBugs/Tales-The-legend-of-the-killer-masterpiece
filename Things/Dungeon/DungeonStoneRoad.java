@@ -2,6 +2,7 @@ package Things.Dungeon;
 
 import Things.Thing;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class DungeonStoneRoad extends Thing {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.ROAD);
+        propertyList.add(GeneralProperty.ROAD);
     }
 
     public DungeonStoneRoad(){

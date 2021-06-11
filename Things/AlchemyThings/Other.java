@@ -3,6 +3,7 @@ package Things.AlchemyThings;
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Stone;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Other extends Stone implements IngredientThing {
 
     static {
         propertyList.addAll(Stone.propertyList);
-        propertyList.add(Property.OTHER);
+        propertyList.add(GeneralProperty.OTHER);
     }
     private Ingredient ingredient;
 

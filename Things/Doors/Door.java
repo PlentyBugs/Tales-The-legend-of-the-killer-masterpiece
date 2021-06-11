@@ -5,6 +5,7 @@ import Locations.Generation;
 import Locations.Map;
 import Things.Thing;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Door extends Thing {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.DOOR);
+        propertyList.add(GeneralProperty.DOOR);
     }
 
 

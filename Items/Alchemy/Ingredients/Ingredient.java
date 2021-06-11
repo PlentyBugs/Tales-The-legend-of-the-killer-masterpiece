@@ -5,6 +5,7 @@ import Items.Alchemy.Potions.PotionMaterial;
 import Items.Grade;
 import Items.Rarity;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Ingredient extends Potion  {
 
     static {
         propertyList.addAll(Potion.propertyList);
-        propertyList.add(Property.INGREDIENT);
+        propertyList.add(GeneralProperty.INGREDIENT);
     }
 
     protected ArrayList<Potion> usage;

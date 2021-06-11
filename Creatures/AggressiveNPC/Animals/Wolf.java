@@ -12,6 +12,7 @@ import Items.BlackSmith.Resource.Leather;
 import Items.Item;
 import Items.Key;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Wolf extends Animal {
 
     static {
         propertyList.addAll(Animal.propertyList);
-        propertyList.add(Property.WOLF);
+        propertyList.add(GeneralProperty.WOLF);
     }
 
     public Wolf(int x, int y, String name, int lvl, int hp) {

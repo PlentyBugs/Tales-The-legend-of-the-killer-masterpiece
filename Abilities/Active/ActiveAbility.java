@@ -2,23 +2,23 @@ package Abilities.Active;
 
 import Abilities.Ability;
 import Abilities.AbilityTarget;
-import Abilities.Auras.Aura;
 import Abilities.Buffs.Buff;
 import Abilities.CostType;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbilityActive extends Ability {
+public class ActiveAbility extends Ability {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
         propertyList.addAll(Ability.propertyList);
-        propertyList.add(Property.ACTIVE_ABILITY);
+        propertyList.add(AbilityProperty.ACTIVE_ABILITY);
     }
 
     protected AbilityTarget abilityTarget;

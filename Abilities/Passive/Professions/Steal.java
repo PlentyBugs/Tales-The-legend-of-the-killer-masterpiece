@@ -2,6 +2,7 @@ package Abilities.Passive.Professions;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ public class Steal extends Ability {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Ability.propertyList);
+        propertyList.addAll(Profession.propertyList);
+        propertyList.add(AbilityProperty.STEAL);
     }
 
     public Steal(){

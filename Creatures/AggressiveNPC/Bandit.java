@@ -17,6 +17,7 @@ import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Bandit extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.BANDIT);
+        propertyList.add(GeneralProperty.BANDIT);
     }
 
     public Bandit(int x, int y, String name, int lvl, int hp) {

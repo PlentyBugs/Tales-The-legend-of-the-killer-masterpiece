@@ -2,7 +2,7 @@ package Windows.BattleWindows;
 
 import Abilities.Ability;
 import Abilities.AbilityType;
-import Abilities.Active.AbilityActive;
+import Abilities.Active.ActiveAbility;
 import Abilities.CostType;
 import Creatures.LiveCreature;
 import Creatures.Player;
@@ -58,14 +58,14 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
             abilityConstraints.gridx ++;
 
             if (ability.getAbilityType().contains(AbilityType.BUFF)){
-                JLabel abilityCountBuffSteps = new JLabel("Количество ходов: " + Integer.toString(((AbilityActive)ability).getBuff().getStepCount()-1));
+                JLabel abilityCountBuffSteps = new JLabel("Количество ходов: " + Integer.toString(((ActiveAbility)ability).getBuff().getStepCount()-1));
                 abilityPanel.add(abilityCountBuffSteps, abilityConstraints);
                 abilityConstraints.gridx ++;
             }
 
             if (ability.getAbilityType().contains(AbilityType.ACTIVE)){
                 JLabel abilityCost = new JLabel();
-                int cost = ((AbilityActive)ability).getUseCost();
+                int cost = ((ActiveAbility)ability).getUseCost();
                 if(player.getEquipment().staffEquip()){
                     cost = 0;
                 }
@@ -80,7 +80,7 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
                 abilityConstraints.gridx ++;
             }
 
-            JLabel abilityTarget = new JLabel("Цель: " + ((AbilityActive)ability).getAbilityTarget());
+            JLabel abilityTarget = new JLabel("Цель: " + ((ActiveAbility)ability).getAbilityTarget());
             abilityPanel.add(abilityTarget, abilityConstraints);
             abilityConstraints.gridx ++;
 

@@ -3,17 +3,19 @@ package Abilities.Passive;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CriticalStrike extends Ability {
+public class CriticalStrike extends PassiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
         propertyList.addAll(Ability.propertyList);
+        propertyList.add(AbilityProperty.CRITICAL_STRIKE);
     }
 
     public CriticalStrike(){

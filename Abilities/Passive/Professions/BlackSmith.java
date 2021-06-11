@@ -1,19 +1,20 @@
 package Abilities.Passive.Professions;
 
-import Abilities.Ability;
 import Abilities.AbilityType;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackSmith extends Ability {
+public class BlackSmith extends Profession {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Ability.propertyList);
+        propertyList.addAll(Profession.propertyList);
+        propertyList.add(AbilityProperty.BLACKSMITH);
     }
 
     public BlackSmith(){

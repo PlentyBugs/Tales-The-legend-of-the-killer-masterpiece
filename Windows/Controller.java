@@ -1,6 +1,5 @@
 package Windows;
 
-import Abilities.Passive.LittleFool;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Creatures.Player;
@@ -20,6 +19,7 @@ import Things.Grass;
 import Things.HealBlock;
 import Things.Ore;
 import Things.Stone;
+import support.AbilityProperty;
 
 import java.io.Serializable;
 
@@ -47,7 +47,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Play
 //            npcController.addNPC((LiveCreature)creature);
 //        }
 
-        if(player.hasAbility(new LittleFool()) && creature.getClass().toString().contains("Tree")){
+        if(player.hasAbility(AbilityProperty.LITTLE_FOOL) && creature.getClass().toString().contains("Tree")){
             isStep = true;
         }
 

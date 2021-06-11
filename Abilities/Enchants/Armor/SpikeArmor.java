@@ -4,17 +4,19 @@ import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
 import Items.Item;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpikeArmor extends Enchant {
+public class SpikeArmor extends ArmorEnchantment {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
         propertyList.addAll(Enchant.propertyList);
+        propertyList.add(AbilityProperty.SPIKE_ARMOR);
     }
 
     public SpikeArmor() {

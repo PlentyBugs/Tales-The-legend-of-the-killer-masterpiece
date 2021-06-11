@@ -1,6 +1,7 @@
 package Quests;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

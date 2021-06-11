@@ -3,6 +3,7 @@ package Abilities.Auras;
 import Abilities.AbilityType;
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Vision extends Aura  {
 
     static {
         propertyList.addAll(Aura.propertyList);
+        propertyList.add(AbilityProperty.VISION);
     }
 
     public Vision(){

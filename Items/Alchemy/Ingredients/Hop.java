@@ -3,6 +3,7 @@ package Items.Alchemy.Ingredients;
 import Items.Alchemy.Potions.Alcohol.Beer;
 import Items.Alchemy.Potions.PowerPotion;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;

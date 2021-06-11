@@ -5,6 +5,7 @@ import Items.Material;
 import Items.Rarity;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

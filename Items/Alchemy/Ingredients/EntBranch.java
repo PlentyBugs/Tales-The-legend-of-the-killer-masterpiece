@@ -4,6 +4,7 @@ import Creatures.StatsEnum;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.StatsUpPotion;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

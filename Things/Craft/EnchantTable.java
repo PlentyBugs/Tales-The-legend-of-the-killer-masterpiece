@@ -4,6 +4,7 @@ import Creatures.Player;
 import Things.Thing;
 import Windows.CraftWindow.EnchantTableWindow;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -15,7 +16,7 @@ public class EnchantTable extends Thing implements CraftTable {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.ENCHANT_TABLE);
+        propertyList.add(GeneralProperty.ENCHANT_TABLE);
     }
 
     private boolean isCraftTableWindowOpen;

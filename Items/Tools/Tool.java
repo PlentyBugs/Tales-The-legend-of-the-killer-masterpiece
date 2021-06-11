@@ -2,6 +2,7 @@ package Items.Tools;
 
 import Items.Item;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,6 @@ public class Tool extends Item  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(Property.TOOL);
+        propertyList.add(GeneralProperty.TOOL);
     }
 }

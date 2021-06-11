@@ -2,7 +2,9 @@ package Abilities;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serializable;
@@ -14,7 +16,7 @@ public class Ability implements Serializable, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.ABILITY);
+        propertyList.add(AbilityProperty.ABILITY);
     }
 
     protected ArrayList<AbilityType> abilityType = new ArrayList<>();

@@ -13,6 +13,7 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class Knight extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.KNIGHT);
+        propertyList.add(GeneralProperty.KNIGHT);
     }
 
     public Knight(int x, int y, String name, int lvl, int hp) {

@@ -3,7 +3,6 @@ package Creatures;
 import Abilities.Ability;
 import Abilities.AbilityType;
 import Abilities.Buffs.Buff;
-import Abilities.Passive.TwoOneHandedWeapon;
 import Conversations.Conversation;
 import Diseases.Disease;
 import Effects.Effect;
@@ -16,6 +15,8 @@ import Items.Item;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.ConversationWindows.ConversationWindow;
+import support.AbilityProperty;
+import support.GeneralProperty;
 import support.Property;
 
 import java.io.Serial;
@@ -28,7 +29,7 @@ public class LiveCreature extends GodCreature  {
 
     static {
         propertyList.addAll(GodCreature.propertyList);
-        propertyList.add(Property.LIVE);
+        propertyList.add(GeneralProperty.LIVE);
     }
 
     protected int x;
@@ -115,21 +116,17 @@ public class LiveCreature extends GodCreature  {
         return abilitiesByType;
     }
 
-    public Ability getAbility(Ability ability){
-        String abilityName = ability.getClass().toString().split("\\.")[ability.getClass().toString().split("\\.").length-1];
-        for (Ability abil : abilities){
-            if (abilityName.equals(abil.getClass().toString().split("\\.")[abil.getClass().toString().split("\\.").length-1])){
-                return abil;
+    public Ability getAbility(AbilityProperty abilityProperty) {
+        for (Ability ability : abilities){
+            if (ability.getProperties().contains(abilityProperty)){
+                return ability;
             }
         }
         return null;
     }
 
-    public boolean hasAbility(Ability ability){
-        if (getAbility(ability) != null){
-            return true;
-        }
-        return false;
+    public boolean hasAbility(AbilityProperty abilityProperty){
+        return abilities.stream().flatMap(e -> e.getProperties().stream()).anyMatch(e -> e.equals(abilityProperty));
     }
 
     public Equipment getEquipment() {
@@ -230,12 +227,9 @@ public class LiveCreature extends GodCreature  {
     public void addToUniqueDropItem(Item ... items){
         Item[] oldUniqueDropItem = uniqueDropItems;
         uniqueDropItems = new Item[oldUniqueDropItem.length+items.length];
-        for (int s = 0; s < oldUniqueDropItem.length; s++){
-            uniqueDropItems[s] = oldUniqueDropItem[s];
-        }
-        for (int s = 0; s < items.length; s++){
-            uniqueDropItems[s+oldUniqueDropItem.length] = items[s];
-        }
+        if (oldUniqueDropItem.length >= 0)
+            System.arraycopy(oldUniqueDropItem, 0, uniqueDropItems, 0, oldUniqueDropItem.length);
+        System.arraycopy(items, 0, uniqueDropItems, oldUniqueDropItem.length, items.length);
     }
 
     public LiveCreature addItemToInventory(Item ... itemList){
@@ -251,15 +245,14 @@ public class LiveCreature extends GodCreature  {
         if (inventory.contains(item)){
             if (item.getClass().toString().contains("Weapons")){
                 if (((Weapon)item).getWeaponType().contains(WeaponType.ONE_HANDED)){
-                    if (getAbility(new TwoOneHandedWeapon()) != null && item != equipment.getOneHandedWeaponLeft()){
+                    if (getAbility(AbilityProperty.TWO_ONE_HANDED_WEAPONS) != null && item != equipment.getOneHandedWeaponLeft()){
                         equipment.setOneHandedWeaponRight(equipment.getOneHandedWeaponLeft());
                         equipment.setOneHandedWeaponLeft((Weapon)item);
-                        equipment.setTwoHandedWeapon(null);
                     } else {
                         equipment.setOneHandedWeaponLeft((Weapon)item);
                         equipment.setOneHandedWeaponRight(null);
-                        equipment.setTwoHandedWeapon(null);
                     }
+                    equipment.setTwoHandedWeapon(null);
                 } else {
                     equipment.setTwoHandedWeapon((Weapon)item);
                     equipment.setOneHandedWeaponLeft(null);
@@ -330,8 +323,7 @@ public class LiveCreature extends GodCreature  {
                 countProtection += ((Armor)item).getProtection();
             }
         }
-        double absorbedDamage = damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
-        return absorbedDamage;
+        return damage*(1 - Math.pow(Math.E, -16*(Math.pow(getLvl(), 1.03))/countProtection));
     }
 
     public int getLoyaltyByIndex(LiveCreature index){
@@ -349,10 +341,7 @@ public class LiveCreature extends GodCreature  {
 
     public void addLoyaltyToCreature(LiveCreature index, int count){
         if(loyalty.containsKey(index)){
-            if(count + loyalty.get(index) > 100)
-                loyalty.put(index, 100);
-            else
-                loyalty.put(index, count + loyalty.get(index));
+            loyalty.put(index, Math.min(count + loyalty.get(index), 100));
         } else {
             loyalty.put(index, count);
         }

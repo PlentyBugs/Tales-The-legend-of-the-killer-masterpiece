@@ -1,6 +1,7 @@
 package Things;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -12,7 +13,7 @@ public class BrickRoad extends Thing {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.ROAD);
+        propertyList.add(GeneralProperty.ROAD);
     }
     public BrickRoad(){
         name = "";

@@ -2,6 +2,7 @@ package Effects;
 
 import Creatures.LiveCreature;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serial;
@@ -14,7 +15,7 @@ public class Effect implements Serializable, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.EFFECT);
+        propertyList.add(GeneralProperty.EFFECT);
     }
 
     protected EffectType type;

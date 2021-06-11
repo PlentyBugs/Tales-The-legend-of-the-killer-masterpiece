@@ -3,6 +3,7 @@ package Effects;
 import Abilities.Buffs.DamageUpBuff;
 import Creatures.LiveCreature;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class DamageUpEffect extends Effect {
 
     static {
         propertyList.addAll(Effect.propertyList);
-        propertyList.add(Property.DAMAGE_UP_EFFECT);
+        propertyList.add(GeneralProperty.DAMAGE_UP_EFFECT);
     }
 
     public DamageUpEffect(){

@@ -5,6 +5,7 @@ import Creatures.Player;
 import Things.Thing;
 import Windows.SupportWindows.InventoryWindowChest;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Chest extends Thing  {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.CHEST);
+        propertyList.add(GeneralProperty.CHEST);
     }
 
     private Item[] inventory = new Item[0];

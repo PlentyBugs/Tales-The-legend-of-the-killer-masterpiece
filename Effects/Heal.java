@@ -2,6 +2,7 @@ package Effects;
 
 import Creatures.LiveCreature;
 import support.Property;
+import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Heal extends Effect {
 
     static {
         propertyList.addAll(Effect.propertyList);
-        propertyList.add(Property.HEAL_EFFECT);
+        propertyList.add(GeneralProperty.HEAL_EFFECT);
     }
 
     @Serial

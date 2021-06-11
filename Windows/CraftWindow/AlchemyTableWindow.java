@@ -1,12 +1,12 @@
 package Windows.CraftWindow;
 
-import Abilities.Passive.Professions.Alchemist;
 import Creatures.Player;
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Craft.AlchemyTable;
 import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.IngredientButton;
 import Windows.WindowInterface;
+import support.AbilityProperty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,8 +71,8 @@ public class AlchemyTableWindow extends CraftWindow {
         getContentPane().remove(panel);
 
         int alchemyLevel = 0;
-        if(player != null && player.hasAbility(new Alchemist())){
-            alchemyLevel = player.getAbility(new Alchemist()).getLevel();
+        if(player != null && player.hasAbility(AbilityProperty.ALCHEMIST)){
+            alchemyLevel = player.getAbility(AbilityProperty.ALCHEMIST).getLevel();
         }
 
         ingredientsPanel.removeAll();

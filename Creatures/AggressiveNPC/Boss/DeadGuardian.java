@@ -14,6 +14,7 @@ import Items.Weapons.Choppings.Axe;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class DeadGuardian extends Boss {
 
     static {
         propertyList.addAll(Boss.propertyList);
-        propertyList.add(Property.DEAD_GUARDIAN);
+        propertyList.add(GeneralProperty.DEAD_GUARDIAN);
     }
 
     public DeadGuardian(int x, int y, String name, int lvl, int hp) {

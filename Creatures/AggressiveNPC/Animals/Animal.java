@@ -4,6 +4,7 @@ import Creatures.LiveCreature;
 import Creatures.Stats;
 import Diseases.Disease;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Animal extends LiveCreature {
 
     static {
         propertyList.addAll(LiveCreature.propertyList);
-        propertyList.add(Property.ANIMAL);
+        propertyList.add(GeneralProperty.ANIMAL);
     }
 
     protected String name;

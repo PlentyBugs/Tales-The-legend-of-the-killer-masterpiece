@@ -18,6 +18,7 @@ import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class Zombie extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.ZOMBIE);
+        propertyList.add(GeneralProperty.ZOMBIE);
     }
 
     public Zombie(int x, int y, String name, int lvl, int hp) {

@@ -3,6 +3,7 @@ package Things.AlchemyThings;
 import Items.Alchemy.Ingredients.Ingredient;
 import Things.Grass;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Mushroom extends Grass implements IngredientThing {
 
     static {
         propertyList.addAll(Grass.propertyList);
-        propertyList.add(Property.MUSHROOM);
+        propertyList.add(GeneralProperty.MUSHROOM);
     }
     private Ingredient mushroom;
 

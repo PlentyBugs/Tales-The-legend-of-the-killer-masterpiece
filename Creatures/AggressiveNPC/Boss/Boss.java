@@ -4,6 +4,7 @@ import Creatures.LiveCreature;
 import Items.Item;
 import Items.Key;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Boss extends LiveCreature {
 
     static {
         propertyList.addAll(LiveCreature.propertyList);
-        propertyList.add(Property.BOSS);
+        propertyList.add(GeneralProperty.BOSS);
     }
 
     protected Item[] dropItems;

@@ -9,6 +9,7 @@ import Creatures.GodCreature;
 import Items.Item;
 import Creatures.Human;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Peaceful extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.PEACEFUL);
+        propertyList.add(GeneralProperty.PEACEFUL);
     }
 
     protected CatalogStock catalogStock;

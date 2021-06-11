@@ -4,6 +4,7 @@ import Effects.EffectType;
 import Effects.Heal;
 import Items.Alchemy.Potions.HealPotion;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;

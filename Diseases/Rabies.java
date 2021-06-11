@@ -1,6 +1,7 @@
 package Diseases;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class Rabies extends Disease  {
 
     static {
         propertyList.addAll(Disease.propertyList);
-        propertyList.add(Property.RABIES);
+        propertyList.add(GeneralProperty.RABIES);
     }
 
     public Rabies(){

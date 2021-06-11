@@ -4,6 +4,7 @@ import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.ConversationWindows.ShopWindow;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Shop extends Conversation {
 
     static {
         propertyList.addAll(Conversation.propertyList);
-        propertyList.add(Property.SHOP);
+        propertyList.add(GeneralProperty.SHOP);
     }
 
     private ShopWindow shop;

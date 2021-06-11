@@ -1,18 +1,19 @@
 package Abilities.Passive;
 
-import Abilities.Ability;
 import Abilities.AbilityType;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LittleFool extends Ability {
+public class LittleFool extends PassiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Ability.propertyList);
+        propertyList.addAll(PassiveAbility.propertyList);
+        propertyList.add(AbilityProperty.LITTLE_FOOL);
     }
 
     public LittleFool(){

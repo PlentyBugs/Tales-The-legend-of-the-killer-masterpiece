@@ -1,6 +1,7 @@
 package Items.BlackSmith.Resource;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;

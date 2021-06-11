@@ -2,6 +2,7 @@ package Creatures.PeacefulNPC;
 
 import Conversations.Conversation;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Dealer extends Peaceful {
 
     static {
         propertyList.addAll(Peaceful.propertyList);
-        propertyList.add(Property.DEALER);
+        propertyList.add(GeneralProperty.DEALER);
     }
 
     public static final Dealer commonDealer = new Dealer(0,0, "", 0,0);

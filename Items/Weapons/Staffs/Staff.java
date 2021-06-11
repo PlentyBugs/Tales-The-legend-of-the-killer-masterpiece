@@ -6,6 +6,7 @@ import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Staff extends Weapon {
 
     static {
         propertyList.addAll(Weapon.propertyList);
-        propertyList.add(Property.STAFF);
+        propertyList.add(GeneralProperty.STAFF);
     }
 
     public Staff(Material material, Rarity rarity, Grade grade, int damage, WeaponType weaponType){

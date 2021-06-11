@@ -1,6 +1,7 @@
 package Things.Doors;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -12,7 +13,7 @@ public class DoorToUpperLevelLocation extends Door  {
 
     static {
         propertyList.addAll(Door.propertyList);
-        propertyList.add(Property.DOOR_TO_UPPER_LEVEL_LOCATION);
+        propertyList.add(GeneralProperty.DOOR_TO_UPPER_LEVEL_LOCATION);
     }
     public DoorToUpperLevelLocation(){
         this(0,0);

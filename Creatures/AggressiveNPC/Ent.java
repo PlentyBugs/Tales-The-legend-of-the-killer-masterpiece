@@ -11,6 +11,7 @@ import Items.Alchemy.Potions.PoisonPotion;
 import Items.Item;
 import Items.Key;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class Ent extends Human {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.ENT);
+        propertyList.add(GeneralProperty.ENT);
     }
 
     public Ent(int x, int y, String name, int lvl, int hp) {

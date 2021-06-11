@@ -1,19 +1,19 @@
 package Abilities.Passive;
 
-import Abilities.Ability;
 import Abilities.AbilityType;
-import Abilities.Enchants.Enchant;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TwoOneHandedWeapon extends Ability {
+public class TwoOneHandedWeapon extends PassiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Ability.propertyList);
+        propertyList.addAll(PassiveAbility.propertyList);
+        propertyList.add(AbilityProperty.TWO_ONE_HANDED_WEAPONS);
     }
 
     public TwoOneHandedWeapon(){

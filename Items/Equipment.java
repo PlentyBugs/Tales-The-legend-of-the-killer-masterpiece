@@ -9,6 +9,7 @@ import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serial;
@@ -22,7 +23,7 @@ public class Equipment implements Serializable, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.EQUIPMENT);
+        propertyList.add(GeneralProperty.EQUIPMENT);
     }
 
     private Helmet helmet;

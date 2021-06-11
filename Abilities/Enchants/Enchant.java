@@ -3,6 +3,7 @@ package Abilities.Enchants;
 import Abilities.Ability;
 import Creatures.LiveCreature;
 import Items.Item;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Enchant extends Ability {
 
     static {
         propertyList.addAll(Ability.propertyList);
+        propertyList.add(AbilityProperty.ENCHANTMENT);
     }
 
     protected double damage;

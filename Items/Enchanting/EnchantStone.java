@@ -3,6 +3,7 @@ package Items.Enchanting;
 import Abilities.Enchants.Enchant;
 import Items.Item;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class EnchantStone extends Item  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(Property.ENCHANT_STONE);
+        propertyList.add(GeneralProperty.ENCHANT_STONE);
     }
     private Enchant enchant;
 

@@ -1,6 +1,5 @@
 package Things.Craft;
 
-import Abilities.Passive.Professions.BlackSmith;
 import Creatures.Player;
 import Creatures.StatsEnum;
 import Items.Armors.Helmet;
@@ -23,6 +22,8 @@ import Items.Weapons.WeaponType;
 import Things.Thing;
 import Windows.CraftWindow.AnvilTableWindow;
 import Windows.WindowInterface;
+import support.AbilityProperty;
+import support.GeneralProperty;
 import support.Property;
 
 import java.awt.*;
@@ -35,7 +36,7 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.ANVIL);
+        propertyList.add(GeneralProperty.ANVIL);
     }
 
 
@@ -77,20 +78,20 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
     public <T extends Resource> void create(T... resource) {
         Item item = new Item();
 
-        int rank = player.getAbility(new BlackSmith()).getLevel()*player.getStats().getBlacksmith()/player.getLvl();
+        int rank = player.getAbility(AbilityProperty.BLACKSMITH).getLevel()*player.getStats().getBlacksmith()/player.getLvl();
 
-        switch (bluePrint.getItemType()){
-            case AXE: item = new Axe(); break;
-            case STAFF: item = new Staff(); break;
-            case BOW: item = new Bow(); break;
-            case SHORTBOW: item = new ShortBow(); break;
-            case LONGBOW: item = new LongBow(); break;
-            case SWORDONEHANDED: item = new Sword().setWeaponType(WeaponType.ONE_HANDED); break;
-            case SWORDTWOHANDED: item = new Sword().setWeaponType(WeaponType.TWO_HANDED); break;
-            case TORSO: item = new Torso(); break;
-            case HELMET: item = new Helmet(); break;
-            case RING: item = new Ring(); break;
-        }
+        item = switch (bluePrint.getItemType()) {
+            case AXE -> new Axe();
+            case STAFF -> new Staff();
+            case BOW -> new Bow();
+            case SHORTBOW -> new ShortBow();
+            case LONGBOW -> new LongBow();
+            case SWORDONEHANDED -> new Sword().setWeaponType(WeaponType.ONE_HANDED);
+            case SWORDTWOHANDED -> new Sword().setWeaponType(WeaponType.TWO_HANDED);
+            case TORSO -> new Torso();
+            case HELMET -> new Helmet();
+            case RING -> new Ring();
+        };
 
         item.setSelfForgedBonus(1 + rank/100.0);
 

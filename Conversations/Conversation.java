@@ -1,6 +1,7 @@
 package Conversations;
 
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ public class Conversation implements Serializable, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.CONVERSATION);
+        propertyList.add(GeneralProperty.CONVERSATION);
     }
 
     protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();

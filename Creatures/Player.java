@@ -12,6 +12,7 @@ import Windows.PlayerWindows.*;
 import Windows.SupportWindows.SupportComponents.SavePanel;
 import Windows.WindowInterface;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.io.Serial;
@@ -27,7 +28,7 @@ public class Player extends Human  {
 
     static {
         propertyList.addAll(Human.propertyList);
-        propertyList.add(Property.PLAYER);
+        propertyList.add(GeneralProperty.PLAYER);
     }
 
     private int vision;

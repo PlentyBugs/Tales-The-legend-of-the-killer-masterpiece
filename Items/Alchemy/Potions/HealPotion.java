@@ -6,6 +6,7 @@ import Items.Alchemy.Ingredients.Ingredient;
 import Items.Grade;
 import Items.Rarity;
 import support.Property;
+import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;

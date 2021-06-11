@@ -1,20 +1,21 @@
 package Abilities.Passive;
 
 
-import Abilities.Ability;
 import Abilities.AbilityType;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Evasion extends Ability {
+public class Evasion extends PassiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Ability.propertyList);
+        propertyList.addAll(PassiveAbility.propertyList);
+        propertyList.add(AbilityProperty.EVASION);
     }
 
     public Evasion(){

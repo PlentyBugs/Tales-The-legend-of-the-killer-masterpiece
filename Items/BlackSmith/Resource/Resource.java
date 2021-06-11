@@ -2,6 +2,7 @@ package Items.BlackSmith.Resource;
 
 import Items.Item;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Resource extends Item {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(Property.RESOURCE);
+        propertyList.add(GeneralProperty.RESOURCE);
     }
 
     protected int maxTemperature;

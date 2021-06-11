@@ -6,17 +6,19 @@ import Abilities.Buffs.Buff;
 import Abilities.Buffs.RageBuff;
 import Abilities.CostType;
 import Creatures.Player;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rage extends AbilityActive {
+public class Rage extends ActiveAbility {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(AbilityActive.propertyList);
+        propertyList.addAll(ActiveAbility.propertyList);
+        propertyList.add(AbilityProperty.RAGE);
     }
 
     public Rage(){

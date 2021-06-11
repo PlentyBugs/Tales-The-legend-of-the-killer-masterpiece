@@ -1,11 +1,11 @@
 package Windows.CraftWindow;
 
-import Abilities.Passive.Professions.BlackSmith;
 import Creatures.Player;
 import Things.Craft.Anvil;
 import Windows.PlayerWindows.UnfocusedButton;
 import Windows.SupportWindows.SupportComponents.BluePrintButton;
 import Windows.SupportWindows.SupportComponents.ResourceButton;
+import support.AbilityProperty;
 import utils.PanelProvider;
 
 import javax.swing.*;
@@ -71,7 +71,7 @@ public class AnvilTableWindow extends JFrame {
         buttons.add(resource, BorderLayout.SOUTH);
 
         resPanel.add(resDescPanel, BorderLayout.WEST);
-        if(player != null && player.hasAbility(new BlackSmith())){
+        if(player != null && player.hasAbility(AbilityProperty.BLACKSMITH)){
             resPanel.add(buttons, BorderLayout.EAST);
         } else {
             resPanel.add(new Label("Я еще не умею этого делать"), BorderLayout.EAST);

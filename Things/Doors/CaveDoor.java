@@ -1,6 +1,7 @@
 package Things.Doors;
 
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -12,7 +13,7 @@ public class CaveDoor extends Door {
 
     static {
         propertyList.addAll(Door.propertyList);
-        propertyList.add(Property.CAVE_DOOR);
+        propertyList.add(GeneralProperty.CAVE_DOOR);
     }
 
     public CaveDoor(){

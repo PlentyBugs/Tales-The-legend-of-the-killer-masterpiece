@@ -3,6 +3,7 @@ package Creatures;
 import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.WindowInterface;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.awt.*;

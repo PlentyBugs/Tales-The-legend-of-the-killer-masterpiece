@@ -3,6 +3,7 @@ package Items;
 import Abilities.Enchants.Enchant;
 import Creatures.Copying;
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.ITEM);
+        propertyList.add(GeneralProperty.ITEM);
     }
 
     protected String name;

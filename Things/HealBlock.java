@@ -2,6 +2,7 @@ package Things;
 
 import Creatures.Player;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.Color;
 import java.util.List;
@@ -13,7 +14,7 @@ public class HealBlock extends Thing {
 
     static {
         propertyList.addAll(Thing.propertyList);
-        propertyList.add(Property.HEAL_BLOCK);
+        propertyList.add(GeneralProperty.HEAL_BLOCK);
     }
 
     public HealBlock(){

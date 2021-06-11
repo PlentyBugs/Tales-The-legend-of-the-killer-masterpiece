@@ -2,6 +2,7 @@ package Creatures.PeacefulNPC;
 
 import Conversations.Conversation;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class BlackSmithCraftMan extends Peaceful {
 
     static {
         propertyList.addAll(Peaceful.propertyList);
-        propertyList.add(Property.BLACKSMITH_CRAFT_MAN);
+        propertyList.add(GeneralProperty.BLACKSMITH_CRAFT_MAN);
     }
 
     public BlackSmithCraftMan(){

@@ -15,6 +15,7 @@ import Items.Weapons.Staffs.Staff;
 import Items.Weapons.Swords.Sword;
 import Items.Weapons.WeaponType;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class HigherGhost extends Boss {
 
     static {
         propertyList.addAll(Boss.propertyList);
-        propertyList.add(Property.HIGHER_GHOST);
+        propertyList.add(GeneralProperty.HIGHER_GHOST);
     }
 
     public HigherGhost(int x, int y, String name, int lvl, int hp) {

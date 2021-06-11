@@ -1,6 +1,7 @@
 package Diseases;
 
 import support.Property;
+import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class Disease implements Comparable<Disease>, PropertyProvider {
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.add(Property.DISEASE);
+        propertyList.add(GeneralProperty.DISEASE);
     }
 
     protected String name;

@@ -3,7 +3,7 @@ package Windows.BattleWindows;
 import Abilities.Ability;
 import Abilities.AbilityTarget;
 import Abilities.AbilityType;
-import Abilities.Active.AbilityActive;
+import Abilities.Active.ActiveAbility;
 import Abilities.Buffs.Buff;
 import Abilities.Enchants.Armor.HigherPath;
 import Abilities.Enchants.Armor.SpikeArmor;
@@ -11,8 +11,6 @@ import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Abilities.Enchants.Weapon.KornelCurse;
 import Abilities.Enchants.Weapon.Vampirism;
-import Abilities.Passive.CriticalStrike;
-import Abilities.Passive.Evasion;
 import Creatures.AggressiveNPC.Boss.Boss;
 import Creatures.LiveCreature;
 import Creatures.Player;
@@ -33,9 +31,10 @@ import Quests.Quest;
 import Things.ChestLike.Chest;
 import Things.ChestLike.Corpse;
 import Windows.PlayerWindows.UnfocusedButton;
-import Windows.WindowInterface;
 import Windows.SupportWindows.DialogWindow;
 import Windows.SupportWindows.SupportComponents.Console;
+import Windows.WindowInterface;
+import support.AbilityProperty;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -573,7 +572,7 @@ public class FightWindow extends JFrame implements Serializable {
 
     private void attack(LiveCreature attacker, LiveCreature enemy){
         int chanceToAvoid = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*enemy.getLvl()/enemy.getStats().getLuck()));
-        if (enemy.hasAbility(new Evasion()) && chanceToAvoid <= enemy.getAbility(new Evasion()).getChance()){
+        if (enemy.hasAbility(AbilityProperty.EVASION) && chanceToAvoid <= enemy.getAbility(AbilityProperty.EVASION).getChance()){
             if(attacker instanceof Player){
                 writeToPlayerConsole(attacker.getName() + " промахнулся");
                 writeToEnemyActionConsole(enemy.getName() + " увернулся");
@@ -634,12 +633,13 @@ public class FightWindow extends JFrame implements Serializable {
             double damage = (int)((attacker.getStats().getStrength() + attacker.getEquipment().getWeaponDamage())*(Math.min(1, Math.max(0, (200 - (enemy.getStats().getStrength()-attacker.getStats().getStrength()))/200 + (200 - (enemy.getStats().getAgility()-attacker.getStats().getAgility()))/200 + (200 - (enemy.getStats().getSpeed()-attacker.getStats().getSpeed()))/200))/3 + 1));
 
             int chanceToCrit = (int)Math.ceil(Math.random()*100 - Math.pow(Math.E, -4.0*attacker.getLvl()/attacker.getStats().getLuck()));
-            if(attacker.hasAbility(new CriticalStrike()) && chanceToCrit <= attacker.getAbility(new CriticalStrike()).getChance()){
+            Ability criticalStrike = attacker.getAbility(AbilityProperty.CRITICAL_STRIKE);
+            if(attacker.hasAbility(AbilityProperty.CRITICAL_STRIKE) && chanceToCrit <= criticalStrike.getChance()){
                 if(attacker instanceof Player)
-                    writeToPlayerConsole("Критический удар(x"+ attacker.getAbility(new CriticalStrike()).getPower() / 100.0 + ")!");
+                    writeToPlayerConsole("Критический удар(x"+ criticalStrike.getPower() / 100.0 + ")!");
                 else
-                    writeToEnemyStatusConsole(  "Критический удар(x"+ attacker.getAbility(new CriticalStrike()).getPower() / 100.0 + ")!");
-                damage *= attacker.getAbility(new CriticalStrike()).getPower()/100.0;
+                    writeToEnemyStatusConsole(  "Критический удар(x"+ criticalStrike.getPower() / 100.0 + ")!");
+                damage *= criticalStrike.getPower()/100.0;
             }
 
             attacker.setCurrentDamage(damage);
@@ -689,11 +689,11 @@ public class FightWindow extends JFrame implements Serializable {
                 }
             }
             if (attacker instanceof Player){
-                writeToPlayerConsole(attacker.getName() + " нанес " + Double.toString(damage) + " единиц урона");
-                writeToEnemyStatusConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
+                writeToPlayerConsole(attacker.getName() + " нанес " + damage + " единиц урона");
+                writeToEnemyStatusConsole(enemy.getName() + " получил " + damage + " единиц урона");
             } else {
-                writeToEnemyStatusConsole(attacker.getName() + " нанес " + Double.toString(damage) + " единиц урона");
-                writeToPlayerConsole(enemy.getName() + " получил " + Double.toString(damage) + " единиц урона");
+                writeToEnemyStatusConsole(attacker.getName() + " нанес " + damage + " единиц урона");
+                writeToPlayerConsole(enemy.getName() + " получил " + damage + " единиц урона");
             }
         }
     }
@@ -706,27 +706,27 @@ public class FightWindow extends JFrame implements Serializable {
         }
         if (ability.getAbilityType().contains(AbilityType.BUFF)){
             if(ability.getAbilityType().contains(AbilityType.ACTIVE) && !attacker.getEquipment().staffEquip()){
-                ((AbilityActive)ability).chargeFee(attacker);
+                ((ActiveAbility)ability).chargeFee(attacker);
             }
-            Buff buff = ((AbilityActive) ability).getBuff();
+            Buff buff = ((ActiveAbility) ability).getBuff();
             buff.upgrade(attacker);
-            if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.PLAYER){
+            if (((ActiveAbility)ability).getAbilityTarget() == AbilityTarget.PLAYER){
                 if(attacker instanceof Player){
-                    writeToPlayerConsole("На " + attacker.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
+                    writeToPlayerConsole("На " + attacker.getName() + " наложен эффект " + ((ActiveAbility) ability).getBuff().getName());
                 } else {
-                    writeToEnemyStatusConsole("На " + attacker.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
+                    writeToEnemyStatusConsole("На " + attacker.getName() + " наложен эффект " + ((ActiveAbility) ability).getBuff().getName());
                 }
                 attacker.addBuffs(buff);
-            } else if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
+            } else if (((ActiveAbility)ability).getAbilityTarget() == AbilityTarget.ENEMY){
                 if(attacker instanceof Player){
-                    writeToPlayerConsole("На " + enemy.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
+                    writeToPlayerConsole("На " + enemy.getName() + " наложен эффект " + ((ActiveAbility) ability).getBuff().getName());
                 } else {
-                    writeToEnemyStatusConsole("На " + enemy.getName() + " наложен эффект " + ((AbilityActive) ability).getBuff().getName());
+                    writeToEnemyStatusConsole("На " + enemy.getName() + " наложен эффект " + ((ActiveAbility) ability).getBuff().getName());
                 }
                 enemy.addBuffs(buff);
             }
-        } else if (((AbilityActive)ability).getAbilityTarget() == AbilityTarget.ENEMY){
-            ((AbilityActive)ability).use(enemy);
+        } else if (((ActiveAbility)ability).getAbilityTarget() == AbilityTarget.ENEMY){
+            ((ActiveAbility)ability).use(enemy);
         }
         if(attacker instanceof Player){
             enemyTurn();
@@ -765,8 +765,8 @@ public class FightWindow extends JFrame implements Serializable {
             }
             playerHp.setValue((int)player.getHp());
             enemyHp.setValue((int)enemy.getHp());
-            loyalty.setValue((int)enemy.getLoyaltyByIndex(player));
-            playerHp.setString(Double.toString(player.getHp()) + "/" + Integer.toString(player.getMaxHp()));
+            loyalty.setValue(enemy.getLoyaltyByIndex(player));
+            playerHp.setString(player.getHp() + "/" + Integer.toString(player.getMaxHp()));
             enemyHp.setString(Double.toString(enemy.getHp()));
         }
     }

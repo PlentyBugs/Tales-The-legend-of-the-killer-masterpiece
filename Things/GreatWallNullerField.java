@@ -2,6 +2,7 @@ package Things;
 
 import Creatures.GodCreature;
 import support.Property;
+import support.GeneralProperty;
 
 import java.awt.*;
 import java.util.List;
@@ -13,7 +14,7 @@ public class GreatWallNullerField extends GodCreature  {
 
     static {
         propertyList.addAll(GodCreature.propertyList);
-        propertyList.add(Property.WALL);
+        propertyList.add(GeneralProperty.WALL);
     }
     public GreatWallNullerField(){
         name = "Великая стена";

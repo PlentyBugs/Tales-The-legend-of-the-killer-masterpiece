@@ -1,21 +1,22 @@
 package Abilities.Enchants.Weapon;
 
-import Abilities.Enchants.Enchant;
 import Abilities.Enchants.EnchantType;
 import Creatures.LiveCreature;
 import Items.Item;
 import Items.Weapons.Weapon;
+import support.AbilityProperty;
 import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KornelCurse extends Enchant {
+public class KornelCurse extends WeaponEnchantment {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
-        propertyList.addAll(Enchant.propertyList);
+        propertyList.addAll(WeaponEnchantment.propertyList);
+        propertyList.add(AbilityProperty.KORNEL_CURSE);
     }
 
     public KornelCurse() {
