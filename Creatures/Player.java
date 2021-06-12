@@ -69,11 +69,11 @@ public class Player extends Human  {
         stats.setBlacksmith(500);
         stats.setTheft(5);
         stats.setAlchemy(5);
-        stats.setOne_handed_weapon(5);
-        stats.setTwo_handed_weapon(5);
-        stats.setPole_weapon(5);
-        stats.setChopping_weapon(5);
-        stats.setLong_range_weapon(5);
+        stats.setOneHandedWeapon(5);
+        stats.setTwoHandedWeapon(5);
+        stats.setPoleWeapon(5);
+        stats.setChoppingWeapon(5);
+        stats.setLongRangeWeapon(5);
 
         stats.setKnowledge(0);
         stats.setEnergy(0);
@@ -173,11 +173,11 @@ public class Player extends Human  {
         windowInterface.writeToConsole("\tКрасноречие: " + stats.getEloquence());
         windowInterface.writeToConsole("\tКузнечное дело: " + stats.getBlacksmith());
         windowInterface.writeToConsole("\tАлхимия: " + stats.getAlchemy());
-        windowInterface.writeToConsole("\tОдноручное оружие: " + stats.getOne_handed_weapon());
-        windowInterface.writeToConsole("\tДвуручное оружие: " + stats.getTwo_handed_weapon());
-        windowInterface.writeToConsole("\tДревковое оружие: " + stats.getPole_weapon());
-        windowInterface.writeToConsole("\tРубящее оружие: " + stats.getChopping_weapon());
-        windowInterface.writeToConsole("\tДальнобойное оружие: " + stats.getLong_range_weapon());
+        windowInterface.writeToConsole("\tОдноручное оружие: " + stats.getOneHandedWeapon());
+        windowInterface.writeToConsole("\tДвуручное оружие: " + stats.getTwoHandedWeapon());
+        windowInterface.writeToConsole("\tДревковое оружие: " + stats.getPoleWeapon());
+        windowInterface.writeToConsole("\tРубящее оружие: " + stats.getChoppingWeapon());
+        windowInterface.writeToConsole("\tДальнобойное оружие: " + stats.getLongRangeWeapon());
     }
 
     public QuestsWindow getPlayerQuestWindow() {

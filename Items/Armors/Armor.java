@@ -62,7 +62,7 @@ public class Armor extends Item  {
             case CURSE -> addProtection += 73;
             case ARTIFACT -> addProtection += 150;
             case HEROIC -> addProtection += 360;
-            case ABOVETHEGODS -> addProtection += 700;
+            case ABOVE_THE_GODS -> addProtection += 700;
         }
         switch (rarity) {
             case COMMON -> addProtection += 1;
@@ -104,7 +104,7 @@ public class Armor extends Item  {
             case CURSE -> addCost += 18450;
             case ARTIFACT -> addCost += 34500;
             case HEROIC -> addCost += 78540;
-            case ABOVETHEGODS -> addCost += 1600000;
+            case ABOVE_THE_GODS -> addCost += 1600000;
         }
         switch (rarity) {
             case COMMON -> addCost += 900;

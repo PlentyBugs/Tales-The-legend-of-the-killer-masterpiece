@@ -56,7 +56,7 @@ public class Smelter extends Thing implements BlackSmithCraftTable {
     }
 
     @Override
-    public <T extends Resource> void create(T ... resources) {
+    public void create(Resource ... resources) {
         for(Resource resource : resources){
             resource.setTemperature(Math.min(resource.getTemperature() + power/resources.length, maxTemperature));
         }

@@ -25,6 +25,7 @@ import Windows.WindowInterface;
 import support.AbilityProperty;
 import support.GeneralProperty;
 import support.Property;
+import support.ResourceProperty;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -75,84 +76,87 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
     }
 
     @Override
-    public <T extends Resource> void create(T... resource) {
-        Item item = new Item();
+    public void create(Resource ... resources) {
+        for (Resource resource : resources) {
+            int rank = player.getAbility(AbilityProperty.BLACKSMITH).getLevel()*player.getStats().getBlacksmith()/player.getLvl();
 
-        int rank = player.getAbility(AbilityProperty.BLACKSMITH).getLevel()*player.getStats().getBlacksmith()/player.getLvl();
+            Item item = switch (bluePrint.getItemType()) {
+                case AXE -> new Axe();
+                case STAFF -> new Staff();
+                case BOW -> new Bow();
+                case SHORTBOW -> new ShortBow();
+                case LONGBOW -> new LongBow();
+                case SWORDONEHANDED -> new Sword().setWeaponType(WeaponType.ONE_HANDED);
+                case SWORDTWOHANDED -> new Sword().setWeaponType(WeaponType.TWO_HANDED);
+                case TORSO -> new Torso();
+                case HELMET -> new Helmet();
+                case RING -> new Ring();
+            };
 
-        item = switch (bluePrint.getItemType()) {
-            case AXE -> new Axe();
-            case STAFF -> new Staff();
-            case BOW -> new Bow();
-            case SHORTBOW -> new ShortBow();
-            case LONGBOW -> new LongBow();
-            case SWORDONEHANDED -> new Sword().setWeaponType(WeaponType.ONE_HANDED);
-            case SWORDTWOHANDED -> new Sword().setWeaponType(WeaponType.TWO_HANDED);
-            case TORSO -> new Torso();
-            case HELMET -> new Helmet();
-            case RING -> new Ring();
-        };
+            item.setSelfForgedBonus(1 + rank/100.0);
 
-        item.setSelfForgedBonus(1 + rank/100.0);
+            if(rank <= 15) {
+                item.setGrade(Grade.COMMON).setRarity(Rarity.COMMON);
+            } else if(rank <= 15*2) {
+                item.setGrade(Grade.MAGIC).setRarity(Rarity.UNCOMMON);
+            } else if(rank <= 15*3 ){
+                item.setGrade(Grade.CURSE).setRarity(Rarity.RARE);
+            } else if(rank <= 15*4) {
+                item.setGrade(Grade.ARTIFACT).setRarity(Rarity.MYSTICAL);
+            } else if(rank <= 15*5) {
+                item.setGrade(Grade.ARTIFACT).setRarity(Rarity.LEGENDARY);
+            } else if(rank <= 15*6) {
+                item.setGrade(Grade.HEROIC).setRarity(Rarity.DRAGON);
+            } else {
+                item.setGrade(Grade.ABOVE_THE_GODS).setRarity(Rarity.DIVINE);
+            }
 
-        if(rank <= 15){
-            item.setGrade(Grade.COMMON).setRarity(Rarity.COMMON);
-        } else if(rank <= 15*2){
-            item.setGrade(Grade.MAGIC).setRarity(Rarity.UNCOMMON);
-        } else if(rank <= 15*3){
-            item.setGrade(Grade.CURSE).setRarity(Rarity.RARE);
-        } else if(rank <= 15*4){
-            item.setGrade(Grade.ARTIFACT).setRarity(Rarity.MYSTICAL);
-        } else if(rank <= 15*5){
-            item.setGrade(Grade.ARTIFACT).setRarity(Rarity.LEGENDARY);
-        } else if(rank <= 15*6){
-            item.setGrade(Grade.HEROIC).setRarity(Rarity.DRAGON);
-        } else
-            item.setGrade(Grade.ABOVETHEGODS).setRarity(Rarity.DIVINE);
+            if (resource.getLastProperty() instanceof ResourceProperty lastProperty) {
+                switch (lastProperty) {
+                    case LEATHER -> item.setMaterial(Material.LEATHER);
+                    case STUDDED_LEATHER -> item.setMaterial(Material.STUDDEDLEATHER);
+                    case CHAIN -> item.setMaterial(Material.CHAIN);
+                    case COPPER -> item.setMaterial(Material.COPPER);
+                    case IRON -> item.setMaterial(Material.IRON);
+                    case BRONZE -> item.setMaterial(Material.BRONZE);
+                    case STEEL -> item.setMaterial(Material.STEEL);
+                    case MYTHRIL -> item.setMaterial(Material.MYTHRIL);
+                    case ADAMANTINE -> item.setMaterial(Material.ADAMANTINE);
+                    case ELVEN_MYTHRIL -> item.setMaterial(Material.ELVENMYTHRIL);
+                    case CRYSTAL -> item.setMaterial(Material.CRYSTAL);
+                    case DEEP -> item.setMaterial(Material.DEEP);
+                    case GODS_HEART -> item.setMaterial(Material.GODSHEART);
+                    case ABSOLUTE_ZERO -> item.setMaterial(Material.ABSOLUTEZERO);
+                }
+            }
 
-        switch (resource[0].getClass().getSimpleName()){
-            case "Leather": item.setMaterial(Material.LEATHER); break;
-            case "StuddedLeather": item.setMaterial(Material.STUDDEDLEATHER); break;
-            case "Chain": item.setMaterial(Material.CHAIN); break;
-            case "Copper": item.setMaterial(Material.COPPER); break;
-            case "Iron": item.setMaterial(Material.IRON); break;
-            case "Bronze": item.setMaterial(Material.BRONZE); break;
-            case "Steel": item.setMaterial(Material.STEEL); break;
-            case "Mythril": item.setMaterial(Material.MYTHRIL); break;
-            case "Adamantine": item.setMaterial(Material.ADAMANTINE); break;
-            case "ElvenMythril": item.setMaterial(Material.ELVENMYTHRIL); break;
-            case "Crystal": item.setMaterial(Material.CRYSTAL); break;
-            case "Deep": item.setMaterial(Material.DEEP); break;
-            case "GodHeart": item.setMaterial(Material.GODSHEART); break;
-            case "AbsoluteZero": item.setMaterial(Material.ABSOLUTEZERO); break;
+            if (bluePrint.getItemType() == ItemCraftType.RING && item instanceof Ring ring){
+                ring.setStat(new StatsEnum[]{
+                        StatsEnum.STRENGTH,
+                        StatsEnum.SPEED,
+                        StatsEnum.AGILITY,
+                        StatsEnum.INTELLIGENCE,
+                        StatsEnum.LUCK,
+                        StatsEnum.ELOQUENCE,
+                        StatsEnum.BLACKSMITH,
+                        StatsEnum.THEFT,
+                        StatsEnum.ALCHEMY,
+                        StatsEnum.ONE_HANDED_WEAPON,
+                        StatsEnum.TWO_HANDED_WEAPON,
+                        StatsEnum.POLE_WEAPON,
+                        StatsEnum.CHOPPING_WEAPON,
+                        StatsEnum.LONG_RANGE_WEAPON,
+                        StatsEnum.KNOWLEDGE,
+                        StatsEnum.ENERGY
+                }[(int)(Math.random()*16)]);
+            }
+
+            item.countProperty();
+
+            player.addItemToInventory(item);
+            WindowInterface windowInterface = player.getWindowInterface();
+            windowInterface.drawAllPlayerWindow(player, windowInterface);
         }
-
-        if (bluePrint.getItemType() == ItemCraftType.RING){
-            ((Ring)item).setStat(new StatsEnum[]{
-                    StatsEnum.STRENGTH,
-                    StatsEnum.SPEED,
-                    StatsEnum.AGILITY,
-                    StatsEnum.INTELLIGENCE,
-                    StatsEnum.LUCK,
-                    StatsEnum.ELOQUENCE,
-                    StatsEnum.BLACKSMITH,
-                    StatsEnum.THEFT,
-                    StatsEnum.ALCHEMY,
-                    StatsEnum.ONEHANDEDWEAPON,
-                    StatsEnum.TWOHANDEDWEAPON,
-                    StatsEnum.POLEWEAPON,
-                    StatsEnum.CHOPPINGWEAPON,
-                    StatsEnum.LONGRANGEWEAPON,
-                    StatsEnum.KNOWLEDGE,
-                    StatsEnum.ENERGY
-            }[(int)(Math.random()*16)]);
-        }
-
-        item.countProperty();
-
-        player.addItemToInventory(item);
-        WindowInterface windowInterface = player.getWindowInterface();
-        windowInterface.drawAllPlayerWindow(player, windowInterface);
     }
 
     public void setBluePrint(BluePrint bluePrint) {

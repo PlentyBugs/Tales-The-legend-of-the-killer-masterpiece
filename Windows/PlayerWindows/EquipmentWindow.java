@@ -69,7 +69,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
                 case CURSE: colorForeground = new Color(1,155, 24); break;
                 case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
                 case HEROIC: colorForeground = new Color(255, 96, 0); break;
-                case ABOVETHEGODS: colorForeground = new Color(255, 0, 197); break;
+                case ABOVE_THE_GODS: colorForeground = new Color(255, 0, 197); break;
             }
 
             switch(item.getRarity()){

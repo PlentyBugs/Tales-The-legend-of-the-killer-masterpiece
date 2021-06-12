@@ -3,7 +3,6 @@ package Creatures;
 import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.WindowInterface;
 import support.Property;
-import support.GeneralProperty;
 import support.PropertyProvider;
 
 import java.awt.*;
@@ -41,6 +40,10 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
 
     public int getX(){
         return x;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getY(){

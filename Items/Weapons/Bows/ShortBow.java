@@ -5,7 +5,6 @@ import Items.Material;
 import Items.Rarity;
 import Items.Weapons.WeaponType;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class ShortBow extends Bow {
             case CURSE: addDamage += 45; break;
             case ARTIFACT: addDamage += 96; break;
             case HEROIC: addDamage += 278; break;
-            case ABOVETHEGODS: addDamage += 468; break;
+            case ABOVE_THE_GODS: addDamage += 468; break;
         }
         switch (rarity){
             case COMMON: addDamage += 1; break;

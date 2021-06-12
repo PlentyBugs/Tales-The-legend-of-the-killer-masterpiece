@@ -80,11 +80,11 @@ public class Skeleton extends Human {
         stats.setBlacksmith(5);
         stats.setTheft(5);
         stats.setAlchemy(5);
-        stats.setOne_handed_weapon(5 + (int)(Math.random()*(lvl*19) + lvl));
-        stats.setTwo_handed_weapon(5);
-        stats.setPole_weapon(5);
-        stats.setChopping_weapon(5 + (int)(Math.random()*(lvl*9) + lvl*3));
-        stats.setLong_range_weapon(5 + (int)(Math.random()*(lvl*15) + lvl*3));
+        stats.setOneHandedWeapon(5 + (int)(Math.random()*(lvl*19) + lvl));
+        stats.setTwoHandedWeapon(5);
+        stats.setPoleWeapon(5);
+        stats.setChoppingWeapon(5 + (int)(Math.random()*(lvl*9) + lvl*3));
+        stats.setLongRangeWeapon(5 + (int)(Math.random()*(lvl*15) + lvl*3));
 
         stats.setKnowledge(0);
         stats.setEnergy(0);

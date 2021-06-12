@@ -1,6 +1,9 @@
 package Creatures;
 
 public enum StatsEnum {
+    MAX_HP,
+    HP,
+    LEVEL,
     STRENGTH,
     SPEED,
     AGILITY,
@@ -10,11 +13,11 @@ public enum StatsEnum {
     BLACKSMITH,
     THEFT,
     ALCHEMY,
-    ONEHANDEDWEAPON,
-    TWOHANDEDWEAPON,
-    POLEWEAPON,
-    CHOPPINGWEAPON,
-    LONGRANGEWEAPON,
+    ONE_HANDED_WEAPON,
+    TWO_HANDED_WEAPON,
+    POLE_WEAPON,
+    CHOPPING_WEAPON,
+    LONG_RANGE_WEAPON,
     KNOWLEDGE,
     ENERGY
 }

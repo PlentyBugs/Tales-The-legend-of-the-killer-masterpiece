@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class StatsBonus implements Serializable {
 
+    protected int maxHp;
+    protected int hp;
+    protected int level;
     protected int strength;
     protected int speed;
     protected int agility;
@@ -13,11 +16,11 @@ public class StatsBonus implements Serializable {
     protected int blacksmith;
     protected int theft;
     protected int alchemy;
-    protected int one_handed_weapon;
-    protected int two_handed_weapon;
-    protected int pole_weapon;
-    protected int chopping_weapon;
-    protected int long_range_weapon;
+    protected int oneHandedWeapon;
+    protected int twoHandedWeapon;
+    protected int poleWeapon;
+    protected int choppingWeapon;
+    protected int longRangeWeapon;
 
     protected int knowledge;
     protected int energy;
@@ -30,44 +33,44 @@ public class StatsBonus implements Serializable {
     }
 
     public void upStat(StatsEnum stat){
-        switch (stat){
-            case STRENGTH: strength += 1; break;
-            case SPEED: speed += 1; break;
-            case AGILITY: agility += 1; break;
-            case INTELLIGENCE: intelligence += 1; break;
-            case LUCK: luck += 1; break;
-            case ELOQUENCE: eloquence += 1; break;
-            case BLACKSMITH: blacksmith += 1; break;
-            case THEFT: theft += 1; break;
-            case ALCHEMY: alchemy += 1; break;
-            case ONEHANDEDWEAPON: one_handed_weapon += 1; break;
-            case TWOHANDEDWEAPON: two_handed_weapon += 1; break;
-            case POLEWEAPON: pole_weapon += 1; break;
-            case CHOPPINGWEAPON: chopping_weapon += 1; break;
-            case LONGRANGEWEAPON: long_range_weapon += 1; break;
-            case KNOWLEDGE: knowledge += 1; break;
-            case ENERGY: energy += 1; break;
+        switch (stat) {
+            case STRENGTH -> strength += 1;
+            case SPEED -> speed += 1;
+            case AGILITY -> agility += 1;
+            case INTELLIGENCE -> intelligence += 1;
+            case LUCK -> luck += 1;
+            case ELOQUENCE -> eloquence += 1;
+            case BLACKSMITH -> blacksmith += 1;
+            case THEFT -> theft += 1;
+            case ALCHEMY -> alchemy += 1;
+            case ONE_HANDED_WEAPON -> oneHandedWeapon += 1;
+            case TWO_HANDED_WEAPON -> twoHandedWeapon += 1;
+            case POLE_WEAPON -> poleWeapon += 1;
+            case CHOPPING_WEAPON -> choppingWeapon += 1;
+            case LONG_RANGE_WEAPON -> longRangeWeapon += 1;
+            case KNOWLEDGE -> knowledge += 1;
+            case ENERGY -> energy += 1;
         }
     }
 
     public void upStat(StatsEnum stat, int count){
-        switch (stat){
-            case STRENGTH: strength += count; break;
-            case SPEED: speed += count; break;
-            case AGILITY: agility += count; break;
-            case INTELLIGENCE: intelligence += count; break;
-            case LUCK: luck += count; break;
-            case ELOQUENCE: eloquence += count; break;
-            case BLACKSMITH: blacksmith += count; break;
-            case THEFT: theft += count; break;
-            case ALCHEMY: alchemy += count; break;
-            case ONEHANDEDWEAPON: one_handed_weapon += count; break;
-            case TWOHANDEDWEAPON: two_handed_weapon += count; break;
-            case POLEWEAPON: pole_weapon += count; break;
-            case CHOPPINGWEAPON: chopping_weapon += count; break;
-            case LONGRANGEWEAPON: long_range_weapon += count; break;
-            case KNOWLEDGE: knowledge += count; break;
-            case ENERGY: energy += count; break;
+        switch (stat) {
+            case STRENGTH -> strength += count;
+            case SPEED -> speed += count;
+            case AGILITY -> agility += count;
+            case INTELLIGENCE -> intelligence += count;
+            case LUCK -> luck += count;
+            case ELOQUENCE -> eloquence += count;
+            case BLACKSMITH -> blacksmith += count;
+            case THEFT -> theft += count;
+            case ALCHEMY -> alchemy += count;
+            case ONE_HANDED_WEAPON -> oneHandedWeapon += count;
+            case TWO_HANDED_WEAPON -> twoHandedWeapon += count;
+            case POLE_WEAPON -> poleWeapon += count;
+            case CHOPPING_WEAPON -> choppingWeapon += count;
+            case LONG_RANGE_WEAPON -> longRangeWeapon += count;
+            case KNOWLEDGE -> knowledge += count;
+            case ENERGY -> energy += count;
         }
     }
 
@@ -83,8 +86,8 @@ public class StatsBonus implements Serializable {
         return blacksmith;
     }
 
-    public int getChopping_weapon() {
-        return chopping_weapon;
+    public int getChoppingWeapon() {
+        return choppingWeapon;
     }
 
     public int getEloquence() {
@@ -103,8 +106,8 @@ public class StatsBonus implements Serializable {
         return knowledge;
     }
 
-    public int getLong_range_weapon() {
-        return long_range_weapon;
+    public int getLongRangeWeapon() {
+        return longRangeWeapon;
     }
 
     public int getLuck() {
@@ -115,16 +118,16 @@ public class StatsBonus implements Serializable {
         return militarism;
     }
 
-    public int getOne_handed_weapon() {
-        return one_handed_weapon;
+    public int getOneHandedWeapon() {
+        return oneHandedWeapon;
     }
 
     public int getPacifism() {
         return pacifism;
     }
 
-    public int getPole_weapon() {
-        return pole_weapon;
+    public int getPoleWeapon() {
+        return poleWeapon;
     }
 
     public int getSpeed() {
@@ -139,8 +142,20 @@ public class StatsBonus implements Serializable {
         return theft;
     }
 
-    public int getTwo_handed_weapon() {
-        return two_handed_weapon;
+    public int getTwoHandedWeapon() {
+        return twoHandedWeapon;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public void setSpeed(int speed) {
@@ -159,8 +174,8 @@ public class StatsBonus implements Serializable {
         this.blacksmith = blacksmith;
     }
 
-    public void setChopping_weapon(int chopping_weapon) {
-        this.chopping_weapon = chopping_weapon;
+    public void setChoppingWeapon(int choppingWeapon) {
+        this.choppingWeapon = choppingWeapon;
     }
 
     public void setEloquence(int eloquence) {
@@ -179,8 +194,8 @@ public class StatsBonus implements Serializable {
         this.knowledge = knowledge;
     }
 
-    public void setLong_range_weapon(int long_range_weapon) {
-        this.long_range_weapon = long_range_weapon;
+    public void setLongRangeWeapon(int longRangeWeapon) {
+        this.longRangeWeapon = longRangeWeapon;
     }
 
     public void setLuck(int luck) {
@@ -191,16 +206,16 @@ public class StatsBonus implements Serializable {
         this.militarism = militarism;
     }
 
-    public void setOne_handed_weapon(int one_handed_weapon) {
-        this.one_handed_weapon = one_handed_weapon;
+    public void setOneHandedWeapon(int oneHandedWeapon) {
+        this.oneHandedWeapon = oneHandedWeapon;
     }
 
     public void setPacifism(int pacifism) {
         this.pacifism = pacifism;
     }
 
-    public void setPole_weapon(int pole_weapon) {
-        this.pole_weapon = pole_weapon;
+    public void setPoleWeapon(int poleWeapon) {
+        this.poleWeapon = poleWeapon;
     }
 
     public void setStrength(int strength) {
@@ -211,8 +226,20 @@ public class StatsBonus implements Serializable {
         this.theft = theft;
     }
 
-    public void setTwo_handed_weapon(int two_handed_weapon) {
-        this.two_handed_weapon = two_handed_weapon;
+    public void setTwoHandedWeapon(int twoHandedWeapon) {
+        this.twoHandedWeapon = twoHandedWeapon;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void clear(){
@@ -225,11 +252,11 @@ public class StatsBonus implements Serializable {
         blacksmith = 0;
         theft = 0;
         alchemy = 0;
-        one_handed_weapon = 0;
-        two_handed_weapon = 0;
-        pole_weapon = 0;
-        chopping_weapon = 0;
-        long_range_weapon = 0;
+        oneHandedWeapon = 0;
+        twoHandedWeapon = 0;
+        poleWeapon = 0;
+        choppingWeapon = 0;
+        longRangeWeapon = 0;
         knowledge = 0;
         energy = 0;
         militarism = 0;

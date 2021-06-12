@@ -77,7 +77,7 @@ public class Staff extends Weapon {
             case CURSE: addDamage += 5; break;
             case ARTIFACT: addDamage += 7; break;
             case HEROIC: addDamage += 9; break;
-            case ABOVETHEGODS: addDamage += 11; break;
+            case ABOVE_THE_GODS: addDamage += 11; break;
         }
         switch (rarity){
             case COMMON: addDamage += 1; break;

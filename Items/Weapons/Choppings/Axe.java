@@ -84,7 +84,7 @@ public class Axe extends Weapon {
             case CURSE: addDamage += 58; break;
             case ARTIFACT: addDamage += 136; break;
             case HEROIC: addDamage += 333; break;
-            case ABOVETHEGODS: addDamage += 645; break;
+            case ABOVE_THE_GODS: addDamage += 645; break;
         }
         switch (rarity){
             case COMMON: addDamage += 1; break;

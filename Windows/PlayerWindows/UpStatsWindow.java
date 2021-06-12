@@ -87,11 +87,11 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.getStats().getBlacksmith()) + "   ");
         JLabel theftLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTheft()) + "   ");
         JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.getStats().getAlchemy()) + "   ");
-        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getOne_handed_weapon()) + "   ");
-        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTwo_handed_weapon()) + "   ");
-        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getPole_weapon()) + "   ");
-        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getChopping_weapon()) + "   ");
-        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLong_range_weapon()) + "   ");
+        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getOneHandedWeapon()) + "   ");
+        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTwoHandedWeapon()) + "   ");
+        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getPoleWeapon()) + "   ");
+        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getChoppingWeapon()) + "   ");
+        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLongRangeWeapon()) + "   ");
 
         panel.add(upPointsLeftLabel, constraints);
         constraints.gridy ++;
@@ -266,50 +266,50 @@ public class UpStatsWindow extends JFrame implements Serializable {
             oneHandedWeaponButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.ONEHANDEDWEAPON);
+                        player.getStats().upStat(StatsEnum.ONE_HANDED_WEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getOne_handed_weapon()) + "   ");
+                        oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getOneHandedWeapon()) + "   ");
                     }
                 }
             });
             twoHandedWeaponButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.TWOHANDEDWEAPON);
+                        player.getStats().upStat(StatsEnum.TWO_HANDED_WEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getTwo_handed_weapon()) + "   ");
+                        twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getTwoHandedWeapon()) + "   ");
                     }
                 }
             });
             poleWeaponButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.POLEWEAPON);
+                        player.getStats().upStat(StatsEnum.POLE_WEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        poleWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getPole_weapon()) + "   ");
+                        poleWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getPoleWeapon()) + "   ");
                     }
                 }
             });
             choppingWeaponButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.CHOPPINGWEAPON);
+                        player.getStats().upStat(StatsEnum.CHOPPING_WEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        choppingWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getChopping_weapon()) + "   ");
+                        choppingWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getChoppingWeapon()) + "   ");
                     }
                 }
             });
             longRangeWeaponButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.LONGRANGEWEAPON);
+                        player.getStats().upStat(StatsEnum.LONG_RANGE_WEAPON);
                         player.setUpPointCount(player.getUpPointCount()-1);
                         upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        longRangeWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getLong_range_weapon()) + "   ");
+                        longRangeWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getLongRangeWeapon()) + "   ");
                     }
                 }
             });

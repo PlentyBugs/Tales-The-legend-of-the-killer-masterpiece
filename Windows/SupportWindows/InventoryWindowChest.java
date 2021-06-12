@@ -96,7 +96,7 @@ public class InventoryWindowChest extends JFrame {
                 case CURSE: colorForeground = new Color(1,155, 24); break;
                 case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
                 case HEROIC: colorForeground = new Color(255, 96, 0); break;
-                case ABOVETHEGODS: colorForeground = new Color(255, 0, 197); break;
+                case ABOVE_THE_GODS: colorForeground = new Color(255, 0, 197); break;
                 default:  colorForeground = new Color(0,0,0); break;
             }
 
@@ -120,15 +120,15 @@ public class InventoryWindowChest extends JFrame {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().contains("Weapon")){
+            if (item instanceof Weapon weapon) {
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
+                propertyCount.setText(Integer.toString(weapon.getClearDamage()));
+            } else if(item instanceof Ring ring){
+                property.setText(ring.getStat() + ": ");
+                propertyCount.setText(Integer.toString(ring.getStatPower()));
+            } else if (item instanceof Armor armor){
                 property.setText("Защита: ");
-                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
-            } else if(item.getClass().toString().contains("Ring")){
-                property.setText(((Ring)item).getStat() + ": ");
-                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
+                propertyCount.setText(Integer.toString(armor.getProtection()));
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));

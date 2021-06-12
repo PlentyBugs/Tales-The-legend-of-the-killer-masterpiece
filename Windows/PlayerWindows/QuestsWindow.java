@@ -11,14 +11,13 @@ import java.awt.event.WindowEvent;
 
 public class QuestsWindow extends JFrame {
 
-    private Player player;
+    private final Player player;
     private JPanel panel = new JPanel();
-    private GridBagConstraints constraints;
-    private int width = 520;
-    private int height = 240;
 
     public QuestsWindow(Player player){
         super("Квесты");
+        int width = 520;
+        int height = 240;
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;
@@ -29,7 +28,7 @@ public class QuestsWindow extends JFrame {
     public void drawWindow(){
         panel.removeAll();
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -52,19 +51,19 @@ public class QuestsWindow extends JFrame {
             JLabel title = new JLabel(quest.getTitle());
             questPanel.add(title, questConstraints);
             questConstraints.gridx ++;
-            JLabel goldReward = new JLabel("Деньги: " + Integer.toString(quest.getGoldReward()));
+            JLabel goldReward = new JLabel("Деньги: " + quest.getGoldReward());
             questPanel.add(goldReward, questConstraints);
             questConstraints.gridx ++;
-            JLabel expReward = new JLabel("Опыт: " + Integer.toString(quest.getExpReward()));
+            JLabel expReward = new JLabel("Опыт: " + quest.getExpReward());
             questPanel.add(expReward, questConstraints);
             questConstraints.gridx ++;
-            if(quest.getClass().toString().contains("Kill")) {
-                JLabel questGoal = new JLabel("Цель: " + Integer.toString(((KillQuest) quest).getEnemyCountToKillCurrent()) + "/" + Integer.toString(((KillQuest) quest).getEnemyCountToKill()));
+            if(quest instanceof KillQuest killQuest) {
+                JLabel questGoal = new JLabel("Цель: " + killQuest.getEnemyCountToKillCurrent() + "/" + killQuest.getEnemyCountToKill());
                 questPanel.add(questGoal, questConstraints);
                 questConstraints.gridx ++;
             }
-            if(quest.getClass().toString().contains("Collect")) {
-                JLabel questGoal = new JLabel("Цель: " + Integer.toString(((CollectItemQuest) quest).getItemCountCurrent()) + "/" + Integer.toString(((CollectItemQuest) quest).getItemCount()));
+            if(quest instanceof CollectItemQuest collectItemQuest) {
+                JLabel questGoal = new JLabel("Цель: " + collectItemQuest.getItemCountCurrent() + "/" + collectItemQuest.getItemCount());
                 questPanel.add(questGoal, questConstraints);
                 questConstraints.gridx ++;
             }

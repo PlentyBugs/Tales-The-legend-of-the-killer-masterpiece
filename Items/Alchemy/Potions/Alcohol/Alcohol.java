@@ -28,7 +28,7 @@ public class Alcohol extends Potion implements DiplomacyItem {
             case CURSE -> addPower += 8;
             case ARTIFACT -> addPower += 16;
             case HEROIC -> addPower += 32;
-            case ABOVETHEGODS -> addPower += 64;
+            case ABOVE_THE_GODS -> addPower += 64;
         }
 
         switch (rarity) {

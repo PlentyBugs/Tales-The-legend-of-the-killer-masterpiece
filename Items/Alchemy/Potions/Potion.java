@@ -93,7 +93,7 @@ public class Potion extends Item implements BattleItem  {
             case CURSE -> addPower += 13000;
             case ARTIFACT -> addPower += 51000;
             case HEROIC -> addPower += 230000;
-            case ABOVETHEGODS -> addPower += 580000;
+            case ABOVE_THE_GODS -> addPower += 580000;
         }
         switch (rarity) {
             case COMMON -> addPower += 120;
@@ -131,7 +131,7 @@ public class Potion extends Item implements BattleItem  {
             case CURSE -> addCost += 6400;
             case ARTIFACT -> addCost += 17500;
             case HEROIC -> addCost += 57800;
-            case ABOVETHEGODS -> addCost += 145000;
+            case ABOVE_THE_GODS -> addCost += 145000;
         }
 
         switch (rarity) {

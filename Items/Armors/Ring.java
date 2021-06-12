@@ -81,7 +81,7 @@ public class Ring extends Armor implements StatItem {
             case CURSE -> statPower += 24;
             case ARTIFACT -> statPower += 36;
             case HEROIC -> statPower += 62;
-            case ABOVETHEGODS -> statPower += 122;
+            case ABOVE_THE_GODS -> statPower += 122;
         }
         switch (rarity) {
             case COMMON -> statPower += 1;

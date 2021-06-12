@@ -1,12 +1,14 @@
 package ConstructorTool;
 
-import Creatures.*;
 import Creatures.AggressiveNPC.Bandit;
 import Creatures.AggressiveNPC.Goblin;
 import Creatures.AggressiveNPC.GoblinKing;
 import Creatures.AggressiveNPC.Knight;
+import Creatures.GodCreature;
+import Creatures.LiveCreature;
 import Creatures.PeacefulNPC.Dealer;
 import Creatures.PeacefulNPC.Inhabitant;
+import Creatures.Player;
 import Locations.Map;
 import Things.*;
 import Things.ChestLike.Chest;
@@ -15,9 +17,6 @@ import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -127,7 +126,7 @@ public class BlockChooser extends JFrame {
             }
 
             blockButton.addActionListener(e -> {
-                block.setEditable(creature.getClass().toString().contains("Chest"));
+                block.setEditable(creature instanceof Chest);
                 block.setBlock(creature);
                 block.setBlockType(BlockType.THING);
                 drawWindow();
@@ -157,13 +156,12 @@ public class BlockChooser extends JFrame {
             if(creature == block.getBlock()){
                 blockButton.setBackground(new Color(0,255,0));
             } else {
-
                 blockButton.setBackground(new Color(255,255,255));
             }
 
 
             blockButton.addActionListener(e -> {
-                block.setEditable(creature.getClass().toString().split(" ")[1].split("\\.")[0].equals("Creatures"));
+                block.setEditable(creature instanceof LiveCreature);
                 block.setBlock(creature);
                 block.setBlockType(BlockType.LIVECREATURE);
                 drawWindow();

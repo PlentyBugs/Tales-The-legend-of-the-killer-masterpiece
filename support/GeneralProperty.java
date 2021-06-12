@@ -72,6 +72,5 @@ public enum GeneralProperty implements Property {
     RING,
     ENCHANT_STONE,
     BLUEPRINT,
-    RESOURCE,
     KEY
 }

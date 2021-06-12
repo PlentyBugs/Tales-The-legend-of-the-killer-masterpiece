@@ -44,7 +44,7 @@ public class Vision extends Aura  {
     }
 
     public boolean check(Player player){
-        if (player.getStats().getLong_range_weapon() >= (level - 1)*25 + 5){
+        if (player.getStats().getLongRangeWeapon() >= (level - 1)*25 + 5){
             return true;
         }
         return false;

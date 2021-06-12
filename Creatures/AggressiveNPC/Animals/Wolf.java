@@ -66,11 +66,11 @@ public class Wolf extends Animal {
         stats.setBlacksmith(0);
         stats.setTheft(0);
         stats.setAlchemy(0);
-        stats.setOne_handed_weapon(0);
-        stats.setTwo_handed_weapon(0);
-        stats.setPole_weapon(0);
-        stats.setChopping_weapon(0);
-        stats.setLong_range_weapon(0);
+        stats.setOneHandedWeapon(0);
+        stats.setTwoHandedWeapon(0);
+        stats.setPoleWeapon(0);
+        stats.setChoppingWeapon(0);
+        stats.setLongRangeWeapon(0);
 
         stats.setKnowledge(0);
         stats.setEnergy(0);

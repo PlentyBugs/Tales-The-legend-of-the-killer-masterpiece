@@ -70,7 +70,7 @@ public class ThiefWindow extends JFrame implements Serializable {
                 case CURSE -> new Color(1, 155, 24);
                 case ARTIFACT -> new Color(255, 0, 18);
                 case HEROIC -> new Color(255, 96, 0);
-                case ABOVETHEGODS -> new Color(255, 0, 197);
+                case ABOVE_THE_GODS -> new Color(255, 0, 197);
             };
 
             colorBackground = switch (item.getRarity()) {

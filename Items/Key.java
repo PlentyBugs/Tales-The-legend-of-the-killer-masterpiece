@@ -57,7 +57,7 @@ public class Key extends Item  {
             case CURSE -> levelAdd += 3;
             case ARTIFACT -> levelAdd += 4;
             case HEROIC -> levelAdd += 5;
-            case ABOVETHEGODS -> levelAdd += 6;
+            case ABOVE_THE_GODS -> levelAdd += 6;
         }
         switch (rarity) {
             case COMMON -> levelAdd += 1;

@@ -65,8 +65,8 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
             for(Potion potion : ingredient.getUsage()){
                 if(usage.containsKey(potion.getId())){
                     usage.put(potion.getId(), new Pair<>(
-                            usage.get(potion.getId()).first,
-                            usage.get(potion.getId()).second + 1
+                            usage.get(potion.getId()).first(),
+                            usage.get(potion.getId()).second() + 1
                     ));
                 } else {
                     usage.put(potion.getId(), new Pair<>(potion, 1));
@@ -75,12 +75,12 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
         }
 
         Pair<Potion, Integer> objects = maxKey(usage);
-        Potion key = objects.first.getClearCopy();
+        Potion key = objects.first().getClearCopy();
 
         if(key != null){
             key.setEffect(key.getEffect().getClearCopy());
             key.getEffect().setPowerAlchemy(
-                    (int) (player.getStats().getAlchemy() * Math.pow(objects.second, 1.0 + (objects.second / 10.0)))
+                    (int) (player.getStats().getAlchemy() * Math.pow(objects.second(), 1.0 + (objects.second() / 10.0)))
             );
             key.countCost();
             createdPotion = key;
@@ -95,9 +95,9 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
         Potion key = null;
         int max = -1;
         for(Long str : table.keySet()){
-            if(max < table.get(str).second){
-                key = table.get(str).first;
-                max = table.get(str).second;
+            if(max < table.get(str).second()){
+                key = table.get(str).first();
+                max = table.get(str).second();
             }
         }
         return new Pair<>(key, max);

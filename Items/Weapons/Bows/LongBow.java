@@ -3,10 +3,8 @@ package Items.Weapons.Bows;
 import Items.Grade;
 import Items.Material;
 import Items.Rarity;
-import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +68,7 @@ public class LongBow extends Bow {
             case CURSE: addDamage += 68; break;
             case ARTIFACT: addDamage += 149; break;
             case HEROIC: addDamage += 397; break;
-            case ABOVETHEGODS: addDamage += 687; break;
+            case ABOVE_THE_GODS: addDamage += 687; break;
         }
         switch (rarity){
             case COMMON: addDamage += 1; break;

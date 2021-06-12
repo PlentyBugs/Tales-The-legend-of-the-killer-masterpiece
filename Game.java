@@ -59,7 +59,7 @@ public class Game {
             }
 */
             player.addItemToInventory(
-                    new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.ONE_HANDED)
+                    new Sword(Material.BRONZE, Rarity.DIVINE, Grade.MAGIC, 0, WeaponType.ONE_HANDED)
                             .addEnchant(new Vampirism()),
                     new Sword(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.TWO_HANDED),
                     new ShortBow(Material.BRONZE, Rarity.COMMON, Grade.CURSE, 0, WeaponType.LONG_RANGE),

@@ -4,7 +4,6 @@ import Creatures.StatsEnum;
 import Items.Alchemy.Potions.HealPotion;
 import Items.Alchemy.Potions.StatsUpPotion;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class EntBranch extends Ingredient {
     public EntBranch(){
         super();
         name = "Ветка Энта";
-        usage.add(new StatsUpPotion(StatsEnum.ONEHANDEDWEAPON));
+        usage.add(new StatsUpPotion(StatsEnum.ONE_HANDED_WEAPON));
         usage.add(new StatsUpPotion(StatsEnum.ALCHEMY));
         usage.add(new HealPotion());
     }

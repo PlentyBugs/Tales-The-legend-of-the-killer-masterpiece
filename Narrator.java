@@ -74,11 +74,11 @@ public class Narrator {
             player.getStats().setEloquence(0);
             player.getStats().setBlacksmith(0);
             player.getStats().setAlchemy(250);
-            player.getStats().setOne_handed_weapon(0);
-            player.getStats().setTwo_handed_weapon(0);
-            player.getStats().setPole_weapon(0);
-            player.getStats().setChopping_weapon(0);
-            player.getStats().setLong_range_weapon(0);
+            player.getStats().setOneHandedWeapon(0);
+            player.getStats().setTwoHandedWeapon(0);
+            player.getStats().setPoleWeapon(0);
+            player.getStats().setChoppingWeapon(0);
+            player.getStats().setLongRangeWeapon(0);
             player.setName("cheater");
             player.setHp(1);
             player.setMaxHp(1);
@@ -94,11 +94,11 @@ public class Narrator {
             player.getStats().setEloquence(0);
             player.getStats().setBlacksmith(0);
             player.getStats().setAlchemy(0);
-            player.getStats().setOne_handed_weapon(0);
-            player.getStats().setTwo_handed_weapon(0);
-            player.getStats().setPole_weapon(0);
-            player.getStats().setChopping_weapon(0);
-            player.getStats().setLong_range_weapon(0);
+            player.getStats().setOneHandedWeapon(0);
+            player.getStats().setTwoHandedWeapon(0);
+            player.getStats().setPoleWeapon(0);
+            player.getStats().setChoppingWeapon(0);
+            player.getStats().setLongRangeWeapon(0);
 
             player.setLevelPoints(10);
             player.setUpPointCount(10);
@@ -110,7 +110,7 @@ public class Narrator {
         if(player.getName().equals("WenToThER0CkinGCha1r")){
 
             player.getStats().setStrength(200);
-            player.getStats().setTwo_handed_weapon(200);
+            player.getStats().setTwoHandedWeapon(200);
 
             player.setName("cheater");
             player.setHp(100);
@@ -129,7 +129,7 @@ public class Narrator {
 
         if(player.getName().equals("h0pelESSN3$S$33kУr")){
 
-            player.getStats().setLong_range_weapon(150);
+            player.getStats().setLongRangeWeapon(150);
             player.addAbility(new Vision(6));
 
             player.setName("cheater");

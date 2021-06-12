@@ -15,6 +15,7 @@ import Creatures.AggressiveNPC.Boss.Boss;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Creatures.StatsEnum;
+import Items.Alchemy.Ingredients.Ingredient;
 import Items.Armors.Armor;
 import Items.Armors.Helmet;
 import Items.Armors.Ring;
@@ -344,13 +345,13 @@ public class FightWindow extends JFrame implements Serializable {
                     e.printStackTrace();
                 }
 
-                if(item.getClass().toString().contains("Ingredient")){
+                if(item instanceof Ingredient){
                     dropItems.add(item);
                     continue;
                 }
 
-                if(item.getClass().toString().contains("Ring")){
-                    ((Ring)item).setStat(StatsEnum.values()[(int)(Math.random()*StatsEnum.values().length)]);
+                if(item instanceof Ring ring){
+                    ring.setStat(StatsEnum.values()[(int)(Math.random() * StatsEnum.values().length)]);
                 } else {
                     int chanceEnchant = (int)Math.ceil(Math.random()*100);
                     if(chanceEnchant < 3){
@@ -379,7 +380,7 @@ public class FightWindow extends JFrame implements Serializable {
                     item.setGrade(Grade.HEROIC);
                 }
                 if(chanceDropItem < -60 + enemy.getLvl()){
-                    item.setGrade(Grade.ABOVETHEGODS);
+                    item.setGrade(Grade.ABOVE_THE_GODS);
                 }
 
                 chanceDropItem = (int)Math.ceil(Math.random()*1000);
@@ -512,13 +513,13 @@ public class FightWindow extends JFrame implements Serializable {
 
             if (player.getQuests() != null){
                 for (Quest quest : player.getQuests()){
-                    if(quest.getClass().toString().contains("Kill") && enemy.getClass().toString().contains(((KillQuest)quest).getEnemyToKill().getClass().toString())){
-                        ((KillQuest)quest).setEnemyCountToKillCurrent(((KillQuest)quest).getEnemyCountToKillCurrent()+1);
+                    if(quest instanceof KillQuest killQuest && enemy.getLastProperty() == killQuest.getEnemyToKill().getLastProperty()){
+                        killQuest.setEnemyCountToKillCurrent(killQuest.getEnemyCountToKillCurrent() + 1);
                     }
-                    if(quest.getClass().toString().contains("Collect")){
+                    if(quest instanceof CollectItemQuest collect){
                         for (Item item : enemy.getUniqueDropItems()){
-                            if (item.getClass().toString().equals(((CollectItemQuest)quest).getItem().getClass().toString())){
-                                player.addItemToInventory(((CollectItemQuest)quest).getItem());
+                            if (item.getLastProperty() == collect.getItem().getLastProperty()){
+                                player.addItemToInventory(collect.getItem());
                                 break;
                             }
                         }
@@ -601,28 +602,28 @@ public class FightWindow extends JFrame implements Serializable {
                     for(WeaponType weaponType : weapon.getWeaponType()){
                         switch (weaponType) {
                             case ONE_HANDED -> {
-                                if (attacker.getStats().getOne_handed_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getOne_handed_weapon() / 150.0);
+                                if (attacker.getStats().getOneHandedWeapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getOneHandedWeapon() / 150.0);
                                 }
                             }
                             case TWO_HANDED -> {
-                                if (attacker.getStats().getTwo_handed_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getTwo_handed_weapon() / 150.0);
+                                if (attacker.getStats().getTwoHandedWeapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getTwoHandedWeapon() / 150.0);
                                 }
                             }
                             case LONG_RANGE -> {
-                                if (attacker.getStats().getLong_range_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getLong_range_weapon() / 150.0);
+                                if (attacker.getStats().getLongRangeWeapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getLongRangeWeapon() / 150.0);
                                 }
                             }
                             case POLE -> {
-                                if (attacker.getStats().getPole_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getPole_weapon() / 150.0);
+                                if (attacker.getStats().getPoleWeapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getPoleWeapon() / 150.0);
                                 }
                             }
                             case CHOPPING -> {
-                                if (attacker.getStats().getChopping_weapon() != 0) {
-                                    weapon.addBonusDamage(attacker.getStats().getChopping_weapon() / 150.0);
+                                if (attacker.getStats().getChoppingWeapon() != 0) {
+                                    weapon.addBonusDamage(attacker.getStats().getChoppingWeapon() / 150.0);
                                 }
                             }
                         }

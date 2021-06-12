@@ -68,11 +68,11 @@ public class Ent extends Human {
         stats.setBlacksmith(5);
         stats.setTheft(5);
         stats.setAlchemy(5);
-        stats.setOne_handed_weapon(0);
-        stats.setTwo_handed_weapon(0);
-        stats.setPole_weapon(5);
-        stats.setChopping_weapon(5);
-        stats.setLong_range_weapon(5);
+        stats.setOneHandedWeapon(0);
+        stats.setTwoHandedWeapon(0);
+        stats.setPoleWeapon(5);
+        stats.setChoppingWeapon(5);
+        stats.setLongRangeWeapon(5);
 
         stats.setKnowledge(0);
         stats.setEnergy(0);

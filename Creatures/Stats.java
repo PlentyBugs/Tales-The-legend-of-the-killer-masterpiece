@@ -1,30 +1,17 @@
 package Creatures;
 
+import java.io.Serial;
+
 public class Stats extends StatsBonus {
 
-    private StatsBonus bonusStats;
+    @Serial
     private static final long serialVersionUID = 5122589181835788912L;
+
+    private final StatsBonus bonusStats;
 
     public Stats(){
         bonusStats = new StatsBonus();
-        strength = 0;
-        speed = 0;
-        agility = 0;
-        intelligence = 0;
-        luck = 0;
-        eloquence = 0;
-        blacksmith = 0;
-        theft = 0;
-        alchemy = 0;
-        one_handed_weapon = 0;
-        two_handed_weapon = 0;
-        pole_weapon = 0;
-        chopping_weapon = 0;
-        long_range_weapon = 0;
-        knowledge = 0;
-        energy = 0;
-        militarism = 0;
-        pacifism = 0;
+        clear();
     }
 
     public int getAgility() {
@@ -39,8 +26,8 @@ public class Stats extends StatsBonus {
         return blacksmith + bonusStats.getBlacksmith();
     }
 
-    public int getChopping_weapon() {
-        return chopping_weapon + bonusStats.getChopping_weapon();
+    public int getChoppingWeapon() {
+        return choppingWeapon + bonusStats.getChoppingWeapon();
     }
 
     public int getEloquence() {
@@ -59,8 +46,8 @@ public class Stats extends StatsBonus {
         return knowledge + bonusStats.getKnowledge();
     }
 
-    public int getLong_range_weapon() {
-        return long_range_weapon + bonusStats.getLong_range_weapon();
+    public int getLongRangeWeapon() {
+        return longRangeWeapon + bonusStats.getLongRangeWeapon();
     }
 
     public int getLuck() {
@@ -71,16 +58,16 @@ public class Stats extends StatsBonus {
         return militarism + bonusStats.getMilitarism();
     }
 
-    public int getOne_handed_weapon() {
-        return one_handed_weapon + bonusStats.getOne_handed_weapon();
+    public int getOneHandedWeapon() {
+        return oneHandedWeapon + bonusStats.getOneHandedWeapon();
     }
 
     public int getPacifism() {
         return pacifism + bonusStats.getPacifism();
     }
 
-    public int getPole_weapon() {
-        return pole_weapon + bonusStats.getPole_weapon();
+    public int getPoleWeapon() {
+        return poleWeapon + bonusStats.getPoleWeapon();
     }
 
     public int getSpeed() {
@@ -95,11 +82,65 @@ public class Stats extends StatsBonus {
         return theft + bonusStats.getTheft();
     }
 
-    public int getTwo_handed_weapon() {
-        return two_handed_weapon + bonusStats.getTwo_handed_weapon();
+    public int getTwoHandedWeapon() {
+        return twoHandedWeapon + bonusStats.getTwoHandedWeapon();
     }
 
     public StatsBonus getBonusStats() {
         return bonusStats;
+    }
+
+    public void setStat(StatsEnum statType, int value) {
+        switch (statType) {
+            case MAX_HP -> {setMaxHp(value); setHp(value);}
+            case HP -> setHp(value);
+            case LEVEL -> setLevel(value);
+            case STRENGTH -> setStrength(value);
+            case SPEED -> setSpeed(value);
+            case AGILITY -> setAgility(value);
+            case INTELLIGENCE -> setIntelligence(value);
+            case LUCK -> setLuck(value);
+            case ELOQUENCE -> setEloquence(value);
+            case BLACKSMITH -> setBlacksmith(value);
+            case THEFT -> setTheft(value);
+            case ALCHEMY -> setAlchemy(value);
+            case ONE_HANDED_WEAPON -> setOneHandedWeapon(value);
+            case TWO_HANDED_WEAPON -> setTwoHandedWeapon(value);
+            case POLE_WEAPON -> setPoleWeapon(value);
+            case CHOPPING_WEAPON -> setChoppingWeapon(value);
+            case LONG_RANGE_WEAPON -> setLongRangeWeapon(value);
+            case KNOWLEDGE -> setKnowledge(value);
+            case ENERGY -> setEnergy(value);
+        }
+    }
+
+    public void setStat(StatsEnum statType, String value) {
+        int statValue = 5;
+        if (value.matches("\\d+")) statValue = Integer.parseInt(value);
+        setStat(statType, statValue);
+    }
+
+    public int getStat(StatsEnum statType) {
+        return switch (statType) {
+            case MAX_HP -> getMaxHp();
+            case HP -> getHp();
+            case LEVEL -> getLevel();
+            case STRENGTH -> getStrength();
+            case SPEED -> getSpeed();
+            case AGILITY -> getAgility();
+            case INTELLIGENCE -> getIntelligence();
+            case LUCK -> getLuck();
+            case ELOQUENCE -> getEloquence();
+            case BLACKSMITH -> getBlacksmith();
+            case THEFT -> getTheft();
+            case ALCHEMY -> getAlchemy();
+            case ONE_HANDED_WEAPON -> getOneHandedWeapon();
+            case TWO_HANDED_WEAPON -> getTwoHandedWeapon();
+            case POLE_WEAPON -> getPoleWeapon();
+            case CHOPPING_WEAPON -> getChoppingWeapon();
+            case LONG_RANGE_WEAPON -> getLongRangeWeapon();
+            case KNOWLEDGE -> getKnowledge();
+            case ENERGY -> getEnergy();
+        };
     }
 }

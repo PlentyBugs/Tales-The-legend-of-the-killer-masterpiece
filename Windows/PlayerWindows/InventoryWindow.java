@@ -78,7 +78,7 @@ public class InventoryWindow extends JFrame implements Serializable {
         Consumer<String> draw = (inv) -> {
             currentInventory = inv;
             drawInventory();
-            if(player.getClass().toString().contains("Player")){
+            if(player != null){
                 if(isDrawMap) {
                     WindowInterface windowInterface = player.getWindowInterface();
                     windowInterface.drawAllPlayerWindow(player, windowInterface);
@@ -130,42 +130,27 @@ public class InventoryWindow extends JFrame implements Serializable {
             JLabel propertyCount = new JLabel();
 
             new Color(0, 0, 0);
-            Color colorForeground = switch (item.getGrade()) {
-                case COMMON -> new Color(0, 0, 0);
-                case MAGIC -> new Color(128, 255, 80);
-                case CURSE -> new Color(1, 155, 24);
-                case ARTIFACT -> new Color(255, 0, 18);
-                case HEROIC -> new Color(255, 96, 0);
-                case ABOVETHEGODS -> new Color(255, 0, 197);
-            };
+            Color colorForeground = item.getGrade().color;
 
             Color colorBackground;
-            colorBackground = switch (item.getRarity()) {
-                case COMMON -> new Color(255, 255, 255, 100);
-                case UNCOMMON -> new Color(0, 115, 255, 100);
-                case RARE -> new Color(12, 0, 255, 100);
-                case MYSTICAL -> new Color(255, 0, 119, 100);
-                case LEGENDARY -> new Color(255, 232, 0, 100);
-                case DRAGON -> new Color(255, 9, 0, 100);
-                case DIVINE -> new Color(255, 169, 0, 100);
-            };
+            colorBackground = item.getRarity().color;
 
             JLabel itemName = new JLabel(item.getName());
             JLabel itemQuality = new JLabel("Прочность: " + item.getQuality());
             JLabel property = new JLabel();
             
-            if (item.getClass().toString().contains("Weapons")){
+            if (item instanceof Weapon weapon){
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
+                propertyCount.setText(Integer.toString(weapon.getClearDamage()));
+            } else if(item instanceof Ring ring){
+                property.setText(ring.getStat() + ": ");
+                propertyCount.setText(Integer.toString(ring.getStatPower()));
+            } else if (item instanceof Armor armor){
                 property.setText("Защита: ");
-                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
-            } else if(item.getClass().toString().contains("Ring")){
-                property.setText(((Ring)item).getStat() + ": ");
-                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
-            } else if (item.getClass().toString().contains("Potions")){
+                propertyCount.setText(Integer.toString(armor.getProtection()));
+            } else if (item instanceof Potion potion){
                 property.setText("Мощность: ");
-                propertyCount.setText(Integer.toString(((Potion)item).getEffect().getPower()));
+                propertyCount.setText(Integer.toString(potion.getEffect().getPower()));
             }
 
             int count = player.countOfItemInInventory(item);
@@ -219,30 +204,33 @@ public class InventoryWindow extends JFrame implements Serializable {
             useButton.setMinimumSize(new Dimension(width/3,20));
 
             WindowInterface windowInterface = player.getWindowInterface();
-            if(!item.getClass().toString().contains("Alchemy")){
-                useButton.addActionListener((ActionListener & Serializable) e -> {
-                    player.equip(item);
-                    if(player.getClass().toString().contains("Player") && player.getEquipmentWindow() != null){
-                        player.getEquipmentWindow().drawEquipment();
-                        if(isDrawMap)
-                            windowInterface.drawAllPlayerWindow(player, windowInterface);
+            if(item instanceof Potion potion){
+                useButton.addActionListener((ActionListener & Serializable)e -> {
+                    potion.use(player);
+                    player.removeItem(item);
+                    drawInventory();
+                    if(isDrawMap) {
+                        windowInterface.drawAllPlayerWindow(player, windowInterface);
                     }
                 });
             } else {
-                useButton.addActionListener((ActionListener & Serializable)e -> {
-                    ((Potion) item).use(player);
-                    player.removeItem(item);
-                    drawInventory();
-                    if(isDrawMap)
-                        windowInterface.drawAllPlayerWindow(player, windowInterface);
+                useButton.addActionListener((ActionListener & Serializable) e -> {
+                    player.equip(item);
+                    if(player.getEquipmentWindow() != null) {
+                        player.getEquipmentWindow().drawEquipment();
+                        if(isDrawMap) {
+                            windowInterface.drawAllPlayerWindow(player, windowInterface);
+                        }
+                    }
                 });
             }
 
             JButton removeButton = new UnfocusedButton("Выбросить");
             removeButton.addActionListener((ActionListener & Serializable)e -> {
                 player.removeItem(item);
-                if(isDrawMap)
+                if(isDrawMap) {
                     windowInterface.drawAllPlayerWindow(player, windowInterface);
+                }
             });
             removeButton.setPreferredSize(new Dimension(width/3,20));
             removeButton.setMaximumSize(new Dimension(width/3,20));

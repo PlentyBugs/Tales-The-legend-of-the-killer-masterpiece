@@ -5,7 +5,6 @@ import Effects.Poison;
 import Items.Grade;
 import Items.Rarity;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class PoisonPotion extends Potion {
             case CURSE: addCost += 6400; break;
             case ARTIFACT: addCost += 17500; break;
             case HEROIC: addCost += 57800; break;
-            case ABOVETHEGODS: addCost += 145000; break;
+            case ABOVE_THE_GODS: addCost += 145000; break;
         }
         switch (rarity){
             case COMMON: addCost += 120; break;

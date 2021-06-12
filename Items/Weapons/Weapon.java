@@ -80,7 +80,7 @@ public class Weapon extends Item  {
             case CURSE -> addDamage += 73;
             case ARTIFACT -> addDamage += 150;
             case HEROIC -> addDamage += 360;
-            case ABOVETHEGODS -> addDamage += 700;
+            case ABOVE_THE_GODS -> addDamage += 700;
         }
         switch (rarity) {
             case COMMON -> addDamage += 1;
@@ -153,7 +153,7 @@ public class Weapon extends Item  {
             case CURSE -> addCost += 18450;
             case ARTIFACT -> addCost += 34500;
             case HEROIC -> addCost += 78540;
-            case ABOVETHEGODS -> addCost += 1600000;
+            case ABOVE_THE_GODS -> addCost += 1600000;
         }
         switch (rarity) {
             case COMMON -> addCost += 900;
