@@ -7,7 +7,7 @@ import Items.Armors.Ring;
 import Items.Armors.Torso;
 import Items.Item;
 import Items.Weapons.Weapon;
-import Windows.BattleWindows.PlayerFightItemWindow;
+import utils.ColoringProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class EquipmentWindow extends JFrame implements Serializable {
+public class EquipmentWindow extends JFrame implements Serializable, ColoringProfile {
 
     private final Player player;
     private JPanel panel = new JPanel();
@@ -65,18 +65,8 @@ public class EquipmentWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 0;
             itemConstraints.gridy = 0;
 
-            Color colorBackground = new Color(255,255,255,255);
-            new Color(0, 0, 0);
-            Color colorForeground = switch (item.getGrade()) {
-                case COMMON -> new Color(0, 0, 0);
-                case MAGIC -> new Color(128, 255, 80);
-                case CURSE -> new Color(1, 155, 24);
-                case ARTIFACT -> new Color(255, 0, 18);
-                case HEROIC -> new Color(255, 96, 0);
-                case ABOVE_THE_GODS -> new Color(255, 0, 197);
-            };
-
-            colorBackground = getColorByRarity(item);
+            Color colorForeground = getColorByGrade(item);
+            Color colorBackground = getColorByRarity(item);
 
             JLabel equipmentItem = new JLabel();
 
@@ -132,10 +122,6 @@ public class EquipmentWindow extends JFrame implements Serializable {
         }
         pack();
         if(player.getWindowInterface() != null) player.getWindowInterface().drawMap();
-    }
-
-    public static Color getColorByRarity(Item item) {
-        return PlayerFightItemWindow.getColorByRarity(item);
     }
 
     public JPanel getPanel() {

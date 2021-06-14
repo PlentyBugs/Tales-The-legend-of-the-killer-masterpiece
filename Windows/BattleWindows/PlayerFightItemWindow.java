@@ -6,6 +6,7 @@ import Items.Alchemy.Potions.*;
 import Items.BattleItem;
 import Items.Item;
 import Windows.PlayerWindows.UnfocusedButton;
+import utils.ColoringProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlayerFightItemWindow extends JFrame implements Serializable {
+public class PlayerFightItemWindow extends JFrame implements Serializable, ColoringProfile {
 
     private final Player player;
     private final LiveCreature enemy;
@@ -142,31 +143,6 @@ public class PlayerFightItemWindow extends JFrame implements Serializable {
         getContentPane().add(scroll);
         pack();
         setVisible(true);
-    }
-
-    public static Color getColorByGrade(Item item) {
-        return switch (item.getGrade()) {
-            case COMMON -> new Color(0, 0, 0);
-            case MAGIC -> new Color(67, 162, 255);
-            case CURSE -> new Color(1, 155, 24);
-            case ARTIFACT -> new Color(255, 0, 18);
-            case HEROIC -> new Color(255, 96, 0);
-            case ABOVE_THE_GODS -> new Color(255, 0, 197);
-        };
-    }
-
-    public static Color getColorByRarity(Item item) {
-        Color colorBackground;
-        colorBackground = switch (item.getRarity()) {
-            case COMMON -> new Color(255, 255, 255, 100);
-            case UNCOMMON -> new Color(0, 115, 255, 100);
-            case RARE -> new Color(12, 0, 255, 100);
-            case MYSTICAL -> new Color(255, 0, 119, 100);
-            case LEGENDARY -> new Color(255, 232, 0, 100);
-            case DRAGON -> new Color(255, 9, 0, 100);
-            case DIVINE -> new Color(255, 169, 0, 100);
-        };
-        return colorBackground;
     }
 
     public void close(){

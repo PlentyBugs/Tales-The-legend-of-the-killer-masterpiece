@@ -9,6 +9,7 @@ import Windows.BattleWindows.FightWindow;
 import Windows.BattleWindows.PlayerFightItemWindow;
 import Windows.PlayerWindows.EquipmentWindow;
 import Windows.PlayerWindows.UnfocusedButton;
+import utils.ColoringProfile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class ThiefWindow extends JFrame implements Serializable {
+public class ThiefWindow extends JFrame implements Serializable, ColoringProfile {
 
     private final LiveCreature player;
     private final Player thief;
@@ -66,9 +67,9 @@ public class ThiefWindow extends JFrame implements Serializable {
 
             new Color(0, 0, 0);
 
-            Color colorForeground = PlayerFightItemWindow.getColorByGrade(item);
+            Color colorForeground = getColorByGrade(item);
 
-            Color colorBackground = EquipmentWindow.getColorByRarity(item);
+            Color colorBackground = getColorByRarity(item);
 
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 1;
