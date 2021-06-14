@@ -18,7 +18,7 @@ import support.AbilityProperty;
 
 import java.io.Serializable;
 
-public interface Controller extends WindowProvider, MapProvider, MapDrawer, PlayerInterfaceDrawer {
+public interface Controller extends WindowProvider, MapProvider, MapDrawer, MultiWindowProvider, PlayerInterfaceDrawer {
 
     default void step(GodCreature creature) {
 

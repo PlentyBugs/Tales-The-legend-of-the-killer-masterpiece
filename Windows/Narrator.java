@@ -1,36 +1,36 @@
+package Windows;
+
 import Abilities.Auras.Vision;
 import Abilities.Passive.Professions.Steal;
 import Creatures.Difficulty;
 import Creatures.Player;
-import Windows.FieldWindow;
 import Windows.SupportWindows.ChooseNameWindow;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Narrator {
 
-    Difficulty difficulty = Difficulty.STOPIT;
-    FieldWindow fieldWindow;
+    private final Difficulty difficulty;
+    private final GameWindow gameWindow;
 
-    Narrator(Difficulty difficulty, FieldWindow fieldWindow){
+    public Narrator(Difficulty difficulty, GameWindow gameWindow){
         this.difficulty = difficulty;
-        this.fieldWindow = fieldWindow;
+        this.gameWindow = gameWindow;
     }
 
     Scanner input = new Scanner(System.in);
 
     int skill_points_count;
 
-    public void theBeginning(Player player) throws InterruptedException, IOException {
+    public void theBeginning(Player player) {
 
-        switch (difficulty){
-            case EASY: skill_points_count = 50; break;
-            case NORMAL: skill_points_count = 45; break;
-            case HARD: skill_points_count = 20; break;
-            case VERYHARD: skill_points_count = 15; break;
-            case NIGHTMARE: skill_points_count = 5; break;
-            case STOPIT: skill_points_count = 0; break;
+        switch (difficulty) {
+            case EASY -> skill_points_count = 50;
+            case NORMAL -> skill_points_count = 45;
+            case HARD -> skill_points_count = 20;
+            case VERY_HARD -> skill_points_count = 15;
+            case NIGHTMARE -> skill_points_count = 5;
+            case STOP_IT -> skill_points_count = 0;
         }
 
         for (int i = 1; i < 4; i++) {
@@ -152,7 +152,7 @@ public class Narrator {
             monolog("Распредели их как следует:", "Неизвестный");
             player.addUpPoints(skill_points_count);
             while (player.getUpPointCount() > 0){
-                fieldWindow.getConsole().getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
+                gameWindow.getConsole().getConsole("2efghsd6fbuh3bsfud5sbafu4ysadbdvabsfyuob1ds4518dv1a46v1ds1v6as").append("");
             }
         } else {
             monolog("У тебя будет очень тяжелая судьба", "Неизвестный");
@@ -161,10 +161,11 @@ public class Narrator {
         player.getStatusStats();
     }
 
-    private void monolog(String text) throws InterruptedException{
-        fieldWindow.writeToConsole(text);
+    private void monolog(String text) {
+        gameWindow.writeToConsole(text);
     }
-    private void monolog(String text, String dialog_name) throws InterruptedException{
-        monolog(dialog_name + ": " + text);
+
+    private void monolog(String text, String dialogName){
+        monolog(dialogName + ": " + text);
     }
 }

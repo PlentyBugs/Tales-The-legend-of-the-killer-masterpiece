@@ -4,7 +4,7 @@ import Creatures.AggressiveNPC.Aggressive;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Windows.BattleWindows.FightWindow;
-import Windows.FieldWindow;
+import Windows.GameWindow;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class NPCController extends Thread implements Serializable {
 
     private Set<LiveCreature> NPC = Collections.newSetFromMap(new ConcurrentHashMap<>());
-    private FieldWindow fieldWindow;
+    private GameWindow gameWindow;
     private boolean waiting = false;
 
     public void run(){/*
@@ -44,44 +44,44 @@ public class NPCController extends Thread implements Serializable {
 
     private void move(){
         for(LiveCreature liveCreature : NPC){
-            GodCreature[][] field = fieldWindow.getCurrentMap().getMap(fieldWindow.getPlayer().getX(), fieldWindow.getPlayer().getY());
-            GodCreature elementByCoordinates = fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY());
+            GodCreature[][] field = gameWindow.getCurrentMap().getMap(gameWindow.getPlayer().getX(), gameWindow.getPlayer().getY());
+            GodCreature elementByCoordinates = gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY());
             if(elementByCoordinates instanceof LiveCreature creature && creature.getHp() <= 0){
-                fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
+                gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
             }
             if(liveCreature instanceof Aggressive
                     && (
-                        liveCreature.getX() == fieldWindow.getPlayer().getX() && liveCreature.getY()+1 == fieldWindow.getPlayer().getY() ||
-                        liveCreature.getX() == fieldWindow.getPlayer().getX() && liveCreature.getY()-1 == fieldWindow.getPlayer().getY() ||
-                        liveCreature.getX()+1 == fieldWindow.getPlayer().getX() && liveCreature.getY() == fieldWindow.getPlayer().getY() ||
-                        liveCreature.getX()-1 == fieldWindow.getPlayer().getX() && liveCreature.getY() == fieldWindow.getPlayer().getY()
+                        liveCreature.getX() == gameWindow.getPlayer().getX() && liveCreature.getY()+1 == gameWindow.getPlayer().getY() ||
+                        liveCreature.getX() == gameWindow.getPlayer().getX() && liveCreature.getY()-1 == gameWindow.getPlayer().getY() ||
+                        liveCreature.getX()+1 == gameWindow.getPlayer().getX() && liveCreature.getY() == gameWindow.getPlayer().getY() ||
+                        liveCreature.getX()-1 == gameWindow.getPlayer().getX() && liveCreature.getY() == gameWindow.getPlayer().getY()
                         )){
-                FightWindow fightWindow = new FightWindow(fieldWindow.getPlayer(), liveCreature, fieldWindow);
+                FightWindow fightWindow = new FightWindow(gameWindow.getPlayer(), liveCreature, gameWindow);
                 waiting = true;
                 break;
             } else {int chance = (int)(Math.random()*100); // Primitive. Better price-system will be added later
                 if(chance < 25){
-                    if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1) != null && fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1).getIsStep()){
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY()+1, liveCreature);
+                    if(gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1) != null && gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()+1).getIsStep()){
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY()+1, liveCreature);
                         liveCreature.setY(liveCreature.getY()+1);
                     }
                 } else if(chance < 50){
-                    if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()-1) != null && fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()-1).getIsStep()){
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY()-1, liveCreature);
+                    if(gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()-1) != null && gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX(), liveCreature.getY()-1).getIsStep()){
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY()-1, liveCreature);
                         liveCreature.setY(liveCreature.getY()-1);
                     }
                 } else if(chance < 75){
-                    if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()+1, liveCreature.getY()) != null && fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()+1, liveCreature.getY()).getIsStep()){
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX()+1, liveCreature.getY(), liveCreature);
+                    if(gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()+1, liveCreature.getY()) != null && gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()+1, liveCreature.getY()).getIsStep()){
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX()+1, liveCreature.getY(), liveCreature);
                         liveCreature.setX(liveCreature.getX()+1);
                     }
                 } else{
-                    if(fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()-1, liveCreature.getY()) != null && fieldWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()-1, liveCreature.getY()).getIsStep()){
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
-                        fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX()-1, liveCreature.getY(), liveCreature);
+                    if(gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()-1, liveCreature.getY()) != null && gameWindow.getCurrentMap().getElementByCoordinates(liveCreature.getX()-1, liveCreature.getY()).getIsStep()){
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
+                        gameWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX()-1, liveCreature.getY(), liveCreature);
                         liveCreature.setX(liveCreature.getX()-1);
                     }
                 }
@@ -90,8 +90,8 @@ public class NPCController extends Thread implements Serializable {
         }
     }
 
-    public void setWindowInterface(FieldWindow fieldWindow) {
-        this.fieldWindow = fieldWindow;
+    public void setWindowInterface(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
     }
 
     public void setWaiting(boolean w){

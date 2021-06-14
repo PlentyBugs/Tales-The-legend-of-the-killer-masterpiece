@@ -8,13 +8,16 @@ import Windows.SupportWindows.SupportComponents.Console;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class FieldWindow extends JFrame implements Serializable, WindowInterface {
+public class GameWindow extends JPanel implements Serializable, WindowInterface {
+    @Serial
+    private static final long serialVersionUID = -5963455665311017981L;
     private final int y;
     private final Player player;
     private final FieldPanel fieldPanel;
@@ -30,18 +33,25 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
     private JPanel disease;
     private Map currentMap;
     private final NPCController npcController;
-    @Serial
-    private static final long serialVersionUID = -5963455665311017981L;
     private final int SCREEN_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private final MultiWindow multiWindow;
 
     private final Console console;
 
-    public FieldWindow(String name, Map map) {
-        super(name);
+    public GameWindow(Map map, MultiWindow multiWindow) {
+        this.multiWindow = multiWindow;
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(true);
+
+        this.addComponentListener( new ComponentAdapter() {
+            @Override
+            public void componentShown( ComponentEvent e ) {
+                GameWindow.this.requestFocusInWindow();
+            }
+        });
+
         this.player = map.getPlayer();
         fieldPanel = new FieldPanel(map);
 
@@ -57,9 +67,6 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
 
         y = 720;
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         console.setSizeArea((int) (SCREEN_WIDTH * 0.4), (int)(SCREEN_HEIGHT / 6.5));
 
         Dimension subPanelSize = new Dimension((int) (SCREEN_WIDTH * 0.4), SCREEN_HEIGHT);
@@ -83,7 +90,6 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
 
     @Override
     public void drawMap() {
-
 //        npcController.clear();
 //        npcController.setWindowInterface(this);
 //        player.removeBrokenItems();
@@ -100,8 +106,8 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
 
         fillContentPanel();
 
-        getContentPane().add(fieldPanel, BorderLayout.WEST);
-        getContentPane().add(subPanel, BorderLayout.EAST);
+        add(fieldPanel, BorderLayout.WEST);
+        add(subPanel, BorderLayout.EAST);
         setVisible(true);
     }
 
@@ -181,10 +187,6 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
         return console;
     }
 
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
     public void setIsVisible(boolean b) {
         setVisible(b);
     }
@@ -215,5 +217,10 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
     @Override
     public WindowInterface getWindow() {
         return this;
+    }
+
+    @Override
+    public MultiWindow getMultiWindow() {
+        return multiWindow;
     }
 }

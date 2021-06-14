@@ -230,16 +230,16 @@ public class Player extends Human  {
                 levelPoints++;
                 upPointCount += switch (difficulty) {
                     case EASY, NORMAL, HARD -> 5;
-                    case VERYHARD, NIGHTMARE -> 6;
-                    case STOPIT -> 7;
+                    case VERY_HARD, NIGHTMARE -> 6;
+                    case STOP_IT -> 7;
                 };
                 int chance = switch (difficulty) {
                     case EASY -> 10;
                     case NORMAL -> 15;
                     case HARD -> 20;
-                    case VERYHARD -> 25;
+                    case VERY_HARD -> 25;
                     case NIGHTMARE -> 30;
-                    case STOPIT -> 40;
+                    case STOP_IT -> 40;
                 };
 
                 chance += stats.getLuck() / 2;

@@ -75,11 +75,11 @@ public class ChooseDifficultyWindow extends JFrame implements Serializable {
                 } else if (hard.isSelected()){
                     difficulty = Difficulty.HARD;
                 } else if (veryHard.isSelected()){
-                    difficulty = Difficulty.VERYHARD;
+                    difficulty = Difficulty.VERY_HARD;
                 } else if (nightmare.isSelected()){
                     difficulty = Difficulty.NIGHTMARE;
                 } else if (stopIt.isSelected()){
-                    difficulty = Difficulty.STOPIT;
+                    difficulty = Difficulty.STOP_IT;
                 }
                 check = true;
             }

@@ -52,6 +52,8 @@ public interface KeyController extends KeyListener, Controller {
                             upper[newY][x]
             );
             drawMap();
+        } else if(keyCode == KeyEvent.VK_ESCAPE) {
+            getMultiWindow().switchScreen(Screen.MAIN_MENU);
         }
     }
 
