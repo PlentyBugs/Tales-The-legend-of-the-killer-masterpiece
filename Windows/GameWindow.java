@@ -44,6 +44,7 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(true);
+        setLayout(new BorderLayout());
 
         this.addComponentListener( new ComponentAdapter() {
             @Override
@@ -180,7 +181,6 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
                     .range(0, tabs.size())
                     .forEach(i -> menu.addTab(tabNames.get(i), tabs.get(i)));
         }
-
     }
 
     public Console getConsole() {

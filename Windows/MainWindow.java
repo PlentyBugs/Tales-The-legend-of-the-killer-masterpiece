@@ -13,7 +13,7 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
 
     public MainWindow() {
         super("Tales of the Killer Masterpiece");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
