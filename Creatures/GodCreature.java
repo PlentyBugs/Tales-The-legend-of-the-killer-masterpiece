@@ -2,6 +2,7 @@ package Creatures;
 
 import Windows.BattleWindows.ChooseEnemyWindow;
 import Windows.WindowInterface;
+import support.GeneralProperty;
 import support.Property;
 import support.PropertyProvider;
 
@@ -11,6 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GodCreature implements Serializable, Cloneable, Copying<GodCreature>, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(GeneralProperty.ALL);
+    }
 
     private static long counter = 0;
     private final long id;
@@ -19,8 +26,6 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
         id = counter++;
     }
 
-    protected final static List<Property> propertyList = new ArrayList<>();
-    public List<Property> getProperties() {return propertyList;}
     protected String name;
     protected Color color;
     protected boolean isStep;

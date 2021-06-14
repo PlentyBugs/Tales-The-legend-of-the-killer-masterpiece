@@ -3,20 +3,20 @@ package Items.Weapons;
 import Creatures.LiveCreature;
 import Items.Item;
 import Windows.BattleWindows.FightWindow;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Weapon extends Item  {
+public class Weapon extends Item {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(GeneralProperty.WEAPON);
+        propertyList.add(ItemProperty.WEAPON);
     }
     @Serial
     private static final long serialVersionUID = -704955292525306190L;

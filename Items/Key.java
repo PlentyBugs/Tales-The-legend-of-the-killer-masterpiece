@@ -1,8 +1,8 @@
 package Items;
 
 import Things.Doors.Door;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class Key extends Item  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(GeneralProperty.KEY);
+        propertyList.add(ItemProperty.KEY);
     }
 
     private int level;

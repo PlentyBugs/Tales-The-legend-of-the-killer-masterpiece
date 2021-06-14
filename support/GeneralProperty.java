@@ -1,6 +1,7 @@
 package support;
 
 public enum GeneralProperty implements Property {
+    ALL,
     CREATURE,
     LIVE,
     UNDEAD,
@@ -36,7 +37,6 @@ public enum GeneralProperty implements Property {
     DAMAGE_UP_EFFECT,
     QUEST,
     EQUIPMENT,
-    ITEM,
     THING,
     HEAL_BLOCK,
     ROAD,
@@ -59,18 +59,5 @@ public enum GeneralProperty implements Property {
     OTHER,
     HERB,
     GRAPES,
-    BERRY,
-    POTION,
-    INGREDIENT,
-    ARMOR,
-    WEAPON,
-    SWORD,
-    STAFF,
-    AXE,
-    BOW,
-    TOOL,
-    RING,
-    ENCHANT_STONE,
-    BLUEPRINT,
-    KEY
+    BERRY
 }

@@ -2,19 +2,19 @@ package Items.Enchanting;
 
 import Abilities.Enchants.Enchant;
 import Items.Item;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnchantStone extends Item  {
+public class EnchantStone extends Item {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(GeneralProperty.ENCHANT_STONE);
+        propertyList.add(ItemProperty.ENCHANT_STONE);
     }
     private Enchant enchant;
 

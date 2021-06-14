@@ -4,12 +4,11 @@ import Items.Grade;
 import Items.Material;
 import Items.Rarity;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pickaxe extends Tool  {
+public class Pickaxe extends Tool {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

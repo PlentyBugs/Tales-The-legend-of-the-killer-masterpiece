@@ -241,13 +241,13 @@ public class NPC {
         shutepSwordForSale.countProperty();
         blacksmithDroghan.addItemToInventory(
                 new BluePrint()
-                        .setType(ItemCraftType.SWORDONEHANDED)
+                        .setType(ItemCraftType.SWORD_ONE_HANDED)
                         .addResource(new Adamantine())
                         .setName("Чертеж адамантинового меча")
                         .setCost(892000)
                         .setTemperature(3000),
                 new BluePrint()
-                        .setType(ItemCraftType.SWORDONEHANDED)
+                        .setType(ItemCraftType.SWORD_ONE_HANDED)
                         .addResource(new Mythril())
                         .setName("Чертеж мифрилового меча")
                         .setCost(150000)
@@ -271,7 +271,7 @@ public class NPC {
                         .setCost(150000)
                         .setTemperature(1300),
                 new BluePrint()
-                        .setType(ItemCraftType.SHORTBOW)
+                        .setType(ItemCraftType.SHORT_BOW)
                         .addResource(new Mythril())
                         .setName("Чертеж мифрилового Короткого лука")
                         .setCost(150000)

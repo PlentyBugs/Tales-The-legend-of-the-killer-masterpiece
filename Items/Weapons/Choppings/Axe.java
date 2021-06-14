@@ -8,8 +8,8 @@ import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Axe extends Weapon {
 
     static {
         propertyList.addAll(Weapon.propertyList);
-        propertyList.add(GeneralProperty.AXE);
+        propertyList.add(ItemProperty.AXE);
     }
 
     @Serial

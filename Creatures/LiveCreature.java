@@ -23,7 +23,7 @@ import java.io.Serial;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LiveCreature extends GodCreature  {
+public class LiveCreature extends GodCreature {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

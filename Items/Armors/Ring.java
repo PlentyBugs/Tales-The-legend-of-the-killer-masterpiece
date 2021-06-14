@@ -5,8 +5,8 @@ import Items.Grade;
 import Items.Material;
 import Items.Rarity;
 import Items.StatItem;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Ring extends Armor implements StatItem {
 
     static {
         propertyList.addAll(Armor.propertyList);
-        propertyList.add(GeneralProperty.RING);
+        propertyList.add(ItemProperty.RING);
     }
     private StatsEnum stat;
     private int statPower;

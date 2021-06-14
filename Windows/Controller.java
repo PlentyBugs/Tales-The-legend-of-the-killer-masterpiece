@@ -7,16 +7,13 @@ import Items.Tools.Pickaxe;
 import Locations.Cave.Cave;
 import Locations.Dungeon.Dungeon;
 import Locations.Map;
+import Things.*;
 import Things.AlchemyThings.IngredientThing;
 import Things.ChestLike.Chest;
 import Things.Craft.CraftTable;
 import Things.Doors.CaveDoor;
 import Things.Doors.Door;
 import Things.Doors.DoorToUpperLevelLocation;
-import Things.Grass;
-import Things.HealBlock;
-import Things.Ore;
-import Things.Stone;
 import support.AbilityProperty;
 
 import java.io.Serializable;
@@ -37,7 +34,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Play
 //            npcController.addNPC((LiveCreature)creature);
 //        }
 
-        if(player.hasAbility(AbilityProperty.LITTLE_FOOL) && creature.getClass().toString().contains("Tree")){
+        if(player.hasAbility(AbilityProperty.LITTLE_FOOL) && creature instanceof Tree){
             isStep = true;
         }
 

@@ -2,8 +2,8 @@ package Items.BlackSmith;
 
 import Items.BlackSmith.Resource.Resource;
 import Items.Item;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class BluePrint extends Item  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(GeneralProperty.BLUEPRINT);
+        propertyList.add(ItemProperty.BLUEPRINT);
     }
 
     private ItemCraftType itemType;

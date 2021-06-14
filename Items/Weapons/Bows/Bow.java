@@ -2,12 +2,14 @@ package Items.Weapons.Bows;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
-import Items.*;
+import Items.Grade;
+import Items.Material;
+import Items.Rarity;
 import Items.Weapons.Weapon;
 import Items.Weapons.WeaponType;
 import Windows.BattleWindows.FightWindow;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Bow extends Weapon {
 
     static {
         propertyList.addAll(Weapon.propertyList);
-        propertyList.add(GeneralProperty.BOW);
+        propertyList.add(ItemProperty.BOW);
     }
 
     @Serial

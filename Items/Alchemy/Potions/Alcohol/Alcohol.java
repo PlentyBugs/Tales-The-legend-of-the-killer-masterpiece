@@ -5,8 +5,18 @@ package Items.Alchemy.Potions.Alcohol;
         import Items.DiplomacyItem;
         import Items.Grade;
         import Items.Rarity;
+        import support.Property;
+
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class Alcohol extends Potion implements DiplomacyItem {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Potion.propertyList);
+    }
 
     public Alcohol(PotionMaterial potionMaterial, Rarity rarity, Grade grade) {
         super(potionMaterial, rarity, grade);

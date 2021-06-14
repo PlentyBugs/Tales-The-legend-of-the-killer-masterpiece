@@ -8,6 +8,10 @@ import Items.BlackSmith.Resource.Resource;
 import Items.Item;
 import Items.Weapons.Weapon;
 import Windows.WindowInterface;
+import support.GeneralProperty;
+import support.ItemProperty;
+import support.Property;
+import support.ResourceProperty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +33,7 @@ public class InventoryWindow extends JFrame implements Serializable {
     private final int width = 720;
     private final int height = 720;
     private JPanel panelz = new JPanel();
-    private String currentInventory = "All";
+    private Property currentInventory = GeneralProperty.ALL;
     // Вообще костыль, надо будет переделать потом
     private final ArrayList<Item> uniqueInventory = new ArrayList<>();
 
@@ -75,7 +79,7 @@ public class InventoryWindow extends JFrame implements Serializable {
 
         // Я к этому коду 2 года не притрагивался, вообще не знаю что тут происходит, но он мне не нравится
         // Буду пытаться методом тыка делать его лучше
-        Consumer<String> draw = (inv) -> {
+        Consumer<Property> draw = (inv) -> {
             currentInventory = inv;
             drawInventory();
             if(player != null){
@@ -86,12 +90,12 @@ public class InventoryWindow extends JFrame implements Serializable {
             }
         };
 
-        allInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("All"));
-        weaponInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Weapon"));
-        armorInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Armor"));
-        potionInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Potion"));
-        ingredientInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Ingredient"));
-        resourceInventory.addActionListener((ActionListener & Serializable) e -> draw.accept("Resource"));
+        allInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(GeneralProperty.ALL));
+        weaponInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(ItemProperty.WEAPON));
+        armorInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(ItemProperty.ARMOR));
+        potionInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(ItemProperty.POTION));
+        ingredientInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(ItemProperty.INGREDIENT));
+        resourceInventory.addActionListener((ActionListener & Serializable) e -> draw.accept(ResourceProperty.RESOURCE));
 
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -101,14 +105,14 @@ public class InventoryWindow extends JFrame implements Serializable {
         constraints.gridx = 0;
         constraints.gridy = 0;
         uniqueInventory.clear();
-        for (Item item : player.getInventory()){
-            if(!uniqueInventoryContains(item)){
+        for (Item item : player.getInventory()) {
+            if(!uniqueInventoryContains(item)) {
                 uniqueInventory.add(item);
-            } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()){
+            } else if(player.countOfItemInInventory(item) > 1 && item.getStackable()) {
                 continue;
             }
 
-            if(!currentInventory.equals("All") && !item.getClass().toString().contains(currentInventory)){
+            if(!item.getProperties().contains(currentInventory)) {
                 continue;
             }
 

@@ -4,10 +4,10 @@ public enum ItemCraftType {
     AXE,
     STAFF,
     BOW,
-    SHORTBOW,
+    SHORT_BOW,
     LONGBOW,
-    SWORDONEHANDED,
-    SWORDTWOHANDED,
+    SWORD_ONE_HANDED,
+    SWORD_TWO_HANDED,
     TORSO,
     HELMET,
     RING

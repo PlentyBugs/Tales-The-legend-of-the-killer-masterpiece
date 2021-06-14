@@ -8,8 +8,8 @@ import Items.BattleItem;
 import Items.Grade;
 import Items.Item;
 import Items.Rarity;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.io.Serial;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Potion extends Item implements BattleItem  {
 
     static {
         propertyList.addAll(Item.propertyList);
-        propertyList.add(GeneralProperty.POTION);
+        propertyList.add(ItemProperty.POTION);
     }
 
     @Serial

@@ -4,12 +4,12 @@ import Items.Alchemy.Potions.Potion;
 import Items.Alchemy.Potions.PotionMaterial;
 import Items.Grade;
 import Items.Rarity;
+import support.ItemProperty;
 import support.Property;
-import support.GeneralProperty;
 
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ingredient extends Potion  {
     protected final static List<Property> propertyList = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Ingredient extends Potion  {
 
     static {
         propertyList.addAll(Potion.propertyList);
-        propertyList.add(GeneralProperty.INGREDIENT);
+        propertyList.add(ItemProperty.INGREDIENT);
     }
 
     protected ArrayList<Potion> usage;
