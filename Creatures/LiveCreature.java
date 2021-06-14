@@ -348,9 +348,9 @@ public class LiveCreature extends GodCreature  {
         }
     }
 
-    public void addLoyalityByClassName(String className, int count){
+    public void addLoyaltyById(long id, int count){
         for(LiveCreature key : loyalty.keySet()){
-            if(key.getClass().toString().equals(className)){
+            if(key.getId() == id){
                 addLoyaltyToCreature(key, count);
             }
         }
@@ -359,7 +359,7 @@ public class LiveCreature extends GodCreature  {
     public int getCountBuffs(Buff buff){
         int counter = 0;
         for(Buff bff : buffs){
-            if(bff.getClass().toString().equals(buff.getClass().toString())){
+            if(bff.getLastProperty() == buff.getLastProperty()){
                 counter ++;
             }
         }

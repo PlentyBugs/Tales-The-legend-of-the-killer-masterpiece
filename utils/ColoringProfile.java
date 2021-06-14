@@ -2,7 +2,7 @@ package utils;
 
 import Items.Item;
 
-import java.awt.*;
+import java.awt.Color;
 
 public interface ColoringProfile {
 

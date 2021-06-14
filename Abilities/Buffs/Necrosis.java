@@ -2,8 +2,21 @@ package Abilities.Buffs;
 
 import Creatures.LiveCreature;
 import Windows.BattleWindows.FightWindow;
+import support.AbilityProperty;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Necrosis extends Buff implements StackableBuff {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Buff.propertyList);
+        propertyList.add(AbilityProperty.NECROSIS_BUFF);
+    }
+
     private FightWindow fightWindow;
 
     public Necrosis(int power){

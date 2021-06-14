@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlcoholBuff extends Effect  {
+public class AlcoholBuff extends Effect {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
@@ -35,7 +35,16 @@ public class AlcoholBuff extends Effect  {
             player.addExp(power * liveCreature.getLvl() * 12);
             liveCreature.addBuffs(new DecreaseDamageBuff(power));
         } else {
-            liveCreature.addLoyalityByClassName(Player.class.toString(), power);
+            liveCreature.addLoyaltyById(0, power);
+        }
+    }
+
+    public void use(LiveCreature liveCreature, long userId){
+        if(liveCreature instanceof Player player){
+            player.addExp(power * liveCreature.getLvl() * 12);
+            liveCreature.addBuffs(new DecreaseDamageBuff(power));
+        } else {
+            liveCreature.addLoyaltyById(userId, power);
         }
     }
 

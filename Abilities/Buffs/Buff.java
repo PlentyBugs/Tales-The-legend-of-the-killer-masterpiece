@@ -3,10 +3,22 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Items.Weapons.Weapon;
+import support.AbilityProperty;
+import support.Property;
+import support.PropertyProvider;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Buff implements Cloneable, Serializable {
+public class Buff implements Cloneable, Serializable, PropertyProvider {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.add(AbilityProperty.BUFF);
+    }
+
     protected int stepCount;
     protected String name;
     protected int power;
@@ -40,7 +52,7 @@ public class Buff implements Cloneable, Serializable {
         for(Weapon staff : liveCreature.getEquipment().getStaffs()){
             bonusPower += staff.getDamage();
         }
-        bonusPower += liveCreature.getStats().getIntelligence()/60;
+        bonusPower += liveCreature.getStats().getIntelligence() / 60.0;
         power += (int)(power*bonusPower/18);
     }
 

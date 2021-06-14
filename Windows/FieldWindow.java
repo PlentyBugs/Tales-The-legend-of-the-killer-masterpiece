@@ -82,7 +82,7 @@ public class FieldWindow extends JFrame implements Serializable, WindowInterface
     }
 
     @Override
-    public void drawMap(){
+    public void drawMap() {
 
 //        npcController.clear();
 //        npcController.setWindowInterface(this);

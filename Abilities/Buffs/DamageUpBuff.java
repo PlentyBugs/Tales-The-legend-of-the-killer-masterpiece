@@ -2,8 +2,20 @@ package Abilities.Buffs;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.AbilityProperty;
+import support.Property;
 
-public class DamageUpBuff extends Buff implements StackableBuff  {
+import java.util.ArrayList;
+import java.util.List;
+
+public class DamageUpBuff extends Buff implements StackableBuff {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Buff.propertyList);
+        propertyList.add(AbilityProperty.DAMAGE_UP);
+    }
 
     public DamageUpBuff(int power){
         name = "Повышение урона";

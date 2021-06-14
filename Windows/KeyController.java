@@ -10,7 +10,7 @@ import java.awt.event.KeyListener;
 public interface KeyController extends KeyListener, Controller {
 
     @Override
-    default void keyPressed(KeyEvent event){
+    default void keyPressed(KeyEvent event) {
         Map map = getMap();
         Player player = map.getPlayer();
         GodCreature[][] lower = map.getMapLowerObjects();

@@ -2,8 +2,20 @@ package Abilities.Buffs;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import support.AbilityProperty;
+import support.Property;
 
-public class RageBuff extends Buff  {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RageBuff extends Buff {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Buff.propertyList);
+        propertyList.add(AbilityProperty.RAGE_BUFF);
+    }
 
     public RageBuff(int power){
         name = "Ярость";

@@ -3,8 +3,21 @@ package Abilities.Buffs;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
+import support.AbilityProperty;
+import support.Property;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bleeding extends Buff implements StackableBuff {
+    protected final static List<Property> propertyList = new ArrayList<>();
+    public List<Property> getProperties() {return propertyList;}
+
+    static {
+        propertyList.addAll(Buff.propertyList);
+        propertyList.add(AbilityProperty.BLEEDING);
+    }
+
     private FightWindow fightWindow;
 
     public Bleeding(int power){

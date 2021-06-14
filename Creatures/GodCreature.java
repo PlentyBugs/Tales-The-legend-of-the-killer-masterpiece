@@ -11,6 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GodCreature implements Serializable, Cloneable, Copying<GodCreature>, PropertyProvider {
+
+    private static long counter = 0;
+    private final long id;
+
+    {
+        id = counter++;
+    }
+
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
     protected String name;
@@ -97,5 +105,9 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
 
     public GodCreature getClearCopy(){
         return new GodCreature();
+    }
+
+    public long getId() {
+        return id;
     }
 }

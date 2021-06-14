@@ -33,7 +33,7 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     private long id;
     public static int number = 0;
 
-    public Item(){
+    public Item() {
         grade = Grade.COMMON;
         rarity = Rarity.COMMON;
         stackable = false;
