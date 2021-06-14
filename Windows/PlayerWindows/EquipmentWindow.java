@@ -7,6 +7,7 @@ import Items.Armors.Ring;
 import Items.Armors.Torso;
 import Items.Item;
 import Items.Weapons.Weapon;
+import Windows.BattleWindows.PlayerFightItemWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -134,17 +135,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
     }
 
     public static Color getColorByRarity(Item item) {
-        Color colorBackground;
-        colorBackground = switch (item.getRarity()) {
-            case COMMON -> new Color(255, 255, 255, 100);
-            case UNCOMMON -> new Color(0, 115, 255, 100);
-            case RARE -> new Color(12, 0, 255, 100);
-            case MYSTICAL -> new Color(255, 0, 119, 100);
-            case LEGENDARY -> new Color(255, 232, 0, 100);
-            case DRAGON -> new Color(255, 9, 0, 100);
-            case DIVINE -> new Color(255, 169, 0, 100);
-        };
-        return colorBackground;
+        return PlayerFightItemWindow.getColorByRarity(item);
     }
 
     public JPanel getPanel() {

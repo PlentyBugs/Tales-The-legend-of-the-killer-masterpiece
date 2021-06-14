@@ -90,9 +90,6 @@ public class Key extends Item  {
     }
 
     public int compareTo(Key o) {
-        if(o.getClass() != getClass() || door != o.getDoor()){
-            return -1;
-        }
         if(door == o.getDoor()){
             if(level == o.getLevel()){
                 return 0;

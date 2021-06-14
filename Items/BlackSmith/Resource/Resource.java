@@ -1,7 +1,6 @@
 package Items.BlackSmith.Resource;
 
 import Items.Item;
-import support.GeneralProperty;
 import support.Property;
 import support.ResourceProperty;
 
@@ -44,9 +43,6 @@ public class Resource extends Item {
     }
 
     public int compareTo(Resource o) {
-        if(o.getClass() != getClass()){
-            return -1;
-        }
         if(maxTemperature == o.getMaxTemperature() && hotTreatment == o.getTreatment()){
             return 0;
         }

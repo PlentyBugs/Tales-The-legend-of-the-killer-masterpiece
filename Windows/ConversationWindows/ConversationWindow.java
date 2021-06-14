@@ -103,29 +103,28 @@ public class ConversationWindow extends JFrame implements Serializable {
                     int finalS = s;
                     int finalK = k;
                     title.addActionListener((ActionListener & Serializable) e -> {
-                        if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("Train")) {
-                            ((TrainShop) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
+                        if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof TrainShop trainShop) {
+                            trainShop.setPlayer(player);
                             close();
-                            opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
-                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("Shop")) {
-                            ((Shop) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
+                            trainShop.run();
+                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof Shop shop) {
+                            shop.setPlayer(player);
                             close();
-                            opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
-                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("DialogConversation")) {
-                            ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayerName(player.getName());
-                            ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setOpponentName(opponent.getName());
-                            ((DialogConversation) opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setConsole(dialog);
-                            if(opponent.getConversation().getConversationTree().get(finalS).get(finalK).getClass().toString().contains("QuestDialogConversation")){
-                                ((QuestDialogConversation)opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPlayer(player);
-                                ((QuestDialogConversation)opponent.getConversation().getConversationTree().get(finalS).get(finalK)).setPeaceful((Peaceful) opponent);
+                            shop.run();
+                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof DialogConversation dialogConversation) {
+                            dialogConversation.setPlayerName(player.getName());
+                            dialogConversation.setOpponentName(opponent.getName());
+                            dialogConversation.setConsole(dialog);
+                            if(dialogConversation instanceof QuestDialogConversation questDialogConversation){
+                                questDialogConversation.setPlayer(player);
+                                questDialogConversation.setPeaceful((Peaceful) opponent);
                             }
-                            opponent.getConversation().getConversationTree().get(finalS).get(finalK).run();
+                            dialogConversation.run();
 
-                            int size = opponent.getConversation().getConversationTree().get(finalS).get(finalK).getConversationTree().size();
-                            Conversation supportConversation = opponent.getConversation().getConversationTree().get(finalS).get(finalK);
+                            int size = dialogConversation.getConversationTree().size();
                             opponent.getConversation().getConversationTree().remove(finalS);
-                            for (int z = 0; z < size; z++){
-                                ArrayList<Conversation> conv = new ArrayList<>(supportConversation.getConversationTree().get(z));
+                            for (int z = 0; z < size; z++) {
+                                ArrayList<Conversation> conv = new ArrayList<>(dialogConversation.getConversationTree().get(z));
                                 opponent.getConversation().getConversationTree().add(z+1, conv);
                             }
                             setVisible(false);

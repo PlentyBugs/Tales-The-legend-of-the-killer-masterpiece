@@ -1,9 +1,8 @@
 package Quests;
 
-import Items.Item;
 import Creatures.Player;
+import Items.Item;
 import support.Property;
-import support.GeneralProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +28,12 @@ public class CollectItemQuest extends Quest {
     public boolean check(){
         int counter = 0;
         for(Item item : player.getInventory()){
-            if(item.getClass().toString().equals(this.item.getClass().toString())){
+            if(item.getLastProperty() == this.item.getLastProperty()){
                 counter ++;
                 itemCountCurrent = counter;
             }
         }
-        if(itemCountCurrent >= itemCount){
-            return true;
-        }
-        return false;
+        return itemCountCurrent >= itemCount;
     }
 
     public void setPlayer(Player player) {

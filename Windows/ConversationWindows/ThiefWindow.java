@@ -6,6 +6,7 @@ import Items.Weapons.Weapon;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
+import Windows.BattleWindows.PlayerFightItemWindow;
 import Windows.PlayerWindows.EquipmentWindow;
 import Windows.PlayerWindows.UnfocusedButton;
 
@@ -64,14 +65,8 @@ public class ThiefWindow extends JFrame implements Serializable {
             itemConstraints.gridy = 0;
 
             new Color(0, 0, 0);
-            Color colorForeground = switch (item.getGrade()) {
-                case COMMON -> new Color(0, 0, 0);
-                case MAGIC -> new Color(67, 162, 255);
-                case CURSE -> new Color(1, 155, 24);
-                case ARTIFACT -> new Color(255, 0, 18);
-                case HEROIC -> new Color(255, 96, 0);
-                case ABOVE_THE_GODS -> new Color(255, 0, 197);
-            };
+
+            Color colorForeground = PlayerFightItemWindow.getColorByGrade(item);
 
             Color colorBackground = EquipmentWindow.getColorByRarity(item);
 
@@ -86,14 +81,14 @@ public class ThiefWindow extends JFrame implements Serializable {
 
             double cost = 1;
 
-            if (item.getClass().toString().contains("Weapons")){
+            if (item instanceof Weapon weapon){
                 property.setText("Урон: ");
-                propertyCount.setText(Double.toString(((Weapon)item).getDamage()));
-                cost = ((Weapon)item).getDamage();
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet") || item.getClass().toString().contains("Ring")){
+                propertyCount.setText(Double.toString(weapon.getDamage()));
+                cost = weapon.getDamage();
+            } else if (item instanceof Armor armor){
                 property.setText("Защита: ");
-                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
-                cost = ((Armor)item).getProtection();
+                propertyCount.setText(Integer.toString(armor.getProtection()));
+                cost = armor.getProtection();
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));

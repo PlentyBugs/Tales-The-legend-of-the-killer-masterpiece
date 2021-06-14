@@ -2,6 +2,7 @@ package Windows.BattleWindows;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Items.Alchemy.Potions.Alcohol.Alcohol;
 import Items.Alchemy.Potions.Potion;
 import Items.DiplomacyItem;
 import Items.Item;
@@ -87,9 +88,9 @@ public class PlayerDiplomacyWindow extends JFrame implements Serializable {
                 JLabel itemName = new JLabel(item.getName());
                 JLabel property = new JLabel();
 
-                if (item.getClass().toString().contains("Potions")){
+                if (item instanceof Potion potion) {
                     property.setText("Мощность: ");
-                    propertyCount.setText(Integer.toString(((Potion)item).getEffect().getPower()));
+                    propertyCount.setText(Integer.toString(potion.getEffect().getPower()));
                 }
 
                 int count = player.countOfItemInInventory(item);
@@ -109,9 +110,8 @@ public class PlayerDiplomacyWindow extends JFrame implements Serializable {
                 JButton useButton = new UnfocusedButton("Использовать");
 
                 useButton.addActionListener((ActionListener & Serializable) e -> {
-                    if(item.getClass().toString().contains("Alcohol")){
-                        System.out.println(((Potion)item).getEffect().getPower());
-                        ((Potion)item).use(enemy);
+                    if(item instanceof Alcohol alcohol){
+                        alcohol.use(enemy);
                         fightWindow.enemyTurn();
                         player.removeItem(item);
                         fightWindow.writeToPlayerConsole(player.getName() + " использовал " + item.getName());

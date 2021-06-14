@@ -60,7 +60,7 @@ public class BluePrint extends Item  {
 
     public boolean hasResource(Resource resource){
         for(Resource res : resources){
-            if(res.getClass() == resource.getClass()){
+            if(res.getLastProperty() == resource.getLastProperty()){
                 return true;
             }
         }

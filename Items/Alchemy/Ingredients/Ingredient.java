@@ -43,7 +43,7 @@ public class Ingredient extends Potion  {
 
     public boolean useIn(Potion potion){
         for(Potion ptn : usage){
-            if(ptn.getClass().toString().equals(potion.getClass().toString())){
+            if(ptn.getLastProperty() == potion.getLastProperty()){
                 return true;
             }
         }
