@@ -24,7 +24,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Skeleton extends Human {
+public class Skeleton extends Human implements Aggressive {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

@@ -23,7 +23,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bandit extends Human {
+public class Bandit extends Human implements Aggressive {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

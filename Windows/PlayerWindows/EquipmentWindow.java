@@ -2,26 +2,30 @@ package Windows.PlayerWindows;
 
 import Creatures.Player;
 import Items.Armors.Armor;
+import Items.Armors.Helmet;
 import Items.Armors.Ring;
+import Items.Armors.Torso;
 import Items.Item;
 import Items.Weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.io.Serial;
 import java.io.Serializable;
 
 public class EquipmentWindow extends JFrame implements Serializable {
 
-    private Player player;
+    private final Player player;
     private JPanel panel = new JPanel();
-    private GridBagConstraints constraints;
-    private int width = 480;
-    private int height = 240;
+    private final int width = 480;
+
+    @Serial
     private static final long serialVersionUID = 3557302482173437655L;
 
     public EquipmentWindow(Player player){
         super("Экипировка");
+        int height = 240;
         setMinimumSize(new Dimension(width, height));
 
         this.player = player;
@@ -38,7 +42,7 @@ public class EquipmentWindow extends JFrame implements Serializable {
 
     public void drawEquipment(){
         panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(5, 0, 0, 0);
@@ -61,27 +65,19 @@ public class EquipmentWindow extends JFrame implements Serializable {
             itemConstraints.gridy = 0;
 
             Color colorBackground = new Color(255,255,255,255);
-            Color colorForeground = new Color(0,0,0);
+            new Color(0, 0, 0);
+            Color colorForeground = switch (item.getGrade()) {
+                case COMMON -> new Color(0, 0, 0);
+                case MAGIC -> new Color(128, 255, 80);
+                case CURSE -> new Color(1, 155, 24);
+                case ARTIFACT -> new Color(255, 0, 18);
+                case HEROIC -> new Color(255, 96, 0);
+                case ABOVE_THE_GODS -> new Color(255, 0, 197);
+            };
 
-            switch(item.getGrade()){
-                case COMMON: colorForeground = new Color(0,0,0); break;
-                case MAGIC: colorForeground = new Color(128, 255, 80); break;
-                case CURSE: colorForeground = new Color(1,155, 24); break;
-                case ARTIFACT: colorForeground = new Color(255, 0, 18); break;
-                case HEROIC: colorForeground = new Color(255, 96, 0); break;
-                case ABOVE_THE_GODS: colorForeground = new Color(255, 0, 197); break;
-            }
+            colorBackground = getColorByRarity(item);
 
-            switch(item.getRarity()){
-                case COMMON: colorBackground = new Color(255,255,255,100); break;
-                case UNCOMMON: colorBackground = new Color(0, 115,255,100); break;
-                case RARE: colorBackground = new Color(12, 0,255,100); break;
-                case MYSTICAL: colorBackground = new Color(255, 0, 119,100); break;
-                case LEGENDARY: colorBackground = new Color(255, 232, 0,100); break;
-                case DRAGON: colorBackground = new Color(255, 9, 0,100); break;
-                case DIVINE: colorBackground = new Color(255, 169, 0,100); break;
-            }
-            JLabel equipmentItem = new JLabel(item.getClass().toString().split("\\.")[item.getClass().toString().split("\\.").length-1] + ": ");
+            JLabel equipmentItem = new JLabel();
 
             itemConstraints.gridx = 1;
             JLabel itemName = new JLabel(item.getName());
@@ -93,15 +89,22 @@ public class EquipmentWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 3;
             JLabel propertyCount = new JLabel();
 
-            if (item.getClass().toString().contains("Weapon")){
+            if (item instanceof Weapon weapon) {
+                equipmentItem.setText("Оружие: ");
                 property.setText("Урон: ");
-                propertyCount.setText(Integer.toString(((Weapon)item).getClearDamage()));
-            } else if (item.getClass().toString().contains("Torso") || item.getClass().toString().contains("Helmet")){
+                propertyCount.setText(Integer.toString(weapon.getClearDamage()));
+            } else if(item instanceof Ring ring) {
+                equipmentItem.setText("Кольцо: ");
+                property.setText(ring.getStat() + ": ");
+                propertyCount.setText(Integer.toString(ring.getStatPower()));
+            } else if (item instanceof Armor armor) {
+                if (item instanceof Torso) {
+                    equipmentItem.setText("Торс: ");
+                } else if (item instanceof Helmet){
+                    equipmentItem.setText("Шлем: ");
+                }
                 property.setText("Защита: ");
-                propertyCount.setText(Integer.toString(((Armor)item).getProtection()));
-            } else if(item.getClass().toString().contains("Ring")){
-                property.setText(((Ring)item).getStat() + ": ");
-                propertyCount.setText(Integer.toString(((Ring)item).getStatPower()));
+                propertyCount.setText(Integer.toString(armor.getProtection()));
             }
 
             itemName.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -127,7 +130,21 @@ public class EquipmentWindow extends JFrame implements Serializable {
             constraints.gridy ++;
         }
         pack();
-        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
+        if(player.getWindowInterface() != null) player.getWindowInterface().drawMap();
+    }
+
+    public static Color getColorByRarity(Item item) {
+        Color colorBackground;
+        colorBackground = switch (item.getRarity()) {
+            case COMMON -> new Color(255, 255, 255, 100);
+            case UNCOMMON -> new Color(0, 115, 255, 100);
+            case RARE -> new Color(12, 0, 255, 100);
+            case MYSTICAL -> new Color(255, 0, 119, 100);
+            case LEGENDARY -> new Color(255, 232, 0, 100);
+            case DRAGON -> new Color(255, 9, 0, 100);
+            case DIVINE -> new Color(255, 169, 0, 100);
+        };
+        return colorBackground;
     }
 
     public JPanel getPanel() {

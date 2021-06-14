@@ -1,5 +1,6 @@
 package AI;
 
+import Creatures.AggressiveNPC.Aggressive;
 import Creatures.GodCreature;
 import Creatures.LiveCreature;
 import Windows.BattleWindows.FightWindow;
@@ -48,7 +49,7 @@ public class NPCController extends Thread implements Serializable {
             if(elementByCoordinates instanceof LiveCreature creature && creature.getHp() <= 0){
                 fieldWindow.getCurrentMap().setElementByCoordinatesUpper(liveCreature.getX(), liveCreature.getY(), null);
             }
-            if(liveCreature.getClass().toString().contains("Aggressive")
+            if(liveCreature instanceof Aggressive
                     && (
                         liveCreature.getX() == fieldWindow.getPlayer().getX() && liveCreature.getY()+1 == fieldWindow.getPlayer().getY() ||
                         liveCreature.getX() == fieldWindow.getPlayer().getX() && liveCreature.getY()-1 == fieldWindow.getPlayer().getY() ||

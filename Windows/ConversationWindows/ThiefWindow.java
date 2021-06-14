@@ -6,6 +6,7 @@ import Items.Weapons.Weapon;
 import Creatures.LiveCreature;
 import Creatures.Player;
 import Windows.BattleWindows.FightWindow;
+import Windows.PlayerWindows.EquipmentWindow;
 import Windows.PlayerWindows.UnfocusedButton;
 
 import javax.swing.*;
@@ -62,7 +63,6 @@ public class ThiefWindow extends JFrame implements Serializable {
             itemConstraints.gridx = 0;
             itemConstraints.gridy = 0;
 
-            Color colorBackground = new Color(255,255,255,255);
             new Color(0, 0, 0);
             Color colorForeground = switch (item.getGrade()) {
                 case COMMON -> new Color(0, 0, 0);
@@ -73,15 +73,7 @@ public class ThiefWindow extends JFrame implements Serializable {
                 case ABOVE_THE_GODS -> new Color(255, 0, 197);
             };
 
-            colorBackground = switch (item.getRarity()) {
-                case COMMON -> new Color(255, 255, 255, 100);
-                case UNCOMMON -> new Color(0, 115, 255, 100);
-                case RARE -> new Color(12, 0, 255, 100);
-                case MYSTICAL -> new Color(255, 0, 119, 100);
-                case LEGENDARY -> new Color(255, 232, 0, 100);
-                case DRAGON -> new Color(255, 9, 0, 100);
-                case DIVINE -> new Color(255, 169, 0, 100);
-            };
+            Color colorBackground = EquipmentWindow.getColorByRarity(item);
 
             JLabel itemName = new JLabel(item.getName());
             itemConstraints.gridx = 1;

@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class IngredientChooser extends JFrame implements Serializable {
-    private ArrayList<Item> uniqueInventory = new ArrayList<>();
+    private final ArrayList<Item> uniqueInventory = new ArrayList<>();
 
     public IngredientChooser(Player player, Ingredient[] ingredients, int i, IngredientButton buttonParent){
         setAlwaysOnTop(true);
@@ -33,15 +33,17 @@ public class IngredientChooser extends JFrame implements Serializable {
             } else if(player.countOfItemInInventory(item) > 1){
                 continue;
             }
-            if(!item.getClass().toString().contains("Ingredients")){
+            if(!(item instanceof Ingredient)){
                 continue;
             }
             boolean isOk = true;
-            for(int j = 0; j < ingredients.length; j++){
-                if(ingredients[j] == null)
+            for (Ingredient ingredient : ingredients) {
+                if (ingredient == null)
                     continue;
-                if(ingredients[j].getClass().toString().equals(item.getClass().toString()))
+                if (ingredient.getLastProperty() == item.getLastProperty()) {
                     isOk = false;
+                    break;
+                }
             }
             if(!isOk)
                 continue;

@@ -4,6 +4,7 @@ import Abilities.Active.DamageUp;
 import Abilities.Active.DecreaseDamage;
 import Abilities.Passive.CriticalStrike;
 import Abilities.Passive.Evasion;
+import Creatures.AggressiveNPC.Aggressive;
 import Creatures.LiveCreature;
 import Diseases.Rabies;
 import Items.Alchemy.Potions.HealPotion;
@@ -18,7 +19,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wolf extends Animal {
+public class Wolf extends Animal implements Aggressive {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 

@@ -1,5 +1,6 @@
 package Creatures.AggressiveNPC.Boss;
 
+import Creatures.AggressiveNPC.Aggressive;
 import Creatures.LiveCreature;
 import Items.Item;
 import Items.Key;
@@ -9,7 +10,7 @@ import support.GeneralProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Boss extends LiveCreature {
+public class Boss extends LiveCreature implements Aggressive {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
