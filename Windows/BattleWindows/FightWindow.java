@@ -31,7 +31,9 @@ import Quests.KillQuest;
 import Quests.Quest;
 import Things.ChestLike.Chest;
 import Things.ChestLike.Corpse;
+import Windows.MultiWindow;
 import Windows.PlayerWindows.UnfocusedButton;
+import Windows.Screen;
 import Windows.SupportWindows.DialogWindow;
 import Windows.SupportWindows.SupportComponents.Console;
 import Windows.WindowInterface;
@@ -41,12 +43,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FightWindow extends JFrame implements Serializable {
+public class FightWindow extends JPanel implements Serializable {
 
     private final Player player;
     private LiveCreature enemy;
@@ -68,11 +69,10 @@ public class FightWindow extends JFrame implements Serializable {
     private PlayerFightItemWindow playerFightItemWindow;
     private PlayerDiplomacyWindow playerDiplomacyWindow;
 
-    public FightWindow(Player player, LiveCreature enemy, WindowInterface field) {
-        super("Бой");
-        setResizable(false);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+    private final MultiWindow multiWindow;
+
+    public FightWindow(Player player, LiveCreature enemy, WindowInterface field, MultiWindow multiWindow) {
+        this.multiWindow = multiWindow;
 
         this.player = player;
         this.enemy = enemy;
@@ -107,7 +107,6 @@ public class FightWindow extends JFrame implements Serializable {
 
         dialogWindow.setVisible(false);
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JPanel panel = new JPanel(new BorderLayout());
 
         JPanel enemyPanel = new JPanel(new BorderLayout());
@@ -231,7 +230,7 @@ public class FightWindow extends JFrame implements Serializable {
                 field.setIsVisible(true);
                 field.drawMap();
 
-                close();
+                close(Screen.GAME);
             } else {
                 dialogWindow.close();
                 dialogWindow = new DialogWindow("Вам не удалось сбежать");
@@ -251,8 +250,7 @@ public class FightWindow extends JFrame implements Serializable {
         playerPanel.add(playerHp, BorderLayout.SOUTH);
 
         panel.add(playerPanel, BorderLayout.AFTER_LAST_LINE);
-        getContentPane().add(panel);
-        pack();
+        add(panel);
         setVisible(true);
         field.setIsVisible(false);
         Thread printHp = new Thread((Runnable & Serializable) this::printHp);
@@ -277,10 +275,6 @@ public class FightWindow extends JFrame implements Serializable {
 
     private void clearActionConsole(){
         enemyConsoleActions.clear();
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     void enemyTurn(){
@@ -544,7 +538,8 @@ public class FightWindow extends JFrame implements Serializable {
             field.getNpcController().setWaiting(false);
             enemy = null;
             field.drawMap();
-            close();
+
+            close(Screen.GAME);
         });
         thread.start();
     }
@@ -559,7 +554,7 @@ public class FightWindow extends JFrame implements Serializable {
         if(playerDiplomacyWindow != null){
             playerDiplomacyWindow.close();
         }
-        close();
+        close(Screen.LOSS);
         LossWindow loss = new LossWindow();
     }
 
@@ -588,10 +583,10 @@ public class FightWindow extends JFrame implements Serializable {
             for(Item item : attacker.getEquipment().getListOfEquipment()){
                 if(item != null)
                     for(Enchant enchant : item.getEnchants()){
-                        if(enchant.getEnchantType() == EnchantType.SELFUSE){
+                        if(enchant.getEnchantType() == EnchantType.SELFUSE) {
                             enchant.use(attacker);
                         }
-                        if(enchant.getEnchantType() == EnchantType.ATTACK){
+                        if(enchant.getEnchantType() == EnchantType.ATTACK) {
                             enchant.use(enemy);
                         }
                     }
@@ -767,8 +762,13 @@ public class FightWindow extends JFrame implements Serializable {
             playerHp.setValue((int)player.getHp());
             enemyHp.setValue((int)enemy.getHp());
             loyalty.setValue(enemy.getLoyaltyByIndex(player));
-            playerHp.setString(player.getHp() + "/" + Integer.toString(player.getMaxHp()));
+            playerHp.setString(player.getHp() + "/" + player.getMaxHp());
             enemyHp.setString(Double.toString(enemy.getHp()));
         }
+    }
+
+    private void close(Screen screen) {
+        multiWindow.removeFightWindow(this);
+        multiWindow.switchScreen(screen);
     }
 }

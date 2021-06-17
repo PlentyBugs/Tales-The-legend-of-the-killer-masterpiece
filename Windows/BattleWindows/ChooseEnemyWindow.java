@@ -2,7 +2,9 @@ package Windows.BattleWindows;
 
 import Creatures.LiveCreature;
 import Creatures.Player;
+import Windows.MultiWindow;
 import Windows.PlayerWindows.UnfocusedButton;
+import Windows.Screen;
 import Windows.WindowInterface;
 
 import javax.swing.*;
@@ -72,7 +74,10 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
             JButton fight = new UnfocusedButton("В Бой");
 
             ActionListener actionListener = (ActionListener & Serializable) e -> {
-                new FightWindow(player, liveCreature, field);
+                MultiWindow multiWindow = field.getMultiWindow();
+                FightWindow fightWindow = new FightWindow(player, liveCreature, field, multiWindow);
+                multiWindow.newFight(fightWindow);
+                multiWindow.switchScreen(Screen.FIGHT);
                 player.getWindowInterface().getNpcController().setWaiting(true);
                 field.removeKeyListener(this);
                 close();

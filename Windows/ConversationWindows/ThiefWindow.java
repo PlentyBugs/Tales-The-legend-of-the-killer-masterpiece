@@ -122,7 +122,8 @@ public class ThiefWindow extends JFrame implements Serializable, ColoringProfile
                         drawInventory();
                         thief.getInventoryWindow().drawInventory();
                     } else {
-                        FightWindow fightWindow = new FightWindow(thief, player, thief.getWindowInterface());
+                        // todo: сделать
+//                        FightWindow fightWindow = new FightWindow(thief, player, thief.getWindowInterface());
                         close();
                     }
                 }

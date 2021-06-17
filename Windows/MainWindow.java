@@ -1,6 +1,7 @@
 package Windows;
 
 import Creatures.Difficulty;
+import Windows.BattleWindows.FightWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     private final CardLayout manager = new CardLayout();
     private boolean gameCreated;
     private final MainMenu mainMenu;
+    private Screen lastScreen;
 
     public MainWindow() {
         super("Tales of the Killer Masterpiece");
@@ -33,6 +35,8 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     @Override
     public void switchScreen(Screen screen) {
         manager.show(getContentPane(), screen.name());
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
 
     @Override
@@ -43,7 +47,19 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     }
 
     @Override
+    public void newFight(FightWindow fightWindow) {
+        getContentPane().add(fightWindow, Screen.FIGHT.name());
+    }
+
+    @Override
     public boolean isGameCreated() {
         return gameCreated;
+    }
+
+    @Override
+    public void removeFightWindow(FightWindow fightWindow) {
+        getContentPane().remove(fightWindow);
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
 }

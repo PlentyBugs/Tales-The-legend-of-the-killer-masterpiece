@@ -56,7 +56,8 @@ public class NPCController extends Thread implements Serializable {
                         liveCreature.getX()+1 == gameWindow.getPlayer().getX() && liveCreature.getY() == gameWindow.getPlayer().getY() ||
                         liveCreature.getX()-1 == gameWindow.getPlayer().getX() && liveCreature.getY() == gameWindow.getPlayer().getY()
                         )){
-                FightWindow fightWindow = new FightWindow(gameWindow.getPlayer(), liveCreature, gameWindow);
+                // todo: сделать
+//                FightWindow fightWindow = new FightWindow(gameWindow.getPlayer(), liveCreature, gameWindow);
                 waiting = true;
                 break;
             } else {int chance = (int)(Math.random()*100); // Primitive. Better price-system will be added later
