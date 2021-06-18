@@ -1,0 +1,71 @@
+package location.dungeon.DungeonParts;
+
+import creature.aggressive.Bandit;
+import creature.aggressive.Knight;
+import creature.aggressive.Skeleton;
+import creature.aggressive.Zombie;
+import creature.GodCreature;
+import creature.Human;
+import creature.LiveCreature;
+import creature.Player;
+import thing.dungeon.DungeonStoneRoad;
+import thing.dungeon.DungeonWall;
+
+public class DungeonPartAngle extends PartDungeon implements DungeonPart {
+
+    public DungeonPartAngle(Player player){
+        super(player);
+    }
+
+    @Override
+    public GodCreature[][] getWay() {
+        lower = new GodCreature[][]{
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+                {DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), new DungeonStoneRoad(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance(), DungeonWall.getInstance()},
+        };
+        for(int i = 0; i < 21; i++){
+            for(int j = 0; j < 21; j++){
+                if(lower[i][j] instanceof DungeonStoneRoad){
+                    Human[] randomHumanList = {new Bandit(), new Zombie(), new Skeleton(), new Knight()};
+                    int chance = (int) Math.ceil(Math.random() * 100);
+
+                    if (chance <= 1){
+                        LiveCreature randomGodCreature = randomHumanList[(int) (randomHumanList.length * Math.random())];
+                        randomGodCreature.setLvl((int)(Math.random()*(player.getLvl()+16)+1) + player.getLvl() - 1);
+                        randomGodCreature.countStatsAfterBorn();
+                        randomGodCreature.setHp((int)(Math.random()*player.getHp()+70) + 40*player.getLvl() + 70* randomGodCreature.getLvl() + randomGodCreature.getStats().getStrength()*12);
+
+                        randomGodCreature.setMaxHp((int) randomGodCreature.getHp());
+
+                        randomGodCreature.setX(j);
+                        randomGodCreature.setY(i);
+
+                        upper[i][j] = randomGodCreature;
+                    }
+                }
+                lower[i][j].setX(j);
+                lower[i][j].setY(i);
+            }
+        }
+        return lower;
+    }
+}

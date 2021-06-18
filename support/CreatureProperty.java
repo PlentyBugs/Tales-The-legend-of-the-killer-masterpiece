@@ -1,0 +1,26 @@
+package support;
+
+public enum CreatureProperty implements Property {
+    CREATURE,
+    LIVE,
+    UNDEAD,
+    HUMAN,
+    PEACEFUL,
+    INHABITANT,
+    DEALER,
+    BLACKSMITH_CRAFT_MAN,
+    PLAYER,
+    ZOMBIE,
+    SKELETON,
+    KNIGHT,
+    GOBLIN_KING,
+    GOBLIN,
+    ENT,
+    BANDIT,
+    BOSS,
+    DEAD_GUARDIAN,
+    FRANK,
+    HIGHER_GHOST,
+    ANIMAL,
+    WOLF,
+}

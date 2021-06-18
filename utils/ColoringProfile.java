@@ -1,6 +1,6 @@
 package utils;
 
-import Items.Item;
+import item.Item;
 
 import java.awt.Color;
 
