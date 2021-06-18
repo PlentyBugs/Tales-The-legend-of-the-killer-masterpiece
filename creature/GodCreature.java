@@ -1,5 +1,6 @@
 package creature;
 
+import window.MultiWindow;
 import window.battle.ChooseEnemyWindow;
 import window.WindowInterface;
 import support.GeneralProperty;
@@ -81,8 +82,8 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
         return isPlayer;
     }
 
-    public void setChooseEnemyWindow(Player player, WindowInterface fieldWindow, LiveCreature liveCreature){
-        chooseEnemyWindow = new ChooseEnemyWindow(player, fieldWindow, liveCreature);
+    public void setChooseEnemyWindow(Player player, WindowInterface fieldWindow, MultiWindow multiWindow, LiveCreature liveCreature){
+        chooseEnemyWindow = new ChooseEnemyWindow(player, fieldWindow, multiWindow, liveCreature);
         chooseEnemyWindow.requestFocusInWindow();
     }
 

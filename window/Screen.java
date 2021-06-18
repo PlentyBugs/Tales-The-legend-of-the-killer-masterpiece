@@ -7,5 +7,6 @@ public enum Screen {
     LOAD,
     SAVE,
     DIFFICULTY,
-    LOSS
+    LOSS,
+    ENEMY
 }

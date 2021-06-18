@@ -1,7 +1,10 @@
 package window;
 
 import creature.Difficulty;
+import window.battle.ChooseEnemyWindow;
 import window.battle.FightWindow;
+
+import javax.swing.*;
 
 public interface MultiWindow {
     void switchScreen(Screen screen);
@@ -10,9 +13,11 @@ public interface MultiWindow {
 
     void newFight(FightWindow fightWindow);
 
+    void newChooseEnemy(ChooseEnemyWindow cmw);
+
     void gameOver();
 
     boolean isGameCreated();
 
-    void removeFightWindow(FightWindow fightWindow);
+    void removeWindow(JPanel fightWindow);
 }

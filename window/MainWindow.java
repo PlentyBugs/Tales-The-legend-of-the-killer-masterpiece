@@ -1,6 +1,7 @@
 package window;
 
 import creature.Difficulty;
+import window.battle.ChooseEnemyWindow;
 import window.battle.FightWindow;
 
 import javax.swing.*;
@@ -54,6 +55,11 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     }
 
     @Override
+    public void newChooseEnemy(ChooseEnemyWindow cmw) {
+        getContentPane().add(cmw, Screen.ENEMY.name());
+    }
+
+    @Override
     public void gameOver() {
         gameCreated = false;
         mainMenu.setReturnToGameVisible(false);
@@ -65,7 +71,7 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     }
 
     @Override
-    public void removeFightWindow(FightWindow fightWindow) {
+    public void removeWindow(JPanel fightWindow) {
         getContentPane().remove(fightWindow);
         getContentPane().revalidate();
         getContentPane().repaint();

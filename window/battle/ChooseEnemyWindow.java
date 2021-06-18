@@ -3,50 +3,48 @@ package window.battle;
 import creature.LiveCreature;
 import creature.Player;
 import window.MultiWindow;
-import window.player.UnfocusedButton;
 import window.Screen;
 import window.WindowInterface;
+import window.player.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListener{
+public class ChooseEnemyWindow extends JPanel implements Serializable, KeyListener {
 
     private final ArrayList<LiveCreature> liveCreatures = new ArrayList<>();
-    private JPanel panel = new JPanel(new GridBagLayout());
+    private final MultiWindow multiWindow;
 
     private final Player player;
     private final WindowInterface field;
 
-    public ChooseEnemyWindow(Player player, WindowInterface field, LiveCreature ... liveCreatures){
-        super("Выберите противника");
+    public ChooseEnemyWindow(Player player, WindowInterface field, MultiWindow multiWindow, LiveCreature ... liveCreatures) {
         field.addKeyListener(this);
-        setAlwaysOnTop(true);
 
         this.player = player;
         this.field = field;
+        this.multiWindow = multiWindow;
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         addEnemy(liveCreatures);
 
         drawEnemyWindow();
+
+        multiWindow.newChooseEnemy(this);
     }
 
     public void addEnemy(LiveCreature ... liveCreatures){
         Collections.addAll(this.liveCreatures, liveCreatures);
     }
 
-    private void drawEnemyWindow(){
-        getContentPane().remove(panel);
+    private void drawEnemyWindow() {
 
-        panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -74,13 +72,11 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
             JButton fight = new UnfocusedButton("В Бой");
 
             ActionListener actionListener = (ActionListener & Serializable) e -> {
-                MultiWindow multiWindow = field.getMultiWindow();
                 FightWindow fightWindow = new FightWindow(player, liveCreature, field, multiWindow);
                 multiWindow.newFight(fightWindow);
-                multiWindow.switchScreen(Screen.FIGHT);
+                close(Screen.FIGHT);
                 player.getWindowInterface().getNpcController().setWaiting(true);
                 field.removeKeyListener(this);
-                close();
             };
 
             fight.addActionListener(actionListener);
@@ -95,13 +91,13 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
             constraints.gridy ++;
         }
 
-        getContentPane().add(panel);
-        pack();
+        add(panel);
         setVisible(true);
     }
 
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    private void close(Screen screen) {
+        multiWindow.removeWindow(this);
+        multiWindow.switchScreen(screen);
     }
 
     public void setIsVisible(boolean b) {
@@ -117,11 +113,11 @@ public class ChooseEnemyWindow extends JFrame implements Serializable, KeyListen
         if(e.getKeyCode() == KeyEvent.VK_F){
             FightStart fightStart = (FightStart & Serializable) () -> {
                 player.getWindowInterface().getNpcController().setWaiting(true);
-                close();
+                close(Screen.FIGHT);
             };
             fightStart.fight();
-        } else if(e.getKeyCode() == KeyEvent.VK_C){
-            close();
+        } else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            close(Screen.GAME);
         }
     }
 

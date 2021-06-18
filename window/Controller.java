@@ -184,7 +184,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                             liveCreature.countStatsAfterBorn();
                         }
                         if (creature.getChooseEnemyWindow() == null) {
-                            creature.setChooseEnemyWindow(player, windowInterface, (LiveCreature) creature);
+                            creature.setChooseEnemyWindow(player, windowInterface, getMultiWindow(), (LiveCreature) creature);
                         }
                         if (!creature.getIsChooseEnemyWindowOpen()) {
                             creature.setChooseEnemyWindowIsVisible(true);

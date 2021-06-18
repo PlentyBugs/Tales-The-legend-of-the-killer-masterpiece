@@ -2,14 +2,19 @@ package window;
 
 import utils.Constants;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Menu extends JPanel {
 
-    private final int WIDTH = Constants.getFULLSCREEN().width;
-    private final int HEIGHT = Constants.getFULLSCREEN().height;
+    private static BufferedImage background;
+    protected final int WIDTH = Constants.getFULLSCREEN().width;
+    protected final int HEIGHT = Constants.getFULLSCREEN().height;
     private final Dimension buttonSize = new Dimension(WIDTH / 4, HEIGHT / 20);
     private final Font font = new Font("Osaka", Font.PLAIN,HEIGHT / 40);
 
@@ -18,6 +23,11 @@ public class Menu extends JPanel {
         setPreferredSize(fullscreen);
         setMinimumSize(fullscreen);
         setMaximumSize(fullscreen);
+        try {
+            background = ImageIO.read(new File("./texture/img/mainMenu.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void printInterface(String title, JButton ... buttonList) {
@@ -28,7 +38,9 @@ public class Menu extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
 
-        add(new JLabel("<html><h1><strong><i>" + title + "</i></strong></h1><hr></html>"), gbc);
+        JLabel titleLabel = new JLabel("<html><h1><strong><i>" + title + "</i></strong></h1><hr></html>");
+        titleLabel.setForeground(Color.WHITE);
+        add(titleLabel, gbc);
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -39,10 +51,17 @@ public class Menu extends JPanel {
             button.setMaximumSize(buttonSize);
             button.setPreferredSize(buttonSize);
             button.setFont(font);
+            button.setForeground(Color.WHITE);
+            button.setBackground(new Color(220, 137, 70, 255));
             buttons.add(button, gbc);
         }
 
         gbc.weighty = 1;
         add(buttons, gbc);
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(background, 0, 0, WIDTH, HEIGHT, null);
     }
 }
