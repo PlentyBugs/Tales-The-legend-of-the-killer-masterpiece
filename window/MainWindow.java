@@ -12,6 +12,7 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     private final CardLayout manager = new CardLayout();
     private boolean gameCreated;
     private final MainMenu mainMenu;
+    private final ChooseEnemyMenu chooseEnemy;
     private Screen lastScreen;
 
     public MainWindow() {
@@ -30,6 +31,8 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
         getContentPane().add(difficultyMenu, Screen.DIFFICULTY.name());
         Menu lossMenu = new LossMenu(this);
         getContentPane().add(lossMenu, Screen.LOSS.name());
+        chooseEnemy = new ChooseEnemyMenu(this);
+        getContentPane().add(chooseEnemy, Screen.ENEMY.name());
 
         pack();
         setVisible(true);
@@ -56,7 +59,7 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
 
     @Override
     public void newChooseEnemy(ChooseEnemyWindow cmw) {
-        getContentPane().add(cmw, Screen.ENEMY.name());
+        chooseEnemy.setCmw(cmw);
     }
 
     @Override
@@ -71,9 +74,15 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     }
 
     @Override
-    public void removeWindow(JPanel fightWindow) {
-        getContentPane().remove(fightWindow);
+    public void removeWindow(JPanel window) {
+        getContentPane().remove(window);
         getContentPane().revalidate();
         getContentPane().repaint();
+    }
+
+    @Override
+    public void removeCMW(ChooseEnemyWindow chooseEnemyWindow) {
+        chooseEnemy.remove(chooseEnemyWindow);
+        chooseEnemy.setVisible(false);
     }
 }

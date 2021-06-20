@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyListener;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -222,5 +223,17 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
     @Override
     public MultiWindow getMultiWindow() {
         return multiWindow;
+    }
+
+    @Override
+    public synchronized void addKeyListener(KeyListener l) {
+        super.removeKeyListener(this);
+        super.addKeyListener(l);
+    }
+
+    @Override
+    public synchronized void removeKeyListener(KeyListener l) {
+        super.addKeyListener(this);
+        super.removeKeyListener(l);
     }
 }

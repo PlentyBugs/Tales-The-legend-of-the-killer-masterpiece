@@ -20,4 +20,6 @@ public interface MultiWindow {
     boolean isGameCreated();
 
     void removeWindow(JPanel fightWindow);
+
+    void removeCMW(ChooseEnemyWindow chooseEnemyWindow);
 }
