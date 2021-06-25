@@ -23,7 +23,7 @@ public class ChooseEnemyWindow extends JPanel implements Serializable, KeyListen
     private final WindowInterface field;
 
     public ChooseEnemyWindow(Player player, WindowInterface field, MultiWindow multiWindow, LiveCreature liveCreature) {
-        field.addKeyListener(this);
+        field.getKeyControl(this);
 
         this.player = player;
         this.field = field;
@@ -83,12 +83,14 @@ public class ChooseEnemyWindow extends JPanel implements Serializable, KeyListen
 
     private void close(Screen screen) {
         multiWindow.removeCMW(this);
-        field.removeKeyListener(this);
+        field.returnKeyControl();
         multiWindow.switchScreen(screen);
     }
 
     public void setIsVisible(boolean b) {
-        drawEnemyWindow();
+        if (b) {
+            drawEnemyWindow();
+        }
         setVisible(b);
     }
 

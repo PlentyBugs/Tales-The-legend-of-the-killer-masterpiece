@@ -84,7 +84,6 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
 
     public void setChooseEnemyWindow(Player player, WindowInterface fieldWindow, MultiWindow multiWindow, LiveCreature liveCreature){
         chooseEnemyWindow = new ChooseEnemyWindow(player, fieldWindow, multiWindow, liveCreature);
-        chooseEnemyWindow.requestFocusInWindow();
     }
 
     public void setChooseEnemyWindowOpen(boolean isChooseEnemyWindowOpen) {

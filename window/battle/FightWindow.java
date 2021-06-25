@@ -766,5 +766,6 @@ public class FightWindow extends JPanel implements Serializable {
     private void close(Screen screen) {
         multiWindow.removeWindow(this);
         multiWindow.switchScreen(screen);
+        field.returnKeyControl();
     }
 }

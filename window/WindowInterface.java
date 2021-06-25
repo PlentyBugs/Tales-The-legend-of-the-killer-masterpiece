@@ -6,9 +6,9 @@ public interface WindowInterface extends KeyController, AIProvider {
 
     void writeToConsole(String message);
 
-    void addKeyListener(KeyListener l);
+    void getKeyControl(KeyListener controller);
 
-    void removeKeyListener(KeyListener l);
+    void returnKeyControl();
 
     void setIsVisible(boolean isVisible);
 }

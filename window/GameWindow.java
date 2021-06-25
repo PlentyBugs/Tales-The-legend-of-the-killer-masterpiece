@@ -92,6 +92,7 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
 
     @Override
     public void drawMap() {
+        if (!isVisible()) return;
 //        npcController.clear();
 //        npcController.setWindowInterface(this);
 //        player.removeBrokenItems();
@@ -114,6 +115,7 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
     }
 
     private void fillContentPanel(){
+        if (!isVisible()) return;
         subPanel.remove(contentPanel);
 
         contentPanel = new JPanel(new GridBagLayout());
@@ -225,15 +227,14 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
         return multiWindow;
     }
 
-    @Override
-    public synchronized void addKeyListener(KeyListener l) {
-        super.removeKeyListener(this);
-        super.addKeyListener(l);
+    public void getKeyControl(KeyListener controller) {
+        removeKeyListener(getKeyListeners()[0]);
+        addKeyListener(controller);
     }
 
-    @Override
-    public synchronized void removeKeyListener(KeyListener l) {
-        super.addKeyListener(this);
-        super.removeKeyListener(l);
+    public void returnKeyControl() {
+        removeKeyListener(getKeyListeners()[0]);
+        addKeyListener(this);
+        requestFocusInWindow();
     }
 }
