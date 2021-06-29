@@ -2,6 +2,10 @@ package window.battle;
 
 import creature.LiveCreature;
 import creature.Player;
+import support.CreatureProperty;
+import texture.Texture;
+import texture.TextureFactory;
+import window.Menu;
 import window.MultiWindow;
 import window.Screen;
 import window.WindowInterface;
@@ -9,12 +13,12 @@ import window.player.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public class ChooseEnemyWindow extends JPanel implements Serializable, KeyListener {
+public class ChooseEnemyWindow extends Menu implements Serializable {
 
     private final LiveCreature creature;
     private final MultiWindow multiWindow;
@@ -23,97 +27,95 @@ public class ChooseEnemyWindow extends JPanel implements Serializable, KeyListen
     private final WindowInterface field;
 
     public ChooseEnemyWindow(Player player, WindowInterface field, MultiWindow multiWindow, LiveCreature liveCreature) {
-        field.getKeyControl(this);
+        super();
+        field.getKeyControl();
+        bindKeys();
 
         this.player = player;
         this.field = field;
         this.multiWindow = multiWindow;
         this.creature = liveCreature;
 
-        drawEnemyWindow();
 
-        field.setIsVisible(false);
-        multiWindow.newChooseEnemy(this);
-        multiWindow.switchScreen(Screen.ENEMY);
-    }
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-    private void drawEnemyWindow() {
+        JPanel imagePanel = new JPanel();
+        Texture texture = TextureFactory.get((CreatureProperty) creature.getLastProperty());
+        BufferedImage image = texture.getTexture();
+        int height = image.getHeight();
+        int newHeight = HEIGHT * 5 / 6;
+        double coefficient = (newHeight * 1.0) / height;
+        int newWidth = (int) (image.getWidth() * coefficient);
+        Image scaledInstance = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
+        imagePanel.add(new JLabel(new ImageIcon(scaledInstance)), BorderLayout.CENTER);
 
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.insets = new Insets(5, 0, 0, 0);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BorderLayout());
+        Dimension creatureNameDimension = new Dimension(newWidth, HEIGHT / 10);
+        infoPanel.setMinimumSize(creatureNameDimension);
+        infoPanel.setMaximumSize(creatureNameDimension);
+        infoPanel.setPreferredSize(creatureNameDimension);
+        JLabel creatureNameLabel = new JLabel(creature.getName(), SwingConstants.CENTER);
+        creatureNameLabel.setFont(FONT);
+        infoPanel.add(creatureNameLabel, BorderLayout.NORTH);
+        JLabel creatureLevelLabel = new JLabel(creature.getLvl() + " Lvl", SwingConstants.CENTER);
+        creatureLevelLabel.setFont(FONT);
+        infoPanel.add(creatureLevelLabel, BorderLayout.CENTER);
+        JProgressBar life = new JProgressBar(0, creature.getMaxHp());
+        life.setValue((int) (creature.getHp()));
+        life.setStringPainted(true);
+        life.setString(((int) creature.getHp()) + " / " + creature.getMaxHp());
+        life.setFont(FONT);
+        life.setBackground(Color.RED);
+        life.setForeground(Color.GREEN);
+        infoPanel.add(life, BorderLayout.SOUTH);
+        JButton fight = new UnfocusedButton("Fight");
+        fight.addActionListener(e -> fight());
+        customizeButton(fight);
 
-        JPanel liveCreaturePanel = new JPanel();
-        int width = 480;
-        liveCreaturePanel.setPreferredSize(new Dimension(width, 40));
-        GridBagConstraints liveCreatureConstraints = new GridBagConstraints();
-        liveCreatureConstraints.anchor = GridBagConstraints.WEST;
-        liveCreatureConstraints.insets = new Insets(20, 30, 20, 10);
-        liveCreatureConstraints.gridx = 0;
-        liveCreatureConstraints.gridy = 0;
-
-        JLabel enemyName = new JLabel("Имя: " + creature.getName());
-        liveCreatureConstraints.gridx = 1;
-        JLabel enemyHp = new JLabel("Жизни: " + creature.getHp());
-        liveCreatureConstraints.gridx = 2;
-        JLabel enemyLvl = new JLabel("Уровень: " + creature.getLvl());
-        liveCreatureConstraints.gridx = 3;
-        JButton fight = new UnfocusedButton("В Бой");
-
-        ActionListener actionListener = (ActionListener & Serializable) e -> fight(creature);
-
-        fight.addActionListener(actionListener);
-
-        liveCreaturePanel.add(enemyName, liveCreatureConstraints);
-        liveCreaturePanel.add(enemyHp, liveCreatureConstraints);
-        liveCreaturePanel.add(enemyLvl, liveCreatureConstraints);
-        liveCreaturePanel.add(fight, liveCreatureConstraints);
-
-        panel.add(liveCreaturePanel, constraints);
-
-        constraints.gridy ++;
+        panel.add(infoPanel, BorderLayout.NORTH);
+        panel.add(imagePanel, BorderLayout.CENTER);
+        panel.add(fight, BorderLayout.SOUTH);
 
         add(panel);
         setVisible(true);
+
+        field.setIsVisible(false);
+        multiWindow.newWindow(this, Screen.ENEMY);
+        multiWindow.switchScreen(Screen.ENEMY);
     }
 
     private void close(Screen screen) {
-        multiWindow.removeCMW(this);
+        multiWindow.removeWindow(this);
         field.returnKeyControl();
         multiWindow.switchScreen(screen);
     }
 
-    public void setIsVisible(boolean b) {
-        if (b) {
-            drawEnemyWindow();
-        }
-        setVisible(b);
-    }
-
-    private void fight(LiveCreature creature) {
+    private void fight() {
         FightWindow fightWindow = new FightWindow(player, creature, field, multiWindow);
-        multiWindow.newFight(fightWindow);
+        multiWindow.newWindow(fightWindow, Screen.FIGHT);
         close(Screen.FIGHT);
         player.getWindowInterface().getNpcController().setWaiting(true);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_F){
-            FightStart fightStart = (FightStart & Serializable) () -> fight(creature);
-            fightStart.fight();
-        } else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            close(Screen.GAME);
-        }
+    private void bindKeys() {
+        KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape,   "escape");
+        getActionMap().put("escape", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                close(Screen.GAME);
+            }
+        });
+        KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_F, 0);
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke,   "fight");
+        getActionMap().put("fight", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fight();
+            }
+        });
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
 }

@@ -227,13 +227,11 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
         return multiWindow;
     }
 
-    public void getKeyControl(KeyListener controller) {
+    public void getKeyControl() {
         removeKeyListener(getKeyListeners()[0]);
-        addKeyListener(controller);
     }
 
     public void returnKeyControl() {
-        removeKeyListener(getKeyListeners()[0]);
         addKeyListener(this);
         requestFocusInWindow();
     }

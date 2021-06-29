@@ -1,8 +1,6 @@
 package window;
 
 import creature.Difficulty;
-import window.battle.ChooseEnemyWindow;
-import window.battle.FightWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +10,6 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     private final CardLayout manager = new CardLayout();
     private boolean gameCreated;
     private final MainMenu mainMenu;
-    private final ChooseEnemyMenu chooseEnemy;
     private Screen lastScreen;
 
     public MainWindow() {
@@ -31,8 +28,6 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
         getContentPane().add(difficultyMenu, Screen.DIFFICULTY.name());
         Menu lossMenu = new LossMenu(this);
         getContentPane().add(lossMenu, Screen.LOSS.name());
-        chooseEnemy = new ChooseEnemyMenu(this);
-        getContentPane().add(chooseEnemy, Screen.ENEMY.name());
 
         pack();
         setVisible(true);
@@ -53,13 +48,8 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
     }
 
     @Override
-    public void newFight(FightWindow fightWindow) {
-        getContentPane().add(fightWindow, Screen.FIGHT.name());
-    }
-
-    @Override
-    public void newChooseEnemy(ChooseEnemyWindow cmw) {
-        chooseEnemy.setCmw(cmw);
+    public void newWindow(JPanel window, Screen screen) {
+        getContentPane().add(window, screen.name());
     }
 
     @Override
@@ -78,11 +68,5 @@ public class MainWindow extends JFrame implements MultiWindow, Creator {
         getContentPane().remove(window);
         getContentPane().revalidate();
         getContentPane().repaint();
-    }
-
-    @Override
-    public void removeCMW(ChooseEnemyWindow chooseEnemyWindow) {
-        chooseEnemy.remove(chooseEnemyWindow);
-        chooseEnemy.setVisible(false);
     }
 }

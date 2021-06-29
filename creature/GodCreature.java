@@ -94,10 +94,6 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
         return isChooseEnemyWindowOpen;
     }
 
-    public void setChooseEnemyWindowIsVisible(boolean isVisible) {
-        chooseEnemyWindow.setIsVisible(isVisible);
-    }
-
     public ChooseEnemyWindow getChooseEnemyWindow() {
         return chooseEnemyWindow;
     }

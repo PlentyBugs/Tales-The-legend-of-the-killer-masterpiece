@@ -11,15 +11,11 @@ public interface MultiWindow {
 
     void newGame(Difficulty difficulty);
 
-    void newFight(FightWindow fightWindow);
-
-    void newChooseEnemy(ChooseEnemyWindow cmw);
+    void newWindow(JPanel window, Screen screen);
 
     void gameOver();
 
     boolean isGameCreated();
 
     void removeWindow(JPanel fightWindow);
-
-    void removeCMW(ChooseEnemyWindow chooseEnemyWindow);
 }

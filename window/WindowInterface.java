@@ -1,12 +1,10 @@
 package window;
 
-import java.awt.event.KeyListener;
-
 public interface WindowInterface extends KeyController, AIProvider {
 
     void writeToConsole(String message);
 
-    void getKeyControl(KeyListener controller);
+    void getKeyControl();
 
     void returnKeyControl();
 
