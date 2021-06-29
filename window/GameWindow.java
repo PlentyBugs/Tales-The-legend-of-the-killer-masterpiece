@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyListener;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
@@ -42,7 +41,7 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
 
     public GameWindow(Map map, MultiWindow multiWindow) {
         this.multiWindow = multiWindow;
-        addKeyListener(this);
+        bindKeys();
         setFocusable(true);
         setFocusTraversalKeysEnabled(true);
         setLayout(new BorderLayout());
@@ -227,12 +226,7 @@ public class GameWindow extends JPanel implements Serializable, WindowInterface 
         return multiWindow;
     }
 
-    public void getKeyControl() {
-        removeKeyListener(getKeyListeners()[0]);
-    }
-
     public void returnKeyControl() {
-        addKeyListener(this);
         requestFocusInWindow();
     }
 }

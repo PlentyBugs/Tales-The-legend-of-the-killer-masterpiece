@@ -36,7 +36,6 @@ import window.MultiWindow;
 import window.Screen;
 import window.WindowInterface;
 import window.player.UnfocusedButton;
-import window.support.DialogWindow;
 import window.support.component.Console;
 
 import javax.swing.*;
@@ -63,7 +62,6 @@ public class FightWindow extends JPanel implements Serializable {
     private final Console enemyConsoleActions;
     private final Console enemyConsoleStatus;
     private final Console playerConsole;
-    private DialogWindow dialogWindow = new DialogWindow("");
 
     private PlayerAbilityWindow playerAbilityWindow;
     private PlayerFightItemWindow playerFightItemWindow;
@@ -104,8 +102,6 @@ public class FightWindow extends JPanel implements Serializable {
         enemyHp.setValue((int)player.getHp());
         enemyHp.setStringPainted(true);
         enemyHp.setString(Double.toString(enemy.getHp()));
-
-        dialogWindow.setVisible(false);
 
         JPanel panel = new JPanel(new BorderLayout());
 
@@ -224,16 +220,12 @@ public class FightWindow extends JPanel implements Serializable {
         playerRunAwayButton.addActionListener((ActionListener & Serializable) e -> {
             int chance = (int)(Math.random()*(100-player.getStats().getLuck()/2));
             if (chance < 100*player.getLvl()/(enemy.getLvl()+1)){
-                dialogWindow.close();
-                dialogWindow = new DialogWindow("Вам удалось сбежать");
-
                 field.setIsVisible(true);
                 field.drawMap();
 
                 close(Screen.GAME);
             } else {
-                dialogWindow.close();
-                dialogWindow = new DialogWindow("Вам не удалось сбежать");
+                writeToPlayerConsole("Вам не удалось сбежать!");
                 enemyTurn();
             }
         });
@@ -485,8 +477,6 @@ public class FightWindow extends JPanel implements Serializable {
                     dropItems.add(item);
                 }
             }
-
-            dialogWindow.close();
 
             player.addMoney(rewardMoney);
             player.addExp(rewardExp);

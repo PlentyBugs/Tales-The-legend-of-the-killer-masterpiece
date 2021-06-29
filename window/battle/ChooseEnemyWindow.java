@@ -28,7 +28,6 @@ public class ChooseEnemyWindow extends Menu implements Serializable {
 
     public ChooseEnemyWindow(Player player, WindowInterface field, MultiWindow multiWindow, LiveCreature liveCreature) {
         super();
-        field.getKeyControl();
         bindKeys();
 
         this.player = player;

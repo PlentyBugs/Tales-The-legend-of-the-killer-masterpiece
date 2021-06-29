@@ -4,8 +4,6 @@ public interface WindowInterface extends KeyController, AIProvider {
 
     void writeToConsole(String message);
 
-    void getKeyControl();
-
     void returnKeyControl();
 
     void setIsVisible(boolean isVisible);
