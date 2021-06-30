@@ -8,5 +8,8 @@ public enum Screen {
     SAVE,
     DIFFICULTY,
     LOSS,
-    ENEMY
+    ENEMY,
+    SHOP,
+    THEFT,
+    CONVERSATION
 }

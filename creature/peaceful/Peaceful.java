@@ -64,13 +64,11 @@ public class Peaceful extends Human {
         dialogConversation.setTitle(title);
         dialogConversation.setText(text);
         dialogConversation.setPlayerText(playerText);
-        dialogConversation.setConsole(getConversationWindow().getDialog());
         conversation.addConversationBranch(dialogConversation, branchNumber);
         return this;
     }
 
     public Peaceful addConversationDialog(int branchNumber, DialogConversation dialogConversation){
-        dialogConversation.setConsole(getConversationWindow().getDialog());
         conversation.addConversationBranch(dialogConversation, branchNumber);
         return this;
     }

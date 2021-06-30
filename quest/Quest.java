@@ -92,8 +92,8 @@ public class Quest implements Serializable, PropertyProvider {
                 rewardItemMessage);
 
         if(conversationEmployer != null)
-            for(ArrayList<Conversation> list : conversationEmployer.getConversationTree())
-                for(Conversation conversation : list)
+            for(Conversation list : conversationEmployer.getConversationTree())
+                for(Conversation conversation : list.getConversationTree())
                     conversation.setIsVisible(true);
 
         for(Quest quest : autoNextQuest){

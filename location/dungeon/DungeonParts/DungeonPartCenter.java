@@ -7,7 +7,7 @@ import creature.aggressive.Zombie;
 import creature.GodCreature;
 import creature.Human;
 import creature.LiveCreature;
-import creature.peaceful.NPC;
+import creature.peaceful.npc.NPC;
 import creature.Player;
 import thing.craft.AlchemyTable;
 import thing.dungeon.DungeonStoneRoad;

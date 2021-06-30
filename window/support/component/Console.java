@@ -12,8 +12,8 @@ public class Console extends JPanel implements Serializable {
     private boolean firstTime = true;
     private int speed = 10;
 
-    public Console()
-    {
+    public Console() {
+        setLayout(new BorderLayout());
         console = new JTextArea(8,140);
 
         console.setBackground(Color.LIGHT_GRAY);
@@ -64,7 +64,6 @@ public class Console extends JPanel implements Serializable {
     }
 
     public void setSizeArea(int width, int height){
-
         vertical.setPreferredSize(new Dimension(width, height));
         vertical.setMinimumSize(new Dimension(width, height));
         vertical.setMaximumSize(new Dimension(width, height));

@@ -18,6 +18,9 @@ public class TextureFactory {
     private static Texture FRANK;
     private static Texture HIGHER_GHOST;
     private static Texture STOCK;
+    private static Texture SHUTEP;
+    private static Texture PETUSH;
+    private static Texture DANIL;
 
     public static Texture get(CreatureProperty creature) {
         return switch (creature) {
@@ -32,6 +35,9 @@ public class TextureFactory {
             case DEAD_GUARDIAN -> {if (DEAD_GUARDIAN == null) DEAD_GUARDIAN = new Texture(path + "deadGuardian.jpg"); yield DEAD_GUARDIAN; }
             case FRANK -> {if (FRANK == null) FRANK = new Texture(path + "frank.jpg"); yield FRANK; }
             case HIGHER_GHOST -> {if (HIGHER_GHOST == null) HIGHER_GHOST = new Texture(path + "higherGhost.jpg"); yield HIGHER_GHOST; }
+            case SHUTEP -> {if (SHUTEP == null) SHUTEP = new Texture(path + "shutep.jpg"); yield SHUTEP; }
+            case PETUSH -> {if (PETUSH == null) PETUSH = new Texture(path + "petush.jpg"); yield PETUSH; }
+            case DANIL -> {if (DANIL == null) DANIL = new Texture(path + "danil.jpg"); yield DANIL; }
             default -> {if (STOCK == null) STOCK = new Texture(path + "stock.jpg"); yield STOCK; }
         };
     }

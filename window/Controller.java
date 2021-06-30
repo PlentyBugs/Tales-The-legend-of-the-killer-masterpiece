@@ -15,6 +15,10 @@ import thing.craft.CraftTable;
 import thing.door.CaveDoor;
 import thing.door.Door;
 import thing.door.DoorToUpperLevelLocation;
+import window.conversation.ConversationWindow;
+import window.provider.MapProvider;
+import window.provider.MultiWindowProvider;
+import window.provider.WindowProvider;
 
 public interface Controller extends WindowProvider, MapProvider, MapDrawer, MultiWindowProvider, PlayerInterfaceDrawer {
 
@@ -159,13 +163,11 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                 player.setWindowInterface(windowInterface);
                 if (liveCreature.getTalkative()) {
                     liveCreature.setConversationWindowPlayer(player);
-                    if (!liveCreature.getIsConversationWindowOpen()) {
-                        liveCreature.setConversationWindowIsVisible(true);
-                        liveCreature.setConversationWindowOpen(true);
-                    } else {
-                        liveCreature.setConversationWindowIsVisible(false);
-                        liveCreature.setConversationWindowOpen(false);
-                    }
+                    ConversationWindow conversationWindow = liveCreature.getConversationWindow();
+                    conversationWindow.setMultiWindow(getMultiWindow());
+                    conversationWindow.setIsVisible(true);
+                    getMultiWindow().newWindow(conversationWindow, Screen.CONVERSATION);
+                    getMultiWindow().switchScreen(Screen.CONVERSATION);
                 } else {
                     if (liveCreature.getHp() == 0) {
                         liveCreature.countStatsAfterBorn();

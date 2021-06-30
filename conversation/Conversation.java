@@ -16,13 +16,13 @@ public class Conversation implements Serializable, PropertyProvider {
         propertyList.add(GeneralProperty.CONVERSATION);
     }
 
-    protected ArrayList<ArrayList<Conversation>> conversationTree = new ArrayList<>();
+    protected List<Conversation> conversationTree = new ArrayList<>();
     protected String Title;
     protected int layerNumber = 0;
     protected boolean visible = true;
     protected int branchNumber;
 
-    public ArrayList<ArrayList<Conversation>> getConversationTree() {
+    public List<Conversation> getConversationTree() {
         return conversationTree;
     }
 
@@ -30,11 +30,9 @@ public class Conversation implements Serializable, PropertyProvider {
         branchNumber --;
         conversation.setLayerNumber(layerNumber+1);
         if(branchNumber < conversationTree.size()){
-            conversationTree.get(branchNumber).add(conversation);
+            conversationTree.get(branchNumber).getConversationTree().add(conversation);
         } else {
-            ArrayList<Conversation> conv = new ArrayList<>();
-            conv.add(conversation);
-            conversationTree.add(conv);
+            conversationTree.add(conversation);
         }
     }
 

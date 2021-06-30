@@ -5,7 +5,7 @@ import creature.Player;
 import support.CreatureProperty;
 import texture.Texture;
 import texture.TextureFactory;
-import window.Menu;
+import window.menu.Menu;
 import window.MultiWindow;
 import window.Screen;
 import window.WindowInterface;
@@ -47,7 +47,6 @@ public class ChooseEnemyWindow extends Menu implements Serializable {
         double coefficient = (newHeight * 1.0) / height;
         int newWidth = (int) (image.getWidth() * coefficient);
         Image scaledInstance = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-
         imagePanel.add(new JLabel(new ImageIcon(scaledInstance)), BorderLayout.CENTER);
 
         JPanel infoPanel = new JPanel();

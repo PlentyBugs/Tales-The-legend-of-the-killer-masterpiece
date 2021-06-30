@@ -7,7 +7,7 @@ import creature.aggressive.Goblin;
 import creature.aggressive.GoblinKing;
 import creature.GodCreature;
 import creature.LiveCreature;
-import creature.peaceful.NPC;
+import creature.peaceful.npc.NPC;
 import creature.Player;
 import item.alchemy.ingredient.*;
 import item.Key;

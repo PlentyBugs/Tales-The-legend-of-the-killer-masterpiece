@@ -1,4 +1,4 @@
-import window.MainWindow;
+import window.menu.MainWindow;
 
 import java.io.IOException;
 

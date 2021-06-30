@@ -7,13 +7,14 @@ import window.player.UnfocusedButton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ScrollPanels {
 
-    private ArrayList<ArrayList<Conversation>> tree = new ArrayList<>();
-    private ArrayList<String> numberOfLayers = new ArrayList<>();
+    private List<Conversation> tree = new ArrayList<>();
+    private final ArrayList<String> numberOfLayers = new ArrayList<>();
     private JScrollPaneDialog scroll = new JScrollPaneDialog();
-    private JScrollPane scrollPane = new JScrollPane((JPanel)null, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    private JScrollPane scrollPane = new JScrollPane(null, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     private ConstructorConversationWindow constructorConversationWindow;
 
     public void fillMainPanel(){
@@ -24,7 +25,7 @@ public class ScrollPanels {
         }
     }
 
-    public void setTree(ArrayList<ArrayList<Conversation>> tree) {
+    public void setTree(List<Conversation> tree) {
         this.tree = tree;
     }
 
@@ -53,7 +54,7 @@ public class ScrollPanels {
 
     private void loop(int i){
 
-        ArrayList<ArrayList<Conversation>> tree = getChildTree(i);
+        List<Conversation> tree = getChildTree(i);
 
         JPanel convPanel = new JPanel(new GridBagLayout());
         JScrollPane convScrollPane = new JScrollPane(convPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -68,13 +69,14 @@ public class ScrollPanels {
         convConstraints.gridy = 0;
 
         for(int s = 0; s < tree.size(); s++) {
-            for (int k = 0; k < tree.get(s).size(); k++) {
+            List<Conversation> conversationTree = tree.get(s).getConversationTree();
+            for (int k = 0; k < conversationTree.size(); k++) {
 
-                JButton button = new UnfocusedButton(tree.get(s).get(k).getTitle());
+                JButton button = new UnfocusedButton(conversationTree.get(k).getTitle());
                 int finalS = s;
                 int finalK = k;
                 button.addActionListener(e -> {
-                    constructorConversationWindow.setChosenConversation(tree.get(finalS).get(finalK));
+                    constructorConversationWindow.setChosenConversation(conversationTree.get(finalK));
                     addToNumberOfLayers(finalS, finalK, i);
                     constructorConversationWindow.drawWindow();
                 });
@@ -89,8 +91,8 @@ public class ScrollPanels {
         scroll.setScrollByS(i, convScrollPane);
     }
 
-    private ArrayList<ArrayList<Conversation>> getChildTree(int layer){
-        ArrayList<ArrayList<Conversation>> returnChildTree = tree;
+    private List<Conversation> getChildTree(int layer){
+        List<Conversation> returnChildTree = tree;
         /*
         layer --;
         if(layer != -1){
@@ -101,7 +103,7 @@ public class ScrollPanels {
         */
         for (int i = 0; i < layer; i++){
             if(returnChildTree.size() != 0){
-                returnChildTree = returnChildTree.get(Integer.parseInt(numberOfLayers.get(i).split("-")[0])).get(Integer.parseInt(numberOfLayers.get(i).split("-")[1])).getConversationTree();
+                returnChildTree = returnChildTree.get(Integer.parseInt(numberOfLayers.get(i).split("-")[0])).getConversationTree().get(Integer.parseInt(numberOfLayers.get(i).split("-")[1])).getConversationTree();
             }
         }
 

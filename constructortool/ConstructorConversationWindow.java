@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConstructorConversationWindow extends JFrame {
 
@@ -18,7 +19,7 @@ public class ConstructorConversationWindow extends JFrame {
     private JPanel panel = new JPanel(new GridBagLayout());
     private GridBagConstraints constraints = new GridBagConstraints();
     private Conversation chosenConversation;
-    private ArrayList branches = new ArrayList<>();
+    private List<Integer> branches = new ArrayList<>();
     private ScrollPanels scrollPanels = new ScrollPanels();
 
     public ConstructorConversationWindow(Peaceful peaceful){
@@ -43,8 +44,8 @@ public class ConstructorConversationWindow extends JFrame {
         addConversationDialog.setMaximumSize(new Dimension(180,40));
         addConversationDialog.addActionListener(e -> {
             branches.clear();
-            for(ArrayList<Conversation> conversationArrayList : peaceful.getConversation().getConversationTree()) {
-                for (Conversation conversation : conversationArrayList) {
+            for(Conversation conv : peaceful.getConversation().getConversationTree()) {
+                for (Conversation conversation : conv.getConversationTree()) {
                     if(!branches.contains(conversation.getBranchNumber())){
                         branches.add(conversation.getBranchNumber());
                     }
@@ -84,8 +85,8 @@ public class ConstructorConversationWindow extends JFrame {
         addBranchConversation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 branches.clear();
-                for(ArrayList<Conversation> conversationArrayList : chosenConversation.getConversationTree()) {
-                    for (Conversation conversation : conversationArrayList) {
+                for(Conversation conv : chosenConversation.getConversationTree()) {
+                    for (Conversation conversation : conv.getConversationTree()) {
                         if(!branches.contains(conversation.getBranchNumber())){
                             branches.add(conversation.getBranchNumber());
                         }

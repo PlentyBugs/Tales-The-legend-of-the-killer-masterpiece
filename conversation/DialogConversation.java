@@ -5,11 +5,10 @@ import window.support.component.Console;
 public class DialogConversation extends Conversation {
     protected String text;
     protected String playerText;
-    protected Console console;
     protected String opponentName = "";
     protected String playerName = "";
 
-    public void run() {
+    public void writeToConsole(Console console) {
         console.writeToConsole( playerName + ": " + playerText);
         console.writeToConsole(opponentName + ": " + text);
     }
@@ -23,22 +22,9 @@ public class DialogConversation extends Conversation {
         return this;
     }
 
-    public Console getConsole() {
-        return console;
-    }
-
-    public DialogConversation setConsole(Console console) {
-        this.console = console;
-        return this;
-    }
-
     public DialogConversation setPlayerText(String playerText) {
         this.playerText = playerText;
         return this;
-    }
-
-    public String getPlayerText() {
-        return playerText;
     }
 
     public DialogConversation setOpponentName(String opponentName) {

@@ -3,7 +3,7 @@ package creature;
 import abilities.Ability;
 import abilities.AbilityType;
 import abilities.auras.Aura;
-import creature.peaceful.NPC;
+import creature.peaceful.npc.NPC;
 import item.Item;
 import item.StatItem;
 import quest.Quest;

@@ -23,4 +23,8 @@ public enum CreatureProperty implements Property {
     HIGHER_GHOST,
     ANIMAL,
     WOLF,
+    SHUTEP,
+    PETUSH,
+    DANIL,
+    DROGHAN
 }

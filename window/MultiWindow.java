@@ -1,8 +1,6 @@
 package window;
 
 import creature.Difficulty;
-import window.battle.ChooseEnemyWindow;
-import window.battle.FightWindow;
 
 import javax.swing.*;
 

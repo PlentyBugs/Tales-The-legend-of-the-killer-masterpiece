@@ -2,55 +2,40 @@ package window.conversation;
 
 import conversation.*;
 import creature.LiveCreature;
-import creature.peaceful.Peaceful;
 import creature.Player;
+import creature.peaceful.Peaceful;
+import support.CreatureProperty;
+import texture.Texture;
+import texture.TextureFactory;
+import window.MultiWindow;
+import window.Screen;
+import window.menu.Menu;
 import window.player.UnfocusedButton;
 import window.support.component.Console;
-import support.AbilityProperty;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
-public class ConversationWindow extends JFrame implements Serializable {
+public class ConversationWindow extends Menu implements Serializable {
 
     private Player player;
     private final LiveCreature opponent;
-    private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
-    private Console dialog = new Console();
-    private final int width = 720;
+    private final Console dialog;
+    private MultiWindow multiWindow;
 
-    public ConversationWindow(LiveCreature opponent){
-        super("Диалог с " + opponent.getName());
-        setAlwaysOnTop(true);
+    public ConversationWindow(LiveCreature opponent) {
+
+        setLayout(new BorderLayout());
 
         this.opponent = opponent;
-
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                opponent.setConversationWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                opponent.setConversationWindowOpen(false);
-            }
-        });
         int height = 720;
+        int width = 720;
         setPreferredSize(new Dimension(width, height));
         setMinimumSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
@@ -59,108 +44,79 @@ public class ConversationWindow extends JFrame implements Serializable {
 
         dialog.setSpeed(0);
 
-        dialog.setSizeArea(width-30, height -240);
+        dialog.setSizeArea(width -30, height -240);
 
-        getContentPane().add(dialog, BorderLayout.NORTH);
+        bindKeys();
     }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-    private void drawWindow(){
-        Thread thread = new Thread(() -> {
-
-            getContentPane().remove(panel);
-
-            panel = new JPanel(new GridBagLayout());
-            constraints = new GridBagConstraints();
-
-            constraints.anchor = GridBagConstraints.NORTH;
-            constraints.insets = new Insets(5, 0, 0, 0);
-            constraints.gridx = 0;
-            constraints.gridy = 0;
-
-            for(int s = 0; s < opponent.getConversation().getConversationTree().size(); s++) {
-                for (int k = 0; k < opponent.getConversation().getConversationTree().get(s).size(); k++) {
-                    if(opponent.getConversation().getConversationTree().get(s).get(k) == null || !opponent.getConversation().getConversationTree().get(s).get(k).getIsVisible()){
-                        continue;
-                    }
-                    JPanel convPart = new JPanel(new GridBagLayout());
-                    GridBagConstraints convPartconstraints = new GridBagConstraints();
-
-                    convPartconstraints.anchor = GridBagConstraints.WEST;
-                    convPartconstraints.insets = new Insets(0, 10, 0, 0);
-                    convPartconstraints.gridx = 0;
-                    convPartconstraints.gridy = 0;
-
-                    JButton title = new UnfocusedButton(opponent.getConversation().getConversationTree().get(s).get(k).getTitle());
-
-                    title.setPreferredSize(new Dimension(width, 30));
-                    title.setMinimumSize(new Dimension(width, 30));
-                    title.setMaximumSize(new Dimension(width, 30));
-
-                    int finalS = s;
-                    int finalK = k;
-                    title.addActionListener((ActionListener & Serializable) e -> {
-                        if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof TrainShop trainShop) {
-                            trainShop.setPlayer(player);
-                            close();
-                            trainShop.run();
-                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof Shop shop) {
-                            shop.setPlayer(player);
-                            close();
-                            shop.run();
-                        } else if (opponent.getConversation().getConversationTree().get(finalS).get(finalK) instanceof DialogConversation dialogConversation) {
-                            dialogConversation.setPlayerName(player.getName());
-                            dialogConversation.setOpponentName(opponent.getName());
-                            dialogConversation.setConsole(dialog);
-                            if(dialogConversation instanceof QuestDialogConversation questDialogConversation){
-                                questDialogConversation.setPlayer(player);
-                                questDialogConversation.setPeaceful((Peaceful) opponent);
-                            }
-                            dialogConversation.run();
-
-                            int size = dialogConversation.getConversationTree().size();
-                            opponent.getConversation().getConversationTree().remove(finalS);
-                            for (int z = 0; z < size; z++) {
-                                ArrayList<Conversation> conv = new ArrayList<>(dialogConversation.getConversationTree().get(z));
-                                opponent.getConversation().getConversationTree().add(z+1, conv);
-                            }
-                            setVisible(false);
-                            drawWindow();
-                        }
-                    });
-
-                    convPart.add(title, convPartconstraints);
-
-                    panel.add(convPart, constraints);
-                    constraints.gridy++;
-                }
-            }
-
-            if(player != null && player.hasAbility(AbilityProperty.STEAL)) {
-                JButton title = new UnfocusedButton("Обокрасть");
-
-                title.setPreferredSize(new Dimension(width, 30));
-                title.setMinimumSize(new Dimension(width, 30));
-                title.setMaximumSize(new Dimension(width, 30));
-                title.addActionListener(e -> {
-                    ThiefWindow thiefWindow = new ThiefWindow(opponent, player);
-                    close();
-                });
-
-                panel.add(title, constraints);
-            }
-            getContentPane().add(panel, BorderLayout.SOUTH);
-            pack();
-            setVisible(true);
-        });
-        thread.start();
+    public void setMultiWindow(MultiWindow multiWindow) {
+        this.multiWindow = multiWindow;
     }
 
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    private void drawWindow() {
+        removeAll();
+        revalidate();
+        repaint();
+        JPanel imagePanel = new JPanel();
+        imagePanel.setLayout(new BorderLayout());
+        Texture texture = TextureFactory.get((CreatureProperty) opponent.getLastProperty());
+        BufferedImage image = texture.getTexture();
+        int height = image.getHeight();
+        int newHeight = HEIGHT;
+        double coefficient = (newHeight * 1.0) / height;
+        int newWidth = (int) (image.getWidth() * coefficient);
+        Image scaledInstance = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        imagePanel.add(new JLabel(new ImageIcon(scaledInstance)), BorderLayout.CENTER);
+        add(imagePanel, BorderLayout.WEST);
+
+        JPanel conversationPanel = new JPanel();
+        conversationPanel.setLayout(new BorderLayout());
+        int conversationWidth = WIDTH - newWidth;
+        dialog.setSizeArea(conversationWidth, HEIGHT * 2 / 3);
+        conversationPanel.add(dialog, BorderLayout.NORTH);
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        Box buttons = Box.createVerticalBox();
+        Dimension buttonListSize = new Dimension(conversationWidth, HEIGHT / 3);
+        buttons.setPreferredSize(buttonListSize);
+        buttons.setMaximumSize(buttonListSize);
+        buttons.setMinimumSize(buttonListSize);
+        scrollPane.setPreferredSize(buttonListSize);
+
+        Dimension buttonSize = new Dimension(conversationWidth, HEIGHT / 20);
+        printButtons(buttonSize, buttons, opponent.getConversation().getConversationTree());
+        scrollPane.setViewportView(buttons);
+
+//        if(player != null && player.hasAbility(AbilityProperty.STEAL)) {
+//            JButton title = new UnfocusedButton("Обокрасть");
+//
+//            title.setPreferredSize(new Dimension(width, 30));
+//            title.setMinimumSize(new Dimension(width, 30));
+//            title.setMaximumSize(new Dimension(width, 30));
+//            title.addActionListener(e -> {
+////                ThiefWindow thiefWindow = new ThiefWindow(opponent, player);
+////                close();
+//                close(Screen.THEFT);
+//            });
+//
+//            buttons.add(title, constraints);
+//        }
+
+        conversationPanel.add(scrollPane, BorderLayout.SOUTH);
+
+        add(conversationPanel, BorderLayout.EAST);
+        setVisible(true);
+    }
+
+    private void close(Screen screen) {
+        multiWindow.removeWindow(this);
+        multiWindow.switchScreen(screen);
     }
 
     public void setIsVisible(boolean b) {
@@ -170,7 +126,57 @@ public class ConversationWindow extends JFrame implements Serializable {
         }
     }
 
-    public Console getDialog() {
-        return dialog;
+    public void bindKeys() {
+        KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape,   "escape");
+        getActionMap().put("escape", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                close(Screen.GAME);
+            }
+        });
+    }
+
+    private void printButtons(Dimension buttonSize, Box buttons, List<Conversation> conversations) {
+        for (Conversation conversation : conversations) {
+            if(conversation == null || !conversation.getIsVisible()){
+                continue;
+            }
+
+            JButton title = new UnfocusedButton(conversation.getTitle());
+            customizeButton(title);
+            title.setPreferredSize(buttonSize);
+            title.setMinimumSize(buttonSize);
+            title.setMaximumSize(buttonSize);
+            title.addActionListener((ActionListener & Serializable) e -> {
+                if (conversation instanceof TrainShop trainShop) {
+                    trainShop.setPlayer(player);
+                    close(Screen.SHOP);
+                    trainShop.run();
+                } else if (conversation instanceof Shop shop) {
+                    shop.setPlayer(player);
+                    close(Screen.SHOP);
+                    shop.run();
+                } else if (conversation instanceof DialogConversation dialogConversation) {
+                    dialogConversation.setPlayerName(player.getName());
+                    dialogConversation.setOpponentName(opponent.getName());
+                    if(dialogConversation instanceof QuestDialogConversation questDialogConversation){
+                        questDialogConversation.setPlayer(player);
+                        questDialogConversation.setPeaceful((Peaceful) opponent);
+                        questDialogConversation.run();
+                    }
+                    dialogConversation.writeToConsole(dialog);
+
+                    opponent.getConversation().getConversationTree().remove(dialogConversation);
+                    buttons.remove(title);
+                    opponent.getConversation().getConversationTree().addAll(conversation.getConversationTree());
+                    printButtons(buttonSize, buttons, conversation.getConversationTree());
+                }
+            });
+
+            buttons.add(title);
+        }
+        buttons.revalidate();
+        buttons.repaint();
     }
 }
