@@ -1,6 +1,7 @@
 package creature.peaceful.npc;
 
 import abilities.passive.professions.BlackSmith;
+import conversation.CatalogItem;
 import creature.Player;
 import creature.peaceful.BlackSmithCraftMan;
 import item.blacksmith.BluePrint;
@@ -90,7 +91,7 @@ public class DroghanNPC extends BlackSmithCraftMan {
         );
         addConversationShop(1);
         addConversationTrain(2, "Тренировка",
-                new Object[] {new BlackSmith(), 99000, 1}
+                new CatalogItem(new BlackSmith(), 99000, 1)
         );
         getConversationWindow().setPlayer(player);
     }

@@ -3,6 +3,7 @@ package creature;
 import abilities.Ability;
 import abilities.AbilityType;
 import abilities.buffs.Buff;
+import conversation.CatalogStock;
 import conversation.Conversation;
 import disease.Disease;
 import effect.Effect;
@@ -52,7 +53,9 @@ public class LiveCreature extends GodCreature {
     @Serial
     private static final long serialVersionUID = 3432956647310864719L;
 
-    protected Set<Item> inventory = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    protected List<Item> inventory = new ArrayList<>();
+
+    protected CatalogStock abilitiesForSale = new CatalogStock();
 
     protected Equipment equipment = new Equipment();
 
@@ -76,7 +79,7 @@ public class LiveCreature extends GodCreature {
         isStep = false;
     }
 
-    public void initializeWindowConv(){
+    public void initializeWindowConv() {
         conversationWindow = new ConversationWindow(this);
         setConversationWindowIsVisible(false);
     }
@@ -203,7 +206,7 @@ public class LiveCreature extends GodCreature {
 
     public void countStatsAfterBorn(){}
 
-    public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setIsVisible(isVisible);}
+    public void setConversationWindowIsVisible(boolean isVisible) { conversationWindow.setVisible(isVisible);}
 
     public void setConversationWindowPlayer(Player player){
         conversationWindow.setPlayer(player);
@@ -238,7 +241,7 @@ public class LiveCreature extends GodCreature {
         return this;
     }
 
-    public Set<Item> getInventory(){
+    public List<Item> getInventory(){
         return inventory;
     }
 
@@ -277,8 +280,8 @@ public class LiveCreature extends GodCreature {
 
     public void removeItem(Item item){
         for(Item itm : inventory){
-            if(itm.compareTo(item) >= 0){
-                if(equipment.getListOfEquipment().contains(item)){
+            if(itm.compareTo(item) >= 0) {
+                if(equipment.getListOfEquipment().contains(item)) {
                     unequip(item);
                 }
                 inventory.remove(itm);
@@ -392,5 +395,13 @@ public class LiveCreature extends GodCreature {
             }
         }
         return false;
+    }
+
+    public CatalogStock getAbilitiesForSale() {
+        return abilitiesForSale;
+    }
+
+    public void setAbilitiesForSale(CatalogStock abilitiesForSale) {
+        this.abilitiesForSale = abilitiesForSale;
     }
 }

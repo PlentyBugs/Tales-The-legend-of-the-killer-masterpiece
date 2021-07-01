@@ -1,33 +1,34 @@
 package window.conversation;
 
-import conversation.*;
 import creature.LiveCreature;
 import creature.Player;
-import creature.peaceful.Peaceful;
 import support.CreatureProperty;
 import texture.Texture;
 import texture.TextureFactory;
 import window.MultiWindow;
 import window.Screen;
+import window.Switcher;
 import window.menu.Menu;
-import window.player.UnfocusedButton;
 import window.support.component.Console;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.List;
 
-public class ConversationWindow extends Menu implements Serializable {
+public class ConversationWindow extends Menu implements Serializable, Switcher {
 
-    private Player player;
+    private final CardLayout manager = new CardLayout();
     private final LiveCreature opponent;
     private final Console dialog;
+    private Player player;
     private MultiWindow multiWindow;
+    private JPanel rightPanel;
+    private ConversationPanel conversationPanel;
+    private ShopPanel shopPanel;
+    private TrainShopPanel trainShopPanel;
 
     public ConversationWindow(LiveCreature opponent) {
 
@@ -41,16 +42,24 @@ public class ConversationWindow extends Menu implements Serializable {
         setMaximumSize(new Dimension(width, height));
 
         dialog = new Console();
-
         dialog.setSpeed(0);
-
         dialog.setSizeArea(width -30, height -240);
 
         bindKeys();
+        drawWindow();
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+        if (conversationPanel != null) {
+            conversationPanel.setPlayer(player);
+        }
+        if (shopPanel != null) {
+            shopPanel.setPlayer(player);
+        }
+        if (trainShopPanel != null) {
+            trainShopPanel.setPlayer(player);
+        }
     }
 
     public void setMultiWindow(MultiWindow multiWindow) {
@@ -58,9 +67,6 @@ public class ConversationWindow extends Menu implements Serializable {
     }
 
     private void drawWindow() {
-        removeAll();
-        revalidate();
-        repaint();
         JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new BorderLayout());
         Texture texture = TextureFactory.get((CreatureProperty) opponent.getLastProperty());
@@ -73,57 +79,23 @@ public class ConversationWindow extends Menu implements Serializable {
         imagePanel.add(new JLabel(new ImageIcon(scaledInstance)), BorderLayout.CENTER);
         add(imagePanel, BorderLayout.WEST);
 
-        JPanel conversationPanel = new JPanel();
-        conversationPanel.setLayout(new BorderLayout());
-        int conversationWidth = WIDTH - newWidth;
-        dialog.setSizeArea(conversationWidth, HEIGHT * 2 / 3);
-        conversationPanel.add(dialog, BorderLayout.NORTH);
+        rightPanel = new JPanel();
+        rightPanel.setLayout(manager);
 
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        Box buttons = Box.createVerticalBox();
-        Dimension buttonListSize = new Dimension(conversationWidth, HEIGHT / 3);
-        buttons.setPreferredSize(buttonListSize);
-        buttons.setMaximumSize(buttonListSize);
-        buttons.setMinimumSize(buttonListSize);
-        scrollPane.setPreferredSize(buttonListSize);
+        conversationPanel = new ConversationPanel(newWidth, dialog, player, opponent, this);
+        shopPanel = new ShopPanel(newWidth, player, opponent, this);
+        trainShopPanel = new TrainShopPanel(newWidth, player, opponent, this);
 
-        Dimension buttonSize = new Dimension(conversationWidth, HEIGHT / 20);
-        printButtons(buttonSize, buttons, opponent.getConversation().getConversationTree());
-        scrollPane.setViewportView(buttons);
+        rightPanel.add(conversationPanel, Screen.CONVERSATION.name());
+        rightPanel.add(shopPanel, Screen.SHOP.name());
+        rightPanel.add(trainShopPanel, Screen.TRAN_SHOP.name());
 
-//        if(player != null && player.hasAbility(AbilityProperty.STEAL)) {
-//            JButton title = new UnfocusedButton("Обокрасть");
-//
-//            title.setPreferredSize(new Dimension(width, 30));
-//            title.setMinimumSize(new Dimension(width, 30));
-//            title.setMaximumSize(new Dimension(width, 30));
-//            title.addActionListener(e -> {
-////                ThiefWindow thiefWindow = new ThiefWindow(opponent, player);
-////                close();
-//                close(Screen.THEFT);
-//            });
-//
-//            buttons.add(title, constraints);
-//        }
-
-        conversationPanel.add(scrollPane, BorderLayout.SOUTH);
-
-        add(conversationPanel, BorderLayout.EAST);
-        setVisible(true);
+        add(rightPanel, BorderLayout.EAST);
     }
 
     private void close(Screen screen) {
         multiWindow.removeWindow(this);
         multiWindow.switchScreen(screen);
-    }
-
-    public void setIsVisible(boolean b) {
-        setVisible(b);
-        if(b){
-            drawWindow();
-        }
     }
 
     public void bindKeys() {
@@ -137,46 +109,29 @@ public class ConversationWindow extends Menu implements Serializable {
         });
     }
 
-    private void printButtons(Dimension buttonSize, Box buttons, List<Conversation> conversations) {
-        for (Conversation conversation : conversations) {
-            if(conversation == null || !conversation.getIsVisible()){
-                continue;
-            }
+    public void updateButtonList() {
+        conversationPanel.updateButtonList();
+        switchScreen(Screen.CONVERSATION);
+    }
 
-            JButton title = new UnfocusedButton(conversation.getTitle());
-            customizeButton(title);
-            title.setPreferredSize(buttonSize);
-            title.setMinimumSize(buttonSize);
-            title.setMaximumSize(buttonSize);
-            title.addActionListener((ActionListener & Serializable) e -> {
-                if (conversation instanceof TrainShop trainShop) {
-                    trainShop.setPlayer(player);
-                    close(Screen.SHOP);
-                    trainShop.run();
-                } else if (conversation instanceof Shop shop) {
-                    shop.setPlayer(player);
-                    close(Screen.SHOP);
-                    shop.run();
-                } else if (conversation instanceof DialogConversation dialogConversation) {
-                    dialogConversation.setPlayerName(player.getName());
-                    dialogConversation.setOpponentName(opponent.getName());
-                    if(dialogConversation instanceof QuestDialogConversation questDialogConversation){
-                        questDialogConversation.setPlayer(player);
-                        questDialogConversation.setPeaceful((Peaceful) opponent);
-                        questDialogConversation.run();
-                    }
-                    dialogConversation.writeToConsole(dialog);
-
-                    opponent.getConversation().getConversationTree().remove(dialogConversation);
-                    buttons.remove(title);
-                    opponent.getConversation().getConversationTree().addAll(conversation.getConversationTree());
-                    printButtons(buttonSize, buttons, conversation.getConversationTree());
-                }
-            });
-
-            buttons.add(title);
+    @Override
+    public void switchScreen(Screen screen) {
+        conversationPanel.setVisible(false);
+        if (screen == Screen.SHOP) {
+            shopPanel.setVisible(true);
+            conversationPanel.setVisible(false);
+            trainShopPanel.setVisible(false);
+        } else if (screen == Screen.TRAN_SHOP) {
+            trainShopPanel.setVisible(true);
+            shopPanel.setVisible(false);
+            conversationPanel.setVisible(false);
+        } else if (screen == Screen.CONVERSATION) {
+            conversationPanel.setVisible(true);
+            shopPanel.setVisible(false);
+            trainShopPanel.setVisible(false);
         }
-        buttons.revalidate();
-        buttons.repaint();
+        manager.show(rightPanel, screen.name());
+        rightPanel.revalidate();
+        rightPanel.repaint();
     }
 }

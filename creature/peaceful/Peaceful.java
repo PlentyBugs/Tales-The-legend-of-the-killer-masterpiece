@@ -1,14 +1,9 @@
 package creature.peaceful;
 
-import abilities.Ability;
-import conversation.CatalogStock;
-import conversation.DialogConversation;
-import conversation.Shop;
-import conversation.TrainShop;
-import item.Item;
+import conversation.*;
 import creature.Human;
-import support.Property;
 import support.CreatureProperty;
+import support.Property;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,27 +29,22 @@ public class Peaceful extends Human {
     }
 
     public Peaceful addConversationShop(int branchNumber){
-        Shop shop = new Shop();
-        shop.setSeller(this);
+        ShopConversation shop = new ShopConversation();
         shop.setTitle("Магазин");
 
         conversation.addConversationBranch(shop, branchNumber);
         return this;
     }
 
-    public Peaceful addConversationTrain(int branchNumber, String title, Object[] ... objects){
-        TrainShop shop = new TrainShop();
+    public Peaceful addConversationTrain(int branchNumber, String title, CatalogItem ... catalogItems) {
+        TrainShopConversation shop = new TrainShopConversation();
         shop.setTitle(title);
 
-        CatalogStock catalogStock = new CatalogStock();
-        for (Object[] object : objects){
-            try{
-                catalogStock.addToStock((Item) object[0], (int)object[1], (int)object[2]);
-            } catch (Exception ex){
-                catalogStock.addToStock((Ability) object[0], (int)object[1], (int)object[2]);
-            }
+        CatalogStock catalogStock = getAbilitiesForSale();
+        for (CatalogItem catalogItem : catalogItems) {
+            catalogStock.addToStock(catalogItem);
         }
-        shop.setCatalog(catalogStock);
+
         conversation.addConversationBranch(shop, branchNumber);
         return this;
     }

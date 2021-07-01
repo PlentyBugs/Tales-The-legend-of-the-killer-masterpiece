@@ -165,7 +165,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                     liveCreature.setConversationWindowPlayer(player);
                     ConversationWindow conversationWindow = liveCreature.getConversationWindow();
                     conversationWindow.setMultiWindow(getMultiWindow());
-                    conversationWindow.setIsVisible(true);
+                    conversationWindow.updateButtonList();
                     getMultiWindow().newWindow(conversationWindow, Screen.CONVERSATION);
                     getMultiWindow().switchScreen(Screen.CONVERSATION);
                 } else {
@@ -173,7 +173,6 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                         liveCreature.countStatsAfterBorn();
                     }
                     creature.setChooseEnemyWindow(player, windowInterface, getMultiWindow(), (LiveCreature) creature);
-//                        getMultiWindow().switchScreen(Screen.MAIN_MENU);
                 }
             }
         }

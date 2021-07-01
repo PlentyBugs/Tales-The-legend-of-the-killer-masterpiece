@@ -5,6 +5,7 @@ import abilities.passive.Evasion;
 import abilities.passive.TwoOneHandedWeapon;
 import abilities.passive.professions.Alchemist;
 import abilities.passive.professions.Steal;
+import conversation.CatalogItem;
 import conversation.QuestDialogConversation;
 import creature.Player;
 import creature.aggressive.Goblin;
@@ -55,11 +56,11 @@ public class PetushNPC extends Dealer {
                 );
         addConversationShop(1);
         addConversationTrain(2, "Тренировка",
-                new Object[] {new TwoOneHandedWeapon(), 188000, 1},
-                new Object[] {new CriticalStrike(), 45000, 1},
-                new Object[] {new Evasion(), 38000, 1},
-                new Object[] {new Steal(), 99000, 1},
-                new Object[] {new Alchemist(), 235000, 1}
+                new CatalogItem(new TwoOneHandedWeapon(), 188000, 1),
+                new CatalogItem(new CriticalStrike(), 45000, 1),
+                new CatalogItem(new Evasion(), 38000, 1),
+                new CatalogItem(new Steal(), 99000, 1),
+                new CatalogItem(new Alchemist(), 235000, 1)
         ).getConversationWindow().setPlayer(player);
 
         QuestDialogConversation questDialogConversationDealer = new QuestDialogConversation();

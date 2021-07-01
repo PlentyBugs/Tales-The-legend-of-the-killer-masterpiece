@@ -92,10 +92,9 @@ public class Equipment implements Serializable, PropertyProvider {
         return twoHandedWeapon;
     }
 
-    public ArrayList<Item> getListOfEquipment(){
-        ArrayList<Item> itemList = new ArrayList<>(Arrays.asList(torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9], oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon));
+    public List<Item> getListOfEquipment(){
 
-        return itemList;
+        return new ArrayList<>(Arrays.asList(torso, helmet, rings[0], rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[9], oneHandedWeaponLeft, oneHandedWeaponRight, twoHandedWeapon));
     }
 
     public double getWeaponDamage(){

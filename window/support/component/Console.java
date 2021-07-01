@@ -1,12 +1,14 @@
 package window.support.component;
 
+import window.menu.AbstractMenu;
+
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
-public class Console extends JPanel implements Serializable {
+public class Console extends AbstractMenu implements Serializable {
     private final JScrollPane vertical;
     private final JTextArea console;
     private boolean firstTime = true;
@@ -15,6 +17,7 @@ public class Console extends JPanel implements Serializable {
     public Console() {
         setLayout(new BorderLayout());
         console = new JTextArea(8,140);
+        console.setBorder(BorderFactory.createEmptyBorder(HEIGHT / 80, WIDTH / 80, HEIGHT / 80, WIDTH / 80));
 
         console.setBackground(Color.LIGHT_GRAY);
         console.setForeground(Color.BLACK);
@@ -24,10 +27,15 @@ public class Console extends JPanel implements Serializable {
 
         console.setEditable(false);
 
+        console.setFont(FONT_MEDIUM);
+        console.setBackground(STYLED_COLOR_LIGHT);
+
         DefaultCaret caret = (DefaultCaret) console.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         vertical = new JScrollPane(console, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        customizeScroll(vertical);
+
         add(vertical);
     }
     public void writeToConsole(String text) {

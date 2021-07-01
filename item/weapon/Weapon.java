@@ -167,4 +167,9 @@ public class Weapon extends Item {
 
         cost = addCost;
     }
+
+    @Override
+    public String getItemProperty() {
+        return Integer.toString(damage);
+    }
 }

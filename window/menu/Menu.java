@@ -10,13 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Menu extends JPanel {
+public class Menu extends AbstractMenu {
 
     private static BufferedImage background;
-    protected final int WIDTH = Constants.getFULLSCREEN().width;
-    protected final int HEIGHT = Constants.getFULLSCREEN().height;
-    protected final Dimension BUTTON_SIZE = new Dimension(WIDTH / 4, HEIGHT / 20);
-    protected final Font FONT = new Font("Osaka", Font.PLAIN,HEIGHT / 40);
 
     public Menu() {
         Dimension fullscreen = Constants.getFULLSCREEN();
@@ -53,15 +49,6 @@ public class Menu extends JPanel {
 
         gbc.weighty = 1;
         add(buttons, gbc);
-    }
-
-    protected void customizeButton(JButton button) {
-        button.setMinimumSize(BUTTON_SIZE);
-        button.setMaximumSize(BUTTON_SIZE);
-        button.setPreferredSize(BUTTON_SIZE);
-        button.setFont(FONT);
-        button.setForeground(Color.WHITE);
-        button.setBackground(new Color(220, 137, 70, 255));
     }
 
     @Override

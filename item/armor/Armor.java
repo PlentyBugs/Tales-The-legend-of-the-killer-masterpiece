@@ -7,7 +7,7 @@ import support.Property;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Armor extends Item  {
+public class Armor extends Item {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
@@ -117,5 +117,10 @@ public class Armor extends Item  {
         }
 
         cost = addCost;
+    }
+
+    @Override
+    public String getItemProperty() {
+        return Integer.toString(protection);
     }
 }

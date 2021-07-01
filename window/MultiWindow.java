@@ -4,8 +4,7 @@ import creature.Difficulty;
 
 import javax.swing.*;
 
-public interface MultiWindow {
-    void switchScreen(Screen screen);
+public interface MultiWindow extends Switcher {
 
     void newGame(Difficulty difficulty);
 

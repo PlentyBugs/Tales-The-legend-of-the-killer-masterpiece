@@ -164,14 +164,39 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o instanceof Item item) {
-            return id == item.id;
+            if (name == null) {
+                name = "";
+            }
+            return id == item.id || (
+                    name.equals(item.name)
+                    && cost == item.cost
+                    && grade == item.grade
+                    && quality == item.quality
+                    && rarity == item.rarity
+                    && material == item.material
+                    && stackable == item.stackable
+                    && selfForgedBonus == item.selfForgedBonus
+                    && enchants.equals(item.enchants)
+                    && getItemProperty().equals(item.getItemProperty())
+                    );
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(
+                name,
+                cost,
+                grade,
+                quality,
+                rarity,
+                material,
+                stackable,
+                selfForgedBonus,
+                enchants,
+                getItemProperty()
+        );
     }
 
     @Override

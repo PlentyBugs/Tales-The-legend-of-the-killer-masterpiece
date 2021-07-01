@@ -3,6 +3,7 @@ package support;
 public enum GeneralProperty implements Property {
     ALL,
     SHOP,
+    TRAIN_SHOP,
     CONVERSATION,
     DISEASE,
     RABIES,

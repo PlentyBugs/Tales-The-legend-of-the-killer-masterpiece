@@ -10,6 +10,7 @@ public enum Screen {
     LOSS,
     ENEMY,
     SHOP,
+    TRAN_SHOP,
     THEFT,
     CONVERSATION
 }

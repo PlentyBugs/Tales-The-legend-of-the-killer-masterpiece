@@ -4,6 +4,7 @@ import ai.NPCController;
 import creature.Player;
 import location.Map;
 import window.battle.LossWindow;
+import window.menu.AbstractMenu;
 import window.support.component.Console;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class GameWindow extends JPanel implements Serializable, WindowInterface {
+public class GameWindow extends AbstractMenu implements Serializable, WindowInterface {
     @Serial
     private static final long serialVersionUID = -5963455665311017981L;
     private final int y;

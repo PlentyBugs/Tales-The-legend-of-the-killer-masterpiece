@@ -97,4 +97,9 @@ public class Ability implements Serializable, PropertyProvider, Sellable {
     public CostType getCostType() {
         return costType;
     }
+
+    @Override
+    public String getItemProperty() {
+        return abilityType.stream().map(Enum::name).reduce("", (p, f) -> p + f + " ") + (costType == null ? "": costType);
+    }
 }

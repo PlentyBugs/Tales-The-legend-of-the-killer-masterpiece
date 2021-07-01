@@ -49,12 +49,6 @@ public class Evasion extends PassiveAbility {
     }
 
     public boolean check(Player player){
-        System.out.println(player.getStats().getSpeed());
-        System.out.println(level);
-        System.out.println(player.getStats().getAgility());
-        if (player.getStats().getSpeed() >= (level - 1)*10 + 5 && player.getStats().getAgility() >= (level - 1)*10 + 5){
-            return true;
-        }
-        return false;
+        return player.getStats().getSpeed() >= (level - 1) * 10 + 5 && player.getStats().getAgility() >= (level - 1) * 10 + 5;
     }
 }

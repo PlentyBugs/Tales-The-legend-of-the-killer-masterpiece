@@ -4,6 +4,7 @@ import abilities.active.DamageUp;
 import abilities.active.DecreaseDamage;
 import abilities.active.Rage;
 import abilities.auras.Vision;
+import conversation.CatalogItem;
 import creature.Player;
 import creature.peaceful.Dealer;
 import item.Grade;
@@ -32,7 +33,14 @@ public class ShutepNPC extends Dealer {
         shutepSwordForSale.countProperty();
         addItemToInventory(new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty(), new Sword(Material.CRYSTAL, Rarity.RARE, Grade.CURSE, 3, WeaponType.ONE_HANDED).countProperty());
         addConversationShop(1);
-        addConversationTrain(2, "Тренировка", new Object[] {new DamageUp(), 99000, 1}, new Object[] {new DecreaseDamage(), 99000, 1}, new Object[] {new Vision(), 99000, 1}, new Object[] {new Rage(), 852000, 1});
+        addConversationTrain(
+                2,
+                    "Тренировка",
+                    new CatalogItem(new DamageUp(), 99000, 1),
+                    new CatalogItem(new DecreaseDamage(), 99000, 1),
+                    new CatalogItem(new Vision(), 99000, 1),
+                    new CatalogItem(new Rage(), 852000, 1)
+                );
         getConversationWindow().setPlayer(player);
     }
 }
