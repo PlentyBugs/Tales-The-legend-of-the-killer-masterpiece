@@ -107,7 +107,7 @@ public class PlayerDiplomacyWindow extends JFrame implements Serializable {
                 property.setForeground(colorForeground);
                 propertyCount.setForeground(colorForeground);
 
-                JButton useButton = new UnfocusedButton("Использовать");
+                UnfocusedButton useButton = new UnfocusedButton("Использовать");
 
                 useButton.addActionListener((ActionListener & Serializable) e -> {
                     if(item instanceof Alcohol alcohol){

@@ -22,8 +22,8 @@ public class StartWindow extends JFrame {
 
         JPanel panel = new JPanel(new BorderLayout());
 
-        JButton newGame = new UnfocusedButton("Новая игра");
-        JButton loadGame = new UnfocusedButton("Загрузить игру");
+        UnfocusedButton newGame = new UnfocusedButton("Новая игра");
+        UnfocusedButton loadGame = new UnfocusedButton("Загрузить игру");
 
         newGame.addActionListener((ActionListener & Serializable) e -> {
             synchronized (StartWindow.class) {

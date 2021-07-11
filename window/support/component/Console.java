@@ -1,5 +1,6 @@
 package window.support.component;
 
+import window.Screen;
 import window.menu.AbstractMenu;
 
 import javax.swing.*;
@@ -76,4 +77,6 @@ public class Console extends AbstractMenu implements Serializable {
         vertical.setMinimumSize(new Dimension(width, height));
         vertical.setMaximumSize(new Dimension(width, height));
     }
+
+    protected void close(Screen screen) {}
 }

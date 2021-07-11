@@ -3,6 +3,7 @@ package window;
 import creature.GodCreature;
 import creature.Player;
 import location.Map;
+import utils.KeyBinder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,19 +11,8 @@ import java.awt.event.KeyEvent;
 
 public interface KeyController extends Controller {
 
-    InputMap getInputMap(int condition);
-
-    ActionMap getActionMap();
-
     default void bindKeys() {
-        KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape,   "escape");
-        getActionMap().put("escape", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getMultiWindow().switchScreen(Screen.MAIN_MENU);
-            }
-        });
+        KeyBinder.bindEscape(this, () -> getMultiWindow().switchScreen(Screen.MAIN_MENU));
         KeyStroke left = KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0);
         KeyStroke leftA = KeyStroke.getKeyStroke(KeyEvent.VK_A, 0);
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(left,   "left");

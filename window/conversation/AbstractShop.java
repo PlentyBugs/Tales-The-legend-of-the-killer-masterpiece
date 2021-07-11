@@ -23,17 +23,26 @@ public abstract class AbstractShop extends AbstractMenu {
     protected LiveCreature seller;
     protected Switcher switcher;
     protected int width;
-    protected final JTableModel dtm = new JTableModel();
+    protected final JTableModel dtm;
     protected final JTable itemStock = new JTable();
     protected final JPanel choose = new JPanel(new BorderLayout());
     protected JScrollPane scroll = new JScrollPane(itemStock);
     protected Player player;
 
-    public AbstractShop(int anchorWidth, Player player, LiveCreature seller, Switcher switcher) {
+    public AbstractShop(
+                int anchorWidth,
+                Player player,
+                LiveCreature seller,
+                Switcher switcher,
+                String[] COLUMN_NAMES,
+                Class<?>[] COLUMN_TYPES
+            ) {
         this.player = player;
         this.seller = seller;
         this.switcher = switcher;
         this.width = WIDTH - anchorWidth;
+        dtm = new JTableModel(COLUMN_NAMES, COLUMN_TYPES);
+
         Dimension size = new Dimension(width, HEIGHT);
         setMinimumSize(size);
         setPreferredSize(size);
@@ -55,15 +64,28 @@ public abstract class AbstractShop extends AbstractMenu {
         tableHeader.setReorderingAllowed(false);
         tableHeader.setBackground(STYLED_COLOR_LIGHT);
         tableHeader.setFont(FONT_MEDIUM);
-        JButton backButton = new UnfocusedButton("←");
-        customizeButton(backButton);
-        backButton.addActionListener((e) -> switcher.switchScreen(Screen.CONVERSATION));
-        Dimension backButtonSize = new Dimension((int) (width * 0.1), HEIGHT / 15);
-        backButton.setMinimumSize(backButtonSize);
-        backButton.setPreferredSize(backButtonSize);
-        backButton.setMaximumSize(backButtonSize);
-        choose.add(backButton, BorderLayout.WEST);
+        if (this instanceof ShopPanel || this instanceof TrainShopPanel) {
+            UnfocusedButton backButton = new UnfocusedButton("←");
+            customizeButton(backButton);
+            backButton.addActionListener((e) -> switcher.switchScreen(Screen.CONVERSATION));
+            Dimension backButtonSize = new Dimension((int) (width * 0.1), HEIGHT / 15);
+            backButton.setMinimumSize(backButtonSize);
+            backButton.setPreferredSize(backButtonSize);
+            backButton.setMaximumSize(backButtonSize);
+            choose.add(backButton, BorderLayout.WEST);
+        }
         setBackground(STYLED_COLOR_LIGHT);
+    }
+
+    public AbstractShop(int anchorWidth, Player player, LiveCreature seller, Switcher switcher) {
+        this(
+                anchorWidth,
+                player,
+                seller,
+                switcher,
+                new String[] {"Staff", "Property", "Price", "Count", ""},
+                new Class<?>[] {String.class, String.class, String.class, String.class,  JButton.class}
+        );
     }
 
     protected abstract void printItems();
@@ -77,16 +99,23 @@ public abstract class AbstractShop extends AbstractMenu {
     private static class JTableButtonRenderer implements TableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            return (JButton)value;
+            return (JButton) value;
         }
     }
 
     public static class JTableModel extends AbstractTableModel {
         @Serial
         private static final long serialVersionUID = 1L;
-        private static final String[] COLUMN_NAMES = new String[] {"Staff", "Property", "Price", "Count", ""};
-        private static final Class<?>[] COLUMN_TYPES = new Class<?>[] {String.class, String.class, String.class, String.class,  JButton.class};
+        private String[] COLUMN_NAMES;
+        private Class<?>[] COLUMN_TYPES;
         private final List<TablePart> data = new ArrayList<>();
+
+        public JTableModel() {}
+
+        public JTableModel(String[] COLUMN_NAMES, Class<?>[] COLUMN_TYPES) {
+            this.COLUMN_NAMES = COLUMN_NAMES;
+            this.COLUMN_TYPES = COLUMN_TYPES;
+        }
 
         @Override
         public int getColumnCount() {

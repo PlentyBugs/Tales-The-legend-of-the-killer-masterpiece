@@ -41,7 +41,7 @@ public class TrainShopPanel extends AbstractShop implements Serializable {
                 continue;
             }
 
-            JButton buy = new UnfocusedButton("Выучить");
+            UnfocusedButton buy = new UnfocusedButton("Выучить");
             buy.addActionListener((ActionListener & Serializable)  e -> {
                 if (count > 0 && player.getMoney() >= price && sellable instanceof Ability ability && !player.hasAbility(ability.getLastProperty())) {
                     player.reduceMoney(price);

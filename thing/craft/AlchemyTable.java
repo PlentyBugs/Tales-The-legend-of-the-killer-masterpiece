@@ -3,11 +3,13 @@ package thing.craft;
 import creature.Player;
 import item.alchemy.ingredient.Ingredient;
 import item.alchemy.potion.Potion;
-import thing.Thing;
-import window.craft.AlchemyTableWindow;
-import support.Property;
 import support.GeneralProperty;
+import support.Property;
+import thing.Thing;
 import utils.Pair;
+import window.MultiWindow;
+import window.Screen;
+import window.craft.AlchemyTableWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,36 +25,28 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
         propertyList.add(GeneralProperty.ALCHEMY_TABLE);
     }
 
-
-    private final AlchemyTableWindow alchemyTableWindow;
-    private boolean isAlchemyWindowOpen;
+    private AlchemyTableWindow alchemyTableWindow;
     private Potion createdPotion;
     private Player player;
 
-    public AlchemyTable(){
-        name = "Стол Алхимии";
-        color = new Color(202, 0, 255);
-        isStep = false;
+    public AlchemyTable() {
         alchemyTableWindow = new AlchemyTableWindow(this);
-        setCraftTableWindow(false);
-        setCraftTableWindowOpen(false);
+        color = new Color(202, 0, 255);
+        name = "Стол Алхимии";
+        isStep = false;
     }
 
-    @Override
     public void setPlayer(Player player) {
-        alchemyTableWindow.setPlayer(player);
         this.player = player;
-    }
-    public void setCraftTableWindow(boolean isVisible) { alchemyTableWindow.setIsVisible(isVisible);}
-
-    public void setCraftTableWindowOpen(boolean isAlchemyWindowOpen) {
-        createdPotion = null;
-        this.isAlchemyWindowOpen = isAlchemyWindowOpen;
+        alchemyTableWindow.setPlayer(player);
     }
 
     @Override
-    public boolean getCraftTableWindowOpen() {
-        return isAlchemyWindowOpen;
+    public void drawWindow(MultiWindow multiWindow) {
+        alchemyTableWindow.setMultiWindow(multiWindow);
+        alchemyTableWindow.drawWindow();
+        multiWindow.newWindow(alchemyTableWindow, Screen.ALCHEMY);
+        multiWindow.switchScreen(Screen.ALCHEMY);
     }
 
     @SafeVarargs

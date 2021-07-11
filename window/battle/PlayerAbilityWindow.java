@@ -2,8 +2,8 @@ package window.battle;
 
 import abilities.Ability;
 import abilities.AbilityType;
-import abilities.active.ActiveAbility;
 import abilities.CostType;
+import abilities.active.ActiveAbility;
 import creature.LiveCreature;
 import creature.Player;
 import window.player.UnfocusedButton;
@@ -84,7 +84,7 @@ public class PlayerAbilityWindow extends JFrame implements Serializable {
             abilityPanel.add(abilityTarget, abilityConstraints);
             abilityConstraints.gridx ++;
 
-            JButton abilityUseButton = new UnfocusedButton("Использовать");
+            UnfocusedButton abilityUseButton = new UnfocusedButton("Использовать");
             abilityPanel.add(abilityUseButton, abilityConstraints);
             abilityConstraints.gridx ++;
 

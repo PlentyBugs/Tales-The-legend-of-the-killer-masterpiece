@@ -1,10 +1,9 @@
 package thing.craft;
 
 import creature.Player;
+import window.MultiWindow;
 
 public interface CraftTable {
     void setPlayer(Player player);
-    void setCraftTableWindow(boolean isVisible);
-    void setCraftTableWindowOpen(boolean isCraftWindowOpen);
-    boolean getCraftTableWindowOpen();
+    void drawWindow(MultiWindow multiWindow);
 }

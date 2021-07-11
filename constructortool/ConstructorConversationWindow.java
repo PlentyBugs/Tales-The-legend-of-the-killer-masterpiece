@@ -37,7 +37,7 @@ public class ConstructorConversationWindow extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 0;
 
-        JButton addConversationDialog = new UnfocusedButton("Добавить диалог");
+        UnfocusedButton addConversationDialog = new UnfocusedButton("Добавить диалог");
 
         addConversationDialog.setPreferredSize(new Dimension(180,40));
         addConversationDialog.setMinimumSize(new Dimension(180,40));
@@ -57,7 +57,7 @@ public class ConstructorConversationWindow extends JFrame {
         panel.add(addConversationDialog, constraints);
         constraints.gridx ++;
 
-        JButton addConversationShop = new UnfocusedButton("Добавить магазин");
+        UnfocusedButton addConversationShop = new UnfocusedButton("Добавить магазин");
 
         addConversationShop.setPreferredSize(new Dimension(180,40));
         addConversationShop.setMinimumSize(new Dimension(180,40));
@@ -77,7 +77,7 @@ public class ConstructorConversationWindow extends JFrame {
         panel.add(addConversationShop, constraints);
         constraints.gridx ++;
 
-        JButton addBranchConversation = new UnfocusedButton("Добавить ветку");
+        UnfocusedButton addBranchConversation = new UnfocusedButton("Добавить ветку");
 
         addBranchConversation.setPreferredSize(new Dimension(180,40));
         addBranchConversation.setMinimumSize(new Dimension(180,40));

@@ -3,6 +3,7 @@ package thing.craft;
 import creature.Player;
 import item.blacksmith.resource.Resource;
 import thing.Thing;
+import window.MultiWindow;
 import window.craft.SmelterTableWindow;
 import support.Property;
 import support.GeneralProperty;
@@ -20,20 +21,17 @@ public class Smelter extends Thing implements BlackSmithCraftTable {
         propertyList.add(GeneralProperty.SMELTER);
     }
 
-    private boolean isCraftTableWindowOpen;
     private final SmelterTableWindow smelterTableWindow;
     private int maxTemperature;
     private int power;
 
     public Smelter(){
-        name = "Плавильня";
-        color = new Color(255, 39, 0);
-        isStep = false;
-        maxTemperature = 1500;
         power = 100;
+        isStep = false;
+        name = "Плавильня";
+        maxTemperature = 1500;
+        color = new Color(255, 39, 0);
         smelterTableWindow = new SmelterTableWindow(this);
-        setCraftTableWindow(false);
-        setCraftTableWindowOpen(false);
     }
 
     @Override
@@ -42,17 +40,8 @@ public class Smelter extends Thing implements BlackSmithCraftTable {
     }
 
     @Override
-    public void setCraftTableWindow(boolean isVisible) {
-        smelterTableWindow.setVisible(isVisible);
-    }
+    public void drawWindow(MultiWindow multiWindow) {
 
-    public void setCraftTableWindowOpen(boolean isCraftTableWindowOpen) {
-        this.isCraftTableWindowOpen = isCraftTableWindowOpen;
-    }
-
-    @Override
-    public boolean getCraftTableWindowOpen() {
-        return isCraftTableWindowOpen;
     }
 
     @Override

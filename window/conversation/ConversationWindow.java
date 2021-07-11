@@ -5,6 +5,7 @@ import creature.Player;
 import support.CreatureProperty;
 import texture.Texture;
 import texture.TextureFactory;
+import utils.KeyBinder;
 import window.MultiWindow;
 import window.Screen;
 import window.Switcher;
@@ -13,8 +14,6 @@ import window.support.component.Console;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
@@ -99,14 +98,7 @@ public class ConversationWindow extends Menu implements Serializable, Switcher {
     }
 
     public void bindKeys() {
-        KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape,   "escape");
-        getActionMap().put("escape", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                close(Screen.GAME);
-            }
-        });
+        KeyBinder.bindEscape(this, () -> close(Screen.GAME));
     }
 
     public void updateButtonList() {

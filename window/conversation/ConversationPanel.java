@@ -79,7 +79,7 @@ public class ConversationPanel extends AbstractMenu {
                 continue;
             }
 
-            JButton title = new UnfocusedButton(conversation.getTitle());
+            UnfocusedButton title = new UnfocusedButton(conversation.getTitle());
             customizeButton(title);
             title.setPreferredSize(buttonSize);
             title.setMinimumSize(buttonSize);

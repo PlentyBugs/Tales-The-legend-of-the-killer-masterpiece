@@ -82,7 +82,7 @@ public class EditorWindow extends JFrame {
             ).map(e -> printTextArea(e, constraints, preferredSize)).collect(Collectors.toList());
 
             constraints.gridx = 0;
-            JButton countStats = new UnfocusedButton("Добавить");
+            UnfocusedButton countStats = new UnfocusedButton("Добавить");
             panel.add(countStats, constraints);
             constraints.gridy ++;
 
@@ -125,7 +125,7 @@ public class EditorWindow extends JFrame {
         JComboBox<Grade> itemGrade = printComboBox(Grade.values(), "Качество: ", constraints);
 
         constraints.gridx = 0;
-        JButton addItem = new UnfocusedButton("Добавить в инвентарь");
+        UnfocusedButton addItem = new UnfocusedButton("Добавить в инвентарь");
         panel.add(addItem, constraints);
 
         addItem.addActionListener(e -> {

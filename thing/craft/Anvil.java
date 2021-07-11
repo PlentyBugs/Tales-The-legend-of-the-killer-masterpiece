@@ -20,6 +20,7 @@ import item.weapon.staff.Staff;
 import item.weapon.sword.Sword;
 import item.weapon.WeaponType;
 import thing.Thing;
+import window.MultiWindow;
 import window.craft.AnvilTableWindow;
 import window.WindowInterface;
 import support.AbilityProperty;
@@ -40,19 +41,15 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
         propertyList.add(GeneralProperty.ANVIL);
     }
 
-
-    private boolean isCraftTableWindowOpen;
     private final AnvilTableWindow anvilTableWindow;
     private Player player;
     private BluePrint bluePrint;
 
     public Anvil(){
+        isStep = false;
         name = "Наковальня";
         color = new Color(48, 48, 48);
-        isStep = false;
         anvilTableWindow = new AnvilTableWindow(this);
-        setCraftTableWindow(false);
-        setCraftTableWindowOpen(false);
     }
 
     @Override
@@ -62,17 +59,8 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
     }
 
     @Override
-    public void setCraftTableWindow(boolean isVisible) {
-        anvilTableWindow.setVisible(isVisible);
-    }
+    public void drawWindow(MultiWindow multiWindow) {
 
-    public void setCraftTableWindowOpen(boolean isCraftTableWindowOpen) {
-        this.isCraftTableWindowOpen = isCraftTableWindowOpen;
-    }
-
-    @Override
-    public boolean getCraftTableWindowOpen() {
-        return isCraftTableWindowOpen;
     }
 
     @Override

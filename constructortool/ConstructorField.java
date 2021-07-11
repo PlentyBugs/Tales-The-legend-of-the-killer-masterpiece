@@ -7,8 +7,6 @@ import window.player.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ConstructorField extends JFrame {
 
@@ -64,13 +62,13 @@ public class ConstructorField extends JFrame {
 
         panel = new JPanel(new BorderLayout());
 
-        JButton addUp = new UnfocusedButton("+");
+        UnfocusedButton addUp = new UnfocusedButton("+");
 
-        JButton addLeft = new UnfocusedButton("+");
+        UnfocusedButton addLeft = new UnfocusedButton("+");
 
-        JButton addDown = new UnfocusedButton("+");
+        UnfocusedButton addDown = new UnfocusedButton("+");
 
-        JButton addRight = new UnfocusedButton("+");
+        UnfocusedButton addRight = new UnfocusedButton("+");
 
         addUp.addActionListener(e -> {
             addToUp();
@@ -104,61 +102,59 @@ public class ConstructorField extends JFrame {
             for (int j = 0; j < mapWidth; j++){
                 constraints.gridx = j;
                 constraints.gridy = i;
-                JButton blockButton = new UnfocusedButton(map[i][j].getName());
+                UnfocusedButton blockButton = new UnfocusedButton(map[i][j].getName());
                 blockButton.setBackground(map[i][j].getColor());
                 blockButton.setFont(new Font("TimesRoman", Font.BOLD, 8));
 
                 int finalI = i;
                 int finalJ = j;
-                blockButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if(toolMode.getToolModeEnum() == ToolModeEnum.BUILD){
-                            GodCreature godCreature = block.getBlock().getClearCopy();
-                            godCreature.setX(finalJ);
-                            godCreature.setY(finalI);
-                            map[finalI][finalJ] = godCreature;
-                            isEditableMap[finalI][finalJ] = block.getEditable();
-                            drawWindow();
-                        } else if(toolMode.getToolModeEnum() == ToolModeEnum.EDITOR && isEditableMap[finalI][finalJ]){
-                            EditorWindow editorWindow = new EditorWindow(map[finalI][finalJ]);
-                        }else if(toolMode.getToolModeEnum() == ToolModeEnum.AREABUILDER){
-                            Thread myThready = new Thread(() -> {
+                blockButton.addActionListener(e -> {
+                    if(toolMode.getToolModeEnum() == ToolModeEnum.BUILD){
+                        GodCreature godCreature = block.getBlock().getClearCopy();
+                        godCreature.setX(finalJ);
+                        godCreature.setY(finalI);
+                        map[finalI][finalJ] = godCreature;
+                        isEditableMap[finalI][finalJ] = block.getEditable();
+                        drawWindow();
+                    } else if(toolMode.getToolModeEnum() == ToolModeEnum.EDITOR && isEditableMap[finalI][finalJ]){
+                        EditorWindow editorWindow = new EditorWindow(map[finalI][finalJ]);
+                    }else if(toolMode.getToolModeEnum() == ToolModeEnum.AREABUILDER){
+                        Thread myThready = new Thread(() -> {
 
-                                if (!ClickAreaBuilderCheck){
-                                    ClickAreaBuilderCheck = true;
-                                    firstClickAreaBuilderIdX = finalJ;
-                                    firstClickAreaBuilderIdY = finalI;
-                                } else {
-                                    ClickAreaBuilderCheck = false;
-                                    secondClickAreaBuilderIdX = finalJ;
-                                    secondClickAreaBuilderIdY = finalI;
+                            if (!ClickAreaBuilderCheck){
+                                ClickAreaBuilderCheck = true;
+                                firstClickAreaBuilderIdX = finalJ;
+                                firstClickAreaBuilderIdY = finalI;
+                            } else {
+                                ClickAreaBuilderCheck = false;
+                                secondClickAreaBuilderIdX = finalJ;
+                                secondClickAreaBuilderIdY = finalI;
 
-                                    if (firstClickAreaBuilderIdX > secondClickAreaBuilderIdX){
-                                        firstClickAreaBuilderIdX = firstClickAreaBuilderIdX + secondClickAreaBuilderIdX;
-                                        secondClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
-                                        firstClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
-                                    }
-
-                                    if (firstClickAreaBuilderIdY > secondClickAreaBuilderIdY){
-                                        firstClickAreaBuilderIdY = firstClickAreaBuilderIdY + secondClickAreaBuilderIdY;
-                                        secondClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
-                                        firstClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
-                                    }
-
-                                    for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
-                                        for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
-                                            GodCreature godCreature = block.getBlock().getClearCopy();
-                                            godCreature.setX(k);
-                                            godCreature.setY(z);
-                                            map[z][k] = godCreature;
-                                            isEditableMap[z][k] = block.getEditable();
-                                        }
-                                    }
-                                    drawWindow();
+                                if (firstClickAreaBuilderIdX > secondClickAreaBuilderIdX){
+                                    firstClickAreaBuilderIdX = firstClickAreaBuilderIdX + secondClickAreaBuilderIdX;
+                                    secondClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
+                                    firstClickAreaBuilderIdX = firstClickAreaBuilderIdX - secondClickAreaBuilderIdX;
                                 }
-                            });
-                            myThready.start();
-                        }
+
+                                if (firstClickAreaBuilderIdY > secondClickAreaBuilderIdY){
+                                    firstClickAreaBuilderIdY = firstClickAreaBuilderIdY + secondClickAreaBuilderIdY;
+                                    secondClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                    firstClickAreaBuilderIdY = firstClickAreaBuilderIdY - secondClickAreaBuilderIdY;
+                                }
+
+                                for (int z = firstClickAreaBuilderIdY; z <= secondClickAreaBuilderIdY; z++){
+                                    for (int k = firstClickAreaBuilderIdX; k <= secondClickAreaBuilderIdX; k++){
+                                        GodCreature godCreature = block.getBlock().getClearCopy();
+                                        godCreature.setX(k);
+                                        godCreature.setY(z);
+                                        map[z][k] = godCreature;
+                                        isEditableMap[z][k] = block.getEditable();
+                                    }
+                                }
+                                drawWindow();
+                            }
+                        });
+                        myThready.start();
                     }
                 });
 

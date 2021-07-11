@@ -1,15 +1,17 @@
 package window.support.component;
 
 import item.alchemy.ingredient.Ingredient;
+import window.player.UnfocusedButton;
 
 import javax.swing.*;
 
-public class IngredientButton extends JButton {
+public class IngredientButton extends UnfocusedButton {
     private String nameStandard;
     private Ingredient ingredient;
     private int countOfIngredients;
 
-    public IngredientButton(String text){
+    public IngredientButton(String text) {
+        super(text);
         this.nameStandard = text;
         countOfIngredients = 0;
         setText(text);

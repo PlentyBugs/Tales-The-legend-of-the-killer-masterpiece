@@ -20,7 +20,7 @@ import window.provider.MapProvider;
 import window.provider.MultiWindowProvider;
 import window.provider.WindowProvider;
 
-public interface Controller extends WindowProvider, MapProvider, MapDrawer, MultiWindowProvider, PlayerInterfaceDrawer {
+public interface Controller extends WindowProvider, MapProvider, MapDrawer, MultiWindowProvider, PlayerInterfaceDrawer, Controllable {
 
     default void step(GodCreature creature) {
 
@@ -118,13 +118,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
             drawAllPlayerWindow(player, this);
         } else if(creature instanceof CraftTable craftTable) {
             craftTable.setPlayer(player);
-            if(!craftTable.getCraftTableWindowOpen()) {
-                craftTable.setCraftTableWindow(true);
-                craftTable.setCraftTableWindowOpen(true);
-            } else {
-                craftTable.setCraftTableWindow(false);
-                craftTable.setCraftTableWindowOpen(false);
-            }
+            craftTable.drawWindow(getMultiWindow());
         } else if (creature instanceof Chest chest) {
             player.setWindowInterface(windowInterface);
             if(!chest.getIsInventoryChestOpen()){

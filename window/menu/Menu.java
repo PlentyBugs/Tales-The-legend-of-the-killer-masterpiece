@@ -1,6 +1,7 @@
 package window.menu;
 
 import utils.Constants;
+import window.player.UnfocusedButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class Menu extends AbstractMenu {
         }
     }
 
-    protected void printInterface(String title, JButton ... buttonList) {
+    protected void printInterface(String title, UnfocusedButton ... buttonList) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setLayout(new GridBagLayout());
 
@@ -42,7 +43,7 @@ public class Menu extends AbstractMenu {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JPanel buttons = new JPanel(new GridBagLayout());
-        for (JButton button : buttonList) {
+        for (UnfocusedButton button : buttonList) {
             customizeButton(button);
             buttons.add(button, gbc);
         }

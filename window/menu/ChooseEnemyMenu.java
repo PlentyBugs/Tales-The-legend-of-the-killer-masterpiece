@@ -1,6 +1,7 @@
 package window.menu;
 
 import window.MultiWindow;
+import window.Screen;
 import window.battle.ChooseEnemyWindow;
 
 public class ChooseEnemyMenu extends Menu {
@@ -15,4 +16,6 @@ public class ChooseEnemyMenu extends Menu {
         removeAll();
         add(cmw);
     }
+
+    protected void close(Screen screen) {}
 }

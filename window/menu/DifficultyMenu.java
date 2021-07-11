@@ -5,7 +5,6 @@ import window.MultiWindow;
 import window.Screen;
 import window.player.UnfocusedButton;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +13,12 @@ public class DifficultyMenu extends Menu {
     public DifficultyMenu(MultiWindow mainWindow) {
         super();
 
-        JButton back = new JButton("← Back");
+        UnfocusedButton back = new UnfocusedButton("← Back");
         back.addActionListener(e -> mainWindow.switchScreen(Screen.MAIN_MENU));
-        List<JButton> buttonList = new ArrayList<>();
+        List<UnfocusedButton> buttonList = new ArrayList<>();
         Difficulty[] difficulties = Difficulty.values();
         for (Difficulty difficulty : difficulties) {
-            JButton button = new UnfocusedButton(difficulty.name());
+            UnfocusedButton button = new UnfocusedButton(difficulty.name());
             button.addActionListener(e -> {
                 mainWindow.newGame(difficulty);
                 mainWindow.switchScreen(Screen.GAME);
@@ -27,6 +26,6 @@ public class DifficultyMenu extends Menu {
             buttonList.add(button);
         }
         buttonList.add(back);
-        printInterface("Выберите сложность", buttonList.toArray(new JButton[0]));
+        printInterface("Выберите сложность", buttonList.toArray(new UnfocusedButton[0]));
     }
 }

@@ -12,5 +12,8 @@ public enum Screen {
     SHOP,
     TRAN_SHOP,
     THEFT,
-    CONVERSATION
+    CONVERSATION,
+    ALCHEMY,
+    ENCHANTMENT,
+    BLACKSMITH
 }

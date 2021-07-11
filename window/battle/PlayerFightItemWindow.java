@@ -99,7 +99,7 @@ public class PlayerFightItemWindow extends JFrame implements Serializable, Color
                 property.setForeground(colorForeground);
                 propertyCount.setForeground(colorForeground);
 
-                JButton useButton = new UnfocusedButton("Использовать");
+                UnfocusedButton useButton = new UnfocusedButton("Использовать");
 
                 useButton.addActionListener((ActionListener & Serializable)  e -> {
                     if(item instanceof PoisonPotion poison){

@@ -5,6 +5,7 @@ import creature.Player;
 import support.CreatureProperty;
 import texture.Texture;
 import texture.TextureFactory;
+import utils.KeyBinder;
 import window.menu.Menu;
 import window.MultiWindow;
 import window.Screen;
@@ -69,7 +70,7 @@ public class ChooseEnemyWindow extends Menu implements Serializable {
         life.setBackground(Color.RED);
         life.setForeground(Color.GREEN);
         infoPanel.add(life, BorderLayout.SOUTH);
-        JButton fight = new UnfocusedButton("Fight");
+        UnfocusedButton fight = new UnfocusedButton("Fight");
         fight.addActionListener(e -> fight());
         customizeButton(fight);
 
@@ -99,14 +100,7 @@ public class ChooseEnemyWindow extends Menu implements Serializable {
     }
 
     private void bindKeys() {
-        KeyStroke escape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escape,   "escape");
-        getActionMap().put("escape", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                close(Screen.GAME);
-            }
-        });
+        KeyBinder.bindEscape(this, () -> close(Screen.GAME));
         KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_F, 0);
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke,   "fight");
         getActionMap().put("fight", new AbstractAction() {

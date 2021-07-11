@@ -1,12 +1,14 @@
 package window.menu;
 
 import utils.Constants;
+import window.Controllable;
+import window.player.UnfocusedButton;
 import window.support.component.ScrollBar;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class AbstractMenu extends JPanel {
+public abstract class AbstractMenu extends JPanel implements Controllable {
     protected final int WIDTH = Constants.getFULLSCREEN().width;
     protected final int HEIGHT = Constants.getFULLSCREEN().height;
     protected final Dimension BUTTON_SIZE = new Dimension(WIDTH / 4, HEIGHT / 20);
@@ -16,13 +18,16 @@ public abstract class AbstractMenu extends JPanel {
     protected final Color STYLED_COLOR_LIGHT = new Color(255, 150, 77, 255);
     protected final Color STYLED_COLOR_DARK = new Color(220, 126, 24, 255);
 
-    protected void customizeButton(JButton button) {
+    protected void customizeButton(UnfocusedButton button) {
         button.setMinimumSize(BUTTON_SIZE);
         button.setMaximumSize(BUTTON_SIZE);
         button.setPreferredSize(BUTTON_SIZE);
         button.setFont(FONT_BIG);
         button.setForeground(Color.WHITE);
         button.setBackground(STYLED_COLOR);
+        button.setHoverBackgroundColor(STYLED_COLOR.brighter());
+        button.setPressedBackgroundColor(STYLED_COLOR.darker());
+        button.setBorder(null);
     }
 
     protected void customizeScroll(JScrollPane scroll) {

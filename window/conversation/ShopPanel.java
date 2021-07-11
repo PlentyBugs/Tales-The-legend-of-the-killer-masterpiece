@@ -24,9 +24,9 @@ public class ShopPanel extends AbstractShop implements Serializable {
     public ShopPanel(int anchorWidth, Player player, LiveCreature seller, Switcher switcher) {
         super(anchorWidth, player, seller, switcher);
         chosenPanel = "buy";
-        JButton buyButton = new UnfocusedButton("Купить");
+        UnfocusedButton buyButton = new UnfocusedButton("Купить");
         customizeButton(buyButton);
-        JButton sellButton = new UnfocusedButton("Продать");
+        UnfocusedButton sellButton = new UnfocusedButton("Продать");
         customizeButton(sellButton);
 
         buyButton.addActionListener((ActionListener & Serializable)e -> {
@@ -89,7 +89,7 @@ public class ShopPanel extends AbstractShop implements Serializable {
                 property = "Мощность: " + potion.getEffect().getPower();
             }
 
-            JButton button = new UnfocusedButton(
+            UnfocusedButton button = new UnfocusedButton(
                     chosenPanel.equals("buy") ? "Купить" : "Продать"
             );
 

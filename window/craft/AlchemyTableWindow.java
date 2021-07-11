@@ -1,121 +1,98 @@
 package window.craft;
 
+import conversation.TablePart;
 import creature.Player;
+import item.Item;
 import item.alchemy.ingredient.Ingredient;
+import support.AbilityProperty;
 import thing.craft.AlchemyTable;
+import utils.KeyBinder;
+import utils.PanelProvider;
+import window.MultiWindow;
+import window.Screen;
+import window.Switcher;
+import window.WindowInterface;
+import window.conversation.AbstractShop;
 import window.player.UnfocusedButton;
 import window.support.component.IngredientButton;
-import window.WindowInterface;
-import support.AbilityProperty;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AlchemyTableWindow extends CraftWindow {
 
-    private final GridBagConstraints constraints;
+    private final JPanel panel = new JPanel(new GridBagLayout());
     private final IngredientButton[] buttons;
     private final AlchemyTable alchemyTable;
     private final Ingredient[] ingredients;
-    private final JPanel panel;
-    private JPanel ingredientsPanel;
+    private final Box ingredientsPanel;
+    private final int btnSize = WIDTH / 6;
+    private MultiWindow multiWindow;
     private Player player;
+    private int currentSlot = 0;
 
-    public AlchemyTableWindow(AlchemyTable parent){
-        super("Алхимический стол");
-        setAlwaysOnTop(true);
+    public AlchemyTableWindow(AlchemyTable parent) {
         alchemyTable = parent;
         buttons = new IngredientButton[]{null, null, null, null, null, null};
         ingredients = new Ingredient[]{null, null, null, null, null, null};
-        ingredientsPanel = new JPanel();
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
+        ingredientsPanel = Box.createHorizontalBox();
 
-            @Override
-            public void componentMoved(ComponentEvent e) {}
+        Dimension preferredSize = new Dimension(WIDTH, HEIGHT);
+        setPreferredSize(preferredSize);
+        setMaximumSize(preferredSize);
+        setMinimumSize(preferredSize);
 
-            @Override
-            public void componentShown(ComponentEvent e) {
-                alchemyTable.setCraftTableWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                alchemyTable.setCraftTableWindowOpen(false);
-            }
-        });
-
-        setPreferredSize(new Dimension(720,480));
-        setMaximumSize(new Dimension(720,480));
-        setMinimumSize(new Dimension(720,480));
-
-        panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
-
-        constraints.anchor = GridBagConstraints.NORTH;
-        constraints.insets = new Insets(0, 10, 0, 10);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
+        setLayout(new BorderLayout());
 
         drawWindow();
+        KeyBinder.bindEscape(this, () -> close(Screen.GAME));
+        setVisible(true);
     }
 
-    public void drawWindow(){
-        getContentPane().remove(panel);
-
+    public void drawWindow() {
+        panel.removeAll();
+        GridBagConstraints gbc = PanelProvider.getEmptyGBC();
         int alchemyLevel = 0;
         if(player != null && player.hasAbility(AbilityProperty.ALCHEMIST)){
             alchemyLevel = player.getAbility(AbilityProperty.ALCHEMIST).getLevel();
         }
+        IngredientChooser chooser = new IngredientChooser(player, multiWindow);
 
         ingredientsPanel.removeAll();
-        ingredientsPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints ingredientsConstraints = new GridBagConstraints();
-
-        ingredientsConstraints.anchor = GridBagConstraints.NORTH;
-        ingredientsConstraints.insets = new Insets(10, 10, 10, 10);
-        ingredientsConstraints.gridx = 0;
-        ingredientsConstraints.gridy = 0;
-        for(int i = 0; i < 3 + alchemyLevel; i++){
-            if(buttons[i] == null){
-                IngredientButton button = new IngredientButton("Ингредиент");
-                buttons[i] = button;
-                button.setPreferredSize(new Dimension(180, 120));
-                button.setMaximumSize(new Dimension(180, 120));
-                button.setMinimumSize(new Dimension(180, 120));
+        Dimension buttonSize = new Dimension(btnSize, btnSize);
+        ingredientsPanel.setPreferredSize(new Dimension(WIDTH, btnSize));
+        ingredientsPanel.setMaximumSize(new Dimension(WIDTH, btnSize));
+        ingredientsPanel.setMinimumSize(new Dimension(WIDTH, btnSize));
+        int slotCount = 3 + alchemyLevel;
+        for (int i = 0; i < 6; i++) {
+            IngredientButton button = new IngredientButton("Ингредиент");
+            buttons[i] = button;
+            customizeButton(button);
+            button.setPreferredSize(buttonSize);
+            button.setMaximumSize(buttonSize);
+            button.setMinimumSize(buttonSize);
+            if (i < slotCount) {
                 int finalI = i;
                 button.addActionListener((ActionListener & Serializable)e -> {
-                    IngredientChooser ingredientChooser = new IngredientChooser(player, ingredients, finalI, button);
+                    currentSlot = finalI;
+                    chooser.printItems();
                 });
+            } else {
+                button.setText("");
+                button.setBackground(STYLED_COLOR_DARK.darker());
             }
-            ingredientsPanel.add(buttons[i], ingredientsConstraints);
-
-            if(i < 2){
-                ingredientsConstraints.gridx ++;
-            }else if(i == 2){
-                ingredientsConstraints.gridx = 1;
-                ingredientsConstraints.gridy ++;
-            } else if(i == 3){
-                ingredientsConstraints.gridx = 0;
-            } else if(i == 4){
-                ingredientsConstraints.gridx = 2;
-            } else if(i == 5){
-                ingredientsConstraints.gridx = 1;
-                ingredientsConstraints.gridy ++;
-            }
+            ingredientsPanel.add(buttons[i]);
         }
-        constraints.gridy = 0;
-        panel.add(ingredientsPanel, constraints);
+        panel.add(ingredientsPanel, gbc);
+        gbc.gridy++;
 
-        constraints.gridy ++;
-        JButton create = new UnfocusedButton("Создать");
+        UnfocusedButton create = new UnfocusedButton("Создать");
+        customizeButton(create);
+        create.setSize(WIDTH, (HEIGHT - btnSize) / 9);
         create.addActionListener((ActionListener & Serializable) e -> {
             alchemyTable.clearCreatedPotion();
             alchemyTable.create(ingredients);
@@ -142,22 +119,84 @@ public class AlchemyTableWindow extends CraftWindow {
             WindowInterface windowInterface = player.getWindowInterface();
             windowInterface.drawAllPlayerWindow(player, windowInterface);
         });
-        panel.add(create, constraints);
-        getContentPane().add(panel);
-        pack();
-        setVisible(true);
+        panel.add(create, gbc);
+        gbc.gridy++;
+        panel.add(chooser, gbc);
+        add(panel);
+        chooser.printItems();
     }
 
-    public void setIsVisible(boolean visible){
-        drawWindow();
-        setVisible(visible);
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    protected void close(Screen screen){
+        multiWindow.removeWindow(this);
+        multiWindow.switchScreen(screen);
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void setMultiWindow(MultiWindow multiWindow) {
+        this.multiWindow = multiWindow;
+    }
+
+    private final class IngredientChooser extends AbstractShop {
+
+        public IngredientChooser(Player player, Switcher switcher) {
+            super(
+                    0,
+                    player,
+                    null,
+                    switcher,
+                    new String[]{"Название", "Известные эффекты", "Цена", "Количество", ""},
+                    new Class[]{String.class, String.class, String.class, String.class, JButton.class}
+            );
+            add(choose, BorderLayout.NORTH);
+            scroll = new JScrollPane(itemStock);
+            Dimension scrollSize = new Dimension(width, (HEIGHT - btnSize) * 10 / 9);
+            scroll.setMinimumSize(scrollSize);
+            scroll.setPreferredSize(scrollSize);
+            scroll.setMaximumSize(scrollSize);
+            customizeScroll(scroll);
+
+            add(scroll, BorderLayout.SOUTH);
+            setVisible(true);
+        }
+
+        @Override
+        protected void printItems() {
+            if (player == null) return;
+            dtm.clear();
+            Map<Item, Integer> map = new HashMap<>();
+            for(Item item : player.getInventory()) {
+                if (item.getCost() == 0) {
+                    item.countCost();
+                }
+                map.put(item, map.getOrDefault(item, 0) + 1);
+            }
+            map.forEach((item, count) -> {
+                if (item instanceof Ingredient ingredient) {
+                    UnfocusedButton button = new UnfocusedButton("Использовать");
+                    button.addActionListener((e) -> {
+                        ingredients[currentSlot] = ingredient;
+                        IngredientButton currentButton = buttons[currentSlot];
+                        if (currentButton != null) {
+                            currentButton.setBackground(ingredient.getColor());
+                            currentButton.setIngredient((Ingredient)item);
+                            currentButton.setCountOfIngredients(count);
+                            currentButton.writeText();
+                        }
+                    });
+                    customizeButton(button);
+                    TablePart tablePart = new TablePart(
+                        ingredient.getName(),
+                        ingredient.getItemProperty(),
+                        ingredient.getCost(),
+                        count,
+                        button
+                    );
+                    dtm.addRow(tablePart);
+                }
+            });
+        }
     }
 }

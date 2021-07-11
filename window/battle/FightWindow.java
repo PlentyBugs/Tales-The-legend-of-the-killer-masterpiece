@@ -55,7 +55,7 @@ public class FightWindow extends JPanel implements Serializable {
     private final JProgressBar playerHp;
     private final JProgressBar enemyHp;
     private final JProgressBar loyalty;
-    private boolean battleInProgress;
+    private boolean battleInProgress = true;
 
     private int countMoves = 1;
 
@@ -142,32 +142,32 @@ public class FightWindow extends JPanel implements Serializable {
         BoxLayout boxLayout = new BoxLayout(playerActions, BoxLayout.Y_AXIS);
         playerActions.setLayout(boxLayout);
 
-        JButton playerAttackButton = new UnfocusedButton("Атаковать");
+        UnfocusedButton playerAttackButton = new UnfocusedButton("Атаковать");
         playerAttackButton.setBackground(new Color(0,255,0));
         Dimension d = new Dimension(width /2, height /10);
         playerAttackButton.setMinimumSize(d);
         playerAttackButton.setPreferredSize(d);
         playerAttackButton.setMaximumSize(d);
 
-        JButton playerAbilityButton = new UnfocusedButton("Способность");
+        UnfocusedButton playerAbilityButton = new UnfocusedButton("Способность");
         playerAbilityButton.setBackground(new Color(0,255,0));
         playerAbilityButton.setMinimumSize(d);
         playerAbilityButton.setPreferredSize(d);
         playerAbilityButton.setMaximumSize(d);
 
-        JButton playerDiplomacyButton = new UnfocusedButton("Дипломатия");
+        UnfocusedButton playerDiplomacyButton = new UnfocusedButton("Дипломатия");
         playerDiplomacyButton.setBackground(new Color(255,255,0));
         playerDiplomacyButton.setMinimumSize(d);
         playerDiplomacyButton.setPreferredSize(d);
         playerDiplomacyButton.setMaximumSize(d);
 
-        JButton playerUseItemButton = new UnfocusedButton("Предметы");
+        UnfocusedButton playerUseItemButton = new UnfocusedButton("Предметы");
         playerUseItemButton.setBackground(new Color(0,255,0));
         playerUseItemButton.setMinimumSize(d);
         playerUseItemButton.setPreferredSize(d);
         playerUseItemButton.setMaximumSize(d);
 
-        JButton playerRunAwayButton = new UnfocusedButton("Побег");
+        UnfocusedButton playerRunAwayButton = new UnfocusedButton("Побег");
         playerRunAwayButton.setBackground(new Color(0,255,0));
         playerRunAwayButton.setMinimumSize(d);
         playerRunAwayButton.setPreferredSize(d);
@@ -187,7 +187,9 @@ public class FightWindow extends JPanel implements Serializable {
 
         playerAttackButton.addActionListener((ActionListener & Serializable)e -> {
             attack(player, enemy);
-            enemyTurn();
+            if (battleInProgress) {
+                enemyTurn();
+            }
         });
 
         playerAbilityButton.addActionListener((ActionListener & Serializable)e -> {
@@ -304,234 +306,231 @@ public class FightWindow extends JPanel implements Serializable {
         printHp();
     }
 
-    private void getReward(){
-        Thread thread = new Thread((Runnable & Serializable)() -> {
-            if(player.getHp() <= 0){
-                loss();
+    private void getReward() {
+        if(player.getHp() <= 0){
+            loss();
+        }
+
+        int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
+        if (rewardMoney <= 0){
+            rewardMoney = (int)(Math.random()*170);
+        }
+        int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl() + (int)Math.pow(enemy.getLvl(), 2.5));
+        if (rewardExp <= 0){
+            rewardExp = (int)(Math.random()*60);
+        }
+        int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
+        ArrayList<Item> dropItems = new ArrayList<>();
+        if(enemy instanceof Boss boss){
+            dropItems.addAll(Arrays.asList(boss.getDropItems()));
+        }
+        for (int i = 0; i < countItemsDrop; i++){
+            Item item = null;
+            try {
+                item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length)].clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
             }
 
-            int rewardMoney = (int)(((enemy.getLvl() - player.getLvl()+3)*70)*Math.random() + 7*player.getLvl()*enemy.getLvl());
-            if (rewardMoney <= 0){
-                rewardMoney = (int)(Math.random()*170);
+            if(item instanceof Ingredient){
+                dropItems.add(item);
+                continue;
             }
-            int rewardExp = (int)(((enemy.getLvl() - player.getLvl()+5)*20)*Math.random() + 4*player.getLvl()*enemy.getLvl() + 10*enemy.getLvl() + (int)Math.pow(enemy.getLvl(), 2.5));
-            if (rewardExp <= 0){
-                rewardExp = (int)(Math.random()*60);
+
+            if(item instanceof Ring ring){
+                ring.setStat(StatsEnum.values()[(int)(Math.random() * StatsEnum.values().length)]);
+            } else {
+                int chanceEnchant = (int)Math.ceil(Math.random()*100);
+                if(chanceEnchant < 3){
+                    if(item instanceof Armor){
+                        Enchant[] armorEnchants = new Enchant[]{new SpikeArmor(item), new HigherPath(item)};
+                        item.addEnchant(armorEnchants[(int)(Math.random()*armorEnchants.length)]);
+                    } else if(item instanceof Weapon){
+                        Enchant[] weaponEnchants = new Enchant[]{new Vampirism(item), new KornelCurse(item)};
+                        item.addEnchant(weaponEnchants[(int)(Math.random()*weaponEnchants.length)]);
+                    }
+                }
             }
-            int countItemsDrop = (int)Math.ceil(Math.random()*(enemy.getUniqueDropItems().length + 1) - 1);
-            ArrayList<Item> dropItems = new ArrayList<>();
-            if(enemy instanceof Boss boss){
-                dropItems.addAll(Arrays.asList(boss.getDropItems()));
+
+            int chanceDropItem = (int)Math.ceil(Math.random()*1000);
+
+            if (chanceDropItem < enemy.getLvl()*20){
+                item.setGrade(Grade.MAGIC);
             }
-            for (int i = 0; i < countItemsDrop; i++){
-                Item item = null;
-                try {
-                    item = (Item)enemy.getUniqueDropItems()[(int)(Math.random()*enemy.getUniqueDropItems().length)].clone();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
+            if(chanceDropItem < -90 + enemy.getLvl()*15){
+                item.setGrade(Grade.CURSE);
+            }
+            if(chanceDropItem < -60 + enemy.getLvl()*5){
+                item.setGrade(Grade.ARTIFACT);
+            }
+            if(chanceDropItem < -60 + enemy.getLvl()*3){
+                item.setGrade(Grade.HEROIC);
+            }
+            if(chanceDropItem < -60 + enemy.getLvl()){
+                item.setGrade(Grade.ABOVE_THE_GODS);
+            }
 
-                if(item instanceof Ingredient){
-                    dropItems.add(item);
-                    continue;
-                }
+            chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
-                if(item instanceof Ring ring){
-                    ring.setStat(StatsEnum.values()[(int)(Math.random() * StatsEnum.values().length)]);
-                } else {
-                    int chanceEnchant = (int)Math.ceil(Math.random()*100);
-                    if(chanceEnchant < 3){
-                        if(item instanceof Armor){
-                            Enchant[] armorEnchants = new Enchant[]{new SpikeArmor(item), new HigherPath(item)};
-                            item.addEnchant(armorEnchants[(int)(Math.random()*armorEnchants.length)]);
-                        } else if(item instanceof Weapon){
-                            Enchant[] weaponEnchants = new Enchant[]{new Vampirism(item), new KornelCurse(item)};
-                            item.addEnchant(weaponEnchants[(int)(Math.random()*weaponEnchants.length)]);
-                        }
-                    }
-                }
+            if (chanceDropItem < enemy.getLvl()*20){
+                item.setRarity(Rarity.UNCOMMON);
+            }
+            if(chanceDropItem < -50 + enemy.getLvl()*10){
+                item.setRarity(Rarity.RARE);
+            }
+            if(chanceDropItem < -40 + enemy.getLvl()*5){
+                item.setRarity(Rarity.MYSTICAL);
+            }
+            if(chanceDropItem < -300 + enemy.getLvl()*10){
+                item.setRarity(Rarity.LEGENDARY);
+            }
+            if(chanceDropItem < -1000 + enemy.getLvl()*20){
+                item.setRarity(Rarity.DRAGON);
+            }
+            if(chanceDropItem < -210 + enemy.getLvl()*3){
+                item.setRarity(Rarity.DIVINE);
+            }
 
-                int chanceDropItem = (int)Math.ceil(Math.random()*1000);
+            chanceDropItem = (int)Math.ceil(Math.random()*1000);
 
-                if (chanceDropItem < enemy.getLvl()*20){
-                    item.setGrade(Grade.MAGIC);
+            if (item instanceof Weapon){
+                if (chanceDropItem < enemy.getLvl()*12){
+                    item.setMaterial(Material.IRON);
                 }
-                if(chanceDropItem < -90 + enemy.getLvl()*15){
-                    item.setGrade(Grade.CURSE);
+                if (chanceDropItem < -50 + enemy.getLvl()*10){
+                    item.setMaterial(Material.BRONZE);
                 }
-                if(chanceDropItem < -60 + enemy.getLvl()*5){
-                    item.setGrade(Grade.ARTIFACT);
+                if (chanceDropItem < -132 + enemy.getLvl()*12){
+                    item.setMaterial(Material.STEEL);
                 }
-                if(chanceDropItem < -60 + enemy.getLvl()*3){
-                    item.setGrade(Grade.HEROIC);
+                if (chanceDropItem < -147 + enemy.getLvl()*7){
+                    item.setMaterial(Material.MYTHRIL);
                 }
-                if(chanceDropItem < -60 + enemy.getLvl()){
-                    item.setGrade(Grade.ABOVE_THE_GODS);
+                if (chanceDropItem < -183 + enemy.getLvl()*6){
+                    item.setMaterial(Material.ADAMANTINE);
                 }
+                if (chanceDropItem < -126 + enemy.getLvl()*3){
+                    item.setMaterial(Material.ELVENMYTHRIL);
+                }
+                if (chanceDropItem < -96 + enemy.getLvl()*2){
+                    item.setMaterial(Material.CRYSTAL);
+                }
+                if (chanceDropItem < -112 + enemy.getLvl()*2){
+                    item.setMaterial(Material.DEEP);
+                }
+                if (chanceDropItem < -243 + enemy.getLvl()*3){
+                    item.setMaterial(Material.GODSHEART);
+                }
+                if (chanceDropItem < -500 + enemy.getLvl()*5){
+                    item.setMaterial(Material.ABSOLUTEZERO);
+                }
+            } else if (item instanceof Torso || item instanceof Helmet){
 
-                chanceDropItem = (int)Math.ceil(Math.random()*1000);
+                if (chanceDropItem < enemy.getLvl()*12){
+                    item.setMaterial(Material.STUDDEDLEATHER);
+                }
+                if (chanceDropItem < -72 + enemy.getLvl()*12){
+                    item.setMaterial(Material.CHAIN);
+                }
+                if (chanceDropItem < -175 + enemy.getLvl()*15){
+                    item.setMaterial(Material.COPPER);
+                }
+                if (chanceDropItem < -196 + enemy.getLvl()*12){
+                    item.setMaterial(Material.IRON);
+                }
+                if (chanceDropItem < -279 + enemy.getLvl()*9){
+                    item.setMaterial(Material.BRONZE);
+                }
+                if (chanceDropItem < -320 + enemy.getLvl()*8){
+                    item.setMaterial(Material.STEEL);
+                }
+                if (chanceDropItem < -320 + enemy.getLvl()*7){
+                    item.setMaterial(Material.MYTHRIL);
+                }
+                if (chanceDropItem < -212 + enemy.getLvl()*4){
+                    item.setMaterial(Material.ADAMANTINE);
+                }
+                if (chanceDropItem < -170 + enemy.getLvl()*3){
+                    item.setMaterial(Material.ELVENMYTHRIL);
+                }
+                if (chanceDropItem < -130 + enemy.getLvl()*2){
+                    item.setMaterial(Material.CRYSTAL);
+                }
+                if (chanceDropItem < -180 + enemy.getLvl()*2){
+                    item.setMaterial(Material.DEEP);
+                }
+                if (chanceDropItem < -100 + enemy.getLvl()){
+                    item.setMaterial(Material.GODSHEART);
+                }
+                if (chanceDropItem < -500 + enemy.getLvl()*4){
+                    item.setMaterial(Material.ABSOLUTEZERO);
+                }
+            }
 
-                if (chanceDropItem < enemy.getLvl()*20){
-                    item.setRarity(Rarity.UNCOMMON);
-                }
-                if(chanceDropItem < -50 + enemy.getLvl()*10){
-                    item.setRarity(Rarity.RARE);
-                }
-                if(chanceDropItem < -40 + enemy.getLvl()*5){
-                    item.setRarity(Rarity.MYSTICAL);
-                }
-                if(chanceDropItem < -300 + enemy.getLvl()*10){
-                    item.setRarity(Rarity.LEGENDARY);
-                }
-                if(chanceDropItem < -1000 + enemy.getLvl()*20){
-                    item.setRarity(Rarity.DRAGON);
-                }
-                if(chanceDropItem < -210 + enemy.getLvl()*3){
-                    item.setRarity(Rarity.DIVINE);
-                }
+            item.countProperty();
 
-                chanceDropItem = (int)Math.ceil(Math.random()*1000);
+            dropItems.add(item);
+        }
 
-                if (item instanceof Weapon){
-                    if (chanceDropItem < enemy.getLvl()*12){
-                        item.setMaterial(Material.IRON);
-                    }
-                    if (chanceDropItem < -50 + enemy.getLvl()*10){
-                        item.setMaterial(Material.BRONZE);
-                    }
-                    if (chanceDropItem < -132 + enemy.getLvl()*12){
-                        item.setMaterial(Material.STEEL);
-                    }
-                    if (chanceDropItem < -147 + enemy.getLvl()*7){
-                        item.setMaterial(Material.MYTHRIL);
-                    }
-                    if (chanceDropItem < -183 + enemy.getLvl()*6){
-                        item.setMaterial(Material.ADAMANTINE);
-                    }
-                    if (chanceDropItem < -126 + enemy.getLvl()*3){
-                        item.setMaterial(Material.ELVENMYTHRIL);
-                    }
-                    if (chanceDropItem < -96 + enemy.getLvl()*2){
-                        item.setMaterial(Material.CRYSTAL);
-                    }
-                    if (chanceDropItem < -112 + enemy.getLvl()*2){
-                        item.setMaterial(Material.DEEP);
-                    }
-                    if (chanceDropItem < -243 + enemy.getLvl()*3){
-                        item.setMaterial(Material.GODSHEART);
-                    }
-                    if (chanceDropItem < -500 + enemy.getLvl()*5){
-                        item.setMaterial(Material.ABSOLUTEZERO);
-                    }
-                } else if (item instanceof Torso || item instanceof Helmet){
-
-                    if (chanceDropItem < enemy.getLvl()*12){
-                        item.setMaterial(Material.STUDDEDLEATHER);
-                    }
-                    if (chanceDropItem < -72 + enemy.getLvl()*12){
-                        item.setMaterial(Material.CHAIN);
-                    }
-                    if (chanceDropItem < -175 + enemy.getLvl()*15){
-                        item.setMaterial(Material.COPPER);
-                    }
-                    if (chanceDropItem < -196 + enemy.getLvl()*12){
-                        item.setMaterial(Material.IRON);
-                    }
-                    if (chanceDropItem < -279 + enemy.getLvl()*9){
-                        item.setMaterial(Material.BRONZE);
-                    }
-                    if (chanceDropItem < -320 + enemy.getLvl()*8){
-                        item.setMaterial(Material.STEEL);
-                    }
-                    if (chanceDropItem < -320 + enemy.getLvl()*7){
-                        item.setMaterial(Material.MYTHRIL);
-                    }
-                    if (chanceDropItem < -212 + enemy.getLvl()*4){
-                        item.setMaterial(Material.ADAMANTINE);
-                    }
-                    if (chanceDropItem < -170 + enemy.getLvl()*3){
-                        item.setMaterial(Material.ELVENMYTHRIL);
-                    }
-                    if (chanceDropItem < -130 + enemy.getLvl()*2){
-                        item.setMaterial(Material.CRYSTAL);
-                    }
-                    if (chanceDropItem < -180 + enemy.getLvl()*2){
-                        item.setMaterial(Material.DEEP);
-                    }
-                    if (chanceDropItem < -100 + enemy.getLvl()){
-                        item.setMaterial(Material.GODSHEART);
-                    }
-                    if (chanceDropItem < -500 + enemy.getLvl()*4){
-                        item.setMaterial(Material.ABSOLUTEZERO);
-                    }
-                }
-
-                item.countProperty();
-
+        for(Item item : enemy.getInventory()){
+            int chanceDropItem = (int)Math.ceil(Math.random()*100);
+            if(chanceDropItem < 5){
                 dropItems.add(item);
             }
+        }
 
-            for(Item item : enemy.getInventory()){
-                int chanceDropItem = (int)Math.ceil(Math.random()*100);
-                if(chanceDropItem < 5){
-                    dropItems.add(item);
+        player.addMoney(rewardMoney);
+        player.addExp(rewardExp);
+
+        field.setIsVisible(true);
+        Chest chest = null;
+        if(enemy.getHp() <= 0)
+            chest = new Corpse(enemy.getX(), enemy.getY());
+        if(enemy.getLoyaltyByIndex(player) == 100)
+            chest = new Chest(enemy.getX(), enemy.getY());
+
+        for(Item item : dropItems){
+            if(item != null && chest != null)
+                chest.addItemToInventory(item);
+        }
+        field.getMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
+        field.getMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
+
+        if (player.getQuests() != null){
+            for (Quest quest : player.getQuests()){
+                if(quest instanceof KillQuest killQuest && enemy.getLastProperty() == killQuest.getEnemyToKill().getLastProperty()){
+                    killQuest.setEnemyCountToKillCurrent(killQuest.getEnemyCountToKillCurrent() + 1);
                 }
-            }
-
-            player.addMoney(rewardMoney);
-            player.addExp(rewardExp);
-
-            field.setIsVisible(true);
-            Chest chest = null;
-            if(enemy.getHp() <= 0)
-                chest = new Corpse(enemy.getX(), enemy.getY());
-            if(enemy.getLoyaltyByIndex(player) == 100)
-                chest = new Chest(enemy.getX(), enemy.getY());
-
-            for(Item item : dropItems){
-                if(item != null && chest != null)
-                    chest.addItemToInventory(item);
-            }
-            field.getMap().setElementByCoordinates(enemy.getX(), enemy.getY(), chest);
-            field.getMap().setElementByCoordinatesUpper(enemy.getX(), enemy.getY(), null);
-
-            if (player.getQuests() != null){
-                for (Quest quest : player.getQuests()){
-                    if(quest instanceof KillQuest killQuest && enemy.getLastProperty() == killQuest.getEnemyToKill().getLastProperty()){
-                        killQuest.setEnemyCountToKillCurrent(killQuest.getEnemyCountToKillCurrent() + 1);
-                    }
-                    if(quest instanceof CollectItemQuest collect){
-                        for (Item item : enemy.getUniqueDropItems()){
-                            if (item.getLastProperty() == collect.getItem().getLastProperty()){
-                                player.addItemToInventory(collect.getItem());
-                                break;
-                            }
+                if(quest instanceof CollectItemQuest collect){
+                    for (Item item : enemy.getUniqueDropItems()){
+                        if (item.getLastProperty() == collect.getItem().getLastProperty()){
+                            player.addItemToInventory(collect.getItem());
+                            break;
                         }
                     }
-                    if(quest.check()){
-                        quest.getReward(player);
-                        player.removeQuest(quest);
-                    }
+                }
+                if(quest.check()){
+                    quest.getReward(player);
+                    player.removeQuest(quest);
                 }
             }
+        }
 
 
-            if (playerAbilityWindow != null){
-                playerAbilityWindow.close();
-            }
-            if (playerFightItemWindow != null){
-                playerFightItemWindow.close();
-            }
-            if(playerDiplomacyWindow != null){
-                playerDiplomacyWindow.close();
-            }
-            field.getNpcController().setWaiting(false);
-            enemy = null;
-            field.drawMap();
+        if (playerAbilityWindow != null){
+            playerAbilityWindow.close();
+        }
+        if (playerFightItemWindow != null){
+            playerFightItemWindow.close();
+        }
+        if(playerDiplomacyWindow != null){
+            playerDiplomacyWindow.close();
+        }
+        field.getNpcController().setWaiting(false);
+        enemy = null;
+        field.drawMap();
 
-            close(Screen.GAME);
-        });
-        thread.start();
+        close(Screen.GAME);
     }
 
     private void loss() {
@@ -737,13 +736,16 @@ public class FightWindow extends JPanel implements Serializable {
         return enemy;
     }
 
-    private void printHp(){
-        if(player.getHp() < 0){
+    private void printHp() {
+        if(player.getHp() <= 0){
             loss();
+            battleInProgress = false;
         } else if(enemy.getHp() <= 0){
             getReward();
+            battleInProgress = false;
         } else if(enemy.getLoyaltyByIndex(player) == 100){
             getReward();
+            battleInProgress = false;
         } else {
             playerHp.setValue((int)player.getHp());
             enemyHp.setValue((int)enemy.getHp());

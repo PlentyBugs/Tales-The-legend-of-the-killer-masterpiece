@@ -66,7 +66,7 @@ public class ConstructorConversationWindowEditor extends JFrame {
         constraints.gridy ++;
 
 
-        JButton sum = new UnfocusedButton("Принять");
+        UnfocusedButton sum = new UnfocusedButton("Принять");
         sum.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 

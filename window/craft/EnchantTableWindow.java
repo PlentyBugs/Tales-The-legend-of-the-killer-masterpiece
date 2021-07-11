@@ -2,14 +2,12 @@ package window.craft;
 
 import creature.Player;
 import thing.craft.EnchantTable;
-import window.player.UnfocusedButton;
 import utils.PanelProvider;
+import window.Screen;
+import window.player.UnfocusedButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
 
 public class EnchantTableWindow extends CraftWindow {
 
@@ -18,28 +16,7 @@ public class EnchantTableWindow extends CraftWindow {
     private final JPanel panel;
     private Player player;
 
-    public EnchantTableWindow(EnchantTable parent){
-        super("Стол зачарования");
-        setAlwaysOnTop(true);
-
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                parent.setCraftTableWindowOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                parent.setCraftTableWindowOpen(false);
-            }
-        });
+    public EnchantTableWindow(EnchantTable parent) {
 
         setPreferredSize(new Dimension(width, height));
         setMaximumSize(new Dimension(width, height));
@@ -64,8 +41,7 @@ public class EnchantTableWindow extends CraftWindow {
         tab.add("Наложить зачарование", buildAddEnchantmentPanel());
 
         panel.add(tab);
-        getContentPane().add(panel);
-        pack();
+        add(panel);
         setVisible(true);
     }
 
@@ -122,9 +98,7 @@ public class EnchantTableWindow extends CraftWindow {
         setVisible(visible);
     }
 
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
+    protected void close(Screen screen) {}
 
     public Player getPlayer() {
         return player;
