@@ -4,6 +4,7 @@ import creature.Player;
 import item.blacksmith.resource.Resource;
 import thing.Thing;
 import window.MultiWindow;
+import window.Screen;
 import window.craft.SmelterTableWindow;
 import support.Property;
 import support.GeneralProperty;
@@ -41,7 +42,10 @@ public class Smelter extends Thing implements BlackSmithCraftTable {
 
     @Override
     public void drawWindow(MultiWindow multiWindow) {
-
+        smelterTableWindow.setMultiWindow(multiWindow);
+        smelterTableWindow.drawWindow();
+        multiWindow.newWindow(smelterTableWindow, Screen.ALCHEMY);
+        multiWindow.switchScreen(Screen.ALCHEMY);
     }
 
     @Override

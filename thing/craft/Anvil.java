@@ -21,6 +21,7 @@ import item.weapon.sword.Sword;
 import item.weapon.WeaponType;
 import thing.Thing;
 import window.MultiWindow;
+import window.Screen;
 import window.craft.AnvilTableWindow;
 import window.WindowInterface;
 import support.AbilityProperty;
@@ -45,7 +46,7 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
     private Player player;
     private BluePrint bluePrint;
 
-    public Anvil(){
+    public Anvil() {
         isStep = false;
         name = "Наковальня";
         color = new Color(48, 48, 48);
@@ -60,7 +61,10 @@ public class Anvil extends Thing implements BlackSmithCraftTable {
 
     @Override
     public void drawWindow(MultiWindow multiWindow) {
-
+        anvilTableWindow.setMultiWindow(multiWindow);
+        anvilTableWindow.drawWindow();
+        multiWindow.newWindow(anvilTableWindow, Screen.ALCHEMY);
+        multiWindow.switchScreen(Screen.ALCHEMY);
     }
 
     @Override

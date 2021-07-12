@@ -31,8 +31,6 @@ public class AlchemyTableWindow extends CraftWindow {
     private final Ingredient[] ingredients;
     private final Box ingredientsPanel;
     private final int btnSize = WIDTH / 6;
-    private MultiWindow multiWindow;
-    private Player player;
     private int currentSlot = 0;
 
     public AlchemyTableWindow(AlchemyTable parent) {
@@ -124,19 +122,6 @@ public class AlchemyTableWindow extends CraftWindow {
         panel.add(chooser, gbc);
         add(panel);
         chooser.printItems();
-    }
-
-    protected void close(Screen screen){
-        multiWindow.removeWindow(this);
-        multiWindow.switchScreen(screen);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public void setMultiWindow(MultiWindow multiWindow) {
-        this.multiWindow = multiWindow;
     }
 
     private final class IngredientChooser extends AbstractShop {

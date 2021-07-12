@@ -25,7 +25,7 @@ public class AlchemyTable extends Thing implements AlchemyCraftTable {
         propertyList.add(GeneralProperty.ALCHEMY_TABLE);
     }
 
-    private AlchemyTableWindow alchemyTableWindow;
+    private final AlchemyTableWindow alchemyTableWindow;
     private Potion createdPotion;
     private Player player;
 

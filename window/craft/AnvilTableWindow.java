@@ -2,6 +2,8 @@ package window.craft;
 
 import creature.Player;
 import thing.craft.Anvil;
+import utils.KeyBinder;
+import window.Screen;
 import window.player.UnfocusedButton;
 import window.support.component.BluePrintButton;
 import window.support.component.ResourceButton;
@@ -14,22 +16,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class AnvilTableWindow extends JFrame {
+// todo: completely rework in future
+public class AnvilTableWindow extends CraftWindow {
 
-    private Player player;
     private final Anvil anvil;
     private JPanel panel = new JPanel(new GridBagLayout());
 
     public AnvilTableWindow(Anvil anvil){
-        super("Наковальня");
-        setAlwaysOnTop(true);
         this.anvil = anvil;
 
+        Dimension preferredSize = new Dimension(WIDTH, HEIGHT);
+        setPreferredSize(preferredSize);
+        setMaximumSize(preferredSize);
+        setMinimumSize(preferredSize);
+
+        setLayout(new BorderLayout());
+
         drawWindow();
+        KeyBinder.bindEscape(this, () -> close(Screen.GAME));
+        setVisible(true);
     }
 
     public void drawWindow(){
-        getContentPane().remove(panel);
+        panel.removeAll();
         panel = new JPanel(new GridBagLayout());
         int width = 480;
         int height = 480;
@@ -62,7 +71,7 @@ public class AnvilTableWindow extends JFrame {
         bluePrint.setMaximumSize(new Dimension(width /2, (height -120)/2));
 
         ResourceButton resource = new ResourceButton("Ресурс");
-        resource.addActionListener((ActionListener & Serializable)e -> new ResourceChooser(player, resource));
+//        resource.addActionListener((ActionListener & Serializable)e -> new ResourceChooser(player, resource));
         resource.setPreferredSize(new Dimension(width /2, (height -120)/2));
         resource.setMinimumSize(new Dimension(width /2, (height -120)/2));
         resource.setMaximumSize(new Dimension(width /2, (height -120)/2));
@@ -96,22 +105,7 @@ public class AnvilTableWindow extends JFrame {
         panel.add(resPanel, constraints);
         constraints.gridy ++;
         panel.add(use, constraints);
-        getContentPane().add(panel);
-        pack();
+        add(panel);
         setVisible(true);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-        drawWindow();
-    }
-
-    public void setIsVisible(boolean visible){
-        drawWindow();
-        setVisible(visible);
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }

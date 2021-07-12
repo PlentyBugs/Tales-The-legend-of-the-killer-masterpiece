@@ -1,42 +1,48 @@
 package window.craft;
 
-import creature.Player;
 import item.blacksmith.resource.Resource;
 import thing.craft.Smelter;
+import utils.KeyBinder;
+import window.Screen;
 import window.player.UnfocusedButton;
 import window.support.component.ResourceButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class SmelterTableWindow extends JFrame {
+// todo: completely rework in future
+public class SmelterTableWindow extends CraftWindow {
 
-    private Player player;
-    private Smelter smelter;
+    private final Smelter smelter;
     private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private int width = 480;
-    private int height = 480;
     private Resource res;
 
     public SmelterTableWindow(Smelter smelter){
-        super("Плавильня");
-        setAlwaysOnTop(true);
         this.smelter = smelter;
 
+        Dimension preferredSize = new Dimension(WIDTH, HEIGHT);
+        setPreferredSize(preferredSize);
+        setMaximumSize(preferredSize);
+        setMinimumSize(preferredSize);
+
+        setLayout(new BorderLayout());
+
         drawWindow();
+        KeyBinder.bindEscape(this, () -> close(Screen.GAME));
+        setVisible(true);
     }
 
     public void drawWindow(){
-        getContentPane().remove(panel);
+        panel.removeAll();
         panel = new JPanel(new GridBagLayout());
+        int width = 480;
+        int height = 480;
         panel.setPreferredSize(new Dimension(width, height));
         panel.setMinimumSize(new Dimension(width, height));
         panel.setMaximumSize(new Dimension(width, height));
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
         constraints.insets = new Insets(0, 0, 0, 0);
@@ -50,9 +56,9 @@ public class SmelterTableWindow extends JFrame {
         constraintsResDescPanel.insets = new Insets(0, 0, 0, 0);
         constraintsResDescPanel.gridx = 0;
         constraintsResDescPanel.gridy = 0;
-        resDescPanel.setPreferredSize(new Dimension(width/2, height-120));
-        resDescPanel.setMinimumSize(new Dimension(width/2, height-120));
-        resDescPanel.setMaximumSize(new Dimension(width/2, height-120));
+        resDescPanel.setPreferredSize(new Dimension(width /2, height -120));
+        resDescPanel.setMinimumSize(new Dimension(width /2, height -120));
+        resDescPanel.setMaximumSize(new Dimension(width /2, height -120));
         JLabel power = new JLabel("Сила плавки(Градус): " + smelter.getPower());
         resDescPanel.add(power, constraintsResDescPanel);
         constraintsResDescPanel.gridy ++;
@@ -72,10 +78,10 @@ public class SmelterTableWindow extends JFrame {
             materialTemp.setText("Температура материала: " + resource.getResource().getTemperature());
             materialMaxTemp.setText("Температура плавления м-ла: " + resource.getResource().getMaxTemperature());
         }
-        resource.addActionListener((ActionListener & Serializable) e -> new ResourceChooser(player, resource));
-        resource.setPreferredSize(new Dimension(width/2, height-120));
-        resource.setMinimumSize(new Dimension(width/2, height-120));
-        resource.setMaximumSize(new Dimension(width/2, height-120));
+//        resource.addActionListener((ActionListener & Serializable) e -> new ResourceChooser(player, resource));
+        resource.setPreferredSize(new Dimension(width /2, height -120));
+        resource.setMinimumSize(new Dimension(width /2, height -120));
+        resource.setMaximumSize(new Dimension(width /2, height -120));
         resPanel.add(resDescPanel, BorderLayout.WEST);
         resPanel.add(resource, BorderLayout.EAST);
 
@@ -97,21 +103,7 @@ public class SmelterTableWindow extends JFrame {
         panel.add(resPanel, constraints);
         constraints.gridy ++;
         panel.add(use, constraints);
-        getContentPane().add(panel);
-        pack();
+        add(panel);
         setVisible(true);
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public void setIsVisible(boolean visible){
-        drawWindow();
-        setVisible(visible);
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 }
