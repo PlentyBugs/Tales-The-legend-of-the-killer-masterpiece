@@ -15,5 +15,6 @@ public enum Screen {
     CONVERSATION,
     ALCHEMY,
     ENCHANTMENT,
-    BLACKSMITH
+    BLACKSMITH,
+    MAP
 }

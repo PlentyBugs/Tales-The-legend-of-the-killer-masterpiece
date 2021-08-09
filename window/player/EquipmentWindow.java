@@ -1,48 +1,35 @@
 package window.player;
 
 import creature.Player;
+import item.Item;
 import item.armor.Armor;
 import item.armor.Helmet;
 import item.armor.Ring;
 import item.armor.Torso;
-import item.Item;
 import item.weapon.Weapon;
 import utils.ColoringProfile;
+import window.menu.AbstractMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class EquipmentWindow extends JFrame implements Serializable, ColoringProfile {
+public class EquipmentWindow extends AbstractMenu implements Serializable, PlayerPanel, ColoringProfile {
 
     private final Player player;
-    private JPanel panel = new JPanel();
-    private final int width = 480;
 
     @Serial
     private static final long serialVersionUID = 3557302482173437655L;
 
-    public EquipmentWindow(Player player){
-        super("Экипировка");
-        int height = 240;
-        setMinimumSize(new Dimension(width, height));
-
+    public EquipmentWindow(Player player) {
         this.player = player;
-        drawEquipment();
+        setLayout(new GridBagLayout());
+        drawWindow();
     }
 
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public void setIsVisible(boolean b) {
-        drawEquipment();
-    }
-
-    public void drawEquipment(){
-        panel = new JPanel(new GridBagLayout());
+    public JPanel drawWindow() {
+        removeAll();
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -58,6 +45,7 @@ public class EquipmentWindow extends JFrame implements Serializable, ColoringPro
 
             JPanel itemPanel = new JPanel();
             itemPanel.setToolTipText(item.getEnchantDescription());
+            int width = 480;
             itemPanel.setPreferredSize(new Dimension(width, 40));
             GridBagConstraints itemConstraints = new GridBagConstraints();
             itemConstraints.anchor = GridBagConstraints.WEST;
@@ -116,15 +104,10 @@ public class EquipmentWindow extends JFrame implements Serializable, ColoringPro
 
             itemPanel.setBackground(colorBackground);
 
-            panel.add(itemPanel, constraints);
+            add(itemPanel, constraints);
 
             constraints.gridy ++;
         }
-        pack();
-        if(player.getWindowInterface() != null) player.getWindowInterface().drawMap();
-    }
-
-    public JPanel getPanel() {
-        return panel;
+        return this;
     }
 }

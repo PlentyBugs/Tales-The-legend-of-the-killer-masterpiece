@@ -27,11 +27,11 @@ public interface Creator {
     default GameWindow createGame(Difficulty difficulty, MultiWindow multiWindow) {
         Player player = new Player(1, 1, "Вы", 1, 250);
         player.setDifficulty(difficulty);
-        player.setX(1);
-        player.setY(1);
         player.addAbility(new LittleFool());
-        Map map = new Map(player, 100, 100)
-                .setPlayer(player);
+        Map map = new Map(player, 100, 100);
+        map.setPlayerX(1);
+        map.setPlayerY(1);
+        map.setPlayer(player);
         /*
         try {
             FileInputStream fis = new FileInputStream("./Maps/temp.txt");

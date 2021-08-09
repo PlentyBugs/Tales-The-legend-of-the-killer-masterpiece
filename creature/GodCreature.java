@@ -111,4 +111,8 @@ public class GodCreature implements Serializable, Cloneable, Copying<GodCreature
     public long getId() {
         return id;
     }
+
+    public boolean isBounded() {
+        return true;
+    }
 }

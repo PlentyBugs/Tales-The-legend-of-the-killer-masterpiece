@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Player extends Human  {
+public class Player extends Human {
     protected final static List<Property> propertyList = new ArrayList<>();
     public List<Property> getProperties() {return propertyList;}
 
@@ -38,7 +38,7 @@ public class Player extends Human  {
     private String name;
     private Difficulty difficulty;
     private UpStatsWindow upStatsWindow;
-    private InventoryWindow inventoryWindow;
+    private PlayerInventory inventoryWindow;
     private EquipmentWindow equipmentWindow;
     private PlayerInfoWindow playerInfoWindow;
     private UpgradeSkillsWindow playerAbilityWindow;
@@ -98,12 +98,11 @@ public class Player extends Human  {
 
     public void initWindows(){
         upStatsWindow = new UpStatsWindow(this);
-        inventoryWindow = new InventoryWindow(this);
+        inventoryWindow = new PlayerInventory(this);
         equipmentWindow = new EquipmentWindow(this);
         playerInfoWindow = new PlayerInfoWindow(this);
         playerAbilityWindow = new UpgradeSkillsWindow(this);
         playerQuestWindow = new QuestsWindow(this);
-        savePanel = new SavePanel(this);
         diseasesWindow = new DiseasesWindow(this);
     }
 
@@ -302,7 +301,7 @@ public class Player extends Human  {
         return equipmentWindow;
     }
 
-    public InventoryWindow getInventoryWindow() {
+    public PlayerInventory getInventoryWindow() {
         return inventoryWindow;
     }
 

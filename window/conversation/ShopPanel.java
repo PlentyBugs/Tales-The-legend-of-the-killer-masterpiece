@@ -61,17 +61,11 @@ public class ShopPanel extends AbstractShop implements Serializable {
         setVisible(true);
     }
 
-    protected void printItems() {
+    public void printItems() {
         dtm.clear();
         LiveCreature seller = chosenPanel.equals("buy") ? this.seller: this.player;
         LiveCreature customer = chosenPanel.equals("buy") ? this.player: this.seller;
-        Map<Item, Integer> map = new HashMap<>();
-        for(Item item : seller.getInventory()) {
-            if (item.getCost() == 0) {
-                item.countCost();
-            }
-            map.put(item, map.getOrDefault(item, 0) + 1);
-        }
+        Map<Item, Integer> map = getUniqueItemsWithCount(seller);
         map.forEach((item, count) -> {
 
             int price = (int)(item.getCost() * Math.min(12, Math.pow(1.005, seller.getStats().getEloquence() - player.getStats().getEloquence())));

@@ -126,7 +126,9 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     }
 
     public String getEnchantDescription(){
-        StringBuilder desc = new StringBuilder("<html>Зачарования:<br>");
+        StringBuilder desc = new StringBuilder("<html>");
+        desc.append("<h4>").append(getFullName()).append("</h4>");
+        desc.append("Зачарования:<br>");
         for(Enchant enchant : enchants){
             desc.
                     append("<b>Название:</b> ").
@@ -202,5 +204,9 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     @Override
     public Item getClearCopy() {
         return new Item();
+    }
+
+    public String getFullName() {
+        return name + " " + rarity.rarity + "#" + grade.grade;
     }
 }

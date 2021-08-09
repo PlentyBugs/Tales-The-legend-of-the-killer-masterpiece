@@ -1,7 +1,7 @@
 package window;
 
-import creature.GodCreature;
 import creature.Player;
+import location.Cell;
 import location.Map;
 import utils.KeyBinder;
 
@@ -13,6 +13,7 @@ public interface KeyController extends Controller {
 
     default void bindKeys() {
         KeyBinder.bindEscape(this, () -> getMultiWindow().switchScreen(Screen.MAIN_MENU));
+        KeyBinder.bindKey(KeyBinder.MAP, this, () -> getMultiWindow().switchScreen(Screen.MAP));
         KeyStroke left = KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0);
         KeyStroke leftA = KeyStroke.getKeyStroke(KeyEvent.VK_A, 0);
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(left,   "left");
@@ -20,11 +21,11 @@ public interface KeyController extends Controller {
         getActionMap().put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control((x, y, width, height, lower, upper) -> {
-                    int newX = x == 0 ? width - 1: x - 1;
-                    return upper == null || upper[y][newX] == null ?
-                            lower[y][newX]:
-                            upper[y][newX];
+                control((x, y, width, height, cells) -> {
+                    int newX = x == 0 ? 0: x - 1;
+                    return cells == null || cells[y][newX].getUpperObject() == null ?
+                            cells[y][newX].getLowerObject():
+                            cells[y][newX].getUpperObject();
                 });
             }
         });
@@ -35,11 +36,11 @@ public interface KeyController extends Controller {
         getActionMap().put("right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control((x, y, width, height, lower, upper) -> {
-                    int newX = x == width - 1 ? 0: x + 1;
-                    return upper == null || upper[y][newX] == null ?
-                            lower[y][newX]:
-                            upper[y][newX];
+                control((x, y, width, height, cells) -> {
+                    int newX = x == width - 1 ? width - 1: x + 1;
+                    return cells == null || cells[y][newX].getUpperObject() == null ?
+                            cells[y][newX].getLowerObject():
+                            cells[y][newX].getUpperObject();
                 });
             }
         });
@@ -50,11 +51,11 @@ public interface KeyController extends Controller {
         getActionMap().put("up", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control((x, y, width, height, lower, upper) -> {
-                    int newY = y == 0 ? height - 1: y - 1;
-                    return upper == null || upper[newY][x] == null ?
-                            lower[newY][x]:
-                            upper[newY][x];
+                control((x, y, width, height, cells) -> {
+                    int newY = y == 0 ? 0: y - 1;
+                    return cells == null || cells[newY][x].getUpperObject() == null ?
+                            cells[newY][x].getLowerObject():
+                            cells[newY][x].getUpperObject();
                 });
             }
         });
@@ -65,11 +66,11 @@ public interface KeyController extends Controller {
         getActionMap().put("down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                control((x, y, width, height, lower, upper) -> {
-                    int newY = y == height - 1 ? 0: y + 1;
-                    return upper == null || upper[newY][x] == null ?
-                            lower[newY][x]:
-                            upper[newY][x];
+                control((x, y, width, height, cells) -> {
+                    int newY = y == height - 1 ? height - 1: y + 1;
+                    return cells == null || cells[newY][x].getUpperObject() == null ?
+                            cells[newY][x].getLowerObject():
+                            cells[newY][x].getUpperObject();
                 });
             }
         });
@@ -78,13 +79,12 @@ public interface KeyController extends Controller {
     default void control(ControlItem controlItem) {
         Map map = getMap();
         Player player = map.getPlayer();
-        GodCreature[][] lower = map.getMapLowerObjects();
-        GodCreature[][] upper = map.getMapUpperObjects();
-        int height = lower.length;
-        int width = lower[0].length;
+        Cell[][] cells = map.getCells();
+        int height = cells.length;
+        int width = cells[0].length;
         int x = player.getX();
         int y = player.getY();
-        step(controlItem.control(x, y, width, height, lower, upper));
+        step(controlItem.control(x, y, width, height, cells));
         drawMap();
     }
 }

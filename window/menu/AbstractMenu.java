@@ -14,6 +14,7 @@ public abstract class AbstractMenu extends JPanel implements Controllable {
     protected final Dimension BUTTON_SIZE = new Dimension(WIDTH / 4, HEIGHT / 20);
     protected final Font FONT_BIG = new Font("Osaka", Font.PLAIN,HEIGHT / 40);
     protected final Font FONT_MEDIUM = new Font("Osaka", Font.PLAIN,HEIGHT / 50);
+    protected final Font FONT_SMALL = new Font("Osaka", Font.PLAIN,HEIGHT / 60);
     protected final Color STYLED_COLOR = new Color(220, 137, 70, 255);
     protected final Color STYLED_COLOR_LIGHT = new Color(255, 150, 77, 255);
     protected final Color STYLED_COLOR_DARK = new Color(220, 126, 24, 255);

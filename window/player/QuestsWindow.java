@@ -4,30 +4,23 @@ import creature.Player;
 import quest.CollectItemQuest;
 import quest.KillQuest;
 import quest.Quest;
+import window.menu.AbstractMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
-public class QuestsWindow extends JFrame {
+public class QuestsWindow extends AbstractMenu implements PlayerPanel {
 
     private final Player player;
-    private JPanel panel = new JPanel();
 
-    public QuestsWindow(Player player){
-        super("Квесты");
-        int width = 520;
-        int height = 240;
-        setMinimumSize(new Dimension(width, height));
-
+    public QuestsWindow(Player player) {
         this.player = player;
-
+        setLayout(new GridBagLayout());
         drawWindow();
     }
 
-    public void drawWindow(){
-        panel.removeAll();
-        panel = new JPanel(new GridBagLayout());
+    public JPanel drawWindow() {
+        removeAll();
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.NORTH;
@@ -70,23 +63,10 @@ public class QuestsWindow extends JFrame {
             JLabel questEmployer = new JLabel("Квестодатель: " + quest.getEmployerName());
             questPanel.add(questEmployer, questConstraints);
 
-            panel.add(questPanel, constraints);
+            add(questPanel, constraints);
 
             constraints.gridy ++;
         }
-        pack();
-        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public void setIsVisible(boolean b) {
-        drawWindow();
-    }
-
-    public JPanel getPanel() {
-        return panel;
+        return this;
     }
 }

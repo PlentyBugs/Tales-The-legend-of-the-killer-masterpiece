@@ -10,11 +10,12 @@ import java.awt.geom.Rectangle2D;
 
 public class FieldPanel extends JPanel {
 
-    private final int SCREEN_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private final double SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private Map map;
 
     public FieldPanel(Map map) {
         this.map = map;
+        setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
     }
 
     @Override
@@ -32,10 +33,11 @@ public class FieldPanel extends JPanel {
             for (int j = 0; j < realVision; j++) {
                 GodCreature godCreature = localMap[i][j];
                 Color fillColor = godCreature.getColor();
+                boolean isBounded = godCreature.isBounded();
 
-                int size = SCREEN_HEIGHT / realVision;
-                int xx = size * j;
-                int yy = size * i + 5;
+                double size = SCREEN_HEIGHT / realVision;
+                double xx = size * j;
+                double yy = size * i;
 
                 Rectangle2D.Double field = new Rectangle2D.Double(
                         xx,
@@ -47,8 +49,10 @@ public class FieldPanel extends JPanel {
                 g2.setColor(fillColor);
 
                 g2.fill(field);
-                g2.setColor(Color.black);
-                g2.draw(field);
+                if (isBounded) {
+                    g2.setColor(Color.black);
+                    g2.draw(field);
+                }
 
                 if (realVision < 20) {
                     g2.setColor(Color.black);
@@ -69,8 +73,8 @@ public class FieldPanel extends JPanel {
                     int length = split.length;
                     int currStringHeight = metrics.getHeight() * (length / 2 + 1);
                     for (String line : split) {
-                        int xxx = (int) (field.x) + (size - metrics.stringWidth(line)) / 2;
-                        int yyy = (int) (field.y) + (size - currStringHeight) / 2 + metrics.getAscent();
+                        int xxx = (int) ((field.x) + (size - metrics.stringWidth(line)) / 2);
+                        int yyy = (int) ((field.y) + (size - currStringHeight) / 2 + metrics.getAscent());
                         currStringHeight -= metrics.getHeight() + metrics.getAscent();
                         g.drawString(line, xxx, yyy);
                     }

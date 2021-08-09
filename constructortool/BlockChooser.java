@@ -25,7 +25,7 @@ public class BlockChooser extends JFrame {
 
     private final int width = 300;
     private final Block block;
-    private final GodCreature[] blockListNotLive = new GodCreature[]{new GreatWallNullerField(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
+    private final GodCreature[] blockListNotLive = new GodCreature[]{GreatWall.getInstance(), new Grass(), new Corpse(0,0), new BrickRoad(), new House(), new Stone(), new HealBlock(0,0), new Tree(), new Chest()};
     private final GodCreature[] blockListLive = new GodCreature[]{ new Bandit(), Dealer.getInstance(), new Goblin(), new Knight(), Inhabitant.getInstance(), new GoblinKing()};
 
     private JPanel panel = new JPanel(new GridBagLayout());

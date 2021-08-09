@@ -148,7 +148,7 @@ public class AlchemyTableWindow extends CraftWindow {
         }
 
         @Override
-        protected void printItems() {
+        public void printItems() {
             if (player == null) return;
             dtm.clear();
             Map<Item, Integer> map = new HashMap<>();

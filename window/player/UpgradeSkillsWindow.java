@@ -2,30 +2,28 @@ package window.player;
 
 import abilities.Ability;
 import creature.Player;
+import window.menu.AbstractMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.io.Serial;
 import java.io.Serializable;
 
-public class UpgradeSkillsWindow extends JFrame implements Serializable {
+public class UpgradeSkillsWindow extends AbstractMenu implements Serializable, PlayerPanel {
 
-    private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
+    private final Player player;
+    @Serial
     private static final long serialVersionUID = 4460300534250353120L;
 
-    public UpgradeSkillsWindow(Player player){
-        super("Прокачка умений");
-
+    public UpgradeSkillsWindow(Player player) {
         this.player = player;
+        setLayout(new GridBagLayout());
         drawWindow();
     }
 
-    public void drawWindow(){
-        panel.removeAll();
-        panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+    public JPanel drawWindow() {
+        removeAll();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 0, 10, 0);
@@ -45,7 +43,7 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
             JLabel name = new JLabel(ability.getName());
             skill.add(name, skillConstraints);
             skillConstraints.gridx = 1;
-            JLabel level = new JLabel("Уровень: " + Integer.toString(ability.getLevel()) + "/" + Integer.toString(ability.getMaxLevel()));
+            JLabel level = new JLabel("Уровень: " + ability.getLevel() + "/" + ability.getMaxLevel());
             skill.add(level, skillConstraints);
 
 
@@ -53,16 +51,14 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
                 skillConstraints.gridx = 2;
                 JButton upgrade = new UnfocusedButton("Прокачать");
 
-                upgrade.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        if (player.getLevelPoints() >= ability.getCost()){
-                            int cost = ability.getCost();
-                            int lastlevel = ability.getLevel();
-                            ability.levelUp(player);
-                            if(ability.getLevel()-lastlevel > 0){
-                                player.setLevelPoints(player.getLevelPoints() - cost);
-                                drawWindow();
-                            }
+                upgrade.addActionListener(e -> {
+                    if (player.getLevelPoints() >= ability.getCost()){
+                        int cost = ability.getCost();
+                        int lastlevel = ability.getLevel();
+                        ability.levelUp(player);
+                        if(ability.getLevel()-lastlevel > 0){
+                            player.setLevelPoints(player.getLevelPoints() - cost);
+                            drawWindow();
                         }
                     }
                 });
@@ -70,22 +66,9 @@ public class UpgradeSkillsWindow extends JFrame implements Serializable {
                 skill.add(upgrade, skillConstraints);
             }
 
-            panel.add(skill, constraints);
+            add(skill, constraints);
             constraints.gridy ++;
         }
-        pack();
-        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public void setIsVisible(boolean b) {
-        drawWindow();
-    }
-
-    public JPanel getPanel() {
-        return panel;
+        return this;
     }
 }

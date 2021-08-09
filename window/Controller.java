@@ -59,24 +59,17 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                 map.setPlayerX(player.getX());
                 map.setPlayerY(player.getY());
                 doorToUpper.setIn(map);
-                if(creature instanceof DoorToUpperLevelLocation){
+                if(creature instanceof DoorToUpperLevelLocation) {
                     doorToUpper.setGeneration(() -> {
                         Map newMap;
-                        if(doorToUpper.getOut() == null){
-                            newMap = new Map();
-
-                            Dungeon dungeon = new Dungeon(player);
-                            GodCreature[][][] zxc = dungeon.getMap();
-                            newMap.setMapLowerObjects(zxc[0]);
-                            newMap.setMapUpperObjects(zxc[1]);
-                            newMap.setLocationName(dungeon.getLocationName());
+                        if(doorToUpper.getOut() == null) {
+                            newMap = new Dungeon(player);
                             doorToUpper.setOut(newMap);
-                            player.setX(dungeon.getPlayerXSafety());
-                            player.setY(dungeon.getPlayerYSafety());
+
                             DoorToUpperLevelLocation door = new DoorToUpperLevelLocation();
                             door.setOut(map);
                             door.setIsLocked(false);
-                            newMap.setElementByCoordinates(player.getX(), player.getY(), door);
+                            newMap.setElementByCoordinates(newMap.getPlayerX(), newMap.getPlayerY(), door);
                         } else {
                             newMap = doorToUpper.getOut();
                             player.setX(newMap.getPlayerX());
@@ -85,23 +78,17 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                         newMap.setPlayer(player);
                         return newMap;
                     });
-                } else if(creature instanceof CaveDoor caveDoor){
+                } else if(creature instanceof CaveDoor caveDoor) {
                     caveDoor.setGeneration(() -> {
                         Map newMap;
-                        if(caveDoor.getOut() == null){
-                            newMap = new Map();
-                            Cave cave = new Cave();
-
-                            newMap.setMapLowerObjects(cave.getCave());
+                        if(caveDoor.getOut() == null) {
+                            newMap = new Cave();
                             caveDoor.setOut(newMap);
-
-                            player.setX(cave.getPlayerSafeX());
-                            player.setY(cave.getPlayerSafeY());
 
                             CaveDoor door = new CaveDoor();
                             door.setOut(map);
                             door.setIsLocked(false);
-                            newMap.setElementByCoordinates(player.getX(), player.getY(), door);
+                            newMap.setElementByCoordinates(newMap.getPlayerX(), newMap.getPlayerY(), door);
                         } else {
                             newMap = caveDoor.getOut();
                             player.setX(newMap.getPlayerX());
@@ -111,7 +98,7 @@ public interface Controller extends WindowProvider, MapProvider, MapDrawer, Mult
                         return newMap;
                     });
                 }
-                setMap(((Door) creature).generate());
+                setMap(doorToUpper.generate());
                 player.setWindowInterface(windowInterface);
                 drawMap();
             }

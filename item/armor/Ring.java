@@ -109,4 +109,9 @@ public class Ring extends Armor implements StatItem {
         countProperty();
         return statPower;
     }
+
+    @Override
+    public String getItemProperty() {
+        return getStatPower() + " " + stat;
+    }
 }

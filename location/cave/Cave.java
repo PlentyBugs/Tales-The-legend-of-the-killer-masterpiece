@@ -1,19 +1,21 @@
 package location.cave;
 
-import creature.GodCreature;
 import item.blacksmith.resource.*;
+import location.Cell;
 import location.GenerationHelper;
 import location.Map;
-import thing.GreatWallNullerField;
+import thing.GreatWall;
 import thing.Ore;
 import thing.Stone;
+import thing.Thing;
 
 public class Cave extends Map implements GenerationHelper {
     private int[][] mapKeys;
     private int playerSafeX;
     private int playerSafeY;
 
-    public Cave(){
+    public Cave() {
+        locationName = "Cave";
         mapHeight = 1;
         mapWidth = 1;
         mapKeys = new int[][]{{1}};
@@ -64,45 +66,36 @@ public class Cave extends Map implements GenerationHelper {
             }
         }
 
-        mapLowerObjects = new GodCreature[mapKeys.length][mapKeys[0].length];
+        cells = new Cell[mapKeys.length][mapKeys[0].length];
         for (int i = 0; i < mapKeys.length; i++) {
             for (int j = 0; j < mapKeys[i].length; j++) {
+                cells[i][j] = new Cell();
                 int chance = (int)(Math.random()*100);
 
                 if(chance < 75)
                     mapKeys[i][j] = 1;
 
                 if(mapKeys[i][j] == 1){
-                    mapLowerObjects[i][j] = new Stone().setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Stone().setX(j).setY(i));
                     playerSafeX = j;
                     playerSafeY = i;
                 }
                 if(mapKeys[i][j] == 2)
-                    mapLowerObjects[i][j] = new Ore(new Adamantine()).setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Ore(new Adamantine()).setX(j).setY(i));
                 if(mapKeys[i][j] == 3)
-                    mapLowerObjects[i][j] = new Ore(new Crystal()).setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Ore(new Crystal()).setX(j).setY(i));
                 if(mapKeys[i][j] == 4)
-                    mapLowerObjects[i][j] = new Ore(new Mythril()).setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Ore(new Mythril()).setX(j).setY(i));
                 if(mapKeys[i][j] == 5)
-                    mapLowerObjects[i][j] = new Ore(new Iron()).setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Ore(new Iron()).setX(j).setY(i));
                 if(mapKeys[i][j] == 6)
-                    mapLowerObjects[i][j] = new Ore(new Copper()).setX(j).setY(i);
-                if(mapLowerObjects[i][j] == null)
-                    mapLowerObjects[i][j] = new GreatWallNullerField().setX(j).setY(i);
+                    cells[i][j].setLowerObject(new Ore(new Copper()).setX(j).setY(i));
+                if(cells[i][j].getLowerObject() == null)
+                    cells[i][j].setLowerObject(GreatWall.getInstance());
             }
         }
-    }
-
-    public GodCreature[][] getCave(){
-        return mapLowerObjects;
-    }
-
-    public int getPlayerSafeX() {
-        return playerSafeX;
-    }
-
-    public int getPlayerSafeY() {
-        return playerSafeY;
+        setPlayerX(playerSafeX);
+        setPlayerY(playerSafeY);
     }
 
     @Override
@@ -133,5 +126,10 @@ public class Cave extends Map implements GenerationHelper {
     @Override
     public void setMapKeys(int[][] mapKeys) {
         this.mapKeys = mapKeys;
+    }
+
+    @Override
+    protected Thing getStub() {
+        return GreatWall.getInstance();
     }
 }

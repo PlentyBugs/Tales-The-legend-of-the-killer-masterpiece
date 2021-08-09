@@ -3,29 +3,25 @@ package window.player;
 import creature.Player;
 import disease.Danger;
 import disease.Disease;
+import window.menu.AbstractMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.Serializable;
 
-public class DiseasesWindow extends JFrame implements Serializable {
+public class DiseasesWindow extends AbstractMenu implements Serializable, PlayerPanel {
 
-    private Player player;
-    private JPanel panel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints;
+    private final Player player;
 
-    public DiseasesWindow(Player player){
-        super("Болезни");
-
+    public DiseasesWindow(Player player) {
         this.player = player;
+        setLayout(new GridBagLayout());
         drawWindow();
     }
 
-    public void drawWindow(){
-        panel.removeAll();
-        panel = new JPanel(new GridBagLayout());
-        constraints = new GridBagConstraints();
+    public JPanel drawWindow(){
+        removeAll();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 0, 10, 0);
@@ -41,33 +37,20 @@ public class DiseasesWindow extends JFrame implements Serializable {
             diseaseConstraints.insets = new Insets(0, 10, 0, 0);
             diseaseConstraints.gridx = 0;
             diseaseConstraints.gridy = 0;
-            switch (disease.getDanger()){
-                case Danger.SAFELY: diseasePanel.setBackground(new Color(106,255, 65)); break;
-                case Danger.TOLERATED: diseasePanel.setBackground(new Color(249,255, 0)); break;
-                case Danger.DANGEROUSLY: diseasePanel.setBackground(new Color(255, 123, 0)); break;
-                case Danger.DEADLY: diseasePanel.setBackground(new Color(255, 30, 0)); break;
+            switch (disease.getDanger()) {
+                case Danger.SAFELY -> diseasePanel.setBackground(new Color(106, 255, 65));
+                case Danger.TOLERATED -> diseasePanel.setBackground(new Color(249, 255, 0));
+                case Danger.DANGEROUSLY -> diseasePanel.setBackground(new Color(255, 123, 0));
+                case Danger.DEADLY -> diseasePanel.setBackground(new Color(255, 30, 0));
             }
 
             JLabel name = new JLabel(disease.getName());
             diseasePanel.add(name, diseaseConstraints);
             diseaseConstraints.gridx = 1;
 
-            panel.add(diseasePanel, constraints);
+            add(diseasePanel, constraints);
             constraints.gridy ++;
         }
-        pack();
-        if(player != null && player.getWindowInterface() != null) player.getWindowInterface().drawMap();
-    }
-
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
-
-    public void setIsVisible(boolean b) {
-        drawWindow();
-    }
-
-    public JPanel getPanel() {
-        return panel;
+        return this;
     }
 }

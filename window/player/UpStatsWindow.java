@@ -2,57 +2,28 @@ package window.player;
 
 import creature.Player;
 import creature.StatsEnum;
-import window.WindowInterface;
+import window.menu.AbstractMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.io.Serial;
 import java.io.Serializable;
 
-public class UpStatsWindow extends JFrame implements Serializable {
+public class UpStatsWindow extends AbstractMenu implements Serializable, PlayerPanel {
 
-    private Player player;
-
-    private JPanel panel = new JPanel(new GridBagLayout());
+    private final Player player;
+    @Serial
     private static final long serialVersionUID = -6544494898042825420L;
 
     public UpStatsWindow(Player player){
-        super("Прокачка");
-        this.player = player;setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent e) {}
-
-            @Override
-            public void componentMoved(ComponentEvent e) {}
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                player.setUpStatsOpen(true);
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-                player.setUpStatsOpen(false);
-            }
-        });
-        setPreferredSize(new Dimension(220,680));
-
-        setLayout(new FlowLayout());
+        this.player = player;
+        setLayout(new GridBagLayout());
 
         drawWindow();
     }
-    public void close(){
-        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }
 
-    public void setIsVisible(boolean b) {
-        drawWindow();
-    }
-
-    public void drawWindow(){
-        panel.removeAll();
-        panel = new JPanel(new GridBagLayout());
+    public JPanel drawWindow(){
+        removeAll();
         GridBagConstraints constraints = new GridBagConstraints();
 
         constraints.anchor = GridBagConstraints.WEST;
@@ -78,84 +49,84 @@ public class UpStatsWindow extends JFrame implements Serializable {
         JLabel longRangeWeaponLabel = new JLabel("Дальнобойное оружие");
         JLabel upPointsLeft = new JLabel(Integer.toString(player.getUpPointCount()));
 
-        JLabel strengthLabelCount = new JLabel("   " + Integer.toString(player.getStats().getStrength()) + "   ");
-        JLabel speedLabelCount = new JLabel("   " + Integer.toString(player.getStats().getSpeed()) + "   ");
-        JLabel agilityLabelCount = new JLabel("   " + Integer.toString(player.getStats().getAgility()) + "   ");
-        JLabel intelligenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().getIntelligence()) + "   ");
-        JLabel luckLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLuck()) + "   ");
-        JLabel eloquenceLabelCount = new JLabel("   " + Integer.toString(player.getStats().getEloquence()) + "   ");
-        JLabel blacksmithLabelCount = new JLabel("   " + Integer.toString(player.getStats().getBlacksmith()) + "   ");
-        JLabel theftLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTheft()) + "   ");
-        JLabel alchemyLabelCount = new JLabel("   " + Integer.toString(player.getStats().getAlchemy()) + "   ");
-        JLabel oneHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getOneHandedWeapon()) + "   ");
-        JLabel twoHandedWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getTwoHandedWeapon()) + "   ");
-        JLabel poleWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getPoleWeapon()) + "   ");
-        JLabel choppingWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getChoppingWeapon()) + "   ");
-        JLabel longRangeWeaponLabelCount = new JLabel("   " + Integer.toString(player.getStats().getLongRangeWeapon()) + "   ");
+        JLabel strengthLabelCount = new JLabel("   " + player.getStats().getStrength() + "   ");
+        JLabel speedLabelCount = new JLabel("   " + player.getStats().getSpeed() + "   ");
+        JLabel agilityLabelCount = new JLabel("   " + player.getStats().getAgility() + "   ");
+        JLabel intelligenceLabelCount = new JLabel("   " + player.getStats().getIntelligence() + "   ");
+        JLabel luckLabelCount = new JLabel("   " + player.getStats().getLuck() + "   ");
+        JLabel eloquenceLabelCount = new JLabel("   " + player.getStats().getEloquence() + "   ");
+        JLabel blacksmithLabelCount = new JLabel("   " + player.getStats().getBlacksmith() + "   ");
+        JLabel theftLabelCount = new JLabel("   " + player.getStats().getTheft() + "   ");
+        JLabel alchemyLabelCount = new JLabel("   " + player.getStats().getAlchemy() + "   ");
+        JLabel oneHandedWeaponLabelCount = new JLabel("   " + player.getStats().getOneHandedWeapon() + "   ");
+        JLabel twoHandedWeaponLabelCount = new JLabel("   " + player.getStats().getTwoHandedWeapon() + "   ");
+        JLabel poleWeaponLabelCount = new JLabel("   " + player.getStats().getPoleWeapon() + "   ");
+        JLabel choppingWeaponLabelCount = new JLabel("   " + player.getStats().getChoppingWeapon() + "   ");
+        JLabel longRangeWeaponLabelCount = new JLabel("   " + player.getStats().getLongRangeWeapon() + "   ");
 
-        panel.add(upPointsLeftLabel, constraints);
+        add(upPointsLeftLabel, constraints);
         constraints.gridy ++;
-        panel.add(strengthLabel, constraints);
+        add(strengthLabel, constraints);
         constraints.gridy ++;
-        panel.add(speedLabel, constraints);
+        add(speedLabel, constraints);
         constraints.gridy ++;
-        panel.add(agilityLabel, constraints);
+        add(agilityLabel, constraints);
         constraints.gridy ++;
-        panel.add(intelligenceLabel, constraints);
+        add(intelligenceLabel, constraints);
         constraints.gridy ++;
-        panel.add(luckLabel, constraints);
+        add(luckLabel, constraints);
         constraints.gridy ++;
-        panel.add(eloquenceLabel, constraints);
+        add(eloquenceLabel, constraints);
         constraints.gridy ++;
-        panel.add(blacksmithLabel, constraints);
+        add(blacksmithLabel, constraints);
         constraints.gridy ++;
-        panel.add(theftLabel, constraints);
+        add(theftLabel, constraints);
         constraints.gridy ++;
-        panel.add(alchemyLabel, constraints);
+        add(alchemyLabel, constraints);
         constraints.gridy ++;
-        panel.add(oneHandedWeaponLabel, constraints);
+        add(oneHandedWeaponLabel, constraints);
         constraints.gridy ++;
-        panel.add(twoHandedWeaponLabel, constraints);
+        add(twoHandedWeaponLabel, constraints);
         constraints.gridy ++;
-        panel.add(poleWeaponLabel, constraints);
+        add(poleWeaponLabel, constraints);
         constraints.gridy ++;
-        panel.add(choppingWeaponLabel, constraints);
+        add(choppingWeaponLabel, constraints);
         constraints.gridy ++;
-        panel.add(longRangeWeaponLabel, constraints);
+        add(longRangeWeaponLabel, constraints);
 
         constraints.gridx = 1;
         constraints.gridy = 1;
-        panel.add(strengthLabelCount, constraints);
+        add(strengthLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(speedLabelCount, constraints);
+        add(speedLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(agilityLabelCount, constraints);
+        add(agilityLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(intelligenceLabelCount, constraints);
+        add(intelligenceLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(luckLabelCount, constraints);
+        add(luckLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(eloquenceLabelCount, constraints);
+        add(eloquenceLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(blacksmithLabelCount, constraints);
+        add(blacksmithLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(theftLabelCount, constraints);
+        add(theftLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(alchemyLabelCount, constraints);
+        add(alchemyLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(oneHandedWeaponLabelCount, constraints);
+        add(oneHandedWeaponLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(twoHandedWeaponLabelCount, constraints);
+        add(twoHandedWeaponLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(poleWeaponLabelCount, constraints);
+        add(poleWeaponLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(choppingWeaponLabelCount, constraints);
+        add(choppingWeaponLabelCount, constraints);
         constraints.gridy ++;
-        panel.add(longRangeWeaponLabelCount, constraints);
+        add(longRangeWeaponLabelCount, constraints);
 
         constraints.gridx = 2;
         constraints.gridy = 0;
-        panel.add(upPointsLeft, constraints);
+        add(upPointsLeft, constraints);
         if (player.getUpPointCount() > 0){
 
             JButton strengthButton = new UnfocusedButton("+");
@@ -173,184 +144,148 @@ public class UpStatsWindow extends JFrame implements Serializable {
             JButton choppingWeaponButton = new UnfocusedButton("+");
             JButton longRangeWeaponButton = new UnfocusedButton("+");
 
-            strengthButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0) {
-                        player.getStats().upStat(StatsEnum.STRENGTH);
-                        player.setUpPointCount(player.getUpPointCount() - 1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        strengthLabelCount.setText("   " + Integer.toString(player.getStats().getStrength()) + "   ");
-                    }
+            strengthButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0) {
+                    player.getStats().upStat(StatsEnum.STRENGTH);
+                    player.setUpPointCount(player.getUpPointCount() - 1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    strengthLabelCount.setText("   " + player.getStats().getStrength() + "   ");
                 }
             });
-            speedButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.SPEED);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        speedLabelCount.setText("   " + Integer.toString(player.getStats().getSpeed()) + "   ");
-                    }
+            speedButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.SPEED);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    speedLabelCount.setText("   " + player.getStats().getSpeed() + "   ");
                 }
             });
-            agilityButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.AGILITY);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        agilityLabelCount.setText("   " + Integer.toString(player.getStats().getAgility()) + "   ");
-                    }
+            agilityButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.AGILITY);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    agilityLabelCount.setText("   " + player.getStats().getAgility() + "   ");
                 }
             });
-            intelligenceButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.INTELLIGENCE);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        intelligenceLabelCount.setText("   " + Integer.toString(player.getStats().getIntelligence()) + "   ");
-                    }
+            intelligenceButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.INTELLIGENCE);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    intelligenceLabelCount.setText("   " + player.getStats().getIntelligence() + "   ");
                 }
             });
-            luckButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.LUCK);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        luckLabelCount.setText("   " + Integer.toString(player.getStats().getLuck()) + "   ");
-                    }
+            luckButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.LUCK);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    luckLabelCount.setText("   " + player.getStats().getLuck() + "   ");
                 }
             });
-            eloquenceButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.ELOQUENCE);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        eloquenceLabelCount.setText("   " + Integer.toString(player.getStats().getEloquence()) + "   ");
-                    }
+            eloquenceButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.ELOQUENCE);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    eloquenceLabelCount.setText("   " + player.getStats().getEloquence() + "   ");
                 }
             });
-            blacksmithButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.BLACKSMITH);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().getBlacksmith()) + "   ");
-                    }
+            blacksmithButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.BLACKSMITH);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    blacksmithLabelCount.setText("   " + player.getStats().getBlacksmith() + "   ");
                 }
             });
-            theftButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.THEFT);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        blacksmithLabelCount.setText("   " + Integer.toString(player.getStats().getTheft()) + "   ");
-                    }
+            theftButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.THEFT);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    blacksmithLabelCount.setText("   " + player.getStats().getTheft() + "   ");
                 }
             });
-            alchemyButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.ALCHEMY);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        alchemyLabelCount.setText("   " + Integer.toString(player.getStats().getAlchemy()) + "   ");
-                    }
+            alchemyButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.ALCHEMY);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    alchemyLabelCount.setText("   " + player.getStats().getAlchemy() + "   ");
                 }
             });
-            oneHandedWeaponButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.ONE_HANDED_WEAPON);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        oneHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getOneHandedWeapon()) + "   ");
-                    }
+            oneHandedWeaponButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.ONE_HANDED_WEAPON);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    oneHandedWeaponLabelCount.setText("   " + player.getStats().getOneHandedWeapon() + "   ");
                 }
             });
-            twoHandedWeaponButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.TWO_HANDED_WEAPON);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        twoHandedWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getTwoHandedWeapon()) + "   ");
-                    }
+            twoHandedWeaponButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.TWO_HANDED_WEAPON);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    twoHandedWeaponLabelCount.setText("   " + player.getStats().getTwoHandedWeapon() + "   ");
                 }
             });
-            poleWeaponButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.POLE_WEAPON);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        poleWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getPoleWeapon()) + "   ");
-                    }
+            poleWeaponButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.POLE_WEAPON);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    poleWeaponLabelCount.setText("   " + player.getStats().getPoleWeapon() + "   ");
                 }
             });
-            choppingWeaponButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.CHOPPING_WEAPON);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        choppingWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getChoppingWeapon()) + "   ");
-                    }
+            choppingWeaponButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.CHOPPING_WEAPON);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    choppingWeaponLabelCount.setText("   " + player.getStats().getChoppingWeapon() + "   ");
                 }
             });
-            longRangeWeaponButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    if (player.getUpPointCount() > 0){
-                        player.getStats().upStat(StatsEnum.LONG_RANGE_WEAPON);
-                        player.setUpPointCount(player.getUpPointCount()-1);
-                        upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
-                        longRangeWeaponLabelCount.setText("   " + Integer.toString(player.getStats().getLongRangeWeapon()) + "   ");
-                    }
+            longRangeWeaponButton.addActionListener(e -> {
+                if (player.getUpPointCount() > 0){
+                    player.getStats().upStat(StatsEnum.LONG_RANGE_WEAPON);
+                    player.setUpPointCount(player.getUpPointCount()-1);
+                    upPointsLeft.setText(Integer.toString(player.getUpPointCount()));
+                    longRangeWeaponLabelCount.setText("   " + player.getStats().getLongRangeWeapon() + "   ");
                 }
             });
 
             constraints.gridy = 1;
-            panel.add(strengthButton, constraints);
+            add(strengthButton, constraints);
             constraints.gridy ++;
-            panel.add(speedButton, constraints);
+            add(speedButton, constraints);
             constraints.gridy ++;
-            panel.add(agilityButton, constraints);
+            add(agilityButton, constraints);
             constraints.gridy ++;
-            panel.add(intelligenceButton, constraints);
+            add(intelligenceButton, constraints);
             constraints.gridy ++;
-            panel.add(luckButton, constraints);
+            add(luckButton, constraints);
             constraints.gridy ++;
-            panel.add(eloquenceButton, constraints);
+            add(eloquenceButton, constraints);
             constraints.gridy ++;
-            panel.add(blacksmithButton, constraints);
+            add(blacksmithButton, constraints);
             constraints.gridy ++;
-            panel.add(theftButton, constraints);
+            add(theftButton, constraints);
             constraints.gridy ++;
-            panel.add(alchemyButton, constraints);
+            add(alchemyButton, constraints);
             constraints.gridy ++;
-            panel.add(oneHandedWeaponButton, constraints);
+            add(oneHandedWeaponButton, constraints);
             constraints.gridy ++;
-            panel.add(twoHandedWeaponButton, constraints);
+            add(twoHandedWeaponButton, constraints);
             constraints.gridy ++;
-            panel.add(poleWeaponButton, constraints);
+            add(poleWeaponButton, constraints);
             constraints.gridy ++;
-            panel.add(choppingWeaponButton, constraints);
+            add(choppingWeaponButton, constraints);
             constraints.gridy ++;
-            panel.add(longRangeWeaponButton, constraints);
+            add(longRangeWeaponButton, constraints);
         }
-        pack();
-        if(player != null) {
-            WindowInterface windowInterface = player.getWindowInterface();
-            if (windowInterface != null) windowInterface.drawMap();
-        }
-    }
-
-    public JPanel getPanel() {
-        return panel;
+        return this;
     }
 }

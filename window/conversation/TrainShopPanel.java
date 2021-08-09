@@ -30,7 +30,7 @@ public class TrainShopPanel extends AbstractShop implements Serializable {
         setVisible(true);
     }
 
-    protected void printItems() {
+    public void printItems() {
         dtm.clear();
 
         for(CatalogItem cat : seller.getAbilitiesForSale().getStock()) {

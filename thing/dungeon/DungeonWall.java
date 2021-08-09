@@ -21,7 +21,7 @@ public class DungeonWall extends Thing {
     public static final DungeonWall instance = new DungeonWall();
 
     public DungeonWall(){
-        name = "Стена";
+        name = "";
         color = new Color(103, 101, 100);
         isStep = false;
     }
@@ -39,5 +39,9 @@ public class DungeonWall extends Thing {
 
     public static DungeonWall getInstance() {
         return instance;
+    }
+
+    public boolean isBounded() {
+        return false;
     }
 }

@@ -4,7 +4,7 @@ import creature.GodCreature;
 import creature.Player;
 import thing.dungeon.EntranceSide;
 
-public class PartDungeon implements DungeonPart{
+public class PartDungeon implements DungeonPart {
 
     protected GodCreature[][] lower;
     protected GodCreature[][] upper;
