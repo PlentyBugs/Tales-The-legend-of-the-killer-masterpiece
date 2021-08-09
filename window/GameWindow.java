@@ -3,6 +3,7 @@ package window;
 import ai.NPCController;
 import creature.Player;
 import location.Map;
+import utils.KeyBinder;
 import window.battle.LossWindow;
 import window.menu.AbstractMenu;
 import window.menu.MapMenu;
@@ -78,6 +79,9 @@ public class GameWindow extends AbstractMenu implements Serializable, WindowInte
         menu.drawCurrentTab();
 
         subPanel.add(menu, BorderLayout.NORTH);
+
+        KeyBinder.bindPlayerMenu(this, player, menu);
+
         drawMap();
     }
 

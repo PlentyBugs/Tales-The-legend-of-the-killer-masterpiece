@@ -128,6 +128,10 @@ public class Item implements Serializable, Cloneable, Copying<Item>, PropertyPro
     public String getEnchantDescription(){
         StringBuilder desc = new StringBuilder("<html>");
         desc.append("<h4>").append(getFullName()).append("</h4>");
+        desc.append("<i>Редкость: ").append(rarity).append("</i><br/>");
+        desc.append("<i>Ранг: ").append(grade).append("</i><br/>");
+        desc.append("<i>Материал: ").append(material).append("</i><br/>");
+        desc.append("<i>Состояние: ").append(quality).append("</i><br/>");
         desc.append("Зачарования:<br>");
         for(Enchant enchant : enchants){
             desc.

@@ -64,4 +64,8 @@ public class PlayerMenu extends AbstractMenu {
         revalidate();
         repaint();
     }
+
+    public void setCurrentTab(PlayerPanel currentTab) {
+        this.currentTab = currentTab;
+    }
 }
